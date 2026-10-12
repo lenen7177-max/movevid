@@ -5,29 +5,96 @@ ready-made scene, upload one to three photos, and get a share-ready video with m
 generation runs on Seedance through [APIMart](https://apimart.ai); everything else — accounts,
 credits, Stripe billing, admin, i18n, SEO — is built in.
 
-> 中文说明见 [SETUP.zh-CN.md](./SETUP.zh-CN.md)。
+> 中文功能介绍见下方 [功能一览](#功能一览)，部署指南见 [SETUP.zh-CN.md](./SETUP.zh-CN.md)。
 
-## What you get
+## Features
 
-- **Template engine** — each template is a reference clip + prompt + soundtrack. Add one by
-  editing three files; pages, pricing, sitemap and studio pick it up automatically.
-- **Generation pipeline** — photo upload and validation, Seedance asset-library review,
-  render submission, polling, automatic refunds on failure, cron safety net, low-balance
-  email alerts, 30-day photo cleanup.
-- **Two versions per template** — Premium (Seedance 2.5, full length, up to 1080p) and Fast
-  (Seedance 2.0 fast, ≤15 s highlight cut), each priced in credits per quality.
-- **In-browser soundtrack muxing** — renders stay silent at the provider; the template's music
-  is added client-side with no re-encode.
-- **Credits & billing** — one-time credit packs on Stripe (Creem and Waffo also supported),
-  first-video offer, signup grant with anti-abuse checks, automatic refunds.
-- **Accounts** — Better Auth with email OTP, email/password, Google, GitHub, Apple; Turnstile
-  and per-IP / per-address rate limits on email routes.
-- **Marketing site** — home, template gallery, a landing page per template, pricing, blog
-  (MDX), legal pages, sitemap, robots.txt, llms.txt, JSON-LD, OG image, PWA.
-- **Dashboard** — my videos, credit purchases and history, user and paid-user admin, audit log.
-- **i18n** — English, 简体中文, 日本語.
-- **Edge-native** — web (TanStack Start) and API (Hono) both deploy to Cloudflare Workers with
-  D1 and R2.
+### For your users
+
+- **Home page** — hero, template showcase, how it works, feature highlights, use cases,
+  pricing and FAQ.
+- **Template gallery** — every template on one page, with hover-to-preview clips.
+- **A landing page per template** — description, photo requirements, length, format, price,
+  steps and FAQ, with the create form built in.
+- **Video generation**
+  - Upload 1–3 photos; each photo plays one person in the scene (some templates take pets).
+  - Two versions: **Fast** (cheaper, up to 15 s) and **Premium** (full length, up to 1080p).
+  - 480p / 720p / 1080p, with the exact credit price shown before generating.
+  - Photo review → render → music added automatically, with live progress and time left.
+  - Leave the page while it renders; a browser notification says when it's done.
+  - Failed renders refund their credits automatically.
+  - Download the MP4 or share to TikTok, Instagram Reels and YouTube Shorts.
+- **Account and credits**
+  - Sign in with an email code; Google, GitHub and Apple can be switched on.
+  - My videos: every render in one place.
+  - One-time credit packs (sample prices: $9.99 / $29.99 / $69.99) and a full credit history.
+  - A discounted first full video for new accounts.
+- **Everywhere** — English, 简体中文 and 日本語; dark (default) and light themes; works on
+  phones and installs as an app (PWA).
+
+### For admins
+
+- **Users** — search, ban/unban, change roles, add or remove credits.
+- **Paid users** — who bought which packs, plus revenue by first-touch source.
+- **Audit log** — every admin action is recorded.
+
+### For you, the operator
+
+- **Add a template by editing three files** — its page, the gallery, pricing and the sitemap
+  update on their own.
+- **Safety nets** — a 15-minute cron finishes or refunds stuck renders; low APIMart balance
+  emails the admin; uploaded photos are deleted after 30 days.
+- **Abuse protection** — disposable-email blocking, one signup grant per IP / device, rate
+  limits and Turnstile on email sign-in.
+- **SEO built in** — per-page titles and descriptions, sitemap, robots.txt, llms.txt, JSON-LD,
+  OG image and an MDX blog.
+- **Easy to deploy** — web and API both run on Cloudflare Workers (D1 + R2), with setup guides
+  in English and Chinese and `pnpm check:placeholders` to list anything you still need to
+  replace.
+
+### Under the hood
+
+- Generation runs on Seedance (2.5 and 2.0 fast) through APIMart, using the asset library so
+  real faces pass review.
+- Renders stay silent at the provider; the template's music is muxed in the browser without
+  re-encoding.
+- Stripe credit checkout (Creem and Waffo also supported) with idempotent webhooks and refunds.
+
+## 功能一览
+
+### 用户端
+
+- **首页**：大标题、模板展示、使用步骤、卖点、适用人群、价格、常见问题。
+- **模板列表**：所有模板一屏浏览，鼠标悬停即可预览视频。
+- **每个模板一个详情页**：介绍、照片要求、时长画幅、价格、步骤和常见问题，页面里直接上传生成。
+- **生成视频**
+  - 上传 1～3 张照片，每张照片扮演场景里的一个人（部分模板支持宠物）。
+  - 两个版本：**快速版**（便宜，最长 15 秒）和 **高级版**（完整时长，最高 1080p）。
+  - 480p / 720p / 1080p 可选，生成前显示准确积分价格。
+  - 照片审核 → 生成视频 → 自动配乐，实时显示进度和剩余时间。
+  - 生成时可以离开页面，完成后浏览器通知。
+  - 生成失败自动退还积分。
+  - 下载 MP4，或一键分享到 TikTok、Instagram Reels、YouTube Shorts。
+- **账号与积分**
+  - 邮箱验证码登录，可开启 Google、GitHub、Apple 登录。
+  - 「我的视频」查看全部生成记录。
+  - 一次性积分包（示例价 $9.99 / $29.99 / $69.99），完整的积分流水。
+  - 新用户首个完整视频享优惠价。
+- **通用**：中文、英文、日文三语；深色（默认）/ 浅色主题；手机可用，可安装到桌面（PWA）。
+
+### 管理员后台
+
+- **用户管理**：搜索、封禁 / 解封、修改角色、加减积分。
+- **付费用户**：谁买了哪些积分包，以及按来源渠道统计的收入。
+- **操作记录**：管理员的每一次操作都有记录。
+
+### 站长省心
+
+- **加模板只改 3 个文件**：详情页、模板列表、价格、网站地图自动更新。
+- **自动兜底**：每 15 分钟处理卡住的生成（完成或退款）；APIMart 余额不足邮件提醒；用户照片 30 天后自动删除。
+- **防薅羊毛**：拦截一次性邮箱，同一 IP / 设备只能领一次赠送积分，邮箱登录有频率限制和人机验证。
+- **SEO 已做好**：每页标题描述、网站地图、robots.txt、llms.txt、结构化数据、分享图、MDX 博客。
+- **部署简单**：前后端都跑在 Cloudflare Workers（D1 + R2），附中英文部署指南，`pnpm check:placeholders` 一键找出还没替换的占位内容。
 
 ## Stack
 
@@ -65,15 +132,16 @@ scripts/
 
 ## Common commands
 
-| Command                    | What it does                                       |
-| -------------------------- | -------------------------------------------------- |
-| `pnpm dev:web+server`      | Run web and API locally                            |
-| `pnpm check-types`         | Type-check every package                           |
-| `pnpm lint` / `pnpm fmt`   | oxlint / oxfmt                                     |
-| `pnpm test`                | Run all test suites                                |
-| `pnpm db:generate`         | Create a migration after changing a schema         |
-| `pnpm check:placeholders`  | Show placeholders left before you deploy           |
-| `pnpm deploy`              | Deploy API then web to Cloudflare                  |
+| Command                         | What it does                               |
+| ------------------------------- | ------------------------------------------ |
+| `pnpm dev:web+server`           | Run web and API locally                    |
+| `pnpm check-types`              | Type-check every package                   |
+| `pnpm lint` / `pnpm fmt`        | oxlint / oxfmt                             |
+| `pnpm test`                     | Run all test suites                        |
+| `pnpm db:generate`              | Create a migration after changing a schema |
+| `pnpm check:placeholders`       | Show placeholders left before you deploy   |
+| `pnpm -F server dev:last-email` | Print the latest local sign-in code        |
+| `pnpm deploy`                   | Deploy API then web to Cloudflare          |
 
 ## License
 
