@@ -65,9 +65,9 @@ export default function UserMenu({ onActionComplete }: UserMenuProps = {}) {
           </AvatarFallback>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          {/* dashboard: opens billing */}
+          {/* dashboard: opens credits */}
           <DropdownMenuGroup>
-            <DropdownMenuItem render={<Link to="/settings/billing" onClick={completeAction} />}>
+            <DropdownMenuItem render={<Link to="/credits/purchase" onClick={completeAction} />}>
               <div className="flex items-center gap-2.5">
                 <p className="text-sm">{t("dashboard")}</p>
               </div>

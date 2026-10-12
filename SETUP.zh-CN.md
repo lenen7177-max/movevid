@@ -87,12 +87,11 @@ templates/<id>/poster.jpg                卡片封面（可选，/public 里有�
 `packages/app-config/src/app-config.ts`：
 
 - `webCreditPackages`：每个积分包的积分数、展示价格、Stripe 价格 ID（测试和正式各一个）。
-- `web.payments.plans`：Pro 订阅价格。
 - `creditSignupGrant`：新用户赠送积分（默认关闭）。
 
-`packages/app-config/src/video.ts` → `videoConfig`：默认积分价格、首个视频优惠、Pro 每月积分。定价测试（`packages/app-config/src/__tests__/video-pricing.test.ts`）里写着 APIMart 的每秒单价，价格变了记得更新。
+`packages/app-config/src/video.ts` → `videoConfig`：默认积分价格、首个视频优惠。定价测试（`packages/app-config/src/__tests__/video-pricing.test.ts`）里写着 APIMart 的每秒单价，价格变了记得更新。
 
-在 Stripe 为每个积分包建一个一次性 Price，为 Pro 建两个订阅 Price，把 ID 填回去。添加 Webhook：`https://api.<你的域名>/api/webhooks/stripe`，勾选 checkout、invoice、subscription、payment intent 相关事件，签名密钥填到 `STRIPE_WEBHOOK_SECRET`。
+在 Stripe 为每个积分包建一个一次性 Price，把 ID 填回去。添加 Webhook：`https://api.<你的域名>/api/webhooks/stripe`，勾选 `checkout.session.*`、`payment_intent.*` 和 `charge.refunded` 事件，签名密钥填到 `STRIPE_WEBHOOK_SECRET`。
 
 ## 7. Cloudflare 资源
 

@@ -276,20 +276,15 @@ const appConfig: AppConfig = {
       // Credit packages available through web checkout.
       packages: webCreditPackages,
     },
-    // Route paths used by web auth, billing, and payment return flows.
+    // Route paths used by web auth flows.
     routes: {
       // Sign-in page path.
       authSignIn: "/auth/sign-in",
       // Password reset page path.
       authResetPassword: "/auth/reset-password",
-      // Route shown after successful checkout.
-      billingSuccess: "/billing/success",
-      // Route shown after canceled checkout.
-      billingCancel: "/billing/cancel",
-      // Route returned to after billing portal actions.
-      billingReturn: "/settings/billing",
     },
-    // Web subscription and lifetime payment settings.
+    // Web payment settings. Credit packs are the product; the plan list only holds the free
+    // plan. Add subscription plans here (and to membershipPlans) to sell memberships.
     payments: {
       // Enables web billing runtime paths.
       enabled: true,
@@ -300,44 +295,6 @@ const appConfig: AppConfig = {
         {
           // Free plan available without provider prices.
           id: "free",
-        },
-        {
-          // Subscription plan with monthly and yearly prices.
-          id: "pro",
-          prices: [
-            {
-              // Monthly subscription: grants videoConfig.subscriptionCredits each month.
-              id: "monthly",
-              provider: "stripe",
-              test: {
-                providerPriceId: "price_PRO_MONTHLY_TEST_PLACEHOLDER",
-              },
-              prod: {
-                providerPriceId: "price_PRO_MONTHLY_LIVE_PLACEHOLDER",
-              },
-              currency: "usd",
-              amountCents: 1999,
-              priceType: "subscription",
-              interval: "month",
-              status: "active",
-            },
-            {
-              // Yearly subscription: same monthly credits, billed once a year.
-              id: "yearly",
-              provider: "stripe",
-              test: {
-                providerPriceId: "price_PRO_YEARLY_TEST_PLACEHOLDER",
-              },
-              prod: {
-                providerPriceId: "price_PRO_YEARLY_LIVE_PLACEHOLDER",
-              },
-              currency: "usd",
-              amountCents: 19999,
-              priceType: "subscription",
-              interval: "year",
-              status: "active",
-            },
-          ],
         },
       ],
     },

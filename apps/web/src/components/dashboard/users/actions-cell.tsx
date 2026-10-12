@@ -28,7 +28,6 @@ import type { User } from "./types";
 import { usersKeys } from "./use-users";
 import { AccountOperationsDialog } from "./account-operations-dialog";
 
-type OperationView = "credits" | "trial";
 type BlockKind = "email_domain" | "ip" | "device";
 
 export function ActionsCell({ row }: { row: Row<User> }) {
@@ -41,7 +40,7 @@ export function ActionsCell({ row }: { row: Row<User> }) {
   const [banDialogOpen, setBanDialogOpen] = useState(false);
   const [revokeSignupCredits, setRevokeSignupCredits] = useState(false);
   const [blockKind, setBlockKind] = useState<BlockKind | null>(null);
-  const [operationView, setOperationView] = useState<OperationView | null>(null);
+  const [creditsOpen, setCreditsOpen] = useState(false);
 
   const setRoleMutation = useMutation({
     ...orpc.users.setRole.mutationOptions(),
@@ -98,13 +97,10 @@ export function ActionsCell({ row }: { row: Row<User> }) {
       <DropdownMenuContent align="end">
         <DropdownMenuGroup>
           {webConfig.creditsEnabled ? (
-            <DropdownMenuItem onClick={() => setOperationView("credits")}>
+            <DropdownMenuItem onClick={() => setCreditsOpen(true)}>
               {t("operations.adjustCredits")}
             </DropdownMenuItem>
           ) : null}
-          <DropdownMenuItem onClick={() => setOperationView("trial")}>
-            {t("operations.grantTrial")}
-          </DropdownMenuItem>
           <DropdownMenuSub>
             <DropdownMenuSubTrigger disabled={isSelf}>
               {t("actions.changeRole")}
@@ -207,15 +203,8 @@ export function ActionsCell({ row }: { row: Row<User> }) {
           blockMutation.mutate({ userId: user.id, kind: blockKind });
         }}
       />
-      {operationView ? (
-        <AccountOperationsDialog
-          open
-          onOpenChange={(nextOpen) => {
-            if (!nextOpen) setOperationView(null);
-          }}
-          user={user}
-          view={operationView}
-        />
+      {creditsOpen ? (
+        <AccountOperationsDialog open onOpenChange={setCreditsOpen} user={user} />
       ) : null}
     </>
   );

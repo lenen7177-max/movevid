@@ -12,10 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as LlmsDottxtRouteImport } from './routes/llms[.]txt'
 import { Route as SplatRouteImport } from './routes/$'
-import { Route as BillingRouteRouteImport } from './routes/billing/route'
 import { Route as PublicRouteRouteImport } from './routes/_public/route'
-import { Route as BillingSuccessRouteImport } from './routes/billing/success'
-import { Route as BillingCancelRouteImport } from './routes/billing/cancel'
 import { Route as ApiPwaVersionRouteImport } from './routes/api/pwa-version'
 import { Route as PublicStudioRouteImport } from './routes/_public/studio'
 import { Route as AutheddashboardRouteRouteImport } from './routes/_authed/(dashboard)/route'
@@ -35,7 +32,6 @@ import { Route as PublicmarketingTemplatesSlugRouteImport } from './routes/_publ
 import { Route as PublicmarketingBlogSlugRouteImport } from './routes/_public/(marketing)/blog/$slug'
 import { Route as AutheddashboardSettingsSecurityRouteImport } from './routes/_authed/(dashboard)/settings/security'
 import { Route as AutheddashboardSettingsProfileRouteImport } from './routes/_authed/(dashboard)/settings/profile'
-import { Route as AutheddashboardSettingsBillingRouteImport } from './routes/_authed/(dashboard)/settings/billing'
 import { Route as AutheddashboardCreditsTransactionsRouteImport } from './routes/_authed/(dashboard)/credits/transactions'
 import { Route as AutheddashboardCreditsPurchaseRouteImport } from './routes/_authed/(dashboard)/credits/purchase'
 import { Route as AutheddashboardAdminPaidUsersRouteImport } from './routes/_authed/(dashboard)/admin/paid-users'
@@ -61,24 +57,9 @@ const SplatRoute = SplatRouteImport.update({
   path: '/$',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BillingRouteRoute = BillingRouteRouteImport.update({
-  id: '/billing',
-  path: '/billing',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PublicRouteRoute = PublicRouteRouteImport.update({
   id: '/_public',
   getParentRoute: () => rootRouteImport,
-} as any)
-const BillingSuccessRoute = BillingSuccessRouteImport.update({
-  id: '/success',
-  path: '/success',
-  getParentRoute: () => BillingRouteRoute,
-} as any)
-const BillingCancelRoute = BillingCancelRouteImport.update({
-  id: '/cancel',
-  path: '/cancel',
-  getParentRoute: () => BillingRouteRoute,
 } as any)
 const ApiPwaVersionRoute = ApiPwaVersionRouteImport.update({
   id: '/api/pwa-version',
@@ -181,12 +162,6 @@ const AutheddashboardSettingsProfileRoute =
     path: '/settings/profile',
     getParentRoute: () => AutheddashboardRouteRoute,
   } as any)
-const AutheddashboardSettingsBillingRoute =
-  AutheddashboardSettingsBillingRouteImport.update({
-    id: '/settings/billing',
-    path: '/settings/billing',
-    getParentRoute: () => AutheddashboardRouteRoute,
-  } as any)
 const AutheddashboardCreditsTransactionsRoute =
   AutheddashboardCreditsTransactionsRouteImport.update({
     id: '/credits/transactions',
@@ -242,15 +217,12 @@ const PublicmarketingBlogCategorySlugRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof PublicmarketinglandingPageIndexRoute
-  '/billing': typeof BillingRouteRouteWithChildren
   '/$': typeof SplatRoute
   '/llms.txt': typeof LlmsDottxtRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/auth': typeof authAuthUnauthedRouteRouteWithChildren
   '/studio': typeof PublicStudioRoute
   '/api/pwa-version': typeof ApiPwaVersionRoute
-  '/billing/cancel': typeof BillingCancelRoute
-  '/billing/success': typeof BillingSuccessRoute
   '/auth/reset-password': typeof authAuthResetPasswordRoute
   '/forbidden': typeof AutheddashboardForbiddenRoute
   '/users': typeof AutheddashboardUsersRoute
@@ -266,7 +238,6 @@ export interface FileRoutesByFullPath {
   '/admin/paid-users': typeof AutheddashboardAdminPaidUsersRoute
   '/credits/purchase': typeof AutheddashboardCreditsPurchaseRoute
   '/credits/transactions': typeof AutheddashboardCreditsTransactionsRoute
-  '/settings/billing': typeof AutheddashboardSettingsBillingRoute
   '/settings/profile': typeof AutheddashboardSettingsProfileRoute
   '/settings/security': typeof AutheddashboardSettingsSecurityRoute
   '/blog/$slug': typeof PublicmarketingBlogSlugRoute
@@ -276,15 +247,12 @@ export interface FileRoutesByFullPath {
   '/blog/category/$slug': typeof PublicmarketingBlogCategorySlugRoute
 }
 export interface FileRoutesByTo {
-  '/billing': typeof BillingRouteRouteWithChildren
   '/$': typeof SplatRoute
   '/llms.txt': typeof LlmsDottxtRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/auth': typeof authAuthUnauthedRouteRouteWithChildren
   '/studio': typeof PublicStudioRoute
   '/api/pwa-version': typeof ApiPwaVersionRoute
-  '/billing/cancel': typeof BillingCancelRoute
-  '/billing/success': typeof BillingSuccessRoute
   '/auth/reset-password': typeof authAuthResetPasswordRoute
   '/forbidden': typeof AutheddashboardForbiddenRoute
   '/users': typeof AutheddashboardUsersRoute
@@ -300,7 +268,6 @@ export interface FileRoutesByTo {
   '/admin/paid-users': typeof AutheddashboardAdminPaidUsersRoute
   '/credits/purchase': typeof AutheddashboardCreditsPurchaseRoute
   '/credits/transactions': typeof AutheddashboardCreditsTransactionsRoute
-  '/settings/billing': typeof AutheddashboardSettingsBillingRoute
   '/settings/profile': typeof AutheddashboardSettingsProfileRoute
   '/settings/security': typeof AutheddashboardSettingsSecurityRoute
   '/blog/$slug': typeof PublicmarketingBlogSlugRoute
@@ -313,7 +280,6 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_public': typeof PublicRouteRouteWithChildren
-  '/billing': typeof BillingRouteRouteWithChildren
   '/$': typeof SplatRoute
   '/llms.txt': typeof LlmsDottxtRoute
   '/robots.txt': typeof RobotsDottxtRoute
@@ -321,8 +287,6 @@ export interface FileRoutesById {
   '/_authed/(dashboard)': typeof AutheddashboardRouteRouteWithChildren
   '/_public/studio': typeof PublicStudioRoute
   '/api/pwa-version': typeof ApiPwaVersionRoute
-  '/billing/cancel': typeof BillingCancelRoute
-  '/billing/success': typeof BillingSuccessRoute
   '/(auth)/auth/_unauthed': typeof authAuthUnauthedRouteRouteWithChildren
   '/(auth)/auth/reset-password': typeof authAuthResetPasswordRoute
   '/_authed/(dashboard)/forbidden': typeof AutheddashboardForbiddenRoute
@@ -339,7 +303,6 @@ export interface FileRoutesById {
   '/_authed/(dashboard)/admin/paid-users': typeof AutheddashboardAdminPaidUsersRoute
   '/_authed/(dashboard)/credits/purchase': typeof AutheddashboardCreditsPurchaseRoute
   '/_authed/(dashboard)/credits/transactions': typeof AutheddashboardCreditsTransactionsRoute
-  '/_authed/(dashboard)/settings/billing': typeof AutheddashboardSettingsBillingRoute
   '/_authed/(dashboard)/settings/profile': typeof AutheddashboardSettingsProfileRoute
   '/_authed/(dashboard)/settings/security': typeof AutheddashboardSettingsSecurityRoute
   '/_public/(marketing)/blog/$slug': typeof PublicmarketingBlogSlugRoute
@@ -353,15 +316,12 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/billing'
     | '/$'
     | '/llms.txt'
     | '/robots.txt'
     | '/auth'
     | '/studio'
     | '/api/pwa-version'
-    | '/billing/cancel'
-    | '/billing/success'
     | '/auth/reset-password'
     | '/forbidden'
     | '/users'
@@ -377,7 +337,6 @@ export interface FileRouteTypes {
     | '/admin/paid-users'
     | '/credits/purchase'
     | '/credits/transactions'
-    | '/settings/billing'
     | '/settings/profile'
     | '/settings/security'
     | '/blog/$slug'
@@ -387,15 +346,12 @@ export interface FileRouteTypes {
     | '/blog/category/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/billing'
     | '/$'
     | '/llms.txt'
     | '/robots.txt'
     | '/auth'
     | '/studio'
     | '/api/pwa-version'
-    | '/billing/cancel'
-    | '/billing/success'
     | '/auth/reset-password'
     | '/forbidden'
     | '/users'
@@ -411,7 +367,6 @@ export interface FileRouteTypes {
     | '/admin/paid-users'
     | '/credits/purchase'
     | '/credits/transactions'
-    | '/settings/billing'
     | '/settings/profile'
     | '/settings/security'
     | '/blog/$slug'
@@ -423,7 +378,6 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/_public'
-    | '/billing'
     | '/$'
     | '/llms.txt'
     | '/robots.txt'
@@ -431,8 +385,6 @@ export interface FileRouteTypes {
     | '/_authed/(dashboard)'
     | '/_public/studio'
     | '/api/pwa-version'
-    | '/billing/cancel'
-    | '/billing/success'
     | '/(auth)/auth/_unauthed'
     | '/(auth)/auth/reset-password'
     | '/_authed/(dashboard)/forbidden'
@@ -449,7 +401,6 @@ export interface FileRouteTypes {
     | '/_authed/(dashboard)/admin/paid-users'
     | '/_authed/(dashboard)/credits/purchase'
     | '/_authed/(dashboard)/credits/transactions'
-    | '/_authed/(dashboard)/settings/billing'
     | '/_authed/(dashboard)/settings/profile'
     | '/_authed/(dashboard)/settings/security'
     | '/_public/(marketing)/blog/$slug'
@@ -462,7 +413,6 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   PublicRouteRoute: typeof PublicRouteRouteWithChildren
-  BillingRouteRoute: typeof BillingRouteRouteWithChildren
   SplatRoute: typeof SplatRoute
   LlmsDottxtRoute: typeof LlmsDottxtRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
@@ -494,33 +444,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SplatRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/billing': {
-      id: '/billing'
-      path: '/billing'
-      fullPath: '/billing'
-      preLoaderRoute: typeof BillingRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/_public': {
       id: '/_public'
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof PublicRouteRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/billing/success': {
-      id: '/billing/success'
-      path: '/success'
-      fullPath: '/billing/success'
-      preLoaderRoute: typeof BillingSuccessRouteImport
-      parentRoute: typeof BillingRouteRoute
-    }
-    '/billing/cancel': {
-      id: '/billing/cancel'
-      path: '/cancel'
-      fullPath: '/billing/cancel'
-      preLoaderRoute: typeof BillingCancelRouteImport
-      parentRoute: typeof BillingRouteRoute
     }
     '/api/pwa-version': {
       id: '/api/pwa-version'
@@ -655,13 +584,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AutheddashboardSettingsProfileRouteImport
       parentRoute: typeof AutheddashboardRouteRoute
     }
-    '/_authed/(dashboard)/settings/billing': {
-      id: '/_authed/(dashboard)/settings/billing'
-      path: '/settings/billing'
-      fullPath: '/settings/billing'
-      preLoaderRoute: typeof AutheddashboardSettingsBillingRouteImport
-      parentRoute: typeof AutheddashboardRouteRoute
-    }
     '/_authed/(dashboard)/credits/transactions': {
       id: '/_authed/(dashboard)/credits/transactions'
       path: '/credits/transactions'
@@ -758,20 +680,6 @@ const PublicRouteRouteWithChildren = PublicRouteRoute._addFileChildren(
   PublicRouteRouteChildren,
 )
 
-interface BillingRouteRouteChildren {
-  BillingCancelRoute: typeof BillingCancelRoute
-  BillingSuccessRoute: typeof BillingSuccessRoute
-}
-
-const BillingRouteRouteChildren: BillingRouteRouteChildren = {
-  BillingCancelRoute: BillingCancelRoute,
-  BillingSuccessRoute: BillingSuccessRoute,
-}
-
-const BillingRouteRouteWithChildren = BillingRouteRoute._addFileChildren(
-  BillingRouteRouteChildren,
-)
-
 interface authAuthUnauthedRouteRouteChildren {
   authAuthUnauthedForgotPasswordRoute: typeof authAuthUnauthedForgotPasswordRoute
   authAuthUnauthedPhoneVerifyRoute: typeof authAuthUnauthedPhoneVerifyRoute
@@ -813,7 +721,6 @@ interface AutheddashboardRouteRouteChildren {
   AutheddashboardAdminPaidUsersRoute: typeof AutheddashboardAdminPaidUsersRoute
   AutheddashboardCreditsPurchaseRoute: typeof AutheddashboardCreditsPurchaseRoute
   AutheddashboardCreditsTransactionsRoute: typeof AutheddashboardCreditsTransactionsRoute
-  AutheddashboardSettingsBillingRoute: typeof AutheddashboardSettingsBillingRoute
   AutheddashboardSettingsProfileRoute: typeof AutheddashboardSettingsProfileRoute
   AutheddashboardSettingsSecurityRoute: typeof AutheddashboardSettingsSecurityRoute
 }
@@ -827,7 +734,6 @@ const AutheddashboardRouteRouteChildren: AutheddashboardRouteRouteChildren = {
   AutheddashboardCreditsPurchaseRoute: AutheddashboardCreditsPurchaseRoute,
   AutheddashboardCreditsTransactionsRoute:
     AutheddashboardCreditsTransactionsRoute,
-  AutheddashboardSettingsBillingRoute: AutheddashboardSettingsBillingRoute,
   AutheddashboardSettingsProfileRoute: AutheddashboardSettingsProfileRoute,
   AutheddashboardSettingsSecurityRoute: AutheddashboardSettingsSecurityRoute,
 }
@@ -837,7 +743,6 @@ const AutheddashboardRouteRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   PublicRouteRoute: PublicRouteRouteWithChildren,
-  BillingRouteRoute: BillingRouteRouteWithChildren,
   SplatRoute: SplatRoute,
   LlmsDottxtRoute: LlmsDottxtRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,

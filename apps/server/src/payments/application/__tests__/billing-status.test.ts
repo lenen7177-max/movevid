@@ -63,40 +63,15 @@ describe("resolveBillingStatus", () => {
     expect(web.lifetimePurchase).toBeNull();
   });
 
-  it("resolves an active web subscription as manageable", () => {
+  it("ignores subscriptions to prices the catalog no longer sells", () => {
+    // The shipped catalog sells credit packs only, so stored subscriptions grant nothing.
     const status = resolveBillingStatus({
       user: USER,
-      subscriptions: [subscription()],
+      subscriptions: [subscription(), subscription({ id: "sub_internal_2", priceId: "yearly" })],
       purchases: [],
     });
 
-    expect(status.billingProvider).toBe("stripe");
-    expect(status.canManageBilling).toBe(true);
-
-    const web = status.billingDomains.web;
-    expect(web.provider).toBe("stripe");
-    expect(web.canManageBilling).toBe(true);
-    expect(web.currentEntitlement).toEqual({ tier: "monthly", source: "subscription" });
-    expect(web.hasActiveSubscription).toBe(true);
-    expect(web.subscription?.provider).toBe("stripe");
-  });
-
-  it("picks the highest tier when several subscriptions are active", () => {
-    const status = resolveBillingStatus({
-      user: USER,
-      subscriptions: [
-        subscription(),
-        subscription({
-          id: "sub_internal_2",
-          priceId: "yearly",
-          providerSubscriptionId: "sub_provider_2",
-        }),
-      ],
-      purchases: [],
-    });
-
-    expect(status.currentEntitlement).toEqual({ tier: "yearly", source: "subscription" });
-    expect(status.billingDomains.web.subscription?.priceId).toBe("yearly");
+    expect(status.currentEntitlement).toEqual({ tier: "free", source: "none" });
   });
 
   it("ignores purchases of prices the web catalog does not sell", () => {

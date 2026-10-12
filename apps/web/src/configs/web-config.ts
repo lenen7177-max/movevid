@@ -2,7 +2,7 @@ import { resolveWebCommonConfig } from "@repo/app-config";
 import { trimTrailingSlash } from "@repo/shared";
 import { getCurrentLocale } from "@/i18n";
 import { defaultLocale } from "@/i18n/config";
-import type { WebConfig, AuthUrls, BillingUrls } from "./types";
+import type { WebConfig, AuthUrls } from "./types";
 
 const commonConfig = resolveWebCommonConfig();
 const webRoutes = commonConfig.routes;
@@ -69,19 +69,5 @@ export function getAuthUrls(): AuthUrls {
     callbackURL: `${localizedBaseUrl}${webRoutes.authSignIn}`,
     errorCallbackURL: `${localizedBaseUrl}${webRoutes.authSignIn}`,
     resetPasswordCallbackURL: `${localizedBaseUrl}${webRoutes.authResetPassword}`,
-  };
-}
-
-/**
- * Get billing URLs with locale prefix
- * URLs are generated dynamically to match current user's locale
- */
-export function getBillingUrls(): BillingUrls {
-  const localizedBaseUrl = getLocalizedBaseUrl();
-
-  return {
-    successURL: `${localizedBaseUrl}${webRoutes.billingSuccess}`,
-    cancelURL: `${localizedBaseUrl}${webRoutes.billingCancel}`,
-    returnURL: `${localizedBaseUrl}${webRoutes.billingReturn}`,
   };
 }

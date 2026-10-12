@@ -17,7 +17,6 @@ import {
   syncVideoJob,
   toPublicVideoJob,
 } from "@/video/service";
-import { topUpMembershipCredits } from "@/credits/top-up";
 import type { Context } from "@/lib/context";
 import { protectedProcedure, publicProcedure } from "@/lib/orpc";
 
@@ -99,7 +98,6 @@ export const videoRouter = {
     .output(jobSchema)
     .handler(async ({ context, input }) => {
       const userId = requireUserId(context);
-      await topUpMembershipCredits(context.db, userId);
       try {
         const job = await createVideoJob(context.db, context.env, context.credits, {
           userId,

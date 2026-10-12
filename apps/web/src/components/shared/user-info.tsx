@@ -1,4 +1,3 @@
-import { SubscriptionStatusBadge } from "@/components/shared/subscription-status-badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/avatar";
 import type { CurrentUser } from "@/lib/auth/auth-server";
 import { getVisibleUserEmail, getVisibleUserName, isPhoneUser } from "@repo/shared";
@@ -22,7 +21,6 @@ export function UserInfo({ user }: UserInfoProps) {
       <div className="grid gap-1 flex-1 text-left text-sm leading-tight">
         <div className="flex gap-2 items-center">
           <span className="truncate max-w-14 font-medium">{visibleName}</span>
-          <SubscriptionStatusBadge />
         </div>
 
         {secondaryIdentity ? (

@@ -95,7 +95,7 @@ type Item = {
   name: string;
   cents: number;
   currency: string;
-  kind: "credits" | "subscription";
+  kind: "credits";
 };
 
 function ecommerce(item: Item) {

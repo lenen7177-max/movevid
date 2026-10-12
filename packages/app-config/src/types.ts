@@ -381,12 +381,6 @@ export type AppWebConfig = AppPlatformCommonConfig & {
     authSignIn: string;
     /** Reset-password page route path. */
     authResetPassword: string;
-    /** Billing success return route path. */
-    billingSuccess: string;
-    /** Billing cancel return route path. */
-    billingCancel: string;
-    /** Billing portal return route path. */
-    billingReturn: string;
   };
   /** Optional web payment configuration. */
   payments?: AppWebPaymentsConfig;

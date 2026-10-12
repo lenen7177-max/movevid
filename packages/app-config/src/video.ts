@@ -141,12 +141,6 @@ export const videoConfig = {
   defaultQuality: "480p" as VideoQuality,
   maxImageBytes: 20 * 1024 * 1024,
   allowedImageTypes: ["image/jpeg", "image/png", "image/webp"],
-  // Credits granted each UTC month while a Pro subscription is active (monthly and yearly).
-  subscriptionCredits: {
-    monthlyAmount: 60,
-    // Unused subscription credits roll over up to this many; lapsed subscriptions forfeit them.
-    rolloverCap: 120,
-  },
 } as const;
 
 /** Whether the template also takes pet photos (cats, dogs…), not only people. */

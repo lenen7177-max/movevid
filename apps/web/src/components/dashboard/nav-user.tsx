@@ -1,6 +1,6 @@
 import { IconDotsVertical } from "@tabler/icons-react";
 import { Link } from "@tanstack/react-router";
-import { BadgeCheck, Home, LogOut, Sparkles } from "lucide-react";
+import { BadgeCheck, Home, LogOut } from "lucide-react";
 import { SignOutDialog } from "@/components/auth/sign-out-dialog";
 import {
   DropdownMenu,
@@ -13,7 +13,6 @@ import {
 } from "@repo/ui/dropdown-menu";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@repo/ui/sidebar";
 import useDialogState from "@/hooks/use-dialog-state";
-import { useCurrentSubscription } from "@/hooks/use-payments";
 import { useTranslations } from "@/i18n";
 import type { CurrentUser } from "@/lib/auth/auth-server";
 import { UserInfo } from "../shared/user-info";
@@ -22,9 +21,6 @@ export function NavUser({ user }: { user: CurrentUser }) {
   const t = useTranslations("dashboard.nav");
   const { isMobile } = useSidebar();
   const [open, setOpen] = useDialogState();
-  const { hasLifetime, hasSubscription } = useCurrentSubscription({
-    includePlan: false,
-  });
 
   return (
     <>
@@ -63,17 +59,6 @@ export function NavUser({ user }: { user: CurrentUser }) {
                 </DropdownMenuItem>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
-              {hasSubscription || hasLifetime ? null : (
-                <>
-                  <DropdownMenuGroup>
-                    <DropdownMenuItem render={<Link to="/settings/billing" />}>
-                      <Sparkles />
-                      {t("upgradeToPro")}
-                    </DropdownMenuItem>
-                  </DropdownMenuGroup>
-                  <DropdownMenuSeparator />
-                </>
-              )}
               <DropdownMenuGroup>
                 <DropdownMenuItem render={<Link to="/settings/profile" />}>
                   <BadgeCheck />

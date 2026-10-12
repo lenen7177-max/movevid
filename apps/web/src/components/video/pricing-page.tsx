@@ -1,8 +1,7 @@
 import { videoConfig } from "@repo/app-config/video";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@repo/ui/accordion";
 import { buttonVariants } from "@repo/ui/button";
-import { Link } from "@tanstack/react-router";
-import { ArrowRight, Check, Loader2 } from "lucide-react";
+import { Check, Loader2 } from "lucide-react";
 import type { ReactNode } from "react";
 import { usePricingCheckout } from "@/hooks/use-pricing-checkout";
 import { useLocale, useTranslations } from "@/i18n";
@@ -20,7 +19,6 @@ export const PRICING_RATE_VALUES = {
   sd: FULL_480,
   hd: videoConfig.qualities["720p"].creditsCost,
   fhd: videoConfig.qualities["1080p"].creditsCost,
-  monthly: videoConfig.subscriptionCredits.monthlyAmount,
 };
 const RATE_TIERS = [
   { key: "fast", credits: videoConfig.liteCredits["seedance-2.0-fast"] },
@@ -166,46 +164,6 @@ export function CreditPackGrid({
   );
 }
 
-/** Pro subscription teaser; subscribing and managing it happen in Settings → Billing. */
-function ProPlanCard() {
-  const t = useTranslations("video.pricing.pro");
-  const money = useMoney();
-  const { pro } = getVideoPricing();
-  if (!pro.monthlyCents) return null;
-
-  return (
-    <div className="bg-card mt-4 grid gap-6 rounded-3xl border p-6 md:grid-cols-[1fr_auto] md:items-center md:p-8">
-      <div>
-        <p className="eyebrow">{t("eyebrow")}</p>
-        <h3 className="display mt-3 text-2xl sm:text-3xl">
-          {t("title", { credits: videoConfig.subscriptionCredits.monthlyAmount })}
-        </h3>
-        <p className="text-muted-foreground mt-2 max-w-xl text-sm">
-          {t("body", { cap: videoConfig.subscriptionCredits.rolloverCap })}
-        </p>
-      </div>
-      <div className="flex flex-col items-start gap-3 md:items-end">
-        <p className="text-sm">
-          <span className="display text-3xl">{money(pro.monthlyCents)}</span>
-          <span className="text-muted-foreground"> / {t("month")}</span>
-        </p>
-        {pro.yearlySavePercent > 0 ? (
-          <p className="text-muted-foreground text-xs">
-            {t("yearly", { price: money(pro.yearlyCents), percent: pro.yearlySavePercent })}
-          </p>
-        ) : null}
-        <Link
-          to="/settings/billing"
-          className={buttonVariants({ variant: "outline", className: "rounded-full" })}
-        >
-          {t("cta")}
-          <ArrowRight aria-hidden="true" />
-        </Link>
-      </div>
-    </div>
-  );
-}
-
 /** What each version costs per quality, so the pack counts read clearly. */
 function TierGuide() {
   const t = useTranslations("video.pricing.tiers");
@@ -240,7 +198,7 @@ function TierGuide() {
   );
 }
 
-/** Public pricing page: credit packs, Pro, the tier guide and FAQ. */
+/** Public pricing page: credit packs, the tier guide and FAQ. */
 export function PricingPage() {
   const t = useTranslations("video.pricing");
   const { buyCredits, busyKey, isPending } = usePricingCheckout();
@@ -264,7 +222,6 @@ export function PricingPage() {
         <div className="mt-14">
           <CreditPackGrid busyKey={busyKey} isPending={isPending} onBuy={buyCredits} />
         </div>
-        <ProPlanCard />
 
         <div className="bg-card mt-4 rounded-3xl border p-6">
           <h2 className="font-medium">{t("included.title")}</h2>

@@ -8,7 +8,6 @@ import {
   listCreditOrdersOutputSchema,
   listCreditTransactionsOutputSchema,
 } from "@/credits/public/schemas";
-import { topUpMembershipCredits } from "@/credits/top-up";
 import type { Context } from "@/lib/context";
 import { protectedProcedure, publicProcedure } from "@/lib/orpc";
 
@@ -49,7 +48,7 @@ const consumeInputSchema = z.object({
     .optional(),
 });
 
-/** Common credit API routes shared by web and native clients. */
+/** Credit API routes: packages, balance and history. */
 export const creditsRouter = {
   listPackages: publicProcedure
     .input(listPackagesInputSchema)
@@ -58,7 +57,6 @@ export const creditsRouter = {
 
   getBalance: protectedProcedure.output(creditBalanceSchema).handler(async ({ context }) => {
     const user = resolveCreditUser(context);
-    await topUpMembershipCredits(context.db, user.userId);
     return context.credits.getBalance(user);
   }),
 

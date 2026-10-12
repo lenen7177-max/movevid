@@ -31,9 +31,3 @@ export type AuthUrls = {
   errorCallbackURL: string;
   resetPasswordCallbackURL: string;
 };
-
-export type BillingUrls = {
-  successURL: string;
-  cancelURL: string;
-  returnURL: string;
-};

@@ -27,7 +27,7 @@
     "cf-typegen": "wrangler types --env-interface CloudflareBindings",
     "generate-types": "wrangler types",
     "email-preview": "pnpm dlx react-email dev --dir src/emails/templates --port 4000",
-    "test:node": "node --test --import tsx src/video/__tests__/*.test.ts src/credits/__tests__/*.test.ts src/payments/providers/creem/__tests__/*.test.ts src/sms/providers/__tests__/*.test.ts src/lib/__tests__/*.test.ts src/analytics/__tests__/*.test.ts"
+    "test:node": "node --test --import tsx src/video/__tests__/*.test.ts src/payments/providers/creem/__tests__/*.test.ts src/sms/providers/__tests__/*.test.ts src/lib/__tests__/*.test.ts src/analytics/__tests__/*.test.ts"
   },
   "dependencies": {
     "@hono/node-server": "^1.19.9",

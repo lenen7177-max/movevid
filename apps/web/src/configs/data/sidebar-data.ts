@@ -94,16 +94,6 @@ export const sidebarData: SidebarData = {
         ]
       : []),
     {
-      title: "dashboard.billing.sectionTitle",
-      items: [
-        {
-          title: "dashboard.nav.billing",
-          url: "/settings/billing",
-          icon: ShieldCheck,
-        },
-      ],
-    },
-    {
       title: "dashboard.nav.other",
       items: [
         {

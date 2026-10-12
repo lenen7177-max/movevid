@@ -18,8 +18,6 @@ export {
   runCreditMaintenance,
 } from "./application/service";
 
-export { ensureMembershipCredits } from "./application/membership";
-
 export type {
   CreditBalance,
   CreditOrder,

@@ -103,16 +103,15 @@ A second, **private** R2 bucket (`STORAGE` binding) holds users' photos and fini
 `packages/app-config/src/app-config.ts`:
 
 - `webCreditPackages` — credits, display price and Stripe price IDs (test and live) per pack.
-- `web.payments.plans` — the Pro subscription prices.
 - `creditSignupGrant` — optional free credits for new accounts (off by default).
 
-`packages/app-config/src/video.ts` → `videoConfig`: default credit costs, the first-video offer,
-monthly Pro credits. The pricing test (`packages/app-config/src/__tests__/video-pricing.test.ts`)
+`packages/app-config/src/video.ts` → `videoConfig`: default credit costs and the first-video
+offer. The pricing test (`packages/app-config/src/__tests__/video-pricing.test.ts`)
 holds APIMart's per-second rates; update them if your rates change.
 
-In Stripe, create one one-time Price per pack and two recurring Prices for Pro, then paste the
-IDs. Add a webhook to `https://api.<your-domain>/api/webhooks/stripe` with the checkout,
-invoice, subscription and payment intent events, and put its signing secret in
+In Stripe, create one one-time Price per pack and paste the IDs. Add a webhook to
+`https://api.<your-domain>/api/webhooks/stripe` with the `checkout.session.*`,
+`payment_intent.*` and `charge.refunded` events, and put its signing secret in
 `STRIPE_WEBHOOK_SECRET`.
 
 ## 7. Cloudflare resources

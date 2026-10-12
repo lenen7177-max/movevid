@@ -81,20 +81,6 @@
           "name": "Free",
           "description": "Watch examples and try the studio.",
           "features": ["Browse example videos", "Buy credit packs anytime", "Credits never expire"]
-        },
-        "pro": {
-          "name": "Pro",
-          "description": "60 credits every month for regular creators.",
-          "features": [
-            "60 credits every month (about 4 Fast videos)",
-            "Unused credits roll over up to 120",
-            "Cancel anytime"
-          ]
-        },
-        "lifetime": {
-          "name": "Lifetime",
-          "description": "One-time payment for long-term use.",
-          "features": ["All Pro features", "One-time payment", "Lifetime updates"]
         }
       }
     }
@@ -822,18 +808,6 @@
       "mobile": "Mobile"
     }
   },
-  "billingSuccess": {
-    "title": "Payment successful",
-    "description": "Thanks for upgrading. Your access will be updated shortly.",
-    "syncingTitle": "Confirming your subscription status",
-    "syncingDescription": "You'll be redirected to billing once activation is complete.",
-    "goToBilling": "Go to billing"
-  },
-  "billingCancel": {
-    "title": "Payment canceled",
-    "description": "No worries. You can resume checkout anytime.",
-    "backToBilling": "Back to billing"
-  },
   "pwa": {
     "updateAvailable": "A new version is ready.",
     "updateAction": "Refresh",
@@ -944,7 +918,7 @@
         },
         "billingAndRefunds": {
           "title": "Credits, payments and refunds",
-          "content": "Credits are bought in packs or through a subscription and are used when you generate. If a generation fails, its credits are returned automatically. Purchases are otherwise final except where the law requires a refund. Subscriptions renew until cancelled and can be cancelled at any time from your billing settings."
+          "content": "Credits are bought in one-time packs and are used when you generate. If a generation fails, its credits are returned automatically. Purchases are otherwise final except where the law requires a refund."
         },
         "disclaimers": {
           "title": "Disclaimers",
@@ -1433,14 +1407,6 @@
         "perVideo": "About {price} per Fast video",
         "cta": "Buy credits"
       },
-      "pro": {
-        "eyebrow": "Pro subscription",
-        "title": "{credits} credits every month",
-        "body": "For regular creators. Unused credits roll over up to {cap}. Cancel any time from Settings → Billing.",
-        "month": "month",
-        "yearly": "or {price} per year — save {percent}%",
-        "cta": "Subscribe"
-      },
       "included": {
         "title": "Every pack includes",
         "items": [
@@ -1481,7 +1447,7 @@
         },
         {
           "q": "Do I need a subscription?",
-          "a": "No. Credit packs are one-time purchases. Pro is optional and adds {monthly} credits every month."
+          "a": "No. Credit packs are one-time purchases — buy more whenever you run low."
         },
         {
           "q": "Can I get a refund?",
