@@ -18,7 +18,6 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   CircleDollarSign,
-  Clock3,
   History,
   Loader2Icon,
   RefreshCwIcon,
@@ -101,10 +100,9 @@ export function PaidUsersTable({
   const columnFilters = useMemo<ColumnFiltersState>(
     () => [
       ...(states.length > 0 ? [{ id: "state", value: states }] : []),
-      ...(tiers.length > 0 ? [{ id: "membershipTier", value: tiers }] : []),
       ...(providers.length > 0 ? [{ id: "provider", value: providers }] : []),
     ],
-    [providers, states, tiers],
+    [providers, states],
   );
 
   useEffect(() => setLocalSearch(search), [search]);
@@ -119,18 +117,9 @@ export function PaidUsersTable({
   const stateOptions = useMemo<Option[]>(
     () => [
       { label: t("states.paid"), value: "paid", count: counts.paid },
-      { label: t("states.trial"), value: "trial", count: counts.trial },
       { label: t("states.ended"), value: "ended", count: counts.ended },
     ],
     [counts, t],
-  );
-  const tierOptions = useMemo<Option[]>(
-    () =>
-      (["monthly", "yearly", "lifetime", "credits"] as const).map((tier) => ({
-        label: t(`tiers.${tier}`),
-        value: tier,
-      })),
-    [t],
   );
   const providerOptions = useMemo<Option[]>(
     () =>
@@ -162,15 +151,9 @@ export function PaidUsersTable({
       onFiltersChange({
         states: asFilterValues(next.find((filter) => filter.id === "state")?.value, [
           "paid",
-          "trial",
           "ended",
         ]),
-        tiers: asFilterValues(next.find((filter) => filter.id === "membershipTier")?.value, [
-          "monthly",
-          "yearly",
-          "lifetime",
-          "credits",
-        ]),
+        tiers,
         providers: asFilterValues(
           next.find((filter) => filter.id === "provider")?.value,
           paidUserProviders,
@@ -193,7 +176,6 @@ export function PaidUsersTable({
 
   const summaryItems = [
     { state: "paid", icon: CircleDollarSign, count: counts.paid },
-    { state: "trial", icon: Clock3, count: counts.trial },
     { state: "ended", icon: History, count: counts.ended },
   ] as const;
   const pageCount = Math.ceil(total / pageSize);
@@ -208,7 +190,7 @@ export function PaidUsersTable({
         <div className="mt-1 text-muted-foreground text-sm">{t("description")}</div>
       </div>
 
-      <div className="mb-4 grid shrink-0 grid-cols-1 gap-3 sm:grid-cols-3">
+      <div className="mb-4 grid shrink-0 grid-cols-1 gap-3 sm:grid-cols-2">
         {summaryItems.map(({ state, icon: Icon, count }) => (
           <div key={state} className="rounded-lg border bg-card px-4 py-3">
             <div className="flex items-center justify-between text-muted-foreground text-xs">
@@ -258,12 +240,6 @@ export function PaidUsersTable({
           column={table.getColumn("state")}
           title={t("filters.state")}
           options={stateOptions}
-          multiple
-        />
-        <DataTableFacetedFilter
-          column={table.getColumn("membershipTier")}
-          title={t("filters.tier")}
-          options={tierOptions}
           multiple
         />
         <DataTableFacetedFilter

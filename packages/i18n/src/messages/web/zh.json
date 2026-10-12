@@ -33,58 +33,6 @@
   "locale": {
     "switchLanguage": "切换语言"
   },
-  "landingPage": {
-    "pricing": {
-      "title": "价格方案",
-      "subtitle": "选择最适合你的方案",
-      "discount": "省 {percent}%",
-      "freeLabel": "免费",
-      "frequencies": {
-        "monthly": "月付",
-        "yearly": "年付",
-        "lifetime": "终身"
-      },
-      "cta": {
-        "subscribe": "立即订阅",
-        "getStarted": "开始使用"
-      },
-      "badge": {
-        "popular": "🔥 最受欢迎",
-        "bestValue": "最佳价值"
-      },
-      "billingNote": {
-        "flexibleCancelAnytime": "灵活订阅，可随时取消",
-        "billedAnnually": "按年计费",
-        "oneTimePurchase": "一次性购买"
-      },
-      "enterprise": {
-        "title": "企业版",
-        "price": "定制",
-        "description": "为企业客户量身打造",
-        "features": {
-          "first": "专属功能与集成支持",
-          "second": "企业级安全与合规",
-          "third": "专属客户成功与 SLA"
-        },
-        "cta": "联系销售"
-      },
-      "periods": {
-        "oneTime": "一次性",
-        "perYear": "每年",
-        "perMonth": "每月"
-      },
-      "trial": {
-        "newUserDays": "{days} 天试用（仅新用户）"
-      },
-      "plans": {
-        "free": {
-          "name": "免费",
-          "description": "浏览示例并体验工作台。",
-          "features": ["浏览示例视频", "随时购买积分包", "积分永不过期"]
-        }
-      }
-    }
-  },
   "blog": {
     "list": {
       "title": "博客",
@@ -250,7 +198,6 @@
       "appearance": "外观",
       "notifications": "通知",
       "display": "显示",
-      "upgradeToPro": "升级到专业版",
       "home": "首页",
       "signOut": "退出登录",
       "permissionRequired": "需要 {role} 角色",
@@ -265,54 +212,11 @@
       "user": "用户",
       "admin": "管理员"
     },
-    "billing": {
-      "sectionTitle": "会员专区",
-      "title": "账单",
-      "description": "管理订阅与支付方式。",
-      "currentPlan": "当前套餐",
-      "free": "免费",
-      "subscriptionSyncing": "订阅正在激活中，请稍候。",
-      "manageBilling": "管理账单",
-      "manageInStore": "前往应用商店管理",
-      "storeManagedMessage": "当前会员由 App Store 或 Google Play 管理，请在 App 或应用商店内升级、取消或变更订阅。",
-      "storeManagedPlansDescription": "该订阅的变更或取消需要在应用商店中完成。",
-      "plansTitle": "可选套餐",
-      "plansDescription": "选择适合你的方案。",
-      "membershipTypes": {
-        "monthly": "月度会员",
-        "yearly": "年度会员",
-        "lifetime": "终身会员",
-        "subscription": "订阅会员"
-      },
-      "lifetimeLabel": "终身版",
-      "trialLabel": "试用",
-      "startCheckout": "去结算",
-      "currentPlanCta": "当前套餐",
-      "upgradeSubscription": "立即升级",
-      "alreadyLifetime": "已是终身会员",
-      "downgradeNotAllowed": "仅支持升级购买",
-      "checkoutError": "结算失败",
-      "portalError": "打开账单失败",
-      "upgradeError": "升级失败",
-      "upgradeSuccess": "订阅升级成功。",
-      "upgradeUnavailable": "暂不支持升级",
-      "managedByOtherChannel": "请在原购买渠道管理",
-      "noPlans": "暂无可用套餐。",
-      "checkoutDecisionErrors": {
-        "already_lifetime": "您已经是终身会员。",
-        "downgrade_or_same_tier": "当前会员仅支持升级购买。",
-        "subscription_upgrade": "可在当前页面直接升级订阅周期。",
-        "managed_by_other_channel": "当前会员由另一个购买渠道管理，请在原购买渠道升级或取消。",
-        "current_price": "这是您当前的套餐。",
-        "ok": "可以进行结算。",
-        "default": "此套餐暂不可购买。"
-      }
-    },
     "credits": {
       "title": "积分",
-      "description": "购买和查看账号积分，Web 与移动端共享。",
+      "description": "购买并查看账户积分。",
       "purchaseTitle": "购买积分",
-      "purchaseDescription": "购买 Web 与移动端共享的积分包。",
+      "purchaseDescription": "购买用于生成视频的积分包。",
       "balanceLabel": "当前余额",
       "balanceDescription": "购买的积分不会过期。赠送积分可能按账号规则过期。",
       "expiringNotice": "{count} 积分将在 7 天内过期。",
@@ -337,8 +241,7 @@
         "system": "系统",
         "app": "应用",
         "admin": "管理员",
-        "web": "Web 端购买",
-        "native": "App 端购买"
+        "web": "Web 端购买"
       },
       "transactionFilters": {
         "all": "全部",
@@ -427,7 +330,6 @@
       },
       "operations": {
         "adjustCredits": "调整积分",
-        "grantTrial": "赠送试用会员",
         "history": "操作记录",
         "amount": "积分变动数量",
         "currentBalance": "当前积分余额",
@@ -435,18 +337,6 @@
         "balanceUnavailable": "暂时无法获取",
         "amountPlaceholder": "例如 100 或 -50",
         "amountHelp": "正数增加积分，负数扣减积分。扣减后积分余额不能小于 0。",
-        "membershipTier": "试用会员方案",
-        "monthly": "月度方案",
-        "yearly": "年度方案",
-        "durationDays": "试用有效期（天）",
-        "trialAccessDescription": "用户将在 {days} 天内体验{plan}的会员权益。",
-        "scheduleLoading": "正在加载当前试用安排...",
-        "scheduleUnavailable": "暂时无法获取当前试用安排。",
-        "paidMembershipActive": "该用户已有正式付费会员，不能赠送试用。",
-        "noCurrentTrial": "当前没有生效或待生效的试用。",
-        "currentTrialSchedule": "现有安排：{plan}，持续至 {date}",
-        "estimatedTrialEnd": "赠送后预计到期：{date}",
-        "days": "{count} 天",
         "reasonOptional": "原因（选填）",
         "cancel": "取消",
         "confirm": "确认操作",
@@ -468,7 +358,6 @@
         },
         "feedback": {
           "creditsAdjusted": "积分已调整",
-          "trialGranted": "试用会员已赠送",
           "failed": "操作失败：{message}"
         }
       },
@@ -534,7 +423,7 @@
     },
     "paidUsers": {
       "title": "付费用户",
-      "description": "查看系统会员状态。",
+      "description": "购买过积分包的用户。",
       "refresh": "刷新",
       "clearSearch": "清除搜索",
       "accountBanned": "已封禁",
@@ -547,7 +436,7 @@
       "states": {
         "paid": "已付费",
         "trial": "试用中",
-        "ended": "已结束"
+        "ended": "已退款"
       },
       "tiers": {
         "monthly": "月度会员",
@@ -596,7 +485,7 @@
         "listPrice": "套餐标价",
         "provider": "支付渠道",
         "status": "状态",
-        "startedOrPaidAt": "开始 / 购买时间",
+        "startedOrPaidAt": "购买时间",
         "renewal": "续费 / 到期",
         "latestBillingAt": "最近同步",
         "searchPlaceholder": "搜索用户姓名",
@@ -643,7 +532,6 @@
         "creditBuyers": "积分包买家",
         "creditOrders": "积分包订单",
         "revenue": "积分包收入",
-        "members": "会员",
         "note": "「未知」是开始记录来源之前注册的用户。收入只统计已完成的积分包订单。"
       }
     },

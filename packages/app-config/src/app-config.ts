@@ -166,8 +166,9 @@ const appConfig: AppConfig = {
         smsEnabled: false,
         // Controls GitHub sign-in UI entry points.
         githubEnabled: false,
-        // Controls Google sign-in UI entry points.
-        googleEnabled: true,
+        // Controls Google sign-in UI entry points. Turn on after setting GOOGLE_CLIENT_ID
+        // (wrangler.jsonc) and GOOGLE_CLIENT_SECRET (secret).
+        googleEnabled: false,
         // Controls Apple sign-in UI entry points.
         appleEnabled: false,
       },

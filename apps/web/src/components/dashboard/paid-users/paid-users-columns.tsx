@@ -48,60 +48,6 @@ export function usePaidUserColumns(): ColumnDef<PaidUser>[] {
         minSize: 240,
       },
       {
-        id: "membershipTier",
-        accessorKey: "membershipTier",
-        header: t("table.membership"),
-        cell: ({ row }) => {
-          const item = row.original;
-          return (
-            <div className="min-w-28">
-              <div className="font-medium">
-                {item.membershipTier ? t(`tiers.${item.membershipTier}`) : item.planId}
-              </div>
-              <div className="text-muted-foreground text-xs">{t(`sources.${item.source}`)}</div>
-            </div>
-          );
-        },
-        meta: { label: t("table.membership") },
-        enableSorting: false,
-        enableColumnFilter: true,
-        filterFn: () => true,
-      },
-      {
-        id: "listPrice",
-        header: t("table.listPrice"),
-        cell: ({ row }) => {
-          const item = row.original;
-          if (!item.listPrice) {
-            if (item.source === "credits") {
-              return <span className="text-muted-foreground text-sm">—</span>;
-            }
-            if (item.source === "admin_trial") {
-              return <span className="text-muted-foreground text-sm">{t("complimentary")}</span>;
-            }
-            return (
-              <div className="min-w-32">
-                <div className="text-muted-foreground text-sm">{t("priceUnavailable")}</div>
-                <div className="font-mono text-muted-foreground text-xs">{item.priceId}</div>
-              </div>
-            );
-          }
-          const interval = item.listPrice.interval
-            ? t(`intervals.${item.listPrice.interval}`)
-            : null;
-          return (
-            <div className="min-w-24">
-              <div className="font-medium tabular-nums">
-                {formatCurrency(item.listPrice.amountCents, item.listPrice.currency)}
-              </div>
-              <div className="text-muted-foreground text-xs">{interval ?? t("oneTime")}</div>
-            </div>
-          );
-        },
-        meta: { label: t("table.listPrice") },
-        enableSorting: false,
-      },
-      {
         id: "creditPurchases",
         header: t("table.creditPurchases"),
         cell: ({ row }) => {
@@ -210,33 +156,6 @@ export function usePaidUserColumns(): ColumnDef<PaidUser>[] {
           </span>
         ),
         meta: { label: t("table.startedOrPaidAt") },
-        enableSorting: false,
-      },
-      {
-        id: "currentPeriodEnd",
-        header: t("table.renewal"),
-        cell: ({ row }) => {
-          const item = row.original;
-          if (item.source === "lifetime" || item.source === "credits") {
-            return <span className="text-muted-foreground text-sm">{t("notApplicable")}</span>;
-          }
-          if (!item.currentPeriodEnd) {
-            return <span className="text-muted-foreground text-sm">—</span>;
-          }
-          return (
-            <div className="min-w-36">
-              <div className="whitespace-nowrap text-sm">
-                {dateFormatter.format(item.currentPeriodEnd)}
-              </div>
-              <div className="text-muted-foreground text-xs">
-                {item.source === "admin_trial" || item.cancelAtPeriodEnd
-                  ? t("endsAtPeriod")
-                  : t("renewsAtPeriod")}
-              </div>
-            </div>
-          );
-        },
-        meta: { label: t("table.renewal") },
         enableSorting: false,
       },
       {

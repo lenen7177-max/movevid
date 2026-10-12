@@ -39,7 +39,7 @@ export function useChannelLabel() {
   return useCallback((channel: string) => (isKnownChannel(channel) ? t(channel) : channel), [t]);
 }
 
-/** Sign-ups, credit pack revenue and members per first-touch channel. */
+/** Sign-ups and credit pack revenue per first-touch channel. */
 export function AcquisitionSummary() {
   const t = useTranslations("dashboard.paidUsers.acquisition");
   const channelLabel = useChannelLabel();
@@ -64,8 +64,7 @@ export function AcquisitionSummary() {
               <th className="py-2 pr-4 text-right font-medium">{t("signups")}</th>
               <th className="py-2 pr-4 text-right font-medium">{t("creditBuyers")}</th>
               <th className="py-2 pr-4 text-right font-medium">{t("creditOrders")}</th>
-              <th className="py-2 pr-4 text-right font-medium">{t("revenue")}</th>
-              <th className="py-2 text-right font-medium">{t("members")}</th>
+              <th className="py-2 text-right font-medium">{t("revenue")}</th>
             </tr>
           </thead>
           <tbody>
@@ -75,10 +74,9 @@ export function AcquisitionSummary() {
                 <td className="py-2 pr-4 text-right tabular-nums">{row.signups}</td>
                 <td className="py-2 pr-4 text-right tabular-nums">{row.creditBuyers}</td>
                 <td className="py-2 pr-4 text-right tabular-nums">{row.creditOrders}</td>
-                <td className="py-2 pr-4 text-right tabular-nums">
+                <td className="py-2 text-right tabular-nums">
                   {formatCurrency(row.creditRevenueCents, currency)}
                 </td>
-                <td className="py-2 text-right tabular-nums">{row.members}</td>
               </tr>
             ))}
           </tbody>

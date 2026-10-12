@@ -33,58 +33,6 @@
   "locale": {
     "switchLanguage": "Switch language"
   },
-  "landingPage": {
-    "pricing": {
-      "title": "Pricing",
-      "subtitle": "Choose the best plan for your needs",
-      "discount": "Save {percent}%",
-      "freeLabel": "Free",
-      "frequencies": {
-        "monthly": "Monthly",
-        "yearly": "Yearly",
-        "lifetime": "Lifetime"
-      },
-      "cta": {
-        "subscribe": "Subscribe",
-        "getStarted": "Get started"
-      },
-      "badge": {
-        "popular": "🔥 Most Popular",
-        "bestValue": "BEST VALUE"
-      },
-      "billingNote": {
-        "flexibleCancelAnytime": "Flexible, cancel anytime",
-        "billedAnnually": "Billed annually",
-        "oneTimePurchase": "One-time purchase"
-      },
-      "enterprise": {
-        "title": "Enterprise",
-        "price": "Custom",
-        "description": "Tailored for enterprise teams.",
-        "features": {
-          "first": "Dedicated integrations and features",
-          "second": "Enterprise-grade security and compliance",
-          "third": "Customer success and SLA"
-        },
-        "cta": "Contact sales"
-      },
-      "periods": {
-        "oneTime": "One-time",
-        "perYear": "Per year",
-        "perMonth": "Per month"
-      },
-      "trial": {
-        "newUserDays": "{days}-day free trial (new users only)"
-      },
-      "plans": {
-        "free": {
-          "name": "Free",
-          "description": "Watch examples and try the studio.",
-          "features": ["Browse example videos", "Buy credit packs anytime", "Credits never expire"]
-        }
-      }
-    }
-  },
   "blog": {
     "list": {
       "title": "Blog",
@@ -250,7 +198,6 @@
       "appearance": "Appearance",
       "notifications": "Notifications",
       "display": "Display",
-      "upgradeToPro": "Upgrade to Pro",
       "home": "Home",
       "signOut": "Sign out",
       "permissionRequired": "Requires {role} role",
@@ -265,54 +212,11 @@
       "user": "User",
       "admin": "Admin"
     },
-    "billing": {
-      "sectionTitle": "Membership Area",
-      "title": "Billing",
-      "description": "Manage your subscription and payment methods.",
-      "currentPlan": "Current plan",
-      "free": "Free",
-      "subscriptionSyncing": "Activating subscription. This may take a moment.",
-      "manageBilling": "Manage billing",
-      "manageInStore": "Manage in store",
-      "storeManagedMessage": "This membership is managed through the App Store or Google Play. Upgrade, cancel, or change it in the app or store.",
-      "storeManagedPlansDescription": "Plan changes and cancellation for this subscription must be managed in the store.",
-      "plansTitle": "Available plans",
-      "plansDescription": "Choose a plan that fits your team.",
-      "membershipTypes": {
-        "monthly": "Monthly",
-        "yearly": "Yearly",
-        "lifetime": "Lifetime",
-        "subscription": "Subscription"
-      },
-      "lifetimeLabel": "Lifetime",
-      "trialLabel": "Trial",
-      "startCheckout": "Start checkout",
-      "currentPlanCta": "Current plan",
-      "upgradeSubscription": "Upgrade now",
-      "alreadyLifetime": "Lifetime already active",
-      "downgradeNotAllowed": "Only upgrades are allowed",
-      "checkoutError": "Checkout failed",
-      "portalError": "Portal failed",
-      "upgradeError": "Upgrade failed",
-      "upgradeSuccess": "Subscription upgraded successfully.",
-      "upgradeUnavailable": "Upgrade unavailable",
-      "managedByOtherChannel": "Manage in original channel",
-      "noPlans": "No plans available.",
-      "checkoutDecisionErrors": {
-        "already_lifetime": "You already have lifetime membership.",
-        "downgrade_or_same_tier": "Only upgrades are allowed for your current membership.",
-        "subscription_upgrade": "You can upgrade your subscription interval in-app.",
-        "managed_by_other_channel": "Your current membership is managed by another purchase channel. Upgrade or cancel it in the original channel.",
-        "current_price": "This is your current plan.",
-        "ok": "Checkout is available.",
-        "default": "Checkout is not available for this plan."
-      }
-    },
     "credits": {
       "title": "Credits",
-      "description": "Buy and review account credits shared across web and mobile.",
+      "description": "Buy and review your account credits.",
       "purchaseTitle": "Buy credits",
-      "purchaseDescription": "Purchase credit packages shared across web and mobile.",
+      "purchaseDescription": "Buy credit packs for generating videos.",
       "balanceLabel": "Current balance",
       "balanceDescription": "Purchased credits do not expire. Free credits may expire based on account rules.",
       "expiringNotice": "{count} credits expire within 7 days.",
@@ -337,8 +241,7 @@
         "system": "System",
         "app": "App",
         "admin": "Admin",
-        "web": "Web purchase",
-        "native": "In-app purchase"
+        "web": "Web purchase"
       },
       "transactionFilters": {
         "all": "All",
@@ -427,7 +330,6 @@
       },
       "operations": {
         "adjustCredits": "Adjust credits",
-        "grantTrial": "Grant trial membership",
         "history": "Operation history",
         "amount": "Adjustment amount",
         "currentBalance": "Current credit balance",
@@ -435,18 +337,6 @@
         "balanceUnavailable": "Unavailable",
         "amountPlaceholder": "For example, 100 or -50",
         "amountHelp": "Use a positive number to add credits or a negative number to deduct them. The balance cannot go below zero.",
-        "membershipTier": "Trial membership plan",
-        "monthly": "Monthly plan",
-        "yearly": "Yearly plan",
-        "durationDays": "Trial validity (days)",
-        "trialAccessDescription": "The user will experience {plan} benefits for {days} days.",
-        "scheduleLoading": "Loading the current trial schedule...",
-        "scheduleUnavailable": "The current trial schedule is unavailable.",
-        "paidMembershipActive": "This user already has a paid membership and cannot receive a trial.",
-        "noCurrentTrial": "No active or scheduled trial.",
-        "currentTrialSchedule": "Existing schedule: {plan}, through {date}",
-        "estimatedTrialEnd": "New estimated end: {date}",
-        "days": "{count} days",
         "reasonOptional": "Reason (optional)",
         "cancel": "Cancel",
         "confirm": "Confirm",
@@ -468,7 +358,6 @@
         },
         "feedback": {
           "creditsAdjusted": "Credits adjusted",
-          "trialGranted": "Trial membership granted",
           "failed": "Operation failed: {message}"
         }
       },
@@ -534,7 +423,7 @@
     },
     "paidUsers": {
       "title": "Paid users",
-      "description": "Review membership status across web and native payment providers.",
+      "description": "People who have bought credit packs.",
       "refresh": "Refresh",
       "clearSearch": "Clear search",
       "accountBanned": "Banned",
@@ -547,7 +436,7 @@
       "states": {
         "paid": "Paid",
         "trial": "Trial",
-        "ended": "Ended"
+        "ended": "Refunded"
       },
       "tiers": {
         "monthly": "Monthly",
@@ -596,7 +485,7 @@
         "listPrice": "List price",
         "provider": "Provider",
         "status": "Status",
-        "startedOrPaidAt": "Started / paid",
+        "startedOrPaidAt": "Purchased",
         "renewal": "Renewal / expiry",
         "latestBillingAt": "Last synced",
         "searchPlaceholder": "Search user name",
@@ -643,7 +532,6 @@
         "creditBuyers": "Pack buyers",
         "creditOrders": "Pack orders",
         "revenue": "Pack revenue",
-        "members": "Members",
         "note": "\"Unknown\" covers accounts created before source tracking started. Revenue counts completed credit pack orders."
       }
     },

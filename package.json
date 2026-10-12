@@ -27,11 +27,11 @@
     "deploy:web": "turbo -F web deploy",
     "deploy:server": "turbo -F server deploy",
     "deploy": "pnpm deploy:server && pnpm deploy:web",
-    "husky:install": "husky install",
     "commit": "git add . && npx cz",
     "clean": "rm -rf node_modules apps/*/node_modules packages/*/node_modules .turbo apps/*/.turbo && pnpm store prune",
     "check:placeholders": "node scripts/check-placeholders.mjs",
-    "test": "turbo test"
+    "test": "turbo test",
+    "prepare": "husky"
   },
   "devDependencies": {
     "cz-conventional-changelog": "^3.3.0",
@@ -42,7 +42,11 @@
     "turbo": "^2.10.7"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,mjs,cjs}": "pnpm run lint"
+    "*.{js,jsx,ts,tsx,mjs,cjs}": [
+      "oxlint",
+      "oxfmt"
+    ],
+    "*.{json,css,md}": "oxfmt"
   },
   "config": {
     "commitizen": {

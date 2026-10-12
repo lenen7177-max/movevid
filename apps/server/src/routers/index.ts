@@ -1,11 +1,9 @@
 import type { RouterClient } from "@orpc/server";
-import { protectedProcedure, publicProcedure } from "../lib/orpc";
+import { publicProcedure } from "../lib/orpc";
 import { creditsRouter } from "./common/credits";
-import { commonPaymentsRouter } from "./common/payments";
 import { storageRouter } from "./common/storage";
 import { getCurrentUserFromContext, usersRouter } from "./common/users";
 import { webCreditsRouter } from "./web/credits";
-import { paymentsRouter } from "./web/payments";
 import { adminBillingRouter } from "./admin/billing";
 import { adminOperationsRouter } from "./admin/operations";
 import { videoRouter } from "./video";
@@ -23,32 +21,24 @@ const healthCheckProcedure = publicProcedure.handler(() => "OK");
 const currentUserProcedure = publicProcedure.handler(({ context }) =>
   getCurrentUserFromContext(context),
 );
-const privateDataProcedure = protectedProcedure.handler(({ context }) => ({
-  message: "This is private",
-  user: context.session?.user,
-}));
 
 type AppRouterDefinition = {
   healthCheck: typeof healthCheckProcedure;
   getCurrentUser: typeof currentUserProcedure;
-  privateData: typeof privateDataProcedure;
   users: typeof usersRouter;
   storage: typeof storageRouter;
-  payments: typeof commonPaymentsRouter;
   credits: typeof creditsRouter;
   video: typeof videoRouter;
   admin: { billing: typeof adminBillingRouter; operations: typeof adminOperationsRouter };
-  web: { payments: typeof paymentsRouter; credits: typeof webCreditsRouter };
+  web: { credits: typeof webCreditsRouter };
 };
 
 export const appRouter: AppRouterDefinition = {
   // ============ Common APIs ============
   healthCheck: healthCheckProcedure,
   getCurrentUser: currentUserProcedure,
-  privateData: privateDataProcedure,
   users: usersRouter,
   storage: storageRouter,
-  payments: commonPaymentsRouter,
   credits: creditsRouter,
   video: videoRouter,
   admin: {
@@ -57,7 +47,6 @@ export const appRouter: AppRouterDefinition = {
   },
   // ============ Web-specific APIs ============
   web: {
-    payments: paymentsRouter,
     credits: webCreditsRouter,
   },
 };

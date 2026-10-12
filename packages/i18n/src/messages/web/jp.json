@@ -33,58 +33,6 @@
   "locale": {
     "switchLanguage": "言語を切り替える"
   },
-  "landingPage": {
-    "pricing": {
-      "title": "料金プラン",
-      "subtitle": "最適なプランを選択してください",
-      "discount": "{percent}%お得",
-      "freeLabel": "無料",
-      "frequencies": {
-        "monthly": "月額",
-        "yearly": "年額",
-        "lifetime": "ライフタイム"
-      },
-      "cta": {
-        "subscribe": "購読する",
-        "getStarted": "始める"
-      },
-      "badge": {
-        "popular": "🔥 一番人気",
-        "bestValue": "ベストバリュー"
-      },
-      "billingNote": {
-        "flexibleCancelAnytime": "柔軟に利用でき、いつでも解約可能",
-        "billedAnnually": "年額請求",
-        "oneTimePurchase": "一度きりの購入"
-      },
-      "enterprise": {
-        "title": "エンタープライズ",
-        "price": "カスタム",
-        "description": "エンタープライズ向けに最適化",
-        "features": {
-          "first": "専用機能と統合サポート",
-          "second": "エンタープライズ級のセキュリティとコンプライアンス",
-          "third": "カスタマーサクセスと SLA"
-        },
-        "cta": "営業に連絡"
-      },
-      "periods": {
-        "oneTime": "一度きり",
-        "perYear": "年額",
-        "perMonth": "月額"
-      },
-      "trial": {
-        "newUserDays": "{days}日間の無料トライアル（新規ユーザー限定）"
-      },
-      "plans": {
-        "free": {
-          "name": "無料",
-          "description": "作例を見てスタジオを試せます。",
-          "features": ["作例動画を閲覧", "クレジットパックをいつでも購入", "クレジットは無期限"]
-        }
-      }
-    }
-  },
   "blog": {
     "list": {
       "title": "ブログ",
@@ -250,7 +198,6 @@
       "appearance": "外観",
       "notifications": "通知",
       "display": "表示",
-      "upgradeToPro": "プロにアップグレード",
       "home": "ホーム",
       "signOut": "ログアウト",
       "permissionRequired": "{role} ロールが必要です",
@@ -265,54 +212,11 @@
       "user": "ユーザー",
       "admin": "管理者"
     },
-    "billing": {
-      "sectionTitle": "会員エリア",
-      "title": "請求",
-      "description": "サブスクリプションと支払い方法を管理します。",
-      "currentPlan": "現在のプラン",
-      "free": "無料",
-      "subscriptionSyncing": "サブスクリプションを有効化中です。しばらくお待ちください。",
-      "manageBilling": "請求を管理",
-      "manageInStore": "ストアで管理",
-      "storeManagedMessage": "現在の会員権限は App Store または Google Play で管理されています。アップグレード、解約、変更はアプリまたはストアで行ってください。",
-      "storeManagedPlansDescription": "このサブスクリプションのプラン変更や解約はストア側で行う必要があります。",
-      "plansTitle": "利用可能なプラン",
-      "plansDescription": "最適なプランを選択してください。",
-      "membershipTypes": {
-        "monthly": "月額会員",
-        "yearly": "年額会員",
-        "lifetime": "永久会員",
-        "subscription": "サブスク会員"
-      },
-      "lifetimeLabel": "永久",
-      "trialLabel": "トライアル",
-      "startCheckout": "チェックアウトへ",
-      "currentPlanCta": "現在のプラン",
-      "upgradeSubscription": "今すぐアップグレード",
-      "alreadyLifetime": "すでに永久会員です",
-      "downgradeNotAllowed": "アップグレードのみ可能です",
-      "checkoutError": "決済に失敗しました",
-      "portalError": "請求ポータルを開けませんでした",
-      "upgradeError": "アップグレードに失敗しました",
-      "upgradeSuccess": "サブスクリプションのアップグレードが完了しました。",
-      "upgradeUnavailable": "アップグレード不可",
-      "managedByOtherChannel": "購入元で管理",
-      "noPlans": "プランがありません。",
-      "checkoutDecisionErrors": {
-        "already_lifetime": "すでに永久会員です。",
-        "downgrade_or_same_tier": "現在の会員プランからはアップグレードのみ可能です。",
-        "subscription_upgrade": "サブスクリプション期間はアプリ内でアップグレードできます。",
-        "managed_by_other_channel": "現在の会員権限は別の購入チャネルで管理されています。購入元でアップグレードまたは解約してください。",
-        "current_price": "これは現在のプランです。",
-        "ok": "チェックアウトが利用可能です。",
-        "default": "このプランはご利用いただけません。"
-      }
-    },
     "credits": {
       "title": "クレジット",
-      "description": "Web とモバイルで共有されるアカウントクレジットを購入・確認します。",
+      "description": "アカウントのクレジットを購入・確認します。",
       "purchaseTitle": "クレジット購入",
-      "purchaseDescription": "Web とモバイルで共有されるクレジットパッケージを購入します。",
+      "purchaseDescription": "動画生成に使うクレジットパックを購入します。",
       "balanceLabel": "現在の残高",
       "balanceDescription": "購入したクレジットは期限切れになりません。無料クレジットはアカウントルールにより期限切れになる場合があります。",
       "expiringNotice": "{count} クレジットが 7 日以内に期限切れになります。",
@@ -337,8 +241,7 @@
         "system": "システム",
         "app": "アプリ",
         "admin": "管理者",
-        "web": "Web購入",
-        "native": "アプリ内購入"
+        "web": "Web購入"
       },
       "transactionFilters": {
         "all": "すべて",
@@ -427,7 +330,6 @@
       },
       "operations": {
         "adjustCredits": "クレジットを調整",
-        "grantTrial": "トライアル会員を付与",
         "history": "操作履歴",
         "amount": "調整数",
         "currentBalance": "現在のクレジット残高",
@@ -435,18 +337,6 @@
         "balanceUnavailable": "取得できません",
         "amountPlaceholder": "例: 100 または -50",
         "amountHelp": "正数で追加、負数で減算します。残高を 0 未満にはできません。",
-        "membershipTier": "トライアル会員プラン",
-        "monthly": "月額プラン",
-        "yearly": "年額プラン",
-        "durationDays": "トライアル有効期間（日）",
-        "trialAccessDescription": "ユーザーは {days} 日間、{plan}の会員特典を体験できます。",
-        "scheduleLoading": "現在のトライアル予定を読み込み中...",
-        "scheduleUnavailable": "現在のトライアル予定を取得できません。",
-        "paidMembershipActive": "このユーザーには有料会員権があるため、トライアルを付与できません。",
-        "noCurrentTrial": "有効または予定中のトライアルはありません。",
-        "currentTrialSchedule": "現在の予定：{plan}、{date} まで",
-        "estimatedTrialEnd": "付与後の予定終了日時：{date}",
-        "days": "{count} 日",
         "reasonOptional": "理由（任意）",
         "cancel": "キャンセル",
         "confirm": "確定",
@@ -468,7 +358,6 @@
         },
         "feedback": {
           "creditsAdjusted": "クレジットを調整しました",
-          "trialGranted": "トライアル会員を付与しました",
           "failed": "操作に失敗しました: {message}"
         }
       },
@@ -534,7 +423,7 @@
     },
     "paidUsers": {
       "title": "有料ユーザー",
-      "description": "Web と Native の決済プロバイダーを横断して会員状態を確認します。",
+      "description": "クレジットパックを購入したユーザー。",
       "refresh": "更新",
       "clearSearch": "検索をクリア",
       "accountBanned": "停止中",
@@ -545,9 +434,9 @@
       "endsAtPeriod": "この日に利用終了",
       "renewsAtPeriod": "次回更新日",
       "states": {
-        "paid": "支払済み",
+        "paid": "支払い済み",
         "trial": "トライアル",
-        "ended": "終了"
+        "ended": "返金済み"
       },
       "tiers": {
         "monthly": "月額会員",
@@ -596,7 +485,7 @@
         "listPrice": "プラン価格",
         "provider": "決済サービス",
         "status": "状態",
-        "startedOrPaidAt": "開始 / 購入日時",
+        "startedOrPaidAt": "購入日時",
         "renewal": "更新 / 終了",
         "latestBillingAt": "最終同期",
         "searchPlaceholder": "ユーザー名を検索",
@@ -643,7 +532,6 @@
         "creditBuyers": "パック購入者",
         "creditOrders": "パック注文",
         "revenue": "パック売上",
-        "members": "会員",
         "note": "「不明」は流入元の記録開始前に登録したアカウントです。売上は完了したクレジットパック注文のみを集計します。"
       }
     },

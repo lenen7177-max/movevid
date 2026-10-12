@@ -1,20 +1,15 @@
 import { ORPCError } from "@orpc/server";
 import { resolveCommonConfig } from "@repo/app-config";
 import { creditsConfig } from "@repo/app-config/credits";
-import { ACTIVE_SUBSCRIPTION_STATUSES } from "@repo/app-config/payments/web";
-import { and, count, desc, eq, gt, inArray, like, type SQL } from "drizzle-orm";
+import { and, count, desc, eq, inArray, like, type SQL } from "drizzle-orm";
 import { alias } from "drizzle-orm/sqlite-core";
 import { z } from "zod";
 import { adjustCredits } from "@/credits/application/service";
 import {
   ADMIN_OPERATION_ACTIONS,
   ADMIN_OPERATION_STATUSES,
-  ADMIN_TRIAL_TIERS,
-  adminMembershipGrant,
   adminOperation,
   creditAccount,
-  billingPurchase,
-  billingSubscription,
   user,
   type AdminOperationMetadata,
 } from "@/db/schema";
@@ -148,58 +143,7 @@ async function finishOperation(
   return operation!;
 }
 
-async function getTrialSchedule(context: OperationContext, userId: string, now: Date) {
-  const [[subscription], [purchase], [scheduledGrant]] = await Promise.all([
-    context.db
-      .select({ id: billingSubscription.id })
-      .from(billingSubscription)
-      .where(
-        and(
-          eq(billingSubscription.userId, userId),
-          inArray(billingSubscription.status, [...ACTIVE_SUBSCRIPTION_STATUSES]),
-        ),
-      )
-      .limit(1),
-    context.db
-      .select({ id: billingPurchase.id })
-      .from(billingPurchase)
-      .where(and(eq(billingPurchase.userId, userId), eq(billingPurchase.status, "succeeded")))
-      .limit(1),
-    context.db
-      .select({ tier: adminMembershipGrant.tier, expiresAt: adminMembershipGrant.expiresAt })
-      .from(adminMembershipGrant)
-      .where(and(eq(adminMembershipGrant.userId, userId), gt(adminMembershipGrant.expiresAt, now)))
-      .orderBy(desc(adminMembershipGrant.expiresAt))
-      .limit(1),
-  ]);
-  return {
-    hasPaidMembership: Boolean(subscription || purchase),
-    scheduledGrant: scheduledGrant ?? null,
-  };
-}
-
 export const adminOperationsRouter = {
-  getTrialSchedule: adminProcedure
-    .input(z.object({ userId: z.string().min(1) }))
-    .output(
-      z.object({
-        hasPaidMembership: z.boolean(),
-        scheduledTier: z.enum(ADMIN_TRIAL_TIERS).nullable(),
-        scheduledThrough: z.date().nullable(),
-      }),
-    )
-    .handler(async ({ context, input }) => {
-      assertOperationsEnabled();
-      assertPermission(context, "membership", "grant-trial");
-      await requireTarget(context, input.userId);
-      const schedule = await getTrialSchedule(context, input.userId, new Date());
-      return {
-        hasPaidMembership: schedule.hasPaidMembership,
-        scheduledTier: schedule.scheduledGrant?.tier ?? null,
-        scheduledThrough: schedule.scheduledGrant?.expiresAt ?? null,
-      };
-    }),
-
   getCreditBalance: adminProcedure
     .input(z.object({ userId: z.string().min(1) }))
     .output(z.object({ balance: z.number().int() }))
@@ -256,83 +200,6 @@ export const adminOperationsRouter = {
           afterBalance: result.balance,
         });
         return { operation: toPublicOperation(operation), balance: result.balance };
-      } catch (error) {
-        const message = localizedErrorMessage(context, error);
-        await finishOperation(context, started.operation.id, "failed", null, message);
-        throw new ORPCError("BAD_REQUEST", { message });
-      }
-    }),
-
-  grantTrial: adminProcedure
-    .input(
-      operationBaseInputSchema.extend({
-        tier: z.enum(ADMIN_TRIAL_TIERS),
-        durationDays: z.number().int().min(1).max(365),
-      }),
-    )
-    .output(z.object({ operation: operationSchema, expiresAt: z.date() }))
-    .handler(async ({ context, input }) => {
-      assertOperationsEnabled();
-      assertPermission(context, "membership", "grant-trial");
-      const started = await startOperation(context, input, "membership.grant_trial");
-      if (started.existing && started.operation.status === "succeeded") {
-        return {
-          operation: toPublicOperation(started.operation),
-          expiresAt: new Date(String(started.operation.metadata?.expiresAt)),
-        };
-      }
-
-      try {
-        const [existingGrant] = await context.db
-          .select()
-          .from(adminMembershipGrant)
-          .where(eq(adminMembershipGrant.id, started.operation.id));
-        if (existingGrant) {
-          const previousExpiresAt =
-            existingGrant.startsAt.getTime() > existingGrant.createdAt.getTime()
-              ? existingGrant.startsAt.toISOString()
-              : null;
-          const operation = await finishOperation(context, started.operation.id, "succeeded", {
-            tier: existingGrant.tier,
-            durationDays: Math.round(
-              (existingGrant.expiresAt.getTime() - existingGrant.startsAt.getTime()) / 86_400_000,
-            ),
-            previousExpiresAt,
-            startsAt: existingGrant.startsAt.toISOString(),
-            expiresAt: existingGrant.expiresAt.toISOString(),
-          });
-          return {
-            operation: toPublicOperation(operation),
-            expiresAt: existingGrant.expiresAt,
-          };
-        }
-
-        const now = new Date();
-        const schedule = await getTrialSchedule(context, input.userId, now);
-        if (schedule.hasPaidMembership) throw new Error("User already has a paid membership");
-        const previousExpiresAt = schedule.scheduledGrant?.expiresAt ?? null;
-        const startsAt = previousExpiresAt ?? now;
-        const expiresAt = new Date(startsAt);
-        expiresAt.setUTCDate(expiresAt.getUTCDate() + input.durationDays);
-        await context.db.insert(adminMembershipGrant).values({
-          id: started.operation.id,
-          userId: input.userId,
-          tier: input.tier,
-          startsAt,
-          expiresAt,
-          grantedByUserId: context.session!.user.id,
-          reason: input.reason,
-          createdAt: now,
-          updatedAt: now,
-        });
-        const operation = await finishOperation(context, started.operation.id, "succeeded", {
-          tier: input.tier,
-          durationDays: input.durationDays,
-          previousExpiresAt: previousExpiresAt?.toISOString() ?? null,
-          startsAt: startsAt.toISOString(),
-          expiresAt: expiresAt.toISOString(),
-        });
-        return { operation: toPublicOperation(operation), expiresAt };
       } catch (error) {
         const message = localizedErrorMessage(context, error);
         await finishOperation(context, started.operation.id, "failed", null, message);
