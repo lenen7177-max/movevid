@@ -1,0 +1,11 @@
+{
+  "common": {
+    "notLinked": "Not linked"
+  },
+  "errors": {
+    "unauthorized": "Unauthorized access",
+    "notFound": "Resource not found",
+    "invalidEmail": "Invalid email format",
+    "rateLimited": "Too many requests, please try again later"
+  }
+}

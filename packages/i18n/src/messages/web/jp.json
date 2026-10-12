@@ -1,0 +1,1509 @@
+{
+  "common": {
+    "documents": "ドキュメント",
+    "cancel": "キャンセル",
+    "continue": "続行",
+    "search": "検索",
+    "searchPlaceholder": "コマンドを入力または検索...",
+    "noResults": "結果が見つかりません。",
+    "signIn": "ログイン",
+    "signOut": "ログアウト",
+    "dashboard": "ダッシュボード",
+    "history": "履歴"
+  },
+  "dataTable": {
+    "columnHeader": {
+      "ascending": "昇順",
+      "descending": "降順",
+      "reset": "並び順をリセット",
+      "hide": "列を非表示"
+    },
+    "pagination": {
+      "currentPage": "",
+      "pageCount": "/ {pageCount} ページ",
+      "goToPage": "ページへ移動"
+    },
+    "viewOptions": {
+      "view": "表示",
+      "toggleColumns": "列表示を切り替え",
+      "searchColumns": "列を検索...",
+      "noColumns": "列が見つかりません。"
+    }
+  },
+  "locale": {
+    "switchLanguage": "言語を切り替える"
+  },
+  "landingPage": {
+    "pricing": {
+      "title": "料金プラン",
+      "subtitle": "最適なプランを選択してください",
+      "discount": "{percent}%お得",
+      "freeLabel": "無料",
+      "frequencies": {
+        "monthly": "月額",
+        "yearly": "年額",
+        "lifetime": "ライフタイム"
+      },
+      "cta": {
+        "subscribe": "購読する",
+        "getStarted": "始める"
+      },
+      "badge": {
+        "popular": "🔥 一番人気",
+        "bestValue": "ベストバリュー"
+      },
+      "billingNote": {
+        "flexibleCancelAnytime": "柔軟に利用でき、いつでも解約可能",
+        "billedAnnually": "年額請求",
+        "oneTimePurchase": "一度きりの購入"
+      },
+      "enterprise": {
+        "title": "エンタープライズ",
+        "price": "カスタム",
+        "description": "エンタープライズ向けに最適化",
+        "features": {
+          "first": "専用機能と統合サポート",
+          "second": "エンタープライズ級のセキュリティとコンプライアンス",
+          "third": "カスタマーサクセスと SLA"
+        },
+        "cta": "営業に連絡"
+      },
+      "periods": {
+        "oneTime": "一度きり",
+        "perYear": "年額",
+        "perMonth": "月額"
+      },
+      "trial": {
+        "newUserDays": "{days}日間の無料トライアル（新規ユーザー限定）"
+      },
+      "plans": {
+        "free": {
+          "name": "無料",
+          "description": "作例を見てスタジオを試せます。",
+          "features": ["作例動画を閲覧", "クレジットパックをいつでも購入", "クレジットは無期限"]
+        },
+        "pro": {
+          "name": "Pro",
+          "description": "よく作る人向けに毎月 60 クレジット。",
+          "features": [
+            "毎月 60 クレジット（ファスト動画約 4 本）",
+            "未使用分は最大 120 まで繰り越し",
+            "いつでも解約可能"
+          ]
+        },
+        "lifetime": {
+          "name": "ライフタイム",
+          "description": "一度の支払いで長期利用。",
+          "features": ["プロプランの全機能", "一括支払い", "永久アップデート"]
+        }
+      }
+    }
+  },
+  "blog": {
+    "list": {
+      "title": "ブログ",
+      "description": "話題の動画ミームを解説。元ネタや曲、自分で作る方法を紹介します。",
+      "allCategories": "すべて",
+      "selectCategory": "カテゴリを選択",
+      "empty": "このカテゴリにはまだ記事がありません。"
+    },
+    "detail": {
+      "backToBlog": "ブログに戻る",
+      "onThisPage": "目次",
+      "readMore": "関連記事",
+      "loading": "記事を読み込み中..."
+    }
+  },
+  "auth": {
+    "email": "メールアドレス",
+    "phoneNumber": "電話番号",
+    "password": "パスワード",
+    "verificationCode": "確認コード",
+    "emailPasswordMode": "パスワード",
+    "emailOtpMode": "コード",
+    "orContinueWith": "または以下で続ける",
+    "loginWithGithub": "Github でログイン",
+    "loginWithGoogle": "Google でログイン",
+    "enterEmail": "メールアドレスを入力",
+    "enterPhoneNumber": "電話番号を入力",
+    "enterPassword": "パスワードを入力",
+    "enterVerificationCode": "6桁の確認コードを入力",
+    "phoneNumberDescription": "中国本土の電話番号形式で入力してください。例: 13800138000",
+    "emailOtpDescription": "メールアドレスを入力すると、ワンタイム確認コードを送信します。",
+    "sendCode": "コードを送信",
+    "sendingCode": "送信中...",
+    "verifyCode": "認証してログイン",
+    "verifyingCode": "認証中...",
+    "resendCode": "コードを再送",
+    "resendCodeIn": "{seconds}秒後に再送",
+    "changePhoneNumber": "電話番号を変更",
+    "changeEmail": "メールを変更",
+    "phoneCodeSent": "{phoneNumber} に確認コードを送信しました",
+    "emailCodeSent": "{email} に確認コードを送信しました",
+    "phoneOtpSentDescription": "{phoneNumber} に確認コードを送信しました。",
+    "emailOtpSentDescription": "{email} に確認コードを送信しました。",
+    "termsAgreement": "続行することで、<termsLink>利用規約</termsLink>と<privacyLink>プライバシーポリシー</privacyLink>に同意したことになります。",
+    "termsOfService": "利用規約",
+    "privacyPolicy": "プライバシーポリシー",
+    "validation": {
+      "invalidEmail": "メールアドレスの形式が正しくありません",
+      "invalidPhone": "有効な中国本土の電話番号を入力してください",
+      "invalidVerificationCode": "6桁の確認コードを入力してください",
+      "passwordRequired": "パスワードを入力してください",
+      "nameMinLength": "名前は2文字以上必要です",
+      "passwordMinLength": "パスワードは8文字以上必要です",
+      "passwordsNotMatch": "パスワードが一致しません"
+    }
+  },
+  "signIn": {
+    "title": "おかえりなさい",
+    "description": "メールアドレスとパスワードでログインします",
+    "dialogTitle": "ログイン",
+    "dialogDescription": "ログインすると動画を生成でき、作品はこのアカウントに残ります。",
+    "phoneDescription": "電話番号でワンタイム確認コードを受け取ってログインします",
+    "emailOtpDescription": "メールアドレスでワンタイム確認コードを受け取ります",
+    "phoneOtpDescription": "電話に送信された確認コードを入力してください",
+    "emailTab": "メール",
+    "phoneTab": "電話番号",
+    "login": "ログイン",
+    "loggingIn": "ログイン中...",
+    "forgotPassword": "パスワードをお忘れですか？",
+    "noAccount": "アカウントをお持ちでないですか？",
+    "signUp": "新規登録",
+    "success": "ログインしました"
+  },
+  "signUp": {
+    "title": "アカウントを作成",
+    "description": "メールアドレスを入力してアカウントを作成",
+    "name": "名前",
+    "enterName": "名前を入力",
+    "confirmPassword": "パスワードを確認",
+    "confirmYourPassword": "パスワードを再入力",
+    "emailDescription": "連絡用に使用します。第三者と共有することはありません。",
+    "passwordMinLength": "8文字以上必要です。",
+    "createAccount": "アカウントを作成",
+    "hasAccount": "すでにアカウントをお持ちですか？",
+    "signIn": "ログイン",
+    "success": "登録が完了しました",
+    "checkEmail": "メールを確認してください。",
+    "checkEmailTitle": "メールを確認して認証してください",
+    "checkEmailDescription": "{email} に認証メールを送信しました。メール内の認証リンクを開いて登録を完了してください。",
+    "checkEmailHint": "メールが見つからない場合は、迷惑メールフォルダを確認するか、少し時間を置いてから再度お試しください。",
+    "checkEmailAction": "了解"
+  },
+  "forgotPassword": {
+    "title": "パスワードをリセット",
+    "description": "メールアドレスを入力してリセットリンクを受け取る",
+    "sendResetLink": "リセットリンクを送信",
+    "sendingResetLink": "送信中...",
+    "backToSignIn": "ログインに戻る",
+    "success": "リセットリンクをメールで送信しました"
+  },
+  "resetPassword": {
+    "title": "パスワードをリセット",
+    "description": "新しいパスワードを入力してください",
+    "newPassword": "新しいパスワード",
+    "confirmPassword": "パスワードを確認",
+    "confirmNewPassword": "新しいパスワードを再入力",
+    "reset": "パスワードをリセット",
+    "resetting": "リセット中...",
+    "backToSignIn": "ログインに戻る",
+    "success": "パスワードがリセットされました",
+    "invalidToken": "リセットリンクが無効または期限切れです"
+  },
+  "notFound": {
+    "title": "404",
+    "description": "お探しのページは存在しません。移動または削除された可能性があります。",
+    "goHome": "ホームへ戻る",
+    "goBack": "前へ戻る"
+  },
+  "forbidden": {
+    "title": "403",
+    "description": "このページにアクセスする権限がありません。",
+    "goDashboard": "スタジオを開く",
+    "goBack": "前へ戻る"
+  },
+  "errors": {
+    "forbidden": "このリソースにアクセスする権限がありません",
+    "accountBanned": "このアカウントは凍結されています"
+  },
+  "credits": {
+    "packages": {
+      "starter": {
+        "title": "スターターパック",
+        "description": "{count} クレジット · ファスト動画約 2 本、または初回の 480p フル動画 1 本。"
+      },
+      "creator": {
+        "title": "クリエイターパック",
+        "description": "{count} クレジット · ファスト動画約 6 本、または 480p のフル動画 3 本。"
+      },
+      "studio": {
+        "title": "スタジオパック",
+        "description": "{count} クレジット · ファスト動画約 16 本、または 480p のフル動画 8 本。"
+      }
+    }
+  },
+  "dashboard": {
+    "nav": {
+      "general": "一般",
+      "history": "生成履歴",
+      "dashboard": "ダッシュボード",
+      "users": "ユーザー",
+      "paidUsers": "有料ユーザー",
+      "adminOperations": "管理者操作履歴",
+      "administration": "管理",
+      "other": "その他",
+      "settings": "設定",
+      "profile": "プロフィール",
+      "security": "セキュリティ",
+      "billing": "請求",
+      "credits": "クレジット",
+      "creditPurchase": "クレジット購入",
+      "creditTransactions": "クレジット履歴",
+      "account": "アカウント",
+      "appearance": "外観",
+      "notifications": "通知",
+      "display": "表示",
+      "upgradeToPro": "プロにアップグレード",
+      "home": "ホーム",
+      "signOut": "ログアウト",
+      "permissionRequired": "{role} ロールが必要です",
+      "permissionRequiredDescription": "この機能は{role}のみ利用できます。開発環境では無効状態で表示され、本番環境では権限のないユーザーには表示されません。",
+      "signOutDialog": {
+        "title": "ログアウト",
+        "description": "ログアウトしてもよろしいですか？再度アカウントにアクセスするにはログインが必要です。",
+        "confirm": "ログアウト"
+      }
+    },
+    "roles": {
+      "user": "ユーザー",
+      "admin": "管理者"
+    },
+    "billing": {
+      "sectionTitle": "会員エリア",
+      "title": "請求",
+      "description": "サブスクリプションと支払い方法を管理します。",
+      "currentPlan": "現在のプラン",
+      "free": "無料",
+      "subscriptionSyncing": "サブスクリプションを有効化中です。しばらくお待ちください。",
+      "manageBilling": "請求を管理",
+      "manageInStore": "ストアで管理",
+      "storeManagedMessage": "現在の会員権限は App Store または Google Play で管理されています。アップグレード、解約、変更はアプリまたはストアで行ってください。",
+      "storeManagedPlansDescription": "このサブスクリプションのプラン変更や解約はストア側で行う必要があります。",
+      "plansTitle": "利用可能なプラン",
+      "plansDescription": "最適なプランを選択してください。",
+      "membershipTypes": {
+        "monthly": "月額会員",
+        "yearly": "年額会員",
+        "lifetime": "永久会員",
+        "subscription": "サブスク会員"
+      },
+      "lifetimeLabel": "永久",
+      "trialLabel": "トライアル",
+      "startCheckout": "チェックアウトへ",
+      "currentPlanCta": "現在のプラン",
+      "upgradeSubscription": "今すぐアップグレード",
+      "alreadyLifetime": "すでに永久会員です",
+      "downgradeNotAllowed": "アップグレードのみ可能です",
+      "checkoutError": "決済に失敗しました",
+      "portalError": "請求ポータルを開けませんでした",
+      "upgradeError": "アップグレードに失敗しました",
+      "upgradeSuccess": "サブスクリプションのアップグレードが完了しました。",
+      "upgradeUnavailable": "アップグレード不可",
+      "managedByOtherChannel": "購入元で管理",
+      "noPlans": "プランがありません。",
+      "checkoutDecisionErrors": {
+        "already_lifetime": "すでに永久会員です。",
+        "downgrade_or_same_tier": "現在の会員プランからはアップグレードのみ可能です。",
+        "subscription_upgrade": "サブスクリプション期間はアプリ内でアップグレードできます。",
+        "managed_by_other_channel": "現在の会員権限は別の購入チャネルで管理されています。購入元でアップグレードまたは解約してください。",
+        "current_price": "これは現在のプランです。",
+        "ok": "チェックアウトが利用可能です。",
+        "default": "このプランはご利用いただけません。"
+      }
+    },
+    "credits": {
+      "title": "クレジット",
+      "description": "Web とモバイルで共有されるアカウントクレジットを購入・確認します。",
+      "purchaseTitle": "クレジット購入",
+      "purchaseDescription": "Web とモバイルで共有されるクレジットパッケージを購入します。",
+      "balanceLabel": "現在の残高",
+      "balanceDescription": "購入したクレジットは期限切れになりません。無料クレジットはアカウントルールにより期限切れになる場合があります。",
+      "expiringNotice": "{count} クレジットが 7 日以内に期限切れになります。",
+      "buy": "購入",
+      "checkoutError": "クレジット決済に失敗しました",
+      "orderCreditedToast": "{packageName} のクレジットが反映されました。",
+      "refresh": "更新",
+      "transactionsTitle": "最近の履歴",
+      "transactionsPageTitle": "クレジット履歴",
+      "transactionsDescription": "最近のクレジット残高の変更を確認します。",
+      "loading": "読み込み中...",
+      "emptyPackages": "利用可能なクレジットパッケージはありません。",
+      "emptyTransactions": "クレジット履歴はまだありません。",
+      "transactionColumns": {
+        "type": "種類",
+        "package": "内容",
+        "source": "ソース",
+        "amount": "数量",
+        "date": "日時"
+      },
+      "transactionSources": {
+        "system": "システム",
+        "app": "アプリ",
+        "admin": "管理者",
+        "web": "Web購入",
+        "native": "アプリ内購入"
+      },
+      "transactionFilters": {
+        "all": "すべて",
+        "purchase": "購入",
+        "usage": "消費"
+      },
+      "pagination": {
+        "rowsPerPage": "表示件数",
+        "total": "合計 {total} 件",
+        "pageInfo": "{page} / {pageCount} ページ",
+        "previous": "前のページ",
+        "next": "次のページ"
+      },
+      "transactions": {
+        "signupGrant": "登録特典",
+        "subscriptionGrant": "サブスクリプション クレジット",
+        "purchase": "クレジット購入",
+        "refund": "返金",
+        "usage": "利用",
+        "expiration": "期限切れクレジット",
+        "adjustment": "調整"
+      }
+    },
+    "users": {
+      "title": "ユーザー管理",
+      "description": "登録済みユーザーアカウントを確認・管理します。",
+      "refresh": "更新",
+      "table": {
+        "avatar": "アバター",
+        "name": "名前",
+        "email": "メールアドレス",
+        "contact": "連絡先",
+        "role": "ロール",
+        "ban": "凍結状態",
+        "banned": "凍結中",
+        "active": "有効",
+        "status": "ステータス",
+        "verified": "認証済み",
+        "unverified": "未認証",
+        "signupGrant": "登録クレジット",
+        "signupGranted": "付与済み",
+        "signupPending": "未判定",
+        "signupReasons": {
+          "eligible": "付与済み",
+          "identity_already_granted": "この本人情報は付与済み",
+          "device_already_granted": "この端末は付与済み",
+          "ip_limit": "このネットワークは上限到達",
+          "blocklisted": "ブロックリストに一致",
+          "user_agent_limit": "このブラウザは上限到達"
+        },
+        "actions": "操作",
+        "searchPlaceholder": "ユーザー名を検索",
+        "noResults": "結果がありません。"
+      },
+      "actions": {
+        "openMenu": "メニューを開く",
+        "changeRole": "ロールを変更",
+        "ban": "凍結",
+        "unban": "凍結解除",
+        "banConfirmTitle": "このユーザーを凍結しますか？",
+        "banConfirmDescription": "直ちにサインアウトされ、凍結解除まで保護された機能を利用できなくなります。",
+        "setRoleSuccess": "ロールを更新しました",
+        "setRoleError": "ロールの更新に失敗しました: {message}",
+        "banSuccess": "ユーザーを凍結しました",
+        "banError": "凍結に失敗しました: {message}",
+        "revokeSignupCredits": "残りの登録クレジットを取り消す",
+        "blockEmailDomain": "メールドメインをブロック",
+        "blockIp": "現在の IP をブロック",
+        "blockDevice": "この端末をブロック",
+        "blockConfirm": "ブロック",
+        "blockConfirmTitle": {
+          "email_domain": "このメールドメインをブロックしますか？",
+          "ip": "この IP アドレスをブロックしますか？",
+          "device": "この端末をブロックしますか？"
+        },
+        "blockConfirmDescription": {
+          "email_domain": "このメールドメインからの新規登録は拒否されます。",
+          "ip": "この IP アドレスからの新規登録とサインインは拒否されます。",
+          "device": "この端末からの新規登録とサインインは拒否されます。"
+        },
+        "blockSuccess": "ブロックリストに追加しました",
+        "blockError": "ブロックに失敗しました: {message}",
+        "unbanSuccess": "凍結を解除しました",
+        "unbanError": "凍結解除に失敗しました: {message}",
+        "selfRowDisabled": "自分のアカウントはここでは変更できません"
+      },
+      "operations": {
+        "adjustCredits": "クレジットを調整",
+        "grantTrial": "トライアル会員を付与",
+        "history": "操作履歴",
+        "amount": "調整数",
+        "currentBalance": "現在のクレジット残高",
+        "balanceLoading": "読み込み中...",
+        "balanceUnavailable": "取得できません",
+        "amountPlaceholder": "例: 100 または -50",
+        "amountHelp": "正数で追加、負数で減算します。残高を 0 未満にはできません。",
+        "membershipTier": "トライアル会員プラン",
+        "monthly": "月額プラン",
+        "yearly": "年額プラン",
+        "durationDays": "トライアル有効期間（日）",
+        "trialAccessDescription": "ユーザーは {days} 日間、{plan}の会員特典を体験できます。",
+        "scheduleLoading": "現在のトライアル予定を読み込み中...",
+        "scheduleUnavailable": "現在のトライアル予定を取得できません。",
+        "paidMembershipActive": "このユーザーには有料会員権があるため、トライアルを付与できません。",
+        "noCurrentTrial": "有効または予定中のトライアルはありません。",
+        "currentTrialSchedule": "現在の予定：{plan}、{date} まで",
+        "estimatedTrialEnd": "付与後の予定終了日時：{date}",
+        "days": "{count} 日",
+        "reasonOptional": "理由（任意）",
+        "cancel": "キャンセル",
+        "confirm": "確定",
+        "submitting": "送信中...",
+        "loading": "読み込み中...",
+        "emptyHistory": "操作履歴はありません。",
+        "actions": {
+          "credits.adjust": "クレジットを調整",
+          "membership.grant_trial": "トライアル会員を付与"
+        },
+        "statuses": {
+          "pending": "処理中",
+          "succeeded": "成功",
+          "failed": "失敗"
+        },
+        "summaries": {
+          "credits": "{amount} クレジット調整",
+          "trial": "{tier} · {days} 日"
+        },
+        "feedback": {
+          "creditsAdjusted": "クレジットを調整しました",
+          "trialGranted": "トライアル会員を付与しました",
+          "failed": "操作に失敗しました: {message}"
+        }
+      },
+      "pagination": {
+        "rowsPerPage": "表示件数",
+        "total": "合計 {total} 件",
+        "pageInfo": "{page} / {pageCount} ページ",
+        "previous": "前のページ",
+        "next": "次のページ"
+      }
+    },
+    "adminOperations": {
+      "title": "管理者操作履歴",
+      "description": "すべてのユーザーに対する管理操作を確認します。",
+      "refresh": "更新",
+      "loading": "読み込み中...",
+      "noResults": "現在の条件に一致する操作履歴はありません。",
+      "searchPlaceholder": "ユーザー名を検索",
+      "clearSearch": "検索をクリア",
+      "unknownUser": "不明なユーザー",
+      "filters": {
+        "action": "操作",
+        "status": "ステータス"
+      },
+      "actions": {
+        "credits": {
+          "adjust": "クレジットを調整"
+        },
+        "membership": {
+          "grant_trial": "トライアル会員を付与"
+        }
+      },
+      "statuses": {
+        "pending": "処理中",
+        "succeeded": "成功",
+        "failed": "失敗"
+      },
+      "tiers": {
+        "monthly": "月額プラン",
+        "yearly": "年額プラン"
+      },
+      "summaries": {
+        "creditsAdded": "{amount} クレジット追加",
+        "creditsDeducted": "{amount} クレジット減算",
+        "trial": "{tier}トライアル・有効期間 {days} 日",
+        "trialExtended": "{tier}トライアルを {days} 日延長"
+      },
+      "table": {
+        "time": "操作日時",
+        "operator": "管理者",
+        "target": "対象ユーザー",
+        "action": "操作",
+        "details": "詳細",
+        "status": "ステータス",
+        "reason": "理由 / エラー"
+      },
+      "pagination": {
+        "rowsPerPage": "表示件数",
+        "total": "合計 {total} 件",
+        "previous": "前のページ",
+        "next": "次のページ"
+      }
+    },
+    "paidUsers": {
+      "title": "有料ユーザー",
+      "description": "Web と Native の決済プロバイダーを横断して会員状態を確認します。",
+      "refresh": "更新",
+      "clearSearch": "検索をクリア",
+      "accountBanned": "停止中",
+      "priceUnavailable": "価格設定なし",
+      "complimentary": "無料付与",
+      "oneTime": "買い切り",
+      "notApplicable": "無期限",
+      "endsAtPeriod": "この日に利用終了",
+      "renewsAtPeriod": "次回更新日",
+      "states": {
+        "paid": "支払済み",
+        "trial": "トライアル",
+        "ended": "終了"
+      },
+      "tiers": {
+        "monthly": "月額会員",
+        "yearly": "年額会員",
+        "lifetime": "永久会員",
+        "credits": "クレジットパック"
+      },
+      "sources": {
+        "subscription": "サブスクリプション",
+        "lifetime": "買い切り購入",
+        "admin_trial": "管理者付与",
+        "credits": "都度購入"
+      },
+      "providers": {
+        "stripe": "Stripe",
+        "creem": "Creem",
+        "waffo": "Waffo",
+        "revenuecat": "RevenueCat",
+        "admin": "管理者"
+      },
+      "intervals": {
+        "month": "月額",
+        "year": "年額"
+      },
+      "statuses": {
+        "active": "有効",
+        "trialing": "トライアル中",
+        "past_due": "支払期限超過",
+        "paused": "一時停止",
+        "canceled": "解約済み",
+        "incomplete": "未完了",
+        "unpaid": "未払い",
+        "succeeded": "購入済み",
+        "refunded": "返金済み",
+        "expired": "期限切れ",
+        "canceling": "期間終了時に解約"
+      },
+      "filters": {
+        "state": "状態",
+        "tier": "会員タイプ",
+        "provider": "決済サービス"
+      },
+      "table": {
+        "user": "ユーザー",
+        "membership": "会員プラン",
+        "listPrice": "プラン価格",
+        "provider": "決済サービス",
+        "status": "状態",
+        "startedOrPaidAt": "開始 / 購入日時",
+        "renewal": "更新 / 終了",
+        "latestBillingAt": "最終同期",
+        "searchPlaceholder": "ユーザー名を検索",
+        "noResults": "有料ユーザーの記録はありません。",
+        "creditPurchases": "クレジット購入",
+        "source": "流入元"
+      },
+      "pagination": {
+        "rowsPerPage": "1ページの件数",
+        "total": "全 {total} 件",
+        "previous": "前のページ",
+        "next": "次のページ"
+      },
+      "creditPurchasesSummary": "{count} 件 · {credits} クレジット",
+      "sourceUnknown": "流入元の記録開始前に登録",
+      "channels": {
+        "chatgpt": "ChatGPT",
+        "perplexity": "Perplexity",
+        "gemini": "Gemini",
+        "claude": "Claude",
+        "copilot": "Copilot",
+        "google": "Google 検索",
+        "bing": "Bing",
+        "yandex": "Yandex",
+        "duckduckgo": "DuckDuckGo",
+        "baidu": "Baidu",
+        "x": "X (Twitter)",
+        "tiktok": "TikTok",
+        "instagram": "Instagram",
+        "facebook": "Facebook",
+        "youtube": "YouTube",
+        "reddit": "Reddit",
+        "referral": "その他のサイト",
+        "direct": "直接アクセス",
+        "unknown": "不明"
+      },
+      "acquisition": {
+        "title": "流入元別の売上",
+        "subtitle": "購入者が最初にどこから来たか（登録前の初回訪問）。",
+        "loading": "読み込み中…",
+        "empty": "まだ流入元の記録がありません。新規登録ユーザーがここに表示されます。",
+        "channel": "流入元",
+        "signups": "登録",
+        "creditBuyers": "パック購入者",
+        "creditOrders": "パック注文",
+        "revenue": "パック売上",
+        "members": "会員",
+        "note": "「不明」は流入元の記録開始前に登録したアカウントです。売上は完了したクレジットパック注文のみを集計します。"
+      }
+    },
+    "sections": {
+      "totalRevenue": "総収益",
+      "newCustomers": "新規顧客",
+      "activeAccounts": "アクティブアカウント",
+      "growthRate": "成長率",
+      "trendingUp": "今月は上昇傾向",
+      "trendingDown": "この期間は {percent}% 減少",
+      "visitorsLast6Months": "過去6ヶ月間の訪問者数",
+      "acquisitionAttention": "獲得に注意が必要",
+      "strongRetention": "高いユーザー定着率",
+      "engagementExceed": "エンゲージメントが目標を上回る",
+      "steadyPerformance": "安定したパフォーマンス向上",
+      "meetsGrowth": "成長予測に一致"
+    },
+    "settings": {
+      "profile": {
+        "title": "プロフィール",
+        "description": "これは、サイト上でのあなたの見え方です。",
+        "name": "名前",
+        "namePlaceholder": "名前を入力",
+        "nameDescription": "これはあなたの公開表示名です。実名でもペンネームでも構いません。",
+        "nameMinLength": "名前は2文字以上必要です。",
+        "nameMaxLength": "姓名は20文字以下です。",
+        "email": "メールアドレス",
+        "emailDescription": "メールアドレスはログインと通知に使用されます。",
+        "phone": "電話番号",
+        "phoneDescription": "認証済みの電話番号でログインできます。",
+        "notLinked": "未連携",
+        "avatar": "アバター",
+        "avatarDescription": "これはあなたのプロフィール写真です。",
+        "changeAvatar": "アバターを変更",
+        "avatarUploading": "アップロード中...",
+        "avatarUploadSuccess": "アバターが更新されました",
+        "avatarUploadError": "アバターのアップロードに失敗しました",
+        "avatarInvalidType": "有効な画像ファイル（JPEG、PNG、GIF、または WebP）をアップロードしてください",
+        "avatarTooLarge": "画像が大きすぎます。最大サイズは 5MB です",
+        "save": "変更を保存",
+        "saving": "保存中...",
+        "success": "プロフィールが更新されました。",
+        "error": "プロフィールの更新に失敗しました。"
+      }
+    },
+    "security": {
+      "title": "セキュリティ",
+      "description": "アカウントのパスワード設定を管理します。",
+      "socialDescription": "アカウントのセキュリティはソーシャルログインプロバイダーによって管理されています。",
+      "loading": "読み込み中...",
+      "loginMethods": {
+        "socialLogin": "ソーシャルログイン",
+        "socialLoginActive": "ソーシャルアカウントでログインしています",
+        "active": "有効"
+      },
+      "security": {
+        "title": "セキュリティ状態",
+        "socialLoginSecurity": "あなたのアカウントは {providers} によって保護されています。これらのプラットフォームは二要素認証を含む業界標準のセキュリティ対策を使用しています。"
+      },
+      "password": {
+        "title": "パスワード",
+        "description": "メールログイン用のパスワードを設定またはリセットします。",
+        "hasPassword": "このアカウントにはパスワードが設定されています。",
+        "sendReset": "リセットメールを送信",
+        "sendingReset": "送信中...",
+        "resetSent": "リセットメールを送信しました。",
+        "statusError": "パスワード状態を読み込めません。"
+      },
+      "phone": {
+        "title": "電話番号ログイン",
+        "verified": "認証済み",
+        "verifiedNumber": "認証済み番号: {phoneNumber}"
+      }
+    },
+    "usersTable": {
+      "title": "ユーザー管理",
+      "description": "useDataTableフックとURLベースの状態管理を使用したテーブルの例",
+      "filterPlaceholder": "ユーザーを絞り込み...",
+      "columns": "列",
+      "selectAll": "すべて選択",
+      "selectRow": "行を選択",
+      "name": "名前",
+      "email": "メール",
+      "status": "ステータス",
+      "role": "役割",
+      "createdAt": "作成日",
+      "actions": "アクション",
+      "openMenu": "メニューを開く",
+      "copyUserId": "ユーザーIDをコピー",
+      "viewUser": "ユーザーを表示",
+      "editUser": "ユーザーを編集",
+      "noResults": "結果がありません。",
+      "rowsSelected": "{selected} / {total} 行が選択されています。",
+      "previous": "前へ",
+      "next": "次へ",
+      "statusOptions": {
+        "active": "アクティブ",
+        "inactive": "非アクティブ",
+        "pending": "保留中"
+      },
+      "roleOptions": {
+        "admin": "管理者",
+        "user": "ユーザー",
+        "moderator": "モデレーター"
+      }
+    },
+    "cards": {
+      "totalEarning": "総収入",
+      "comparisonText": "昨年と比較 ($84,325)",
+      "menu": "メニュー",
+      "menuActions": {
+        "share": "共有",
+        "update": "更新",
+        "refresh": "更新"
+      }
+    },
+    "statistics": {
+      "shippedOrders": "発送済み注文",
+      "damagedReturns": "破損返品",
+      "missedDeliverySlots": "配送時間の逃し",
+      "thanLastWeek": "先週より"
+    },
+    "productInsights": {
+      "title": "製品インサイト",
+      "publishedOn": "2025年5月12日 午後6:10 に公開",
+      "productReached": "製品リーチ",
+      "orderPlaced": "注文配置",
+      "productAlt": "製品"
+    },
+    "salesMetrics": {
+      "title": "売上指標",
+      "companyName": "Sandy の会社",
+      "companyEmail": "sandy@company.com",
+      "salesTrend": "売上トレンド",
+      "discountOffers": "割引オファー",
+      "netProfit": "純利益",
+      "totalOrders": "総注文数",
+      "revenueGoal": "収益目標",
+      "totalProfit": "総利益",
+      "planCompleted": "計画完了",
+      "salesPlan": "売上計画",
+      "percentageProfit": "総売上からの利益率",
+      "cohortAnalysis": "コホート分析指標",
+      "cohortDescription": "同じ時期に製品/サービスに参加したユーザーグループの一定期間における行動を分析します。",
+      "openStatistics": "オープン統計",
+      "percentageChange": "パーセンテージ変化",
+      "months": {
+        "january": "1月",
+        "february": "2月",
+        "march": "3月"
+      }
+    },
+    "chart": {
+      "totalVisitors": "総訪問者数",
+      "totalForLast3Months": "過去3ヶ月の合計",
+      "last3Months": "過去3ヶ月",
+      "last30Days": "過去30日",
+      "last7Days": "過去7日",
+      "selectValue": "値を選択",
+      "visitors": "訪問者",
+      "desktop": "デスクトップ",
+      "mobile": "モバイル"
+    }
+  },
+  "billingSuccess": {
+    "title": "決済が完了しました",
+    "description": "ご利用ありがとうございます。まもなく権限が更新されます。",
+    "syncingTitle": "サブスクリプション状況を確認中",
+    "syncingDescription": "有効化が完了すると請求ページへ自動的に移動します。",
+    "goToBilling": "請求へ戻る"
+  },
+  "billingCancel": {
+    "title": "決済がキャンセルされました",
+    "description": "いつでも再度チェックアウトできます。",
+    "backToBilling": "請求へ戻る"
+  },
+  "pwa": {
+    "updateAvailable": "新しいバージョンを利用できます。",
+    "updateAction": "更新",
+    "laterAction": "後で",
+    "installAvailable": "アプリをデスクトップにインストール",
+    "mobileInstallAvailable": "アプリをホーム画面に追加",
+    "installDescription": "デバイスに追加すると、すばやくアクセスできます。",
+    "desktopInstallDescription": "ブラウザのアドレスバーにあるインストール アイコンを選択してください。",
+    "androidInstallDescription": "右上のメニューから「ホーム画面に追加」または「アプリをインストール」を選択してください。",
+    "installAction": "インストール",
+    "iosInstallAvailable": "iPhone または iPad にインストール",
+    "iosInstallDescription": "Safari の共有メニューから「ホーム画面に追加」を選択してください。",
+    "gotItAction": "了解"
+  },
+  "seo": {
+    "home": {
+      "description": "出来上がったテンプレートで、普段の写真をそのまま投稿できる動画に。"
+    },
+    "noIndex": {
+      "descriptionTemplate": "{page}ページは内部フローのため、検索エンジンのインデックス対象外です。",
+      "pages": {
+        "auth": "認証",
+        "billing": "請求",
+        "dashboard": "ダッシュボード",
+        "notFound": "未検出"
+      }
+    }
+  },
+  "legal": {
+    "common": {
+      "lastUpdatedLabel": "最終更新日",
+      "contactLabel": "お問い合わせ",
+      "effectiveDate": "2026-01-01"
+    },
+    "privacy": {
+      "title": "プライバシーポリシー",
+      "description": "本ポリシーは、{appName} がアカウント、アップロードされた写真、生成した動画、ご利用のクレジットをどのように扱うかを説明します。",
+      "sections": {
+        "whoWeAre": {
+          "title": "運営者について",
+          "content": "{appName} は、出来上がったテンプレートを使って写真を短い動画に変えるオンラインサービスです。当社はウェブサイトと、その背後にあるアカウント・ストレージ・生成サービスを運営しています。\n\n本ポリシーはウェブサイトと生成サービスに適用されます。"
+        },
+        "informationCollect": {
+          "title": "収集する情報",
+          "content": "アカウント情報：メールアドレス、名前、ログイン方法。外部サービスでログインした場合は、そのサービスが共有する基本プロフィール。\n\nコンテンツ：アップロードされた写真と、それをもとに生成された動画。\n\n利用・端末情報：閲覧ページ、IP アドレスから推定されるおおよその地域、ブラウザの種類、無料クレジットの不正利用防止に使う端末識別子。\n\n支払い情報：購入は決済代行会社が処理します。当社が受け取るのは購入記録のみで、カード情報全体は受け取りません。"
+        },
+        "howWeUse": {
+          "title": "情報の利用目的",
+          "content": "サービス提供のために情報を利用します：ログイン、ご依頼の動画の生成、アカウントへの保存、支払いとクレジットの処理、サポート、不正・悪用の防止、サービスの改善。"
+        },
+        "photosAndVideos": {
+          "title": "写真と生成動画",
+          "content": "動画を生成する際、写真とテンプレートの参照映像が動画生成プロバイダーに送信され、結果が生成されます。プロバイダーはご依頼を完了するためにのみこれらのファイルを処理します。\n\n写真に写った人物は結果の動画でも識別できます。使用する権利があり、本人が出演に同意した写真だけをアップロードしてください。子どもの写真はアップロードしないでください。\n\n生成動画は AI による再現であり、不完全な場合があります。写真の人物の意見を表すものではありません。"
+        },
+        "informationSharing": {
+          "title": "第三者提供",
+          "content": "サービス運営を支援する事業者（ホスティング、ストレージ、メール、決済、分析、動画生成）、法令で求められた場合、またはユーザーとサービスの権利・安全を守るために必要な場合にのみ情報を共有します。個人情報を販売することはありません。"
+        },
+        "dataRetention": {
+          "title": "保存と削除",
+          "content": "アップロードされた写真は動画作成から 30 日後に自動で削除されます。生成動画はアカウントが存在する間、アカウントに保存されます。\n\nアカウントと保存データの早期削除をご希望の場合は {supportEmail} までご連絡ください。法令、紛争、不正防止、支払いのために必要な範囲で、限られた記録を保持することがあります。"
+        },
+        "security": {
+          "title": "セキュリティ",
+          "content": "通信の暗号化、アクセス制御、非公開ストレージで情報を保護しています。完全に安全なシステムは存在しないため、強力なパスワードや信頼できるログイン方法をご利用ください。"
+        },
+        "cookies": {
+          "title": "Cookie と分析",
+          "content": "ログイン状態の維持や、言語・テーマなどの設定の保存に Cookie を使用します。分析を有効にしている場合は、サイト全体の利用状況の把握に使用します。"
+        },
+        "yourRights": {
+          "title": "お客様の権利",
+          "content": "保有する情報の開示、訂正、エクスポート、削除を請求できます。アカウントのメールアドレスから {supportEmail} までご連絡ください。お住まいの地域の法令により、データ保護当局への申し立てなど追加の権利がある場合があります。"
+        },
+        "children": {
+          "title": "子どもについて",
+          "content": "本サービスは 16 歳未満を対象としていません。16 歳未満の方は登録や写真のアップロードをしないでください。また、16 歳未満の人の写真をアップロードしないでください。子どものデータを保有していると思われる場合はご連絡ください。削除いたします。"
+        },
+        "contactUs": {
+          "title": "お問い合わせ",
+          "content": "プライバシーに関するご質問・ご請求：{supportEmail}"
+        }
+      }
+    },
+    "terms": {
+      "title": "利用規約",
+      "description": "本規約は、お客様と {appName} の運営者との間の契約です。ログインまたは動画の生成をもって本規約に同意したものとみなします。",
+      "sections": {
+        "theService": {
+          "title": "サービス内容",
+          "content": "{appName} では、動画テンプレートを選び、写真をアップロードして、生成された短い動画を受け取ることができます。動画の生成にはクレジットを使用し、開始前に費用が表示されます。"
+        },
+        "accountResponsibilities": {
+          "title": "アカウント",
+          "content": "ログイン情報を安全に管理し、不正利用に気づいた場合はご連絡ください。アカウントでの行為はお客様の責任となります。1 アカウントにつき 1 人でご利用ください。"
+        },
+        "photosAndConsent": {
+          "title": "写真と同意",
+          "content": "使用する権利があり、写っている人が生成動画への出演に同意した写真だけをアップロードしてください。子ども、著名人、権利を持たない写真はアップロードしないでください。"
+        },
+        "acceptableUse": {
+          "title": "禁止事項",
+          "content": "違法、嫌がらせ、性的、欺瞞的、なりすましにあたるコンテンツの作成、サービスの妨害・過負荷・リバースエンジニアリングは禁止です。規約に反するコンテンツは生成を拒否または削除することがあります。"
+        },
+        "intellectualProperty": {
+          "title": "コンテンツと権利",
+          "content": "写真についての既存の権利はお客様に残り、当社はサービス提供のために処理する限定的な許諾を受けます。アカウントで生成した動画は、写っている人の権利と投稿先のルールを守る範囲で、ダウンロード・保存・共有できます。サービス、テンプレート、サイトのコンテンツの権利は当社に帰属します。"
+        },
+        "billingAndRefunds": {
+          "title": "クレジット・支払い・返金",
+          "content": "クレジットはパックまたはサブスクリプションで購入し、生成時に使用されます。生成に失敗した場合、クレジットは自動で返却されます。法令で返金が求められる場合を除き、購入は確定となります。サブスクリプションは解約するまで自動更新され、請求設定からいつでも解約できます。"
+        },
+        "disclaimers": {
+          "title": "免責",
+          "content": "生成動画は AI によって作成され、誤りや不自然な部分を含むことがあります。法令で認められる範囲で、本サービスは現状有姿で提供され、いかなる保証も行いません。"
+        },
+        "liabilityLimit": {
+          "title": "責任の制限",
+          "content": "法令で認められる範囲で、請求に対する当社の責任の総額は、請求前 12 か月間にお客様が当社に支払った金額を上限とします。"
+        },
+        "termination": {
+          "title": "解約・停止",
+          "content": "お客様はいつでも利用をやめられます。アカウントの削除は {supportEmail} までご連絡ください。本規約に違反したアカウントは停止または削除することがあります。"
+        },
+        "changesToTerms": {
+          "title": "規約の変更",
+          "content": "本規約は更新されることがあります。重要な変更は発効前にお知らせします。引き続き利用された場合、更新後の規約に同意したものとみなします。"
+        },
+        "contactUs": {
+          "title": "お問い合わせ",
+          "content": "本規約に関するご質問：{supportEmail}"
+        }
+      }
+    }
+  },
+  "video": {
+    "nav": {
+      "home": "ホーム",
+      "templates": "テンプレート",
+      "studio": "スタジオ",
+      "howItWorks": "使い方",
+      "pricing": "料金",
+      "faq": "よくある質問",
+      "blog": "ブログ",
+      "startCreating": "作ってみる",
+      "openMenu": "メニューを開く",
+      "closeMenu": "メニューを閉じる"
+    },
+    "footer": {
+      "product": "プロダクト",
+      "templates": "テンプレート",
+      "resources": "リソース",
+      "description": "普段の写真を、そのまま投稿できるトレンド動画に。テンプレートを選んで写真を入れるだけで、数分で MP4 が届きます。",
+      "disclaimer": "{appName} は独立したクリエイティブツールです。出演に同意した人の写真だけをアップロードしてください。動画は AI が生成するため、不自然な部分が含まれることがあります。",
+      "copyright": "© {year} {appName}. All rights reserved."
+    },
+    "card": {
+      "alt": "{name} テンプレートのプレビュー",
+      "new": "NEW",
+      "seconds": "{seconds}秒",
+      "fromCredits": "{credits} クレジットから",
+      "photos": "写真 {count} 枚",
+      "photoRange": "写真 {min}〜{max} 枚"
+    },
+    "templates": {
+      "duo_dance": {
+        "name": "デュオダンス",
+        "tagline": "ふたりで同じ振り付けを。明るいスタジオでシンクロダンス。",
+        "description": "写真を 2 枚アップロードすると、ふたりが並んで同じ振り付けを踊ります。登場、シンクロダンス、アップ、そして同じポーズでフィニッシュ。縦型・約 20 秒・音楽付き。",
+        "keywords": "AI ダンス動画, ふたりの AI 動画, 写真からダンス動画, AI デュオダンス, TikTok ダンステンプレート",
+        "hashtag": "デュオダンス #AIダンス",
+        "leftRole": "左のダンサー",
+        "rightRole": "右のダンサー"
+      },
+      "solo_spotlight": {
+        "name": "ソロスポットライト",
+        "tagline": "写真 1 枚で、スポットライトはあなたのもの。",
+        "description": "写真 1 枚で OK。照明が点き、決めポーズを見せて、スモークの舞台でお辞儀。ペットの写真にも対応。縦型・約 10 秒・音楽付き。",
+        "keywords": "AI ステージ動画, 写真 1 枚で動画, ペット AI 動画, 写真から動画, AI パフォーマンス",
+        "hashtag": "スポットライト #AI動画",
+        "leftRole": "主役"
+      },
+      "squad_walk": {
+        "name": "スクワッドウォーク",
+        "tagline": "最大 3 人で、ネオン街をスローモーションで登場。",
+        "description": "写真を 1〜3 枚追加すると、ネオンの街をスローモーションでカメラに向かって歩いてきます。なびく髪、ひるがえるコート、最後はカメラ目線。横型・約 12 秒・音楽付き。",
+        "keywords": "スローモーション AI, 登場シーン動画, 友だち AI 動画, グループ AI 動画, シネマティック AI",
+        "hashtag": "スローモーション #登場シーン",
+        "leftRole": "中央",
+        "middleRole": "左",
+        "rightRole": "右"
+      }
+    },
+    "slots": {
+      "photoNumber": "写真 {n}",
+      "upload": "写真を追加",
+      "replace": "変更",
+      "remove": "写真を削除",
+      "hint": "JPG・PNG・WebP · 20 MB まで · はっきり写った正面の顔 1 人",
+      "photoRule": "あなた自身か、出演に同意した友だちの普段の写真を使ってください。著名人の写真や映画・MV のスクリーンショットは審査を通りません。",
+      "count": "{count}/{total} 枚",
+      "optional": "{min} 枚で OK。最大 {total} 枚まで追加して友だちと一緒に。",
+      "petsHint": "ペットも OK：猫や犬などのはっきりした正面写真を、1 枚に 1 匹で。",
+      "personOrPet": "人またはペット"
+    },
+    "errors": {
+      "fileType": "JPG・PNG・WebP の画像を使ってください。",
+      "fileSize": "写真は 1 枚 20 MB 以下にしてください。",
+      "tooSmall": "写真が小さすぎます。各辺 300 px 以上の写真を使ってください。",
+      "aspect": "写真が縦長または横長すぎます。縦長か正方形に近い形にトリミングしてください。",
+      "unreadable": "この画像を読み込めませんでした。別のファイルを試してください。",
+      "needPhotos": "{count, plural, one {先に写真を追加してください。} other {先に # 枚すべての写真を追加してください。}}",
+      "insufficientCredits": "クレジットが足りません。",
+      "notConfigured": "スタジオの準備がまだできていません。しばらくしてからお試しください。",
+      "submitFailed": "生成を開始できませんでした。クレジットは使われていません。",
+      "generic": "問題が発生しました。もう一度お試しください。",
+      "photoRejected": "審査を通らなかった写真があります。著名人、報道写真、著作権のある画像は使えません。あなた自身か、出演に同意した友だちの普段の写真を試してください。",
+      "photoNumberRejected": "写真 {n} が審査を通りませんでした。著名人、未成年、報道写真、著作権のある画像は使えません。あなた自身か、出演に同意した友だちの普段の写真を試してください。",
+      "contentBlocked": "動画モデルのコンテンツ審査でブロックされました。あなた自身か、出演に同意した友だちの普段の写真を使ってください。",
+      "renderTimeout": "生成に時間がかかりすぎたため停止しました。もう一度お試しください。"
+    },
+    "studio": {
+      "templateLabel": "テンプレート",
+      "templateMeta": "{photos} · {seconds}秒",
+      "trySamples": "サンプル写真で試す",
+      "cost": "この動画は {cost} クレジット",
+      "firstFull": "初回フル動画の特別価格",
+      "version": {
+        "label": "バージョン",
+        "premium": "プレミアム",
+        "fast": "ファスト",
+        "full": "フル動画 · {seconds}秒",
+        "highlight": "ハイライト · {seconds}秒",
+        "from": "{cost} クレジットから",
+        "highlightHint": "ファストは見どころの {seconds} 秒を生成します。{total} 秒のフル動画はプレミアムで。"
+      },
+      "quality": {
+        "label": "画質",
+        "480p": "480p · 標準",
+        "720p": "720p · HD",
+        "1080p": "1080p · フル HD",
+        "credits": "{cost} クレジット",
+        "eta": "約 {minutes} 分",
+        "premiumOnly": "プレミアムのみ"
+      },
+      "balance": "残高：{balance} クレジット",
+      "generate": "動画を生成",
+      "signInToGenerate": "ログインして生成",
+      "viewSample": "サンプル結果を見る",
+      "sampleFree": "サンプル写真：無料プレビュー、クレジット不要",
+      "buyCredits": "クレジットを購入",
+      "submitting": "送信中…",
+      "consent": "生成すると、写っている全員が出演に同意したことを確認したものとみなします。",
+      "result": {
+        "title": "あなたの動画",
+        "emptyTitle": "ここに動画が表示されます",
+        "emptyBody": "写真を追加して「生成」を押してください。通常は数分で完成します。",
+        "sampleBadge": "サンプル",
+        "sampleNote": "サンプル写真から事前に作った動画です。",
+        "sampleTierNote": "サンプル写真から事前に作った動画です（{tier} · {quality}）。",
+        "useOwnPhotos": "自分の写真を使う",
+        "processing": "生成中… {progress}%",
+        "reviewing": "写真を審査中…",
+        "reviewingHint": "通常は数秒、まれに数分かかります。審査を通ると自動で生成が始まります。",
+        "failed": "生成に失敗しました。",
+        "refunded": "{cost} クレジットを残高に戻しました。",
+        "failedReason": "理由：{reason}",
+        "download": "MP4 をダウンロード",
+        "again": "もう一本作る",
+        "videoLabel": "生成された動画",
+        "mixing": "音楽を追加しています…",
+        "share": {
+          "button": "シェア",
+          "preparing": "シェアの準備中…",
+          "title": "投稿先",
+          "platforms": {
+            "tiktok": "TikTok",
+            "instagram": "Instagram リール",
+            "youtube": "YouTube ショート"
+          },
+          "desktopHint": "ボタンを押すと動画をダウンロードし、キャプションをコピーしてアップロードページを開きます。動画をドラッグしてキャプションを貼り付けてください。",
+          "desktopReady": "動画のダウンロードとキャプションのコピーが完了しました。開いたページに動画をドラッグし、キャプションを貼り付けてください。",
+          "captionCopied": "キャプションをコピーしました。投稿時に貼り付けてください。",
+          "failed": "シェアを開けませんでした。動画をダウンロードして手動で投稿してください。",
+          "musicHint": "アプリで音声がミュートされた場合は、アプリ内の音楽ライブラリから曲を追加してください。",
+          "caption": "{site} で自分の {name} 動画を作ってみた ✨ #AI動画 #{tag}"
+        },
+        "wait": {
+          "steps": {
+            "review": "写真の審査",
+            "render": "生成中",
+            "music": "音楽を追加"
+          },
+          "elapsed": "経過 {time}",
+          "remaining": "残り約 {minutes} 分",
+          "almostDone": "もうすぐ完成…",
+          "slower": "いつもより少し時間がかかっています",
+          "notify": "完成したら通知する",
+          "notifyOn": "完成したらこのブラウザで通知します",
+          "refundNote": "クレジットは保留中です。失敗した場合は自動で戻ります。",
+          "tips": {
+            "leave": "このページを離れても大丈夫。完成した動画は「マイ動画」に保存されます。",
+            "share": "完成したらスマホからそのままシェアできます。",
+            "quality": "ヒント：まず 480p で試して、気に入ったら 720p や 1080p で作り直しましょう。",
+            "templates": "待っている間にほかのテンプレートもどうぞ。同じ写真が使えます。"
+          },
+          "tabProcessing": "（{percent}%）動画を生成中…",
+          "tabDone": "✅ 動画が完成しました",
+          "tabFailed": "⚠️ 生成に失敗しました",
+          "notifyDoneTitle": "動画が完成しました 🎬",
+          "notifyDoneBody": "{template} の動画ができました。クリックして見る。",
+          "notifyFailedTitle": "生成に失敗しました",
+          "notifyFailedBody": "クレジットは返却されました。クリックして理由を確認。"
+        },
+        "sampleEmptyLabel": "{name} のサンプル動画",
+        "sampleEmptyBody": "サンプル写真から作った動画です。写真を追加して、あなたのバージョンを作りましょう。"
+      },
+      "history": {
+        "title": "マイ動画",
+        "empty": "まだ動画はありません。",
+        "processing": "生成中",
+        "succeeded": "完成",
+        "failed": "失敗",
+        "view": "見る"
+      },
+      "page": {
+        "eyebrow": "スタジオ · テンプレート {count} 件",
+        "title": "動画を作る",
+        "subtitle": "テンプレートを選び、写真を追加して、バージョンを選ぶだけ。生成前に正確な価格が表示されます。"
+      },
+      "templatesSection": {
+        "title": "すべてのテンプレート",
+        "subtitle": "どれも同じ写真で作れます。テンプレートを開いてプレビューと詳細をチェック。"
+      },
+      "selected": {
+        "label": "選択中のテンプレート",
+        "viewPage": "テンプレートの詳細"
+      },
+      "faq": {
+        "title": "スタジオのよくある質問",
+        "items": {
+          "choose": {
+            "q": "どのテンプレートを選べばいい？",
+            "a": "投稿したいシーンを選んでください。テンプレートごとに動き・カメラ・音楽が決まっていて、必要な写真の枚数も決まっています。写真の枠に、その写真が誰を演じるかが表示されます。"
+          },
+          "photos": {
+            "q": "どんな写真がいい？",
+            "a": "1 枚に 1 人、正面の顔がはっきり写った明るい写真がおすすめです。あなた自身か、同意した友だちの写真を使ってください。著名人の写真や映画のスクリーンショットは審査を通りません。"
+          },
+          "time": {
+            "q": "動画はどれくらいでできる？",
+            "a": "写真の審査を含めて通常は数分です。ページを離れても大丈夫。完成した動画は「マイ動画」に保存され、ブラウザで通知も受け取れます。"
+          },
+          "refund": {
+            "q": "生成に失敗したら？",
+            "a": "その生成のクレジットは自動で残高に戻ります。別の写真でもう一度試してください。"
+          },
+          "privacy": {
+            "q": "写真や動画は非公開？",
+            "a": "はい。写真と動画はあなたのアカウントでのみ表示され、アップロードした写真は 30 日後に自動で削除されます。"
+          }
+        }
+      }
+    },
+    "gallery": {
+      "seo": {
+        "title": "動画テンプレート",
+        "description": "すべての動画テンプレートを見る。写真を 1〜3 枚アップロードするだけで、音楽付きのそのまま投稿できる縦型・横型動画が数分で完成します。",
+        "keywords": "AI 動画テンプレート, 写真から動画, AI ダンス動画, バズる動画テンプレート, AI 動画作成"
+      },
+      "eyebrow": "テンプレート {count} 件",
+      "title": "あなたの瞬間を選ぼう",
+      "subtitle": "どのテンプレートも出来上がったシーン。写真を入れれば主役はあなた。プロンプトも編集も不要です。",
+      "ctaTitle": "写真の準備はできた？",
+      "ctaBody": "スタジオでテンプレートを切り替えて、生成前に価格を確認できます。",
+      "ctaButton": "スタジオを開く",
+      "viewAll": "すべてのテンプレートを見る",
+      "moreEyebrow": "テンプレート",
+      "moreTitle": "ほかのテンプレート",
+      "moreSubtitle": "同じ写真で、違うシーンを。"
+    },
+    "templatePage": {
+      "seoTitle": "{name} — AI 動画テンプレート | {appName}",
+      "back": "すべてのテンプレート",
+      "eyebrow": "テンプレート",
+      "playSample": "サンプル動画を再生",
+      "facts": {
+        "photos": "写真",
+        "length": "長さ",
+        "format": "画角",
+        "from": "価格",
+        "seconds": "約 {seconds} 秒",
+        "credits": "{credits} クレジットから"
+      },
+      "stepsEyebrow": "使い方",
+      "stepsTitle": "3 ステップで「{name}」動画を作る",
+      "steps": {
+        "upload": {
+          "title": "写真を追加",
+          "body": "このテンプレートは最大 {photos} 枚の写真を使います。1 枚に 1 人、顔がはっきり写った写真で。"
+        },
+        "render": {
+          "title": "バージョンを選んで生成",
+          "body": "ファストかプレミアムと画質を選びます。{credits} クレジットから、生成前に価格が表示されます。"
+        },
+        "share": {
+          "title": "ダウンロードしてシェア",
+          "body": "約 {seconds} 秒・{aspect} の音楽付き MP4 を TikTok・リール・ショートにそのまま投稿できます。"
+        }
+      },
+      "faqTitle": "このテンプレートについて",
+      "faq": {
+        "photos": {
+          "q": "写真は何枚必要？",
+          "a": "最大 {photos} 枚です。1 枚の写真がシーンの 1 人を演じます。出演に同意した人の普段の写真を使ってください。"
+        },
+        "time": {
+          "q": "どれくらいかかる？",
+          "a": "{seconds} 秒の動画なら、写真の審査を含めて通常数分です。"
+        },
+        "refund": {
+          "q": "うまくいかなかったら？",
+          "a": "生成に失敗した場合、クレジットは自動で返却されるので、もう一度試せます。"
+        },
+        "privacy": {
+          "q": "動画は誰が見られる？",
+          "a": "あなただけです。動画はアカウントに保存され、アップロードした写真は 30 日後に自動で削除されます。"
+        },
+        "commercial": {
+          "q": "SNS に投稿してもいい？",
+          "a": "はい、MP4 は自由に投稿できます。写っている全員が出演に同意していることを確認してください。"
+        }
+      }
+    },
+    "home": {
+      "hero": {
+        "badge": "NEW",
+        "announce": "{name} テンプレート",
+        "title": "あなたの写真が、",
+        "titleMuted": "次のお気に入り動画に。",
+        "subtitle": "{count} 種類のシーンから選んで写真を数枚入れるだけ。音楽付きでそのまま投稿できる動画が数分で完成。プロンプトも編集も不要です。",
+        "primary": "作ってみる",
+        "secondary": "テンプレートを見る",
+        "note": "プロンプト不要 · ウォーターマークなし · 失敗時は自動返金"
+      },
+      "showcase": {
+        "eyebrow": "ショーケース",
+        "title": "テンプレートで作った動画",
+        "subtitle": "どのシーンも動き・カメラ・音楽はそのまま。誰が出演するかは、あなたの写真が決めます。"
+      },
+      "steps": {
+        "eyebrow": "使い方",
+        "title": "3 ステップで完成",
+        "subtitle": "タイムラインもプロンプトもいりません。写真を選べれば作れます。",
+        "items": {
+          "pick": {
+            "title": "テンプレートを選ぶ",
+            "body": "ダンス、ステージ、シネマティックなウォークなど、カメラと音楽が決まったシーンから選びます。"
+          },
+          "upload": {
+            "title": "写真を追加",
+            "body": "写真を 1〜3 枚入れるだけ。各枠に、その写真がシーンで誰を演じるかが表示されます。"
+          },
+          "share": {
+            "title": "ダウンロードしてシェア",
+            "body": "数分で MP4 が完成。TikTok・リール・ショートに合ったサイズです。"
+          }
+        }
+      },
+      "features": {
+        "eyebrow": "選ばれる理由",
+        "title": "プロの仕上がりを、手間なしで",
+        "items": {
+          "noPrompt": {
+            "title": "プロンプト不要",
+            "body": "どのテンプレートも調整済みのシーン。選んで、写真を入れて、生成するだけ。"
+          },
+          "faces": {
+            "title": "本物の顔を、安全に",
+            "body": "写真は生成前にモデルの審査を通るので、顔は写真のまま再現されます。",
+            "passed": "通過"
+          },
+          "formats": {
+            "title": "どの SNS にもぴったり",
+            "body": "縦型・正方形・横型のテンプレートが、それぞれの SNS に合った比率で書き出されます。"
+          },
+          "credits": {
+            "title": "1 本ごとの支払い、失敗は無料",
+            "body": "生成時にクレジットを保留し、失敗したら自動で返却します。",
+            "ledger": {
+              "charged": "生成開始",
+              "rendering": "生成中",
+              "refunded": "失敗 · 返却済み"
+            }
+          }
+        }
+      },
+      "templates": {
+        "eyebrow": "テンプレート",
+        "title": "シーンを選ぼう",
+        "subtitle": "テンプレートは定期的に追加されます。カードにカーソルを合わせるとプレビュー。",
+        "viewAll": "すべて見る"
+      },
+      "audience": {
+        "eyebrow": "こんな人に",
+        "title": "カメラロールがあれば、誰でも",
+        "subtitle": "どこに投稿するにしても、手持ちの写真が動き出します。",
+        "items": {
+          "creators": {
+            "title": "クリエイター",
+            "body": "撮影も編集もなしで、トレンドが始まったその日に乗れます。"
+          },
+          "friends": {
+            "title": "友だち・グループ",
+            "body": "誕生日や同窓会、グループチャットに。みんなを同じシーンに。"
+          },
+          "marketers": {
+            "title": "マーケター",
+            "body": "キャンペーン用の目を引く SNS 動画を数分で。"
+          },
+          "events": {
+            "title": "イベント・パーティー",
+            "body": "主役が出演する動画でサプライズ。"
+          },
+          "pets": {
+            "title": "ペットオーナー",
+            "body": "ペットの写真に対応したテンプレートも。うちの子をスポットライトへ。"
+          },
+          "agencies": {
+            "title": "代理店・スタジオ",
+            "body": "クライアント向けのパーソナライズ動画を量産。"
+          }
+        }
+      },
+      "pricing": {
+        "eyebrow": "料金",
+        "title": "作った分だけお支払い",
+        "subtitle": "クレジットパック制、サブスク不要。ファストは {fast} クレジットから、プレミアムのフル動画は {sd} クレジットから。",
+        "details": "バージョンと画質を比較"
+      },
+      "faq": {
+        "eyebrow": "FAQ",
+        "title": "よくある質問",
+        "items": {
+          "what": {
+            "q": "これは何？",
+            "a": "テンプレートで作る動画メーカーです。テンプレートごとに動き・カメラ・音楽が決まったシーンがあり、写真を入れると AI が写真の人物をシーンに登場させます。"
+          },
+          "photos": {
+            "q": "どんな写真が必要？",
+            "a": "1 枚に 1 人、正面の顔がはっきり写った明るい写真。あなた自身か、出演に同意した人の写真だけを使ってください。"
+          },
+          "time": {
+            "q": "どれくらいで完成する？",
+            "a": "通常は数分です。ページを離れても大丈夫。完成した動画はアカウントに保存されます。"
+          },
+          "price": {
+            "q": "料金は？",
+            "a": "クレジットで支払います。ファストは {fast} クレジットから。プレミアムのフル動画は 480p で {sd}、720p で {hd}、1080p で {fhd} クレジットです。各テンプレートに正確な価格が表示されます。"
+          },
+          "refund": {
+            "q": "生成に失敗したら？",
+            "a": "クレジットは自動で残高に戻ります。完成した動画の分だけお支払いいただきます。"
+          },
+          "privacy": {
+            "q": "写真は非公開？",
+            "a": "はい。写真と動画はあなたのアカウントでのみ表示され、アップロードした写真は 30 日後に削除されます。"
+          }
+        }
+      },
+      "cta": {
+        "title": "次の動画まで、あと写真数枚",
+        "subtitle": "テンプレートを選んで、数分で完成するのを見てみましょう。",
+        "button": "作ってみる"
+      }
+    },
+    "pricing": {
+      "seo": {
+        "title": "料金 — クレジットパック",
+        "description": "クレジットパックで 1 本ごとにお支払い。ファストは {fast} クレジットから。フル動画は 480p で {sd}、720p で {hd}、1080p で {fhd} クレジット。失敗時は返金されます。"
+      },
+      "eyebrow": "料金",
+      "title": "シンプルな 1 本ごとの料金",
+      "lede": "クレジットパックを買って、動画 1 本ごとにお支払い。ファストは {fast} クレジットから。プレミアムのフル動画は 480p で {sd}、720p で {hd}、1080p で {fhd} クレジットです。",
+      "packs": {
+        "names": {
+          "starter": "スターター",
+          "creator": "クリエイター",
+          "studio": "スタジオ"
+        },
+        "popular": "いちばん人気",
+        "save": "{percent}% お得",
+        "credits": "{count} クレジット",
+        "oneTime": "買い切り",
+        "yieldFast": "{count, plural, =0 {ファスト動画には不足} other {ファスト動画 # 本}}",
+        "yieldFull": "{count, plural, =0 {フル動画には不足} other {プレミアムのフル動画 # 本}}",
+        "perVideo": "ファスト 1 本あたり約 {price}",
+        "cta": "クレジットを購入"
+      },
+      "pro": {
+        "eyebrow": "Pro サブスクリプション",
+        "title": "毎月 {credits} クレジット",
+        "body": "よく作る人向け。使い切れなかったクレジットは最大 {cap} まで繰り越せます。「設定 → 請求」からいつでも解約できます。",
+        "month": "月",
+        "yearly": "年額 {price} なら {percent}% お得",
+        "cta": "登録する"
+      },
+      "included": {
+        "title": "すべてのパックに含まれるもの",
+        "items": [
+          "今後追加されるものを含む全テンプレート",
+          "480p〜1080p、1 本ごとの料金",
+          "失敗時の自動返金",
+          "動画はアカウントに保存",
+          "ウォーターマークなし",
+          "完成動画に音楽を追加"
+        ]
+      },
+      "tiers": {
+        "eyebrow": "バージョン",
+        "title": "ファストかプレミアムか",
+        "lede": "生成前にスタジオでバージョンを選びます。送信時にクレジットを保留し、失敗したら返却します。",
+        "fast": {
+          "name": "ファスト",
+          "length": "最大 15 秒",
+          "desc": "速くて手頃。長めのテンプレートは見どころのハイライトを生成します。"
+        },
+        "premium": {
+          "name": "プレミアム",
+          "length": "フルレングス",
+          "desc": "シーン全体をフルの長さで、最高のディテールで。最大 1080p。"
+        },
+        "creditsValue": "{count} クレジット",
+        "note": "標準的な料金です。テンプレートによって多少前後します。スタジオでは常に正確な価格が表示されます。"
+      },
+      "faqTitle": "料金についての質問",
+      "faq": [
+        {
+          "q": "動画 1 本は何クレジット？",
+          "a": "ファストは {fast} クレジットから。一般的なテンプレートのプレミアムのフル動画は 480p で {sd}、720p で {hd}、1080p で {fhd} クレジットです。生成前に正確な価格が表示されます。"
+        },
+        {
+          "q": "生成に失敗したら？",
+          "a": "その生成のクレジットは自動で残高に戻ります。"
+        },
+        {
+          "q": "サブスクは必要？",
+          "a": "いいえ。クレジットパックは買い切りです。Pro は任意で、毎月 {monthly} クレジットが追加されます。"
+        },
+        {
+          "q": "返金はできる？",
+          "a": "失敗した生成はクレジットで自動返金されます。請求に関するご質問はサポートまで。"
+        }
+      ],
+      "creditsAddedToast": "{credits} クレジットが追加されました。",
+      "creditsAddedAction": "動画を作る",
+      "unfinishedToast": "未完了の購入があります：{credits} クレジット（{price}）。",
+      "unfinishedAction": "購入を完了する"
+    },
+    "seo": {
+      "home": {
+        "title": "写真を、そのまま投稿できる動画に",
+        "description": "動画テンプレートを選んで写真を 1〜3 枚アップロードするだけで、音楽付きのそのまま投稿できる動画が数分で完成。プロンプトも編集も不要、ウォーターマークなし。",
+        "keywords": "AI 動画メーカー, 写真から動画 AI, AI 動画テンプレート, AI ダンス動画, バズる動画"
+      },
+      "studio": {
+        "title": "スタジオ — 写真から動画を作る",
+        "description": "テンプレートを選び、写真をアップロードして音楽付き動画を生成。生成前に正確な価格が表示されます。",
+        "keywords": "AI 動画スタジオ, 写真から動画, AI 動画ジェネレーター, AI 動画テンプレート"
+      }
+    }
+  }
+}

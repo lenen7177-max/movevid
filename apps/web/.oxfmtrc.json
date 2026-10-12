@@ -1,0 +1,17 @@
+{
+  "$schema": "../../node_modules/oxfmt/configuration_schema.json",
+  "ignorePatterns": [
+    "**/dist/**",
+    "**/node_modules/**",
+    "**/.turbo/**",
+    "**/.next/**",
+    "**/routeTree.gen.ts",
+    "**/wrangler.jsonc",
+    "**/src/components/data-table/*.tsx",
+    "**/src/lib/data-table.ts",
+    "**/src/components/logos/svg/*.tsx",
+    "**/src/types/data-table.ts",
+    "**/src/hooks/use-data-table.ts",
+    "**/.source/**"
+  ]
+}

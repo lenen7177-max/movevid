@@ -1,0 +1,60 @@
+{
+  "email": {
+    "verification": {
+      "subject": "验证你的 {appName} 邮箱",
+      "preview": "验证你的 {appName} 邮箱地址",
+      "title": "验证邮箱",
+      "greeting": "{name}，你好！",
+      "body": "感谢注册！请点击下方按钮验证你的邮箱地址。",
+      "button": "验证邮箱",
+      "ignore": "如果你没有创建账户，可以忽略此邮件。"
+    },
+    "passwordReset": {
+      "subject": "重置你的 {appName} 密码",
+      "title": "密码重置",
+      "greeting": "你好 {name}",
+      "body": "点击下方按钮重置你的密码",
+      "button": "重置密码",
+      "ignore": "如果你没有请求重置密码，可以忽略此邮件。"
+    },
+    "otp": {
+      "subject": "你的 {appName} 验证码",
+      "preview": "使用此验证码继续访问 {appName}",
+      "title": "验证码",
+      "body": "使用此一次性验证码继续访问 {appName}。",
+      "expires": "该验证码将在 {minutes} 分钟后过期。",
+      "ignore": "如果你没有请求此验证码，可以忽略此邮件。"
+    }
+  },
+  "errors": {
+    "unauthorized": "请先登录后再执行此操作",
+    "forbidden": "您没有访问此资源的权限",
+    "notFound": "请求的资源未找到",
+    "invalidFileType": "文件类型无效，请上传有效的文件",
+    "fileTooLarge": "文件过大，最大允许 {maxSizeMB}MB",
+    "fileNotFound": "存储中未找到文件",
+    "uploadFailed": "文件上传失败，请重试",
+    "invalidUrl": "提供的URL无效",
+    "accountDeleted": "该用户已删除",
+    "accountBanned": "该账户已被封禁",
+    "cannotBanSelf": "不能封禁自己的账户",
+    "cannotBlockSelf": "不能拉黑自己的账户",
+    "emailDomainBlocked": "该邮箱域名不能用于注册",
+    "networkBlocked": "当前网络不允许登录",
+    "tooManyRequests": "请求太频繁，请稍等一分钟再试。",
+    "deviceBlocked": "当前设备不允许登录",
+    "phoneDomainUnavailable": "手机号账户没有可拉黑的邮箱域名",
+    "noClientIp": "该用户还没有记录到 IP",
+    "noClientDevice": "该用户还没有记录到设备",
+    "invalidEmailDomain": "该邮箱域名不能拉黑",
+    "cannotDemoteLastAdmin": "不能降级最后一个管理员",
+    "operationRequestConflict": "该操作请求编号已被使用",
+    "insufficientCredits": "用户额度不足，无法完成扣减",
+    "paidMembershipAlreadyActive": "用户已有有效付费会员",
+    "adminOperationFailed": "管理员操作失败",
+    "invalidRole": "请求的角色无效",
+    "notificationsDisabled": "应用配置已关闭通知功能",
+    "notificationSubscriptionNotRegistered": "此设备尚未注册通知",
+    "notificationSendFailed": "通知发送失败"
+  }
+}

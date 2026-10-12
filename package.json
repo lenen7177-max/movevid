@@ -1,0 +1,60 @@
+{
+  "name": "viral-video-starter",
+  "private": true,
+  "workspaces": [
+    "apps/web",
+    "apps/server",
+    "packages/*"
+  ],
+  "type": "module",
+  "scripts": {
+    "lint": "turbo -F web -F server -F @repo/ui lint",
+    "lint:fix": "turbo -F web -F server -F @repo/ui lint:fix",
+    "fmt": "turbo -F web -F server -F @repo/ui fmt",
+    "fmt:check": "turbo -F web -F server -F @repo/ui fmt:check",
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "check-types": "turbo check-types",
+    "dev:web": "turbo -F web dev",
+    "dev:server": "turbo -F server dev",
+    "dev:web+server": "turbo -F web -F server dev",
+    "db:push": "turbo -F server db:push",
+    "db:studio": "turbo -F server db:studio",
+    "db:studio:local": "turbo -F server db:studio:local",
+    "db:generate": "turbo -F server db:generate",
+    "db:migrate": "turbo -F server db:migrate",
+    "db:migrate:local": "turbo -F server db:migrate:local",
+    "deploy:web": "turbo -F web deploy",
+    "deploy:server": "turbo -F server deploy",
+    "deploy": "pnpm deploy:server && pnpm deploy:web",
+    "husky:install": "husky install",
+    "commit": "git add . && npx cz",
+    "clean": "rm -rf node_modules apps/*/node_modules packages/*/node_modules .turbo apps/*/.turbo && pnpm store prune",
+    "check:placeholders": "node scripts/check-placeholders.mjs",
+    "test": "turbo test"
+  },
+  "devDependencies": {
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
+    "oxfmt": "^0.35.0",
+    "oxlint": "^1.50.0",
+    "turbo": "^2.10.7"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,mjs,cjs}": "pnpm run lint"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog",
+      "maxHeaderWidth": 0,
+      "maxLineWidth": 0
+    }
+  },
+  "packageManager": "pnpm@10.17.1",
+  "pnpm": {
+    "overrides": {
+      "esm-env": "npm:esm-env-runtime@^0.1.1"
+    }
+  }
+}

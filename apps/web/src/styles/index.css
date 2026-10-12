@@ -1,0 +1,65 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "@repo/ui/theme.css";
+
+/* Fumadocs UI */
+@import "fumadocs-ui/css/neutral.css";
+@import "fumadocs-ui/css/preset.css";
+
+@import "@fontsource-variable/geist";
+@import "@fontsource-variable/geist-mono";
+
+@source "../../../../packages/ui/src";
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    @apply font-sans;
+  }
+  body {
+    position: relative;
+    @apply bg-background text-foreground;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading;
+    text-wrap: balance;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  /* Small monospaced section label above headings ("HOW IT WORKS"). */
+  .eyebrow {
+    @apply text-muted-foreground font-mono text-[11px] font-medium tracking-[0.22em] uppercase;
+  }
+  /* Large display heading used by marketing sections. */
+  .display {
+    @apply font-medium tracking-[-0.035em];
+  }
+  /* Soft accent glow behind hero media. */
+  .hero-glow {
+    background: radial-gradient(60% 50% at 50% 0%, var(--glow), transparent 70%);
+  }
+  /* Subtle dotted backdrop for feature panels. */
+  .dot-grid {
+    background-image: radial-gradient(
+      color-mix(in oklch, var(--foreground) 12%, transparent) 1px,
+      transparent 1px
+    );
+    background-size: 18px 18px;
+  }
+}

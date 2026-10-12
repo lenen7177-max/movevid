@@ -1,0 +1,1509 @@
+{
+  "common": {
+    "documents": "Documents",
+    "cancel": "Cancel",
+    "continue": "Continue",
+    "search": "Search",
+    "searchPlaceholder": "Type a command or search...",
+    "noResults": "No results found.",
+    "signIn": "Sign In",
+    "signOut": "Sign out",
+    "dashboard": "Dashboard",
+    "history": "History"
+  },
+  "dataTable": {
+    "columnHeader": {
+      "ascending": "Asc",
+      "descending": "Desc",
+      "reset": "Reset",
+      "hide": "Hide"
+    },
+    "pagination": {
+      "currentPage": "Page",
+      "pageCount": "of {pageCount}",
+      "goToPage": "Go to page"
+    },
+    "viewOptions": {
+      "view": "View",
+      "toggleColumns": "Toggle columns",
+      "searchColumns": "Search columns...",
+      "noColumns": "No columns found."
+    }
+  },
+  "locale": {
+    "switchLanguage": "Switch language"
+  },
+  "landingPage": {
+    "pricing": {
+      "title": "Pricing",
+      "subtitle": "Choose the best plan for your needs",
+      "discount": "Save {percent}%",
+      "freeLabel": "Free",
+      "frequencies": {
+        "monthly": "Monthly",
+        "yearly": "Yearly",
+        "lifetime": "Lifetime"
+      },
+      "cta": {
+        "subscribe": "Subscribe",
+        "getStarted": "Get started"
+      },
+      "badge": {
+        "popular": "🔥 Most Popular",
+        "bestValue": "BEST VALUE"
+      },
+      "billingNote": {
+        "flexibleCancelAnytime": "Flexible, cancel anytime",
+        "billedAnnually": "Billed annually",
+        "oneTimePurchase": "One-time purchase"
+      },
+      "enterprise": {
+        "title": "Enterprise",
+        "price": "Custom",
+        "description": "Tailored for enterprise teams.",
+        "features": {
+          "first": "Dedicated integrations and features",
+          "second": "Enterprise-grade security and compliance",
+          "third": "Customer success and SLA"
+        },
+        "cta": "Contact sales"
+      },
+      "periods": {
+        "oneTime": "One-time",
+        "perYear": "Per year",
+        "perMonth": "Per month"
+      },
+      "trial": {
+        "newUserDays": "{days}-day free trial (new users only)"
+      },
+      "plans": {
+        "free": {
+          "name": "Free",
+          "description": "Watch examples and try the studio.",
+          "features": ["Browse example videos", "Buy credit packs anytime", "Credits never expire"]
+        },
+        "pro": {
+          "name": "Pro",
+          "description": "60 credits every month for regular creators.",
+          "features": [
+            "60 credits every month (about 4 Fast videos)",
+            "Unused credits roll over up to 120",
+            "Cancel anytime"
+          ]
+        },
+        "lifetime": {
+          "name": "Lifetime",
+          "description": "One-time payment for long-term use.",
+          "features": ["All Pro features", "One-time payment", "Lifetime updates"]
+        }
+      }
+    }
+  },
+  "blog": {
+    "list": {
+      "title": "Blog",
+      "description": "Viral video memes explained — where they came from, what song they use and how to make your own.",
+      "allCategories": "All",
+      "selectCategory": "Select Category",
+      "empty": "No posts available in this category yet."
+    },
+    "detail": {
+      "backToBlog": "Back to Blog",
+      "onThisPage": "On this page",
+      "readMore": "Read more",
+      "loading": "Loading article..."
+    }
+  },
+  "auth": {
+    "email": "Email",
+    "phoneNumber": "Phone number",
+    "password": "Password",
+    "verificationCode": "Verification code",
+    "emailPasswordMode": "Password",
+    "emailOtpMode": "Code",
+    "orContinueWith": "Or continue with",
+    "loginWithGithub": "Login with Github",
+    "loginWithGoogle": "Login with Google",
+    "enterEmail": "Enter your email",
+    "enterPhoneNumber": "Enter your phone number",
+    "enterPassword": "Enter your password",
+    "enterVerificationCode": "Enter the 6-digit code",
+    "phoneNumberDescription": "Use a mainland China phone number format, for example 13800138000.",
+    "emailOtpDescription": "Enter your email and we'll send a one-time verification code.",
+    "sendCode": "Send Code",
+    "sendingCode": "Sending...",
+    "verifyCode": "Verify Code",
+    "verifyingCode": "Verifying...",
+    "resendCode": "Resend Code",
+    "resendCodeIn": "Resend in {seconds}s",
+    "changePhoneNumber": "Change Number",
+    "changeEmail": "Change Email",
+    "phoneCodeSent": "Verification code sent to {phoneNumber}",
+    "emailCodeSent": "Verification code sent to {email}",
+    "phoneOtpSentDescription": "We sent a verification code to {phoneNumber}.",
+    "emailOtpSentDescription": "We sent a verification code to {email}.",
+    "termsAgreement": "By clicking continue, you agree to our <termsLink>Terms of Service</termsLink> and <privacyLink>Privacy Policy</privacyLink>.",
+    "termsOfService": "Terms of Service",
+    "privacyPolicy": "Privacy Policy",
+    "validation": {
+      "invalidEmail": "Invalid email address",
+      "invalidPhone": "Enter a valid mainland China phone number",
+      "invalidVerificationCode": "Enter the 6-digit verification code",
+      "passwordRequired": "Password is required",
+      "nameMinLength": "Name must be at least 2 characters",
+      "passwordMinLength": "Password must be at least 8 characters",
+      "passwordsNotMatch": "Passwords do not match"
+    }
+  },
+  "signIn": {
+    "title": "Welcome back",
+    "description": "Sign in with your email and password",
+    "dialogTitle": "Sign in",
+    "dialogDescription": "Sign in to generate a video. It stays on this account.",
+    "phoneDescription": "Use your phone number to receive a one-time verification code",
+    "emailOtpDescription": "Use your email to receive a one-time verification code",
+    "phoneOtpDescription": "Enter the verification code we sent to your phone",
+    "emailTab": "Email",
+    "phoneTab": "Phone",
+    "login": "Login",
+    "loggingIn": "Logging in...",
+    "forgotPassword": "Forgot your password?",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign Up",
+    "success": "Sign in successful"
+  },
+  "signUp": {
+    "title": "Create your account",
+    "description": "Enter your email below to create your account",
+    "name": "Name",
+    "enterName": "Enter your name",
+    "confirmPassword": "Confirm Password",
+    "confirmYourPassword": "Confirm your password",
+    "emailDescription": "We'll use this to contact you. We will not share your email with anyone else.",
+    "passwordMinLength": "Must be at least 8 characters long.",
+    "createAccount": "Create Account",
+    "hasAccount": "Already have an account?",
+    "signIn": "Sign In",
+    "success": "Sign up successful",
+    "checkEmail": "Please check your email, we have sent a verification email.",
+    "checkEmailTitle": "Check your email to verify",
+    "checkEmailDescription": "We sent a verification email to {email}. Open it and click the verification link to finish signing up.",
+    "checkEmailHint": "If you do not see the email, check your spam folder or try again later.",
+    "checkEmailAction": "Got it"
+  },
+  "forgotPassword": {
+    "title": "Reset Password",
+    "description": "Enter your email and we'll send you a reset link",
+    "sendResetLink": "Send Reset Link",
+    "sendingResetLink": "Sending...",
+    "backToSignIn": "Back to Sign In",
+    "success": "Reset link sent to your email"
+  },
+  "resetPassword": {
+    "title": "Reset Password",
+    "description": "Enter your new password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "confirmNewPassword": "Confirm your new password",
+    "reset": "Reset Password",
+    "resetting": "Resetting...",
+    "backToSignIn": "Back to Sign In",
+    "success": "Password reset successfully",
+    "invalidToken": "Invalid or expired reset token"
+  },
+  "notFound": {
+    "title": "404",
+    "description": "The page you're looking for doesn't exist. It may have been moved or deleted.",
+    "goHome": "Go Home",
+    "goBack": "Go Back"
+  },
+  "forbidden": {
+    "title": "403",
+    "description": "You don't have permission to access this page.",
+    "goDashboard": "Open the studio",
+    "goBack": "Go Back"
+  },
+  "errors": {
+    "forbidden": "You don't have permission to access this resource",
+    "accountBanned": "This account has been banned"
+  },
+  "credits": {
+    "packages": {
+      "starter": {
+        "title": "Starter pack",
+        "description": "{count} credits · about 2 Fast videos, or your first full video at 480p."
+      },
+      "creator": {
+        "title": "Creator pack",
+        "description": "{count} credits · about 6 Fast videos or 3 full videos at 480p."
+      },
+      "studio": {
+        "title": "Studio pack",
+        "description": "{count} credits · about 16 Fast videos or 8 full videos at 480p."
+      }
+    }
+  },
+  "dashboard": {
+    "nav": {
+      "general": "General",
+      "history": "History",
+      "dashboard": "Dashboard",
+      "users": "Users",
+      "paidUsers": "Paid users",
+      "adminOperations": "Admin operation records",
+      "administration": "Administration",
+      "other": "Other",
+      "settings": "Settings",
+      "profile": "Profile",
+      "security": "Security",
+      "billing": "Billing",
+      "credits": "Credits",
+      "creditPurchase": "Buy credits",
+      "creditTransactions": "Credit transactions",
+      "account": "Account",
+      "appearance": "Appearance",
+      "notifications": "Notifications",
+      "display": "Display",
+      "upgradeToPro": "Upgrade to Pro",
+      "home": "Home",
+      "signOut": "Sign out",
+      "permissionRequired": "Requires {role} role",
+      "permissionRequiredDescription": "This feature is available only to {role}s. It is shown as disabled in development and hidden from unauthorized users in production.",
+      "signOutDialog": {
+        "title": "Sign out",
+        "description": "Are you sure you want to sign out? You will need to sign in again to access your account.",
+        "confirm": "Sign out"
+      }
+    },
+    "roles": {
+      "user": "User",
+      "admin": "Admin"
+    },
+    "billing": {
+      "sectionTitle": "Membership Area",
+      "title": "Billing",
+      "description": "Manage your subscription and payment methods.",
+      "currentPlan": "Current plan",
+      "free": "Free",
+      "subscriptionSyncing": "Activating subscription. This may take a moment.",
+      "manageBilling": "Manage billing",
+      "manageInStore": "Manage in store",
+      "storeManagedMessage": "This membership is managed through the App Store or Google Play. Upgrade, cancel, or change it in the app or store.",
+      "storeManagedPlansDescription": "Plan changes and cancellation for this subscription must be managed in the store.",
+      "plansTitle": "Available plans",
+      "plansDescription": "Choose a plan that fits your team.",
+      "membershipTypes": {
+        "monthly": "Monthly",
+        "yearly": "Yearly",
+        "lifetime": "Lifetime",
+        "subscription": "Subscription"
+      },
+      "lifetimeLabel": "Lifetime",
+      "trialLabel": "Trial",
+      "startCheckout": "Start checkout",
+      "currentPlanCta": "Current plan",
+      "upgradeSubscription": "Upgrade now",
+      "alreadyLifetime": "Lifetime already active",
+      "downgradeNotAllowed": "Only upgrades are allowed",
+      "checkoutError": "Checkout failed",
+      "portalError": "Portal failed",
+      "upgradeError": "Upgrade failed",
+      "upgradeSuccess": "Subscription upgraded successfully.",
+      "upgradeUnavailable": "Upgrade unavailable",
+      "managedByOtherChannel": "Manage in original channel",
+      "noPlans": "No plans available.",
+      "checkoutDecisionErrors": {
+        "already_lifetime": "You already have lifetime membership.",
+        "downgrade_or_same_tier": "Only upgrades are allowed for your current membership.",
+        "subscription_upgrade": "You can upgrade your subscription interval in-app.",
+        "managed_by_other_channel": "Your current membership is managed by another purchase channel. Upgrade or cancel it in the original channel.",
+        "current_price": "This is your current plan.",
+        "ok": "Checkout is available.",
+        "default": "Checkout is not available for this plan."
+      }
+    },
+    "credits": {
+      "title": "Credits",
+      "description": "Buy and review account credits shared across web and mobile.",
+      "purchaseTitle": "Buy credits",
+      "purchaseDescription": "Purchase credit packages shared across web and mobile.",
+      "balanceLabel": "Current balance",
+      "balanceDescription": "Purchased credits do not expire. Free credits may expire based on account rules.",
+      "expiringNotice": "{count} credits expire within 7 days.",
+      "buy": "Buy",
+      "checkoutError": "Credit checkout failed",
+      "orderCreditedToast": "{packageName} credits delivered.",
+      "refresh": "Refresh",
+      "transactionsTitle": "Recent transactions",
+      "transactionsPageTitle": "Credit transactions",
+      "transactionsDescription": "Review recent credit balance changes.",
+      "loading": "Loading...",
+      "emptyPackages": "No credit packages are available.",
+      "emptyTransactions": "No credit activity yet.",
+      "transactionColumns": {
+        "type": "Type",
+        "package": "Details",
+        "source": "Source",
+        "amount": "Amount",
+        "date": "Date"
+      },
+      "transactionSources": {
+        "system": "System",
+        "app": "App",
+        "admin": "Admin",
+        "web": "Web purchase",
+        "native": "In-app purchase"
+      },
+      "transactionFilters": {
+        "all": "All",
+        "purchase": "Purchases",
+        "usage": "Spending"
+      },
+      "pagination": {
+        "rowsPerPage": "Rows per page",
+        "total": "{total} total",
+        "pageInfo": "Page {page} of {pageCount}",
+        "previous": "Previous page",
+        "next": "Next page"
+      },
+      "transactions": {
+        "signupGrant": "Signup grant",
+        "subscriptionGrant": "Subscription credits",
+        "purchase": "Credit purchase",
+        "refund": "Refund",
+        "usage": "Usage",
+        "expiration": "Expired credits",
+        "adjustment": "Adjustment"
+      }
+    },
+    "users": {
+      "title": "User management",
+      "description": "Review and manage registered user accounts.",
+      "refresh": "Refresh",
+      "table": {
+        "avatar": "Avatar",
+        "name": "Name",
+        "email": "Email",
+        "contact": "Contact",
+        "role": "Role",
+        "ban": "Ban status",
+        "banned": "Banned",
+        "active": "Active",
+        "status": "Status",
+        "verified": "Verified",
+        "unverified": "Unverified",
+        "signupGrant": "Signup credits",
+        "signupGranted": "Granted",
+        "signupPending": "Not evaluated",
+        "signupReasons": {
+          "eligible": "Granted",
+          "identity_already_granted": "Identity already granted",
+          "device_already_granted": "Device already granted",
+          "ip_limit": "Network limit reached",
+          "blocklisted": "Blocked identifier",
+          "user_agent_limit": "Browser limit reached"
+        },
+        "actions": "Actions",
+        "searchPlaceholder": "Search user name",
+        "noResults": "No results."
+      },
+      "actions": {
+        "openMenu": "Open menu",
+        "changeRole": "Change role",
+        "ban": "Ban",
+        "unban": "Unban",
+        "banConfirmTitle": "Ban this user?",
+        "banConfirmDescription": "They will be signed out immediately and cannot use protected features until unbanned.",
+        "setRoleSuccess": "Role updated",
+        "setRoleError": "Failed to update role: {message}",
+        "banSuccess": "User banned",
+        "banError": "Failed to ban user: {message}",
+        "revokeSignupCredits": "Revoke remaining signup credits",
+        "blockEmailDomain": "Block email domain",
+        "blockIp": "Block current IP",
+        "blockDevice": "Block this device",
+        "blockConfirm": "Block",
+        "blockConfirmTitle": {
+          "email_domain": "Block this email domain?",
+          "ip": "Block this IP address?",
+          "device": "Block this device?"
+        },
+        "blockConfirmDescription": {
+          "email_domain": "New signups from this email domain will be rejected.",
+          "ip": "New signups and sign-ins from this IP address will be rejected.",
+          "device": "New signups and sign-ins from this device will be rejected."
+        },
+        "blockSuccess": "Identifier blocked",
+        "blockError": "Failed to block identifier: {message}",
+        "unbanSuccess": "User unbanned",
+        "unbanError": "Failed to unban user: {message}",
+        "selfRowDisabled": "You cannot change your own account here"
+      },
+      "operations": {
+        "adjustCredits": "Adjust credits",
+        "grantTrial": "Grant trial membership",
+        "history": "Operation history",
+        "amount": "Adjustment amount",
+        "currentBalance": "Current credit balance",
+        "balanceLoading": "Loading...",
+        "balanceUnavailable": "Unavailable",
+        "amountPlaceholder": "For example, 100 or -50",
+        "amountHelp": "Use a positive number to add credits or a negative number to deduct them. The balance cannot go below zero.",
+        "membershipTier": "Trial membership plan",
+        "monthly": "Monthly plan",
+        "yearly": "Yearly plan",
+        "durationDays": "Trial validity (days)",
+        "trialAccessDescription": "The user will experience {plan} benefits for {days} days.",
+        "scheduleLoading": "Loading the current trial schedule...",
+        "scheduleUnavailable": "The current trial schedule is unavailable.",
+        "paidMembershipActive": "This user already has a paid membership and cannot receive a trial.",
+        "noCurrentTrial": "No active or scheduled trial.",
+        "currentTrialSchedule": "Existing schedule: {plan}, through {date}",
+        "estimatedTrialEnd": "New estimated end: {date}",
+        "days": "{count} days",
+        "reasonOptional": "Reason (optional)",
+        "cancel": "Cancel",
+        "confirm": "Confirm",
+        "submitting": "Submitting...",
+        "loading": "Loading...",
+        "emptyHistory": "No operations yet.",
+        "actions": {
+          "credits.adjust": "Adjust credits",
+          "membership.grant_trial": "Grant trial membership"
+        },
+        "statuses": {
+          "pending": "Pending",
+          "succeeded": "Succeeded",
+          "failed": "Failed"
+        },
+        "summaries": {
+          "credits": "Adjusted by {amount} credits",
+          "trial": "{tier} · {days} days"
+        },
+        "feedback": {
+          "creditsAdjusted": "Credits adjusted",
+          "trialGranted": "Trial membership granted",
+          "failed": "Operation failed: {message}"
+        }
+      },
+      "pagination": {
+        "rowsPerPage": "Rows per page",
+        "total": "{total} total",
+        "pageInfo": "Page {page} of {pageCount}",
+        "previous": "Previous page",
+        "next": "Next page"
+      }
+    },
+    "adminOperations": {
+      "title": "Admin operation records",
+      "description": "Review administrative changes across all users.",
+      "refresh": "Refresh",
+      "loading": "Loading...",
+      "noResults": "No operation records match the current filters.",
+      "searchPlaceholder": "Search user name",
+      "clearSearch": "Clear search",
+      "unknownUser": "Unknown user",
+      "filters": {
+        "action": "Action",
+        "status": "Status"
+      },
+      "actions": {
+        "credits": {
+          "adjust": "Adjust credits"
+        },
+        "membership": {
+          "grant_trial": "Grant trial membership"
+        }
+      },
+      "statuses": {
+        "pending": "Pending",
+        "succeeded": "Succeeded",
+        "failed": "Failed"
+      },
+      "tiers": {
+        "monthly": "Monthly plan",
+        "yearly": "Yearly plan"
+      },
+      "summaries": {
+        "creditsAdded": "Added {amount} credits",
+        "creditsDeducted": "Deducted {amount} credits",
+        "trial": "{tier} trial · valid for {days} days",
+        "trialExtended": "Extended with a {tier} trial for {days} days"
+      },
+      "table": {
+        "time": "Time",
+        "operator": "Operator",
+        "target": "Target user",
+        "action": "Action",
+        "details": "Details",
+        "status": "Status",
+        "reason": "Reason / error"
+      },
+      "pagination": {
+        "rowsPerPage": "Rows per page",
+        "total": "{total} total",
+        "previous": "Previous page",
+        "next": "Next page"
+      }
+    },
+    "paidUsers": {
+      "title": "Paid users",
+      "description": "Review membership status across web and native payment providers.",
+      "refresh": "Refresh",
+      "clearSearch": "Clear search",
+      "accountBanned": "Banned",
+      "priceUnavailable": "Price unavailable",
+      "complimentary": "Complimentary",
+      "oneTime": "One-time",
+      "notApplicable": "Lifetime",
+      "endsAtPeriod": "Access ends on this date",
+      "renewsAtPeriod": "Next renewal date",
+      "states": {
+        "paid": "Paid",
+        "trial": "Trial",
+        "ended": "Ended"
+      },
+      "tiers": {
+        "monthly": "Monthly",
+        "yearly": "Yearly",
+        "lifetime": "Lifetime",
+        "credits": "Credit packs"
+      },
+      "sources": {
+        "subscription": "Subscription",
+        "lifetime": "One-time purchase",
+        "admin_trial": "Admin grant",
+        "credits": "Pay as you go"
+      },
+      "providers": {
+        "stripe": "Stripe",
+        "creem": "Creem",
+        "waffo": "Waffo",
+        "revenuecat": "RevenueCat",
+        "admin": "Admin"
+      },
+      "intervals": {
+        "month": "per month",
+        "year": "per year"
+      },
+      "statuses": {
+        "active": "Active",
+        "trialing": "Trialing",
+        "past_due": "Past due",
+        "paused": "Paused",
+        "canceled": "Canceled",
+        "incomplete": "Incomplete",
+        "unpaid": "Unpaid",
+        "succeeded": "Succeeded",
+        "refunded": "Refunded",
+        "expired": "Expired",
+        "canceling": "Cancels at period end"
+      },
+      "filters": {
+        "state": "Status",
+        "tier": "Membership",
+        "provider": "Provider"
+      },
+      "table": {
+        "user": "User",
+        "membership": "Membership",
+        "listPrice": "List price",
+        "provider": "Provider",
+        "status": "Status",
+        "startedOrPaidAt": "Started / paid",
+        "renewal": "Renewal / expiry",
+        "latestBillingAt": "Last synced",
+        "searchPlaceholder": "Search user name",
+        "noResults": "No paid-user records found.",
+        "creditPurchases": "Credit purchases",
+        "source": "Source"
+      },
+      "pagination": {
+        "rowsPerPage": "Rows per page",
+        "total": "{total} records",
+        "previous": "Previous page",
+        "next": "Next page"
+      },
+      "creditPurchasesSummary": "{count} orders · {credits} credits",
+      "sourceUnknown": "Signed up before sources were recorded",
+      "channels": {
+        "chatgpt": "ChatGPT",
+        "perplexity": "Perplexity",
+        "gemini": "Gemini",
+        "claude": "Claude",
+        "copilot": "Copilot",
+        "google": "Google Search",
+        "bing": "Bing",
+        "yandex": "Yandex",
+        "duckduckgo": "DuckDuckGo",
+        "baidu": "Baidu",
+        "x": "X (Twitter)",
+        "tiktok": "TikTok",
+        "instagram": "Instagram",
+        "facebook": "Facebook",
+        "youtube": "YouTube",
+        "reddit": "Reddit",
+        "referral": "Other sites",
+        "direct": "Direct",
+        "unknown": "Unknown"
+      },
+      "acquisition": {
+        "title": "Revenue by source",
+        "subtitle": "Where buyers first came from (first visit before sign-up).",
+        "loading": "Loading…",
+        "empty": "No sources recorded yet. New sign-ups will appear here.",
+        "channel": "Source",
+        "signups": "Sign-ups",
+        "creditBuyers": "Pack buyers",
+        "creditOrders": "Pack orders",
+        "revenue": "Pack revenue",
+        "members": "Members",
+        "note": "\"Unknown\" covers accounts created before source tracking started. Revenue counts completed credit pack orders."
+      }
+    },
+    "sections": {
+      "totalRevenue": "Total Revenue",
+      "newCustomers": "New Customers",
+      "activeAccounts": "Active Accounts",
+      "growthRate": "Growth Rate",
+      "trendingUp": "Trending up this month",
+      "trendingDown": "Down {percent}% this period",
+      "visitorsLast6Months": "Visitors for the last 6 months",
+      "acquisitionAttention": "Acquisition needs attention",
+      "strongRetention": "Strong user retention",
+      "engagementExceed": "Engagement exceed targets",
+      "steadyPerformance": "Steady performance increase",
+      "meetsGrowth": "Meets growth projections"
+    },
+    "settings": {
+      "profile": {
+        "title": "Profile",
+        "description": "This is how others will see you on the site.",
+        "name": "Name",
+        "namePlaceholder": "Enter your name",
+        "nameDescription": "This is your public display name. It can be your real name or a pseudonym.",
+        "nameMinLength": "Name must be at least 2 characters.",
+        "nameMaxLength": "Name must be at most 20 characters.",
+        "email": "Email",
+        "emailDescription": "Your email address is used for sign in and notifications.",
+        "phone": "Phone number",
+        "phoneDescription": "Your verified phone number is available for sign in.",
+        "notLinked": "Not linked",
+        "avatar": "Avatar",
+        "avatarDescription": "This is your profile picture.",
+        "changeAvatar": "Change Avatar",
+        "avatarUploading": "Uploading...",
+        "avatarUploadSuccess": "Avatar updated successfully",
+        "avatarUploadError": "Failed to upload avatar",
+        "avatarInvalidType": "Please upload a valid image file (JPEG, PNG, GIF, or WebP)",
+        "avatarTooLarge": "Image is too large. Maximum size is 5MB",
+        "save": "Save Changes",
+        "saving": "Saving...",
+        "success": "Profile updated successfully.",
+        "error": "Failed to update profile."
+      }
+    },
+    "security": {
+      "title": "Security",
+      "description": "Manage password settings for your account.",
+      "socialDescription": "Your account security is managed through your social login provider.",
+      "loading": "Loading...",
+      "loginMethods": {
+        "socialLogin": "Social Login",
+        "socialLoginActive": "You're signed in with your social account",
+        "active": "Active"
+      },
+      "security": {
+        "title": "Security Status",
+        "socialLoginSecurity": "Your account is secured by {providers}. These platforms use industry-standard security measures including two-factor authentication."
+      },
+      "password": {
+        "title": "Password",
+        "description": "Set or reset your password for email sign-in.",
+        "hasPassword": "A password is set for this account.",
+        "sendReset": "Send Reset Email",
+        "sendingReset": "Sending...",
+        "resetSent": "Reset email sent.",
+        "statusError": "Unable to load password status."
+      },
+      "phone": {
+        "title": "Phone sign-in",
+        "verified": "Verified",
+        "verifiedNumber": "Verified number: {phoneNumber}"
+      }
+    },
+    "usersTable": {
+      "title": "Users Management",
+      "description": "Example table using the useDataTable hook with URL-based state management",
+      "filterPlaceholder": "Filter users...",
+      "columns": "Columns",
+      "selectAll": "Select all",
+      "selectRow": "Select row",
+      "name": "Name",
+      "email": "Email",
+      "status": "Status",
+      "role": "Role",
+      "createdAt": "Created At",
+      "actions": "Actions",
+      "openMenu": "Open menu",
+      "copyUserId": "Copy user ID",
+      "viewUser": "View user",
+      "editUser": "Edit user",
+      "noResults": "No results.",
+      "rowsSelected": "{selected} of {total} row(s) selected.",
+      "previous": "Previous",
+      "next": "Next",
+      "statusOptions": {
+        "active": "Active",
+        "inactive": "Inactive",
+        "pending": "Pending"
+      },
+      "roleOptions": {
+        "admin": "Admin",
+        "user": "User",
+        "moderator": "Moderator"
+      }
+    },
+    "cards": {
+      "totalEarning": "Total Earning",
+      "comparisonText": "Compare to last year ($84,325)",
+      "menu": "Menu",
+      "menuActions": {
+        "share": "Share",
+        "update": "Update",
+        "refresh": "Refresh"
+      }
+    },
+    "statistics": {
+      "shippedOrders": "Shipped Orders",
+      "damagedReturns": "Damaged Returns",
+      "missedDeliverySlots": "Missed Delivery Slots",
+      "thanLastWeek": "than last week"
+    },
+    "productInsights": {
+      "title": "Product insight",
+      "publishedOn": "Published on 12 MAY 2025 - 6:10 PM",
+      "productReached": "Product reached",
+      "orderPlaced": "Order placed",
+      "productAlt": "Product"
+    },
+    "salesMetrics": {
+      "title": "Sales metrics",
+      "companyName": "Sandy's Company",
+      "companyEmail": "sandy@company.com",
+      "salesTrend": "Sales trend",
+      "discountOffers": "Discount offers",
+      "netProfit": "Net profit",
+      "totalOrders": "Total orders",
+      "revenueGoal": "Revenue goal",
+      "totalProfit": "Total Profit",
+      "planCompleted": "Plan completed",
+      "salesPlan": "Sales plan",
+      "percentageProfit": "Percentage profit from total sales",
+      "cohortAnalysis": "Cohort analysis indicators",
+      "cohortDescription": "Analyzes the behaviour of a group of users who joined a product/service at the same time. over a certain period.",
+      "openStatistics": "Open Statistics",
+      "percentageChange": "Percentage Change",
+      "months": {
+        "january": "January",
+        "february": "February",
+        "march": "March"
+      }
+    },
+    "chart": {
+      "totalVisitors": "Total Visitors",
+      "totalForLast3Months": "Total for the last 3 months",
+      "last3Months": "Last 3 months",
+      "last30Days": "Last 30 days",
+      "last7Days": "Last 7 days",
+      "selectValue": "Select a value",
+      "visitors": "Visitors",
+      "desktop": "Desktop",
+      "mobile": "Mobile"
+    }
+  },
+  "billingSuccess": {
+    "title": "Payment successful",
+    "description": "Thanks for upgrading. Your access will be updated shortly.",
+    "syncingTitle": "Confirming your subscription status",
+    "syncingDescription": "You'll be redirected to billing once activation is complete.",
+    "goToBilling": "Go to billing"
+  },
+  "billingCancel": {
+    "title": "Payment canceled",
+    "description": "No worries. You can resume checkout anytime.",
+    "backToBilling": "Back to billing"
+  },
+  "pwa": {
+    "updateAvailable": "A new version is ready.",
+    "updateAction": "Refresh",
+    "laterAction": "Later",
+    "installAvailable": "Install the app on your desktop",
+    "mobileInstallAvailable": "Add the app to your Home screen",
+    "installDescription": "Add the app to your device for faster access.",
+    "desktopInstallDescription": "Use your browser's install icon in the address bar.",
+    "androidInstallDescription": "Open the menu in the top-right corner, then choose Add to Home screen or Install app.",
+    "installAction": "Install",
+    "iosInstallAvailable": "Install on iPhone or iPad",
+    "iosInstallDescription": "In Safari, open the Share menu and choose Add to Home Screen.",
+    "gotItAction": "Got it"
+  },
+  "seo": {
+    "home": {
+      "description": "Turn everyday photos into share-ready videos with ready-made templates."
+    },
+    "noIndex": {
+      "descriptionTemplate": "{page} pages are private workflows and are excluded from search indexing.",
+      "pages": {
+        "auth": "Authentication",
+        "billing": "Billing",
+        "dashboard": "Dashboard",
+        "notFound": "Not found"
+      }
+    }
+  },
+  "legal": {
+    "common": {
+      "lastUpdatedLabel": "Last updated",
+      "contactLabel": "Contact",
+      "effectiveDate": "2026-01-01"
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "description": "This policy explains how {appName} handles your account, the photos you upload, the videos we generate and the credits you use.",
+      "sections": {
+        "whoWeAre": {
+          "title": "Who we are",
+          "content": "{appName} is an online service that turns your photos into short videos using ready-made templates. We operate the website and the account, storage and generation service behind it.\n\nThis policy covers the website and the generation service."
+        },
+        "informationCollect": {
+          "title": "Information we collect",
+          "content": "Account information: your email address, name and sign-in method, and, if you sign in with a third-party provider, the basic profile it shares.\n\nContent: the photos you upload and the videos generated from them.\n\nUsage and device information: pages visited, approximate location from your IP address, browser type and a device identifier used to prevent abuse of free credits.\n\nPayment information: purchases are handled by our payment provider. We receive the purchase record, not your full card details."
+        },
+        "howWeUse": {
+          "title": "How we use information",
+          "content": "We use your information to provide the service: to sign you in, generate the videos you request, store them in your account, process payments and credits, provide support, prevent fraud and abuse, and improve the service."
+        },
+        "photosAndVideos": {
+          "title": "Photos and generated videos",
+          "content": "When you generate a video, your photos and the template's reference clip are sent to our video generation provider to render the result. The provider processes these files only to complete your request.\n\nPeople in the photos can be recognized in the result. Upload a photo only when you have the right to use it and the person has agreed to appear. Do not upload photos of children.\n\nGenerated videos are AI recreations and may be imperfect. They are not statements by the people in the photos."
+        },
+        "informationSharing": {
+          "title": "Sharing",
+          "content": "We share information only with service providers that help us run the service (hosting, storage, email, payments, analytics and video generation), when the law requires it, or to protect the rights and safety of users and the service. We do not sell your personal information."
+        },
+        "dataRetention": {
+          "title": "Retention and deletion",
+          "content": "Uploaded photos are deleted automatically 30 days after the video is created. Generated videos stay in your account while it is open.\n\nEmail {supportEmail} to ask us to delete your account and the content stored for it sooner. We may keep limited records when the law, a dispute, fraud prevention or a payment requires it."
+        },
+        "security": {
+          "title": "Security",
+          "content": "We use encryption in transit, access controls and private storage to protect your information. No system is perfectly secure, so please use a strong, unique password or a trusted sign-in provider."
+        },
+        "cookies": {
+          "title": "Cookies and analytics",
+          "content": "We use cookies to keep you signed in and remember your preferences such as language and theme. If analytics is enabled, we use it to understand how the site is used in aggregate."
+        },
+        "yourRights": {
+          "title": "Your rights",
+          "content": "You can ask us to access, correct, export or delete the information we hold about you. Email {supportEmail} from the address on your account. Depending on where you live, local law may give you additional rights, including the right to complain to a data protection authority."
+        },
+        "children": {
+          "title": "Children",
+          "content": "The service is not directed to children under 16. Do not create an account or upload a photo if you are under 16, and do not upload photos of anyone under 16. If you believe we hold a child's data, contact us and we will delete it."
+        },
+        "contactUs": {
+          "title": "Contact",
+          "content": "Privacy questions and requests: {supportEmail}."
+        }
+      }
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "description": "These terms are the agreement between you and the operator of {appName}. Signing in or generating a video means you agree to them.",
+      "sections": {
+        "theService": {
+          "title": "The service",
+          "content": "{appName} lets you pick a video template, upload photos and receive a short generated video. Generating a video uses credits; the cost is shown before you start."
+        },
+        "accountResponsibilities": {
+          "title": "Your account",
+          "content": "Keep your sign-in details secure and tell us about any unauthorized use. You are responsible for activity under your account. One person per account."
+        },
+        "photosAndConsent": {
+          "title": "Photos and consent",
+          "content": "Only upload photos you have the right to use, of people who have agreed to appear in a generated video. Do not upload photos of children, of public figures, or that you do not have rights to."
+        },
+        "acceptableUse": {
+          "title": "Acceptable use",
+          "content": "Do not use the service to create content that is illegal, harassing, sexual, deceptive or that impersonates someone, and do not try to break, overload or reverse-engineer the service. We may refuse or remove content that breaks these rules."
+        },
+        "intellectualProperty": {
+          "title": "Content and rights",
+          "content": "You keep the rights you have in your photos and give us a limited permission to process them to provide the service. You may download, keep and share the videos generated for your account, provided you respect the rights of the people in them and the rules of the platforms where you post. The service, its templates and site content remain ours."
+        },
+        "billingAndRefunds": {
+          "title": "Credits, payments and refunds",
+          "content": "Credits are bought in packs or through a subscription and are used when you generate. If a generation fails, its credits are returned automatically. Purchases are otherwise final except where the law requires a refund. Subscriptions renew until cancelled and can be cancelled at any time from your billing settings."
+        },
+        "disclaimers": {
+          "title": "Disclaimers",
+          "content": "Generated videos are produced by AI and may contain errors or artifacts. The service is provided as is, without warranties of any kind to the extent the law allows."
+        },
+        "liabilityLimit": {
+          "title": "Limitation of liability",
+          "content": "To the extent the law allows, our total liability for any claim is limited to the amount you paid us in the 12 months before the claim."
+        },
+        "termination": {
+          "title": "Termination",
+          "content": "You can stop using the service at any time. Email {supportEmail} to close your account. We may suspend or close accounts that break these terms."
+        },
+        "changesToTerms": {
+          "title": "Changes",
+          "content": "We may update these terms. If a change is material, we will notify you before it takes effect. Continuing to use the service means you accept the updated terms."
+        },
+        "contactUs": {
+          "title": "Contact",
+          "content": "Questions about these terms: {supportEmail}."
+        }
+      }
+    }
+  },
+  "video": {
+    "nav": {
+      "home": "Home",
+      "templates": "Templates",
+      "studio": "Studio",
+      "howItWorks": "How it works",
+      "pricing": "Pricing",
+      "faq": "FAQ",
+      "blog": "Blog",
+      "startCreating": "Start creating",
+      "openMenu": "Open menu",
+      "closeMenu": "Close menu"
+    },
+    "footer": {
+      "product": "Product",
+      "templates": "Templates",
+      "resources": "Resources",
+      "description": "Turn everyday photos into share-ready trend videos. Pick a template, add your photos, get an MP4 in minutes.",
+      "disclaimer": "{appName} is an independent creative tool. Only upload photos of people who agreed to appear. Videos are generated by AI and may contain imperfections.",
+      "copyright": "© {year} {appName}. All rights reserved."
+    },
+    "card": {
+      "alt": "{name} template preview",
+      "new": "New",
+      "seconds": "{seconds}s",
+      "fromCredits": "from {credits} credits",
+      "photos": "{count, plural, one {1 photo} other {# photos}}",
+      "photoRange": "{min}–{max} photos"
+    },
+    "templates": {
+      "duo_dance": {
+        "name": "Duo Dance",
+        "tagline": "Two friends, one routine — a synced dance in a bright studio.",
+        "description": "Upload two photos and watch both of you perform the same choreography side by side: an entrance, a synced routine, a close-up and a shared final pose. Vertical, about 20 seconds, with music.",
+        "keywords": "ai dance video, two person ai video, photo to dance video, ai duo dance, tiktok dance template",
+        "hashtag": "DuoDance #AIDance",
+        "leftRole": "Left dancer",
+        "rightRole": "Right dancer"
+      },
+      "solo_spotlight": {
+        "name": "Solo Spotlight",
+        "tagline": "One photo, one spotlight — a stage moment that's all yours.",
+        "description": "One photo is all it takes: the lights come up, you hit your signature move and take a bow on a smoky stage. Works with pets too. Vertical, about 10 seconds, with music.",
+        "keywords": "ai spotlight video, one photo ai video, pet ai video, photo to video ai, stage performance ai",
+        "hashtag": "SoloSpotlight #AIVideo",
+        "leftRole": "Star"
+      },
+      "squad_walk": {
+        "name": "Squad Walk",
+        "tagline": "The slow-motion squad entrance, starring up to three friends.",
+        "description": "Add one to three photos and walk toward the camera in slow motion down a neon-lit street — hair moving, coats flowing, a final look into the lens. Widescreen, about 12 seconds, with music.",
+        "keywords": "slow motion walk ai, squad entrance video, friends ai video, ai group video, cinematic ai video",
+        "hashtag": "SquadWalk #SlowMo",
+        "leftRole": "Center",
+        "middleRole": "Left",
+        "rightRole": "Right"
+      }
+    },
+    "slots": {
+      "photoNumber": "Photo {n}",
+      "upload": "Add photo",
+      "replace": "Replace",
+      "remove": "Remove photo",
+      "hint": "JPG, PNG or WebP · under 20 MB · one clear, front-facing face",
+      "photoRule": "Use everyday photos of yourself or friends who agreed to appear. Photos of public figures, and film or music video stills, won't pass review.",
+      "count": "{count}/{total} photos",
+      "optional": "{min, plural, one {One photo is enough} other {# photos are enough}} — add up to {total} to bring friends.",
+      "petsHint": "Pets work too: use a clear, front-facing photo of your cat, dog or other pet — one animal per photo.",
+      "personOrPet": "Person or pet"
+    },
+    "errors": {
+      "fileType": "Use a JPG, PNG or WebP image.",
+      "fileSize": "Keep each photo under 20 MB.",
+      "tooSmall": "This photo is too small. Use one at least 300 px on each side.",
+      "aspect": "This photo is too long or too wide. Crop it closer to a portrait or square.",
+      "unreadable": "We couldn't read this image. Try another file.",
+      "needPhotos": "{count, plural, one {Add a photo first.} other {Add all # photos first.}}",
+      "insufficientCredits": "Not enough credits for this render.",
+      "notConfigured": "The studio isn't ready yet. Please try again later.",
+      "submitFailed": "We couldn't start the render. Your credits were not used.",
+      "generic": "Something went wrong. Please try again.",
+      "photoRejected": "A photo didn't pass review. Photos of public figures, news photos and copyrighted images aren't accepted. Try an everyday photo of yourself or a friend who agreed to be featured.",
+      "photoNumberRejected": "Photo {n} didn't pass review. Photos of public figures, minors, news photos and copyrighted images aren't accepted. Try an everyday photo of yourself or a friend who agreed to be featured.",
+      "contentBlocked": "The video model's content review blocked this render. Try everyday photos of yourself or friends who agreed to be featured.",
+      "renderTimeout": "The render took too long and was stopped. Please try again."
+    },
+    "studio": {
+      "templateLabel": "Template",
+      "templateMeta": "{photos} · {seconds} s",
+      "trySamples": "Try sample photos",
+      "cost": "{cost} credits for this video",
+      "firstFull": "First full video price",
+      "version": {
+        "label": "Version",
+        "premium": "Premium",
+        "fast": "Fast",
+        "full": "Full video · {seconds} s",
+        "highlight": "Highlight · {seconds} s",
+        "from": "From {cost} credits",
+        "highlightHint": "Fast renders the best {seconds} s. Pick Premium for the full {total} s video."
+      },
+      "quality": {
+        "label": "Quality",
+        "480p": "480p · Standard",
+        "720p": "720p · HD",
+        "1080p": "1080p · Full HD",
+        "credits": "{cost} credits",
+        "eta": "About {minutes} min",
+        "premiumOnly": "Premium only"
+      },
+      "balance": "Balance: {balance} credits",
+      "generate": "Generate video",
+      "signInToGenerate": "Sign in to generate",
+      "viewSample": "See the sample result",
+      "sampleFree": "Sample photos: free preview, no credits used",
+      "buyCredits": "Get more credits",
+      "submitting": "Starting render…",
+      "consent": "By generating you confirm everyone pictured agreed to be featured.",
+      "result": {
+        "title": "Your video",
+        "emptyTitle": "Your video will appear here",
+        "emptyBody": "Add your photos and press Generate. Rendering usually takes a few minutes.",
+        "sampleBadge": "Sample",
+        "sampleNote": "Made in advance from the sample photos.",
+        "sampleTierNote": "Made in advance from the sample photos ({tier} · {quality}).",
+        "useOwnPhotos": "Use my own photos",
+        "processing": "Rendering… {progress}%",
+        "reviewing": "Reviewing your photos…",
+        "reviewingHint": "Usually a few seconds, occasionally a few minutes. The render starts automatically once they pass.",
+        "failed": "This render failed.",
+        "refunded": "{cost} credits were returned to your balance.",
+        "failedReason": "Reason: {reason}",
+        "download": "Download MP4",
+        "again": "Make another",
+        "videoLabel": "Generated video",
+        "mixing": "Adding the soundtrack…",
+        "share": {
+          "button": "Share",
+          "preparing": "Preparing to share…",
+          "title": "Post to",
+          "platforms": {
+            "tiktok": "TikTok",
+            "instagram": "Instagram Reels",
+            "youtube": "YouTube Shorts"
+          },
+          "desktopHint": "Each button downloads the video, copies a caption and opens the upload page. Drag the video in and paste the caption.",
+          "desktopReady": "Video downloading and caption copied. Drag the video into the page that just opened, then paste the caption.",
+          "captionCopied": "Caption copied. Paste it when you post.",
+          "failed": "Couldn't open sharing. Download the video and post it manually.",
+          "musicHint": "If an app mutes the sound, add a track from the app's own music library.",
+          "caption": "Made my own {name} video with {site} ✨ #AIVideo #{tag}"
+        },
+        "wait": {
+          "steps": {
+            "review": "Photo review",
+            "render": "Rendering",
+            "music": "Adding music"
+          },
+          "elapsed": "Elapsed {time}",
+          "remaining": "About {minutes} min left",
+          "almostDone": "Almost done…",
+          "slower": "Taking a little longer than usual",
+          "notify": "Notify me when it's ready",
+          "notifyOn": "We'll notify you in this browser when it's ready",
+          "refundNote": "Credits are on hold — if the render fails, they come back automatically.",
+          "tips": {
+            "leave": "You can leave this page. Finished videos are saved to My videos.",
+            "share": "When it's done, share it straight from your phone.",
+            "quality": "Tip: try 480p first, then render your favorite again in 720p or 1080p.",
+            "templates": "While you wait, browse the other templates — they take the same photos."
+          },
+          "tabProcessing": "({percent}%) Rendering your video…",
+          "tabDone": "✅ Your video is ready",
+          "tabFailed": "⚠️ Render failed",
+          "notifyDoneTitle": "Your video is ready 🎬",
+          "notifyDoneBody": "Your {template} video has finished. Click to watch it.",
+          "notifyFailedTitle": "Your render failed",
+          "notifyFailedBody": "Your credits were refunded. Click to see why."
+        },
+        "sampleEmptyLabel": "{name} sample video",
+        "sampleEmptyBody": "Made from sample photos. Add your photos to make your own version."
+      },
+      "history": {
+        "title": "My videos",
+        "empty": "No videos yet.",
+        "processing": "Rendering",
+        "succeeded": "Ready",
+        "failed": "Failed",
+        "view": "View"
+      },
+      "page": {
+        "eyebrow": "Studio · {count} templates",
+        "title": "Make your video",
+        "subtitle": "Pick a template, add your photos and choose a version. You'll see the exact price before anything renders."
+      },
+      "templatesSection": {
+        "title": "Every template",
+        "subtitle": "Each one takes the same photos. Open a template to see its preview and details."
+      },
+      "selected": {
+        "label": "Selected template",
+        "viewPage": "Template details"
+      },
+      "faq": {
+        "title": "Studio questions",
+        "items": {
+          "choose": {
+            "q": "Which template should I pick?",
+            "a": "Pick the moment you want to post. Each template keeps its own moves, camera and music, and asks for a set number of photos — the photo slots show who each photo plays."
+          },
+          "photos": {
+            "q": "What photos work best?",
+            "a": "One person per photo, a clear front-facing face and even light. Use photos of yourself or friends who agreed to it; photos of public figures and film stills don't pass review."
+          },
+          "time": {
+            "q": "How long does a video take?",
+            "a": "Usually a few minutes, including photo review. You can leave the page — finished videos are saved to My videos, and the browser can notify you."
+          },
+          "refund": {
+            "q": "What if a render fails?",
+            "a": "The credits for that render come back to your balance automatically. Try again with different photos."
+          },
+          "privacy": {
+            "q": "Are my photos and videos private?",
+            "a": "Yes. Your photos and videos are only visible in your own account. Uploaded photos are deleted automatically after 30 days."
+          }
+        }
+      }
+    },
+    "gallery": {
+      "seo": {
+        "title": "Video templates",
+        "description": "Browse every video template. Upload one to three photos and get a share-ready vertical or widescreen video with music in minutes.",
+        "keywords": "ai video templates, photo to video, ai dance video, viral video templates, ai video maker"
+      },
+      "eyebrow": "{count} templates",
+      "title": "Pick your moment",
+      "subtitle": "Every template is a ready-made scene. Add your photos and you're the star — no prompt, no editing.",
+      "ctaTitle": "Photos ready?",
+      "ctaBody": "Open the studio, switch between templates and see the price before you render.",
+      "ctaButton": "Open the studio",
+      "viewAll": "View all templates",
+      "moreEyebrow": "Templates",
+      "moreTitle": "More templates",
+      "moreSubtitle": "Same photos, a different scene."
+    },
+    "templatePage": {
+      "seoTitle": "{name} — AI video template | {appName}",
+      "back": "All templates",
+      "eyebrow": "Template",
+      "playSample": "Play the sample video",
+      "facts": {
+        "photos": "Photos",
+        "length": "Length",
+        "format": "Format",
+        "from": "From",
+        "seconds": "~{seconds} s",
+        "credits": "{credits} credits"
+      },
+      "stepsEyebrow": "How it works",
+      "stepsTitle": "Make your {name} video in three steps",
+      "steps": {
+        "upload": {
+          "title": "Add your photos",
+          "body": "This template takes {photos, plural, one {one photo} other {up to # photos}}. One person per photo, face clearly visible."
+        },
+        "render": {
+          "title": "Pick a version and render",
+          "body": "Choose Fast or Premium and a quality. Prices start at {credits} credits and are shown before you generate."
+        },
+        "share": {
+          "title": "Download and share",
+          "body": "Get a {aspect} MP4 of about {seconds} seconds with music, ready for TikTok, Reels or Shorts."
+        }
+      },
+      "faqTitle": "Questions about this template",
+      "faq": {
+        "photos": {
+          "q": "How many photos do I need?",
+          "a": "{photos, plural, one {One clear photo.} other {Up to # photos — each photo plays one person in the scene.}} Use everyday photos of people who agreed to appear."
+        },
+        "time": {
+          "q": "How long does it take?",
+          "a": "Usually a few minutes for a {seconds}-second video, including a quick photo review."
+        },
+        "refund": {
+          "q": "What if it doesn't work?",
+          "a": "If a render fails, its credits are refunded automatically and you can try again."
+        },
+        "privacy": {
+          "q": "Who can see my video?",
+          "a": "Only you. Videos stay in your account and uploaded photos are deleted automatically after 30 days."
+        },
+        "commercial": {
+          "q": "Can I post it on social media?",
+          "a": "Yes — the MP4 is yours to post. Make sure everyone in it agreed to appear."
+        }
+      }
+    },
+    "home": {
+      "hero": {
+        "badge": "New",
+        "announce": "{name} template",
+        "title": "Your photos.",
+        "titleMuted": "Their next favorite video.",
+        "subtitle": "Pick one of {count} ready-made scenes, drop in a few photos, and get a share-ready video with music in minutes. No prompts. No editing.",
+        "primary": "Start creating",
+        "secondary": "Browse templates",
+        "note": "No prompt · No watermark · Refund if it fails"
+      },
+      "showcase": {
+        "eyebrow": "Showcase",
+        "title": "Made with templates",
+        "subtitle": "Every scene keeps its moves, camera and music. Your photos decide who's in it."
+      },
+      "steps": {
+        "eyebrow": "How it works",
+        "title": "Three steps to your video",
+        "subtitle": "No timeline, no prompt writing. If you can pick a photo, you can make one.",
+        "items": {
+          "pick": {
+            "title": "Pick a template",
+            "body": "Browse ready-made scenes — dances, stage moments, cinematic walks — each with its own camera and music."
+          },
+          "upload": {
+            "title": "Add your photos",
+            "body": "Drop in one to three photos. Each slot shows who that photo will play in the scene."
+          },
+          "share": {
+            "title": "Download and share",
+            "body": "Your MP4 is ready in minutes, sized for TikTok, Reels and Shorts."
+          }
+        }
+      },
+      "features": {
+        "eyebrow": "Why it works",
+        "title": "All the craft, none of the overhead",
+        "items": {
+          "noPrompt": {
+            "title": "No prompt needed",
+            "body": "Every template is a tested scene. Pick one, add photos, press Generate."
+          },
+          "faces": {
+            "title": "Real faces, reviewed safely",
+            "body": "Photos go through the model's review before rendering, so faces stay true to your photos.",
+            "passed": "Passed"
+          },
+          "formats": {
+            "title": "Sized for every feed",
+            "body": "Vertical, square and widescreen templates — each exports the exact ratio its platform wants."
+          },
+          "credits": {
+            "title": "Pay per video, never for failures",
+            "body": "Credits are held when you generate and refunded automatically if a render fails.",
+            "ledger": {
+              "charged": "Render started",
+              "rendering": "Rendering",
+              "refunded": "Failed · refunded"
+            }
+          }
+        }
+      },
+      "templates": {
+        "eyebrow": "Templates",
+        "title": "Pick your scene",
+        "subtitle": "New templates are added regularly. Hover a card to preview it.",
+        "viewAll": "View all"
+      },
+      "audience": {
+        "eyebrow": "Who it's for",
+        "title": "Made for anyone with a camera roll",
+        "subtitle": "However you post, templates turn the photos you already have into motion.",
+        "items": {
+          "creators": {
+            "title": "Content creators",
+            "body": "Ride a trend the day it starts, without filming or editing."
+          },
+          "friends": {
+            "title": "Friends and groups",
+            "body": "Put the whole group in one scene for birthdays, reunions and group chats."
+          },
+          "marketers": {
+            "title": "Marketers",
+            "body": "Spin up eye-catching social clips for campaigns in minutes."
+          },
+          "events": {
+            "title": "Events and parties",
+            "body": "Surprise the guest of honor with a video starring them."
+          },
+          "pets": {
+            "title": "Pet owners",
+            "body": "Some templates take pet photos too — give your cat the spotlight."
+          },
+          "agencies": {
+            "title": "Agencies and studios",
+            "body": "Deliver personalized videos to clients at scale."
+          }
+        }
+      },
+      "pricing": {
+        "eyebrow": "Pricing",
+        "title": "Pay only for what you make",
+        "subtitle": "Credit packs, no subscription required. Fast videos start at {fast} credits; full Premium videos at {sd}.",
+        "details": "Compare versions and qualities"
+      },
+      "faq": {
+        "eyebrow": "FAQ",
+        "title": "Questions, answered",
+        "items": {
+          "what": {
+            "q": "What is this?",
+            "a": "A video maker built on templates: each template is a ready-made scene with its own moves, camera and music. You add photos, the AI puts the people in your photos into the scene."
+          },
+          "photos": {
+            "q": "What photos do I need?",
+            "a": "One person per photo, with a clear, front-facing face and even light. Only use photos of yourself or people who agreed to appear."
+          },
+          "time": {
+            "q": "How long does a video take?",
+            "a": "Usually a few minutes. You can leave the page — finished videos are saved in your account."
+          },
+          "price": {
+            "q": "How much does it cost?",
+            "a": "You pay with credits. A Fast video starts at {fast} credits; a full Premium video costs {sd} credits at 480p, {hd} at 720p and {fhd} at 1080p. Each template shows its exact price."
+          },
+          "refund": {
+            "q": "What if a render fails?",
+            "a": "The credits come back to your balance automatically. You only pay for videos that finish."
+          },
+          "privacy": {
+            "q": "Are my photos private?",
+            "a": "Yes. Photos and videos are only visible in your account, and uploaded photos are deleted after 30 days."
+          }
+        }
+      },
+      "cta": {
+        "title": "Your next video is a few photos away",
+        "subtitle": "Pick a template and see it come together in minutes.",
+        "button": "Start creating"
+      }
+    },
+    "pricing": {
+      "seo": {
+        "title": "Pricing — credit packs",
+        "description": "Pay per video with credit packs. Fast videos from {fast} credits; full videos cost {sd} credits at 480p, {hd} at 720p and {fhd} at 1080p. Failed renders are refunded."
+      },
+      "eyebrow": "Pricing",
+      "title": "Simple, per-video pricing",
+      "lede": "Buy a credit pack and pay per video. Fast videos start at {fast} credits; full Premium videos cost {sd} credits at 480p, {hd} at 720p and {fhd} at 1080p.",
+      "packs": {
+        "names": {
+          "starter": "Starter",
+          "creator": "Creator",
+          "studio": "Studio"
+        },
+        "popular": "Most popular",
+        "save": "Save {percent}%",
+        "credits": "{count} credits",
+        "oneTime": "one-time",
+        "yieldFast": "{count, plural, =0 {Not enough for a Fast video} one {1 Fast video} other {# Fast videos}}",
+        "yieldFull": "{count, plural, =0 {Not enough for a full video} one {1 full Premium video} other {# full Premium videos}}",
+        "perVideo": "About {price} per Fast video",
+        "cta": "Buy credits"
+      },
+      "pro": {
+        "eyebrow": "Pro subscription",
+        "title": "{credits} credits every month",
+        "body": "For regular creators. Unused credits roll over up to {cap}. Cancel any time from Settings → Billing.",
+        "month": "month",
+        "yearly": "or {price} per year — save {percent}%",
+        "cta": "Subscribe"
+      },
+      "included": {
+        "title": "Every pack includes",
+        "items": [
+          "Every template, current and future",
+          "480p to 1080p, priced per video",
+          "Automatic refunds for failed renders",
+          "Videos saved in your account",
+          "No watermark",
+          "Music added to finished videos"
+        ]
+      },
+      "tiers": {
+        "eyebrow": "Versions",
+        "title": "Fast or Premium",
+        "lede": "You choose the version in the studio before you generate. Credits are held when you submit and refunded if the render fails.",
+        "fast": {
+          "name": "Fast",
+          "length": "up to 15 s",
+          "desc": "Quick, affordable renders. Longer templates render their best highlight."
+        },
+        "premium": {
+          "name": "Premium",
+          "length": "full length",
+          "desc": "The whole scene at full length with the finest detail, up to 1080p."
+        },
+        "creditsValue": "{count} credits",
+        "note": "Default rates shown; some templates cost a little more or less. The studio always shows the exact price."
+      },
+      "faqTitle": "Pricing questions",
+      "faq": [
+        {
+          "q": "How many credits does a video cost?",
+          "a": "Fast videos start at {fast} credits. Full Premium videos cost {sd} credits at 480p, {hd} at 720p and {fhd} at 1080p for a typical template. The exact price is shown before you generate."
+        },
+        {
+          "q": "What happens if a render fails?",
+          "a": "The credits for that render are returned to your balance automatically."
+        },
+        {
+          "q": "Do I need a subscription?",
+          "a": "No. Credit packs are one-time purchases. Pro is optional and adds {monthly} credits every month."
+        },
+        {
+          "q": "Can I get a refund?",
+          "a": "Failed renders are refunded in credits automatically. For billing questions, contact support."
+        }
+      ],
+      "creditsAddedToast": "{credits} credits added to your account.",
+      "creditsAddedAction": "Create a video",
+      "unfinishedToast": "You have an unfinished purchase: {credits} credits ({price}).",
+      "unfinishedAction": "Finish purchase"
+    },
+    "seo": {
+      "home": {
+        "title": "Turn your photos into share-ready videos",
+        "description": "Pick a video template, upload one to three photos and get a share-ready video with music in minutes. No prompt, no editing, no watermark.",
+        "keywords": "ai video maker, photo to video ai, ai video templates, ai dance video, viral video maker"
+      },
+      "studio": {
+        "title": "Studio — make a video from your photos",
+        "description": "Pick a template, upload your photos and render a video with music. See the exact price before you generate.",
+        "keywords": "ai video studio, photo to video, ai video generator, ai video templates"
+      }
+    }
+  }
+}

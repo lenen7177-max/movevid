@@ -1,0 +1,1509 @@
+{
+  "common": {
+    "documents": "文档",
+    "cancel": "取消",
+    "continue": "继续",
+    "search": "搜索",
+    "searchPlaceholder": "输入命令或搜索...",
+    "noResults": "未找到结果。",
+    "signIn": "登录",
+    "signOut": "退出登录",
+    "dashboard": "仪表盘",
+    "history": "历史记录"
+  },
+  "dataTable": {
+    "columnHeader": {
+      "ascending": "升序",
+      "descending": "降序",
+      "reset": "重置排序",
+      "hide": "隐藏列"
+    },
+    "pagination": {
+      "currentPage": "第",
+      "pageCount": "/ {pageCount} 页",
+      "goToPage": "跳转到页码"
+    },
+    "viewOptions": {
+      "view": "视图",
+      "toggleColumns": "切换列显示",
+      "searchColumns": "搜索列...",
+      "noColumns": "未找到列。"
+    }
+  },
+  "locale": {
+    "switchLanguage": "切换语言"
+  },
+  "landingPage": {
+    "pricing": {
+      "title": "价格方案",
+      "subtitle": "选择最适合你的方案",
+      "discount": "省 {percent}%",
+      "freeLabel": "免费",
+      "frequencies": {
+        "monthly": "月付",
+        "yearly": "年付",
+        "lifetime": "终身"
+      },
+      "cta": {
+        "subscribe": "立即订阅",
+        "getStarted": "开始使用"
+      },
+      "badge": {
+        "popular": "🔥 最受欢迎",
+        "bestValue": "最佳价值"
+      },
+      "billingNote": {
+        "flexibleCancelAnytime": "灵活订阅，可随时取消",
+        "billedAnnually": "按年计费",
+        "oneTimePurchase": "一次性购买"
+      },
+      "enterprise": {
+        "title": "企业版",
+        "price": "定制",
+        "description": "为企业客户量身打造",
+        "features": {
+          "first": "专属功能与集成支持",
+          "second": "企业级安全与合规",
+          "third": "专属客户成功与 SLA"
+        },
+        "cta": "联系销售"
+      },
+      "periods": {
+        "oneTime": "一次性",
+        "perYear": "每年",
+        "perMonth": "每月"
+      },
+      "trial": {
+        "newUserDays": "{days} 天试用（仅新用户）"
+      },
+      "plans": {
+        "free": {
+          "name": "免费",
+          "description": "浏览示例并体验工作台。",
+          "features": ["浏览示例视频", "随时购买积分包", "积分永不过期"]
+        },
+        "pro": {
+          "name": "Pro",
+          "description": "每月 60 积分，适合经常创作的用户。",
+          "features": [
+            "每月 60 积分（约 4 个快速版视频）",
+            "未用完的积分可累积，上限 120",
+            "随时取消"
+          ]
+        },
+        "lifetime": {
+          "name": "终身版",
+          "description": "一次付费，长期使用。",
+          "features": ["包含专业版功能", "一次性付款", "终身更新"]
+        }
+      }
+    }
+  },
+  "blog": {
+    "list": {
+      "title": "博客",
+      "description": "爆款视频梗解析：从哪来、配什么歌，以及怎么做出你自己的版本。",
+      "allCategories": "全部",
+      "selectCategory": "选择分类",
+      "empty": "当前分类下暂无文章。"
+    },
+    "detail": {
+      "backToBlog": "返回博客",
+      "onThisPage": "目录",
+      "readMore": "继续阅读",
+      "loading": "文章加载中..."
+    }
+  },
+  "auth": {
+    "email": "邮箱",
+    "phoneNumber": "手机号",
+    "password": "密码",
+    "verificationCode": "验证码",
+    "emailPasswordMode": "密码",
+    "emailOtpMode": "验证码",
+    "orContinueWith": "或通过以下方式继续",
+    "loginWithGithub": "使用 Github 登录",
+    "loginWithGoogle": "使用 Google 登录",
+    "enterEmail": "请输入邮箱",
+    "enterPhoneNumber": "请输入手机号",
+    "enterPassword": "请输入密码",
+    "enterVerificationCode": "请输入 6 位验证码",
+    "phoneNumberDescription": "请使用中国大陆手机号格式，例如 13800138000。",
+    "emailOtpDescription": "输入邮箱，我们将发送一次性验证码。",
+    "sendCode": "发送验证码",
+    "sendingCode": "发送中...",
+    "verifyCode": "验证并登录",
+    "verifyingCode": "验证中...",
+    "resendCode": "重新发送",
+    "resendCodeIn": "{seconds} 秒后重发",
+    "changePhoneNumber": "修改手机号",
+    "changeEmail": "修改邮箱",
+    "phoneCodeSent": "验证码已发送到 {phoneNumber}",
+    "emailCodeSent": "验证码已发送到 {email}",
+    "phoneOtpSentDescription": "我们已向 {phoneNumber} 发送验证码。",
+    "emailOtpSentDescription": "我们已向 {email} 发送验证码。",
+    "termsAgreement": "点击继续即表示您同意我们的<termsLink>服务条款</termsLink>和<privacyLink>隐私政策</privacyLink>。",
+    "termsOfService": "服务条款",
+    "privacyPolicy": "隐私政策",
+    "validation": {
+      "invalidEmail": "邮箱格式不正确",
+      "invalidPhone": "请输入有效的中国大陆手机号",
+      "invalidVerificationCode": "请输入 6 位验证码",
+      "passwordRequired": "请输入密码",
+      "nameMinLength": "姓名至少需要 2 个字符",
+      "passwordMinLength": "密码至少需要 8 个字符",
+      "passwordsNotMatch": "两次输入的密码不一致"
+    }
+  },
+  "signIn": {
+    "title": "欢迎回来",
+    "description": "使用邮箱和密码登录",
+    "dialogTitle": "登录",
+    "dialogDescription": "登录后就能生成视频，作品会留在这个账号里。",
+    "phoneDescription": "使用手机号接收一次性验证码登录",
+    "emailOtpDescription": "使用邮箱接收一次性验证码",
+    "phoneOtpDescription": "请输入发送到你手机上的验证码",
+    "emailTab": "邮箱",
+    "phoneTab": "手机号",
+    "login": "登录",
+    "loggingIn": "登录中...",
+    "forgotPassword": "忘记密码？",
+    "noAccount": "还没有账号？",
+    "signUp": "注册",
+    "success": "登录成功"
+  },
+  "signUp": {
+    "title": "创建您的账号",
+    "description": "请输入邮箱以创建账号",
+    "name": "姓名",
+    "enterName": "请输入姓名",
+    "confirmPassword": "确认密码",
+    "confirmYourPassword": "请确认密码",
+    "emailDescription": "我们将通过此邮箱联系您，不会与他人分享。",
+    "passwordMinLength": "密码至少需要 8 个字符。",
+    "createAccount": "创建账号",
+    "hasAccount": "已有账号？",
+    "signIn": "登录",
+    "success": "注册成功",
+    "checkEmail": "请检查邮箱，我们已发送一封验证邮件。",
+    "checkEmailTitle": "请检查邮箱完成验证",
+    "checkEmailDescription": "我们已向 {email} 发送一封验证邮件，请点击邮件中的验证链接完成注册。",
+    "checkEmailHint": "如果没有看到邮件，请检查垃圾邮件文件夹，或稍后再试。",
+    "checkEmailAction": "知道了"
+  },
+  "forgotPassword": {
+    "title": "重置密码",
+    "description": "输入您的邮箱，我们将发送重置密码链接",
+    "sendResetLink": "发送重置链接",
+    "sendingResetLink": "发送中...",
+    "backToSignIn": "返回登录",
+    "success": "重置链接已发送到您的邮箱"
+  },
+  "resetPassword": {
+    "title": "重置密码",
+    "description": "请输入您的新密码",
+    "newPassword": "新密码",
+    "confirmPassword": "确认密码",
+    "confirmNewPassword": "请确认新密码",
+    "reset": "重置密码",
+    "resetting": "重置中...",
+    "backToSignIn": "返回登录",
+    "success": "密码重置成功",
+    "invalidToken": "重置链接无效或已过期"
+  },
+  "notFound": {
+    "title": "404",
+    "description": "您访问的页面不存在，可能已被移动或删除。",
+    "goHome": "返回首页",
+    "goBack": "返回上页"
+  },
+  "forbidden": {
+    "title": "403",
+    "description": "您没有权限访问此页面。",
+    "goDashboard": "打开摄影棚",
+    "goBack": "返回上页"
+  },
+  "errors": {
+    "forbidden": "您没有访问此资源的权限",
+    "accountBanned": "该账户已被封禁"
+  },
+  "credits": {
+    "packages": {
+      "starter": {
+        "title": "入门包",
+        "description": "{count} 积分 · 约 2 个快速版视频，或首个 480p 完整视频。"
+      },
+      "creator": {
+        "title": "创作者包",
+        "description": "{count} 积分 · 约 6 个快速版视频或 3 个 480p 完整视频。"
+      },
+      "studio": {
+        "title": "工作室包",
+        "description": "{count} 积分 · 约 16 个快速版视频或 8 个 480p 完整视频。"
+      }
+    }
+  },
+  "dashboard": {
+    "nav": {
+      "general": "常规",
+      "history": "历史生成",
+      "dashboard": "仪表盘",
+      "users": "用户管理",
+      "paidUsers": "付费用户",
+      "adminOperations": "管理员操作记录",
+      "administration": "管理",
+      "other": "其他",
+      "settings": "设置",
+      "profile": "个人资料",
+      "security": "安全",
+      "billing": "账单",
+      "credits": "积分专区",
+      "creditPurchase": "积分购买",
+      "creditTransactions": "积分流水",
+      "account": "账号设置",
+      "appearance": "外观",
+      "notifications": "通知",
+      "display": "显示",
+      "upgradeToPro": "升级到专业版",
+      "home": "首页",
+      "signOut": "退出登录",
+      "permissionRequired": "需要 {role} 角色",
+      "permissionRequiredDescription": "此功能仅限{role}使用。开发环境中会以禁用状态显示；正式环境中，无权限用户不会看到该入口。",
+      "signOutDialog": {
+        "title": "退出登录",
+        "description": "确定要退出登录吗？您需要重新登录才能访问您的账号。",
+        "confirm": "退出登录"
+      }
+    },
+    "roles": {
+      "user": "用户",
+      "admin": "管理员"
+    },
+    "billing": {
+      "sectionTitle": "会员专区",
+      "title": "账单",
+      "description": "管理订阅与支付方式。",
+      "currentPlan": "当前套餐",
+      "free": "免费",
+      "subscriptionSyncing": "订阅正在激活中，请稍候。",
+      "manageBilling": "管理账单",
+      "manageInStore": "前往应用商店管理",
+      "storeManagedMessage": "当前会员由 App Store 或 Google Play 管理，请在 App 或应用商店内升级、取消或变更订阅。",
+      "storeManagedPlansDescription": "该订阅的变更或取消需要在应用商店中完成。",
+      "plansTitle": "可选套餐",
+      "plansDescription": "选择适合你的方案。",
+      "membershipTypes": {
+        "monthly": "月度会员",
+        "yearly": "年度会员",
+        "lifetime": "终身会员",
+        "subscription": "订阅会员"
+      },
+      "lifetimeLabel": "终身版",
+      "trialLabel": "试用",
+      "startCheckout": "去结算",
+      "currentPlanCta": "当前套餐",
+      "upgradeSubscription": "立即升级",
+      "alreadyLifetime": "已是终身会员",
+      "downgradeNotAllowed": "仅支持升级购买",
+      "checkoutError": "结算失败",
+      "portalError": "打开账单失败",
+      "upgradeError": "升级失败",
+      "upgradeSuccess": "订阅升级成功。",
+      "upgradeUnavailable": "暂不支持升级",
+      "managedByOtherChannel": "请在原购买渠道管理",
+      "noPlans": "暂无可用套餐。",
+      "checkoutDecisionErrors": {
+        "already_lifetime": "您已经是终身会员。",
+        "downgrade_or_same_tier": "当前会员仅支持升级购买。",
+        "subscription_upgrade": "可在当前页面直接升级订阅周期。",
+        "managed_by_other_channel": "当前会员由另一个购买渠道管理，请在原购买渠道升级或取消。",
+        "current_price": "这是您当前的套餐。",
+        "ok": "可以进行结算。",
+        "default": "此套餐暂不可购买。"
+      }
+    },
+    "credits": {
+      "title": "积分",
+      "description": "购买和查看账号积分，Web 与移动端共享。",
+      "purchaseTitle": "购买积分",
+      "purchaseDescription": "购买 Web 与移动端共享的积分包。",
+      "balanceLabel": "当前余额",
+      "balanceDescription": "购买的积分不会过期。赠送积分可能按账号规则过期。",
+      "expiringNotice": "{count} 积分将在 7 天内过期。",
+      "buy": "购买",
+      "checkoutError": "积分结算失败",
+      "orderCreditedToast": "{packageName} 积分已到账。",
+      "refresh": "刷新",
+      "transactionsTitle": "最近流水",
+      "transactionsPageTitle": "积分流水",
+      "transactionsDescription": "查看最近的积分余额变动。",
+      "loading": "加载中...",
+      "emptyPackages": "暂无可用积分包。",
+      "emptyTransactions": "暂无积分流水。",
+      "transactionColumns": {
+        "type": "类型",
+        "package": "明细",
+        "source": "来源",
+        "amount": "数量",
+        "date": "时间"
+      },
+      "transactionSources": {
+        "system": "系统",
+        "app": "应用",
+        "admin": "管理员",
+        "web": "Web 端购买",
+        "native": "App 端购买"
+      },
+      "transactionFilters": {
+        "all": "全部",
+        "purchase": "购买",
+        "usage": "消耗"
+      },
+      "pagination": {
+        "rowsPerPage": "每页条数",
+        "total": "共 {total} 条",
+        "pageInfo": "第 {page} / {pageCount} 页",
+        "previous": "上一页",
+        "next": "下一页"
+      },
+      "transactions": {
+        "signupGrant": "注册赠送",
+        "subscriptionGrant": "订阅积分",
+        "purchase": "购买积分",
+        "refund": "退款",
+        "usage": "使用积分",
+        "expiration": "积分过期",
+        "adjustment": "积分调整"
+      }
+    },
+    "users": {
+      "title": "用户管理",
+      "description": "查看和管理已注册用户账号。",
+      "refresh": "刷新",
+      "table": {
+        "avatar": "头像",
+        "name": "姓名",
+        "email": "邮箱",
+        "contact": "联系方式",
+        "role": "角色",
+        "ban": "封禁状态",
+        "banned": "已封禁",
+        "active": "正常",
+        "status": "状态",
+        "verified": "已验证",
+        "unverified": "未验证",
+        "signupGrant": "注册积分",
+        "signupGranted": "已发放",
+        "signupPending": "尚未判定",
+        "signupReasons": {
+          "eligible": "已发放",
+          "identity_already_granted": "该身份已领过",
+          "device_already_granted": "该设备已领过",
+          "ip_limit": "该网络已达上限",
+          "blocklisted": "命中黑名单",
+          "user_agent_limit": "该浏览器已达上限"
+        },
+        "actions": "操作",
+        "searchPlaceholder": "搜索用户姓名",
+        "noResults": "无结果。"
+      },
+      "actions": {
+        "openMenu": "打开菜单",
+        "changeRole": "更改角色",
+        "ban": "封禁",
+        "unban": "解除封禁",
+        "banConfirmTitle": "确认封禁该用户？",
+        "banConfirmDescription": "对方将立即被登出，在解除封禁前无法使用受保护功能。",
+        "setRoleSuccess": "角色已更新",
+        "setRoleError": "更新角色失败：{message}",
+        "banSuccess": "用户已封禁",
+        "banError": "封禁失败：{message}",
+        "revokeSignupCredits": "收回剩余注册积分",
+        "blockEmailDomain": "拉黑邮箱域名",
+        "blockIp": "拉黑当前 IP",
+        "blockDevice": "拉黑此设备",
+        "blockConfirm": "拉黑",
+        "blockConfirmTitle": {
+          "email_domain": "拉黑这个邮箱域名？",
+          "ip": "拉黑这个 IP？",
+          "device": "拉黑这台设备？"
+        },
+        "blockConfirmDescription": {
+          "email_domain": "之后使用该邮箱域名的新注册会被拒绝。",
+          "ip": "之后来自该 IP 的新注册和登录会被拒绝。",
+          "device": "之后来自这台设备的新注册和登录会被拒绝。"
+        },
+        "blockSuccess": "已加入黑名单",
+        "blockError": "拉黑失败：{message}",
+        "unbanSuccess": "已解除封禁",
+        "unbanError": "解除封禁失败：{message}",
+        "selfRowDisabled": "无法在此修改自己的账号"
+      },
+      "operations": {
+        "adjustCredits": "调整积分",
+        "grantTrial": "赠送试用会员",
+        "history": "操作记录",
+        "amount": "积分变动数量",
+        "currentBalance": "当前积分余额",
+        "balanceLoading": "加载中...",
+        "balanceUnavailable": "暂时无法获取",
+        "amountPlaceholder": "例如 100 或 -50",
+        "amountHelp": "正数增加积分，负数扣减积分。扣减后积分余额不能小于 0。",
+        "membershipTier": "试用会员方案",
+        "monthly": "月度方案",
+        "yearly": "年度方案",
+        "durationDays": "试用有效期（天）",
+        "trialAccessDescription": "用户将在 {days} 天内体验{plan}的会员权益。",
+        "scheduleLoading": "正在加载当前试用安排...",
+        "scheduleUnavailable": "暂时无法获取当前试用安排。",
+        "paidMembershipActive": "该用户已有正式付费会员，不能赠送试用。",
+        "noCurrentTrial": "当前没有生效或待生效的试用。",
+        "currentTrialSchedule": "现有安排：{plan}，持续至 {date}",
+        "estimatedTrialEnd": "赠送后预计到期：{date}",
+        "days": "{count} 天",
+        "reasonOptional": "原因（选填）",
+        "cancel": "取消",
+        "confirm": "确认操作",
+        "submitting": "提交中...",
+        "loading": "加载中...",
+        "emptyHistory": "暂无操作记录。",
+        "actions": {
+          "credits.adjust": "调整积分",
+          "membership.grant_trial": "赠送试用会员"
+        },
+        "statuses": {
+          "pending": "处理中",
+          "succeeded": "成功",
+          "failed": "失败"
+        },
+        "summaries": {
+          "credits": "调整 {amount} 积分",
+          "trial": "{tier} · {days} 天"
+        },
+        "feedback": {
+          "creditsAdjusted": "积分已调整",
+          "trialGranted": "试用会员已赠送",
+          "failed": "操作失败：{message}"
+        }
+      },
+      "pagination": {
+        "rowsPerPage": "每页条数",
+        "total": "共 {total} 条",
+        "pageInfo": "第 {page} / {pageCount} 页",
+        "previous": "上一页",
+        "next": "下一页"
+      }
+    },
+    "adminOperations": {
+      "title": "管理员操作记录",
+      "description": "查看管理员对所有用户执行的管理操作。",
+      "refresh": "刷新",
+      "loading": "加载中...",
+      "noResults": "没有符合当前筛选条件的操作记录。",
+      "searchPlaceholder": "搜索用户姓名",
+      "clearSearch": "清除搜索",
+      "unknownUser": "未知用户",
+      "filters": {
+        "action": "操作类型",
+        "status": "执行状态"
+      },
+      "actions": {
+        "credits": {
+          "adjust": "调整积分"
+        },
+        "membership": {
+          "grant_trial": "赠送试用会员"
+        }
+      },
+      "statuses": {
+        "pending": "处理中",
+        "succeeded": "成功",
+        "failed": "失败"
+      },
+      "tiers": {
+        "monthly": "月度方案",
+        "yearly": "年度方案"
+      },
+      "summaries": {
+        "creditsAdded": "新增 {amount} 积分",
+        "creditsDeducted": "扣除 {amount} 积分",
+        "trial": "赠送{tier}试用，有效期 {days} 天",
+        "trialExtended": "续赠{tier}试用 {days} 天"
+      },
+      "table": {
+        "time": "操作时间",
+        "operator": "操作管理员",
+        "target": "目标用户",
+        "action": "操作类型",
+        "details": "操作详情",
+        "status": "执行状态",
+        "reason": "原因 / 错误"
+      },
+      "pagination": {
+        "rowsPerPage": "每页条数",
+        "total": "共 {total} 条",
+        "previous": "上一页",
+        "next": "下一页"
+      }
+    },
+    "paidUsers": {
+      "title": "付费用户",
+      "description": "查看系统会员状态。",
+      "refresh": "刷新",
+      "clearSearch": "清除搜索",
+      "accountBanned": "已封禁",
+      "priceUnavailable": "价格配置不可用",
+      "complimentary": "免费赠送",
+      "oneTime": "一次性买断",
+      "notApplicable": "终身有效",
+      "endsAtPeriod": "将在此日期失效",
+      "renewsAtPeriod": "下次续费日期",
+      "states": {
+        "paid": "已付费",
+        "trial": "试用中",
+        "ended": "已结束"
+      },
+      "tiers": {
+        "monthly": "月度会员",
+        "yearly": "年度会员",
+        "lifetime": "终身会员",
+        "credits": "积分包"
+      },
+      "sources": {
+        "subscription": "订阅",
+        "lifetime": "一次性购买",
+        "admin_trial": "管理员赠送",
+        "credits": "按次购买"
+      },
+      "providers": {
+        "stripe": "Stripe",
+        "creem": "Creem",
+        "waffo": "Waffo",
+        "revenuecat": "RevenueCat",
+        "admin": "管理员"
+      },
+      "intervals": {
+        "month": "每月",
+        "year": "每年"
+      },
+      "statuses": {
+        "active": "订阅有效",
+        "trialing": "试用中",
+        "past_due": "付款逾期",
+        "paused": "已暂停",
+        "canceled": "已取消",
+        "incomplete": "尚未完成",
+        "unpaid": "未付款",
+        "succeeded": "购买成功",
+        "refunded": "已退款",
+        "expired": "已过期",
+        "canceling": "已取消续费，期末失效"
+      },
+      "filters": {
+        "state": "状态",
+        "tier": "会员类型",
+        "provider": "支付渠道"
+      },
+      "table": {
+        "user": "用户",
+        "membership": "会员方案",
+        "listPrice": "套餐标价",
+        "provider": "支付渠道",
+        "status": "状态",
+        "startedOrPaidAt": "开始 / 购买时间",
+        "renewal": "续费 / 到期",
+        "latestBillingAt": "最近同步",
+        "searchPlaceholder": "搜索用户姓名",
+        "noResults": "暂无付费用户记录。",
+        "creditPurchases": "积分购买",
+        "source": "来源"
+      },
+      "pagination": {
+        "rowsPerPage": "每页条数",
+        "total": "共 {total} 条",
+        "previous": "上一页",
+        "next": "下一页"
+      },
+      "creditPurchasesSummary": "{count} 笔 · {credits} 积分",
+      "sourceUnknown": "在开始记录来源之前注册",
+      "channels": {
+        "chatgpt": "ChatGPT",
+        "perplexity": "Perplexity",
+        "gemini": "Gemini",
+        "claude": "Claude",
+        "copilot": "Copilot",
+        "google": "Google 搜索",
+        "bing": "Bing",
+        "yandex": "Yandex",
+        "duckduckgo": "DuckDuckGo",
+        "baidu": "百度",
+        "x": "X (Twitter)",
+        "tiktok": "TikTok",
+        "instagram": "Instagram",
+        "facebook": "Facebook",
+        "youtube": "YouTube",
+        "reddit": "Reddit",
+        "referral": "其他网站",
+        "direct": "直接访问",
+        "unknown": "未知"
+      },
+      "acquisition": {
+        "title": "按来源统计收入",
+        "subtitle": "买家第一次是从哪里来到网站的（注册前的首次访问）。",
+        "loading": "加载中…",
+        "empty": "还没有记录到来源，新注册的用户会出现在这里。",
+        "channel": "来源",
+        "signups": "注册",
+        "creditBuyers": "积分包买家",
+        "creditOrders": "积分包订单",
+        "revenue": "积分包收入",
+        "members": "会员",
+        "note": "「未知」是开始记录来源之前注册的用户。收入只统计已完成的积分包订单。"
+      }
+    },
+    "sections": {
+      "totalRevenue": "总收入",
+      "newCustomers": "新客户",
+      "activeAccounts": "活跃账号",
+      "growthRate": "增长率",
+      "trendingUp": "本月呈上升趋势",
+      "trendingDown": "本周期下降 {percent}%",
+      "visitorsLast6Months": "过去 6 个月的访问者",
+      "acquisitionAttention": "客户获取需要关注",
+      "strongRetention": "用户留存率强劲",
+      "engagementExceed": "互动超出目标",
+      "steadyPerformance": "业绩稳步提升",
+      "meetsGrowth": "符合增长预测"
+    },
+    "settings": {
+      "profile": {
+        "title": "个人资料",
+        "description": "这是你在网站上的公开展示信息。",
+        "name": "姓名",
+        "namePlaceholder": "请输入姓名",
+        "nameDescription": "这是你的公开显示名称。可以是你的真实姓名或笔名。",
+        "nameMinLength": "姓名至少需要 2 个字符。",
+        "nameMaxLength": "姓名不多于需要 20 个字符。",
+        "email": "电子邮箱",
+        "emailDescription": "你的电子邮箱用于登录和接收通知。",
+        "phone": "手机号",
+        "phoneDescription": "已验证手机号可用于登录。",
+        "notLinked": "未绑定",
+        "avatar": "头像",
+        "avatarDescription": "这是你的个人资料照片。",
+        "changeAvatar": "更换头像",
+        "avatarUploading": "上传中...",
+        "avatarUploadSuccess": "头像更新成功",
+        "avatarUploadError": "头像上传失败",
+        "avatarInvalidType": "请上传有效的图片文件（JPEG、PNG、GIF 或 WebP）",
+        "avatarTooLarge": "图片过大，最大允许 5MB",
+        "save": "保存更改",
+        "saving": "保存中...",
+        "success": "个人资料更新成功。",
+        "error": "更新个人资料失败。"
+      }
+    },
+    "security": {
+      "title": "安全",
+      "description": "管理账户的密码设置。",
+      "socialDescription": "您的账户安全由社交登录提供商管理。",
+      "loading": "加载中...",
+      "loginMethods": {
+        "socialLogin": "社交登录",
+        "socialLoginActive": "您已通过社交账户登录",
+        "active": "已激活"
+      },
+      "security": {
+        "title": "安全状态",
+        "socialLoginSecurity": "您的账户由 {providers} 保护。这些平台使用行业标准的安全措施，包括双重身份验证。"
+      },
+      "password": {
+        "title": "密码",
+        "description": "设置或重置用于邮箱登录的密码。",
+        "hasPassword": "该账号已设置密码。",
+        "sendReset": "发送重置邮件",
+        "sendingReset": "发送中...",
+        "resetSent": "重置邮件已发送。",
+        "statusError": "无法加载密码状态。"
+      },
+      "phone": {
+        "title": "手机号登录",
+        "verified": "已验证",
+        "verifiedNumber": "已验证号码：{phoneNumber}"
+      }
+    },
+    "usersTable": {
+      "title": "用户管理",
+      "description": "使用 useDataTable 钩子和基于 URL 的状态管理的表格示例",
+      "filterPlaceholder": "筛选用户...",
+      "columns": "列",
+      "selectAll": "全选",
+      "selectRow": "选择行",
+      "name": "姓名",
+      "email": "邮箱",
+      "status": "状态",
+      "role": "角色",
+      "createdAt": "创建时间",
+      "actions": "操作",
+      "openMenu": "打开菜单",
+      "copyUserId": "复制用户ID",
+      "viewUser": "查看用户",
+      "editUser": "编辑用户",
+      "noResults": "无结果。",
+      "rowsSelected": "已选择 {selected} / {total} 行。",
+      "previous": "上一页",
+      "next": "下一页",
+      "statusOptions": {
+        "active": "活跃",
+        "inactive": "非活跃",
+        "pending": "待处理"
+      },
+      "roleOptions": {
+        "admin": "管理员",
+        "user": "用户",
+        "moderator": "版主"
+      }
+    },
+    "cards": {
+      "totalEarning": "总收入",
+      "comparisonText": "与去年相比 ($84,325)",
+      "menu": "菜单",
+      "menuActions": {
+        "share": "分享",
+        "update": "更新",
+        "refresh": "刷新"
+      }
+    },
+    "statistics": {
+      "shippedOrders": "已发货订单",
+      "damagedReturns": "损坏退货",
+      "missedDeliverySlots": "错过的配送时段",
+      "thanLastWeek": "比上周"
+    },
+    "productInsights": {
+      "title": "产品洞察",
+      "publishedOn": "发布于 2025年5月12日 - 下午6:10",
+      "productReached": "产品触达",
+      "orderPlaced": "订单下达",
+      "productAlt": "产品"
+    },
+    "salesMetrics": {
+      "title": "销售指标",
+      "companyName": "Sandy 公司",
+      "companyEmail": "sandy@company.com",
+      "salesTrend": "销售趋势",
+      "discountOffers": "折扣优惠",
+      "netProfit": "净利润",
+      "totalOrders": "总订单",
+      "revenueGoal": "收入目标",
+      "totalProfit": "总利润",
+      "planCompleted": "计划完成",
+      "salesPlan": "销售计划",
+      "percentageProfit": "总销售额的利润百分比",
+      "cohortAnalysis": "队列分析指标",
+      "cohortDescription": "分析在同一时间加入产品/服务的一组用户在特定时期内的行为。",
+      "openStatistics": "开放统计",
+      "percentageChange": "百分比变化",
+      "months": {
+        "january": "一月",
+        "february": "二月",
+        "march": "三月"
+      }
+    },
+    "chart": {
+      "totalVisitors": "总访客数",
+      "totalForLast3Months": "过去3个月的总数",
+      "last3Months": "过去3个月",
+      "last30Days": "过去30天",
+      "last7Days": "过去7天",
+      "selectValue": "选择一个值",
+      "visitors": "访客",
+      "desktop": "桌面端",
+      "mobile": "移动端"
+    }
+  },
+  "billingSuccess": {
+    "title": "支付成功",
+    "description": "感谢升级，我们会尽快更新你的权限。",
+    "syncingTitle": "正在确认订阅状态",
+    "syncingDescription": "激活完成后将自动跳转到账单页面。",
+    "goToBilling": "前往账单"
+  },
+  "billingCancel": {
+    "title": "支付已取消",
+    "description": "你可以随时重新发起结算。",
+    "backToBilling": "返回账单"
+  },
+  "pwa": {
+    "updateAvailable": "新版本已准备就绪。",
+    "updateAction": "刷新",
+    "laterAction": "稍后",
+    "installAvailable": "把应用安装到电脑",
+    "mobileInstallAvailable": "把应用添加到主屏幕",
+    "installDescription": "添加到设备后，可更快捷地访问。",
+    "desktopInstallDescription": "请点击浏览器地址栏中的安装图标。",
+    "androidInstallDescription": "请点击右上角菜单，然后选择“添加到主屏幕”或“安装应用”。",
+    "installAction": "安装",
+    "iosInstallAvailable": "在 iPhone 或 iPad 上安装",
+    "iosInstallDescription": "请在 Safari 中打开分享菜单，然后选择“添加到主屏幕”。",
+    "gotItAction": "知道了"
+  },
+  "seo": {
+    "home": {
+      "description": "用现成模板，把日常照片变成可以直接发布的短视频。"
+    },
+    "noIndex": {
+      "descriptionTemplate": "{page}页面属于站内流程页，已禁止搜索引擎收录。",
+      "pages": {
+        "auth": "认证",
+        "billing": "计费",
+        "dashboard": "仪表盘",
+        "notFound": "未找到"
+      }
+    }
+  },
+  "legal": {
+    "common": {
+      "lastUpdatedLabel": "最后更新",
+      "contactLabel": "联系方式",
+      "effectiveDate": "2026-01-01"
+    },
+    "privacy": {
+      "title": "隐私政策",
+      "description": "本政策说明 {appName} 如何处理你的账户、你上传的照片、我们生成的视频以及你使用的积分。",
+      "sections": {
+        "whoWeAre": {
+          "title": "我们是谁",
+          "content": "{appName} 是一项在线服务，使用现成的模板把你的照片变成短视频。我们运营网站以及背后的账户、存储和生成服务。\n\n本政策适用于网站和生成服务。"
+        },
+        "informationCollect": {
+          "title": "我们收集的信息",
+          "content": "账户信息：你的邮箱、姓名和登录方式；如果你使用第三方登录，还包括其共享的基本资料。\n\n内容：你上传的照片以及由此生成的视频。\n\n使用和设备信息：访问的页面、根据 IP 推断的大致位置、浏览器类型，以及用于防止滥用免费积分的设备标识。\n\n支付信息：购买由支付服务商处理。我们只获得购买记录，不会获得你完整的卡片信息。"
+        },
+        "howWeUse": {
+          "title": "我们如何使用信息",
+          "content": "我们使用你的信息来提供服务：登录、生成你请求的视频、在你的账户中保存视频、处理支付和积分、提供客服、防止欺诈和滥用，以及改进服务。"
+        },
+        "photosAndVideos": {
+          "title": "照片和生成的视频",
+          "content": "生成视频时，你的照片和模板的参考片段会发送给视频生成服务商用于渲染结果。服务商只为完成你的请求而处理这些文件。\n\n照片中的人可能在结果中被认出。请只上传你有权使用、且本人同意出镜的照片。请勿上传儿童照片。\n\n生成的视频是 AI 重现，可能存在瑕疵，不代表照片中人物的观点。"
+        },
+        "informationSharing": {
+          "title": "信息共享",
+          "content": "我们只与帮助我们运营服务的服务商（托管、存储、邮件、支付、统计分析和视频生成）共享信息，或在法律要求时、为保护用户和服务的权利与安全时共享。我们不会出售你的个人信息。"
+        },
+        "dataRetention": {
+          "title": "保留与删除",
+          "content": "上传的照片会在视频创建 30 天后自动删除。生成的视频在账户存续期间保留在你的账户中。\n\n如需尽早删除账户及其中保存的内容，请发邮件至 {supportEmail}。在法律、争议、防欺诈或支付需要时，我们可能保留有限的记录。"
+        },
+        "security": {
+          "title": "安全",
+          "content": "我们使用传输加密、访问控制和私有存储来保护你的信息。没有绝对安全的系统，请使用强密码或可信的第三方登录。"
+        },
+        "cookies": {
+          "title": "Cookie 与统计",
+          "content": "我们使用 Cookie 保持你的登录状态，并记住语言和主题等偏好。如果启用了统计分析，我们会用它了解网站的整体使用情况。"
+        },
+        "yourRights": {
+          "title": "你的权利",
+          "content": "你可以要求访问、更正、导出或删除我们持有的你的信息。请用账户邮箱发邮件至 {supportEmail}。根据你所在地的法律，你可能还享有其他权利，包括向数据保护机构投诉的权利。"
+        },
+        "children": {
+          "title": "儿童",
+          "content": "本服务不面向 16 岁以下儿童。如果你未满 16 岁，请勿注册或上传照片，也不要上传任何 16 岁以下人士的照片。如果你认为我们持有儿童的数据，请联系我们，我们会删除。"
+        },
+        "contactUs": {
+          "title": "联系我们",
+          "content": "隐私问题和请求：{supportEmail}。"
+        }
+      }
+    },
+    "terms": {
+      "title": "服务条款",
+      "description": "本条款是你与 {appName} 运营方之间的协议。登录或生成视频即表示你同意本条款。",
+      "sections": {
+        "theService": {
+          "title": "服务内容",
+          "content": "{appName} 让你选择视频模板、上传照片并获得一段生成的短视频。生成视频需要消耗积分，开始前会显示费用。"
+        },
+        "accountResponsibilities": {
+          "title": "你的账户",
+          "content": "请妥善保管登录信息，发现未经授权的使用请及时告知我们。你需要对账户下的活动负责。每个账户仅限一人使用。"
+        },
+        "photosAndConsent": {
+          "title": "照片与同意",
+          "content": "请只上传你有权使用、且照片中的人同意出现在生成视频中的照片。请勿上传儿童、公众人物或你无权使用的照片。"
+        },
+        "acceptableUse": {
+          "title": "使用规范",
+          "content": "不得使用本服务制作违法、骚扰、色情、欺骗性或冒充他人的内容，也不得试图破坏、过载或逆向工程本服务。对于违反规则的内容，我们可以拒绝生成或删除。"
+        },
+        "intellectualProperty": {
+          "title": "内容与权利",
+          "content": "你保留对照片已有的权利，并授予我们为提供服务而处理照片的有限许可。你可以下载、保存和分享为你的账户生成的视频，但需尊重视频中人物的权利以及发布平台的规则。服务、模板和网站内容的权利归我们所有。"
+        },
+        "billingAndRefunds": {
+          "title": "积分、支付与退款",
+          "content": "积分通过积分包或订阅购买，并在生成时消耗。生成失败时积分会自动退回。除法律要求退款的情形外，购买一经完成不予退款。订阅会自动续费，你可以随时在账单设置中取消。"
+        },
+        "disclaimers": {
+          "title": "免责声明",
+          "content": "生成的视频由 AI 制作，可能存在错误或瑕疵。在法律允许的范围内，本服务按现状提供，不作任何保证。"
+        },
+        "liabilityLimit": {
+          "title": "责任限制",
+          "content": "在法律允许的范围内，我们对任何索赔的总责任以你在索赔前 12 个月内向我们支付的金额为限。"
+        },
+        "termination": {
+          "title": "终止",
+          "content": "你可以随时停止使用本服务。如需关闭账户，请发邮件至 {supportEmail}。对于违反本条款的账户，我们可以暂停或关闭。"
+        },
+        "changesToTerms": {
+          "title": "条款变更",
+          "content": "我们可能更新本条款。重大变更会在生效前通知你。继续使用服务即表示你接受更新后的条款。"
+        },
+        "contactUs": {
+          "title": "联系我们",
+          "content": "关于本条款的问题：{supportEmail}。"
+        }
+      }
+    }
+  },
+  "video": {
+    "nav": {
+      "home": "首页",
+      "templates": "模板",
+      "studio": "工作台",
+      "howItWorks": "使用方法",
+      "pricing": "价格",
+      "faq": "常见问题",
+      "blog": "博客",
+      "startCreating": "开始创作",
+      "openMenu": "打开菜单",
+      "closeMenu": "关闭菜单"
+    },
+    "footer": {
+      "product": "产品",
+      "templates": "模板",
+      "resources": "资源",
+      "description": "把日常照片变成可以直接发布的热门短视频。选模板、传照片，几分钟拿到 MP4。",
+      "disclaimer": "{appName} 是独立的创作工具。请只上传已同意出镜的人的照片。视频由 AI 生成，可能存在瑕疵。",
+      "copyright": "© {year} {appName}。保留所有权利。"
+    },
+    "card": {
+      "alt": "{name} 模板预览",
+      "new": "新",
+      "seconds": "{seconds} 秒",
+      "fromCredits": "{credits} 积分起",
+      "photos": "{count} 张照片",
+      "photoRange": "{min}–{max} 张照片"
+    },
+    "templates": {
+      "duo_dance": {
+        "name": "双人舞",
+        "tagline": "两个朋友，一套编舞——明亮练舞室里的同步舞蹈。",
+        "description": "上传两张照片，你们俩会在同一画面里跳完整段编舞：入场、同步舞蹈、半身特写和同一个结束定格。竖屏，约 20 秒，带音乐。",
+        "keywords": "AI 跳舞视频, 双人 AI 视频, 照片变跳舞视频, AI 双人舞, 抖音舞蹈模板",
+        "hashtag": "双人舞 #AI跳舞",
+        "leftRole": "左侧舞者",
+        "rightRole": "右侧舞者"
+      },
+      "solo_spotlight": {
+        "name": "聚光灯独秀",
+        "tagline": "一张照片，一束聚光灯——只属于你的舞台时刻。",
+        "description": "一张照片就够了：灯光亮起，你完成标志性动作，在烟雾缭绕的舞台上谢幕。宠物照片也可以。竖屏，约 10 秒，带音乐。",
+        "keywords": "AI 舞台视频, 单张照片生成视频, 宠物 AI 视频, 照片转视频, AI 表演视频",
+        "hashtag": "聚光灯 #AI视频",
+        "leftRole": "主角"
+      },
+      "squad_walk": {
+        "name": "慢动作走来",
+        "tagline": "最多三个好友，霓虹街头的慢动作出场。",
+        "description": "添加一到三张照片，在霓虹街头朝镜头慢动作走来——头发飘动、衣角翻飞，最后看向镜头。横屏，约 12 秒，带音乐。",
+        "keywords": "慢动作走路 AI, 好友出场视频, 朋友 AI 视频, 多人 AI 视频, 电影感 AI 视频",
+        "hashtag": "慢动作 #好友出场",
+        "leftRole": "中间",
+        "middleRole": "左侧",
+        "rightRole": "右侧"
+      }
+    },
+    "slots": {
+      "photoNumber": "照片 {n}",
+      "upload": "添加照片",
+      "replace": "更换",
+      "remove": "删除照片",
+      "hint": "JPG、PNG 或 WebP · 20 MB 以内 · 一张清晰的正脸",
+      "photoRule": "请使用你自己或已同意出镜的朋友的日常照片。公众人物照片、电影或 MV 截图无法通过审核。",
+      "count": "{count}/{total} 张",
+      "optional": "{min} 张就够了，最多可加 {total} 张，叫上朋友一起。",
+      "petsHint": "宠物也可以：用一张清晰的猫、狗或其他宠物正面照，每张照片一只。",
+      "personOrPet": "人或宠物"
+    },
+    "errors": {
+      "fileType": "请使用 JPG、PNG 或 WebP 图片。",
+      "fileSize": "每张照片请小于 20 MB。",
+      "tooSmall": "照片太小了，请使用每边至少 300 像素的照片。",
+      "aspect": "照片太长或太宽，请裁剪成接近竖图或方图。",
+      "unreadable": "无法读取这张图片，请换一个文件。",
+      "needPhotos": "{count, plural, one {请先添加一张照片。} other {请先添加全部 # 张照片。}}",
+      "insufficientCredits": "积分不足，无法生成。",
+      "notConfigured": "工作台还没准备好，请稍后再试。",
+      "submitFailed": "无法开始生成，积分没有扣除。",
+      "generic": "出了点问题，请重试。",
+      "photoRejected": "有照片没有通过审核。不接受公众人物、新闻图片或有版权的图片。请换一张你自己或已同意出镜的朋友的日常照片。",
+      "photoNumberRejected": "照片 {n} 没有通过审核。不接受公众人物、未成年人、新闻图片或有版权的图片。请换一张你自己或已同意出镜的朋友的日常照片。",
+      "contentBlocked": "视频模型的内容审核拦截了这次生成。请使用你自己或已同意出镜的朋友的日常照片。",
+      "renderTimeout": "生成时间过长已被停止，请重试。"
+    },
+    "studio": {
+      "templateLabel": "模板",
+      "templateMeta": "{photos} · {seconds} 秒",
+      "trySamples": "试试示例照片",
+      "cost": "本次视频 {cost} 积分",
+      "firstFull": "首个完整视频优惠价",
+      "version": {
+        "label": "版本",
+        "premium": "高级",
+        "fast": "快速",
+        "full": "完整视频 · {seconds} 秒",
+        "highlight": "精华片段 · {seconds} 秒",
+        "from": "{cost} 积分起",
+        "highlightHint": "快速版生成最精彩的 {seconds} 秒。想要完整的 {total} 秒视频请选高级版。"
+      },
+      "quality": {
+        "label": "画质",
+        "480p": "480p · 标清",
+        "720p": "720p · 高清",
+        "1080p": "1080p · 全高清",
+        "credits": "{cost} 积分",
+        "eta": "约 {minutes} 分钟",
+        "premiumOnly": "仅高级版"
+      },
+      "balance": "余额：{balance} 积分",
+      "generate": "生成视频",
+      "signInToGenerate": "登录后生成",
+      "viewSample": "查看示例效果",
+      "sampleFree": "示例照片：免费预览，不扣积分",
+      "buyCredits": "购买积分",
+      "submitting": "正在提交…",
+      "consent": "点击生成即表示照片中的每个人都已同意出镜。",
+      "result": {
+        "title": "你的视频",
+        "emptyTitle": "视频会显示在这里",
+        "emptyBody": "添加照片后点击生成，通常几分钟就能完成。",
+        "sampleBadge": "示例",
+        "sampleNote": "用示例照片提前生成的效果。",
+        "sampleTierNote": "用示例照片提前生成的效果（{tier} · {quality}）。",
+        "useOwnPhotos": "用我自己的照片",
+        "processing": "生成中… {progress}%",
+        "reviewing": "正在审核照片…",
+        "reviewingHint": "通常几秒钟，偶尔需要几分钟。审核通过后会自动开始生成。",
+        "failed": "这次生成失败了。",
+        "refunded": "{cost} 积分已退回你的余额。",
+        "failedReason": "原因：{reason}",
+        "download": "下载 MP4",
+        "again": "再做一个",
+        "videoLabel": "生成的视频",
+        "mixing": "正在添加音乐…",
+        "share": {
+          "button": "分享",
+          "preparing": "正在准备分享…",
+          "title": "发布到",
+          "platforms": {
+            "tiktok": "TikTok",
+            "instagram": "Instagram Reels",
+            "youtube": "YouTube Shorts"
+          },
+          "desktopHint": "点击按钮会下载视频、复制文案并打开上传页，把视频拖进去再粘贴文案即可。",
+          "desktopReady": "视频已开始下载，文案已复制。把视频拖进刚打开的页面，再粘贴文案。",
+          "captionCopied": "文案已复制，发布时粘贴即可。",
+          "failed": "无法打开分享，请下载视频后手动发布。",
+          "musicHint": "如果平台把声音静音了，可以用平台自带的音乐库重新配乐。",
+          "caption": "用 {site} 做了我的 {name} 视频 ✨ #AI视频 #{tag}"
+        },
+        "wait": {
+          "steps": {
+            "review": "照片审核",
+            "render": "生成中",
+            "music": "添加音乐"
+          },
+          "elapsed": "已用时 {time}",
+          "remaining": "大约还需 {minutes} 分钟",
+          "almostDone": "马上就好…",
+          "slower": "比平时稍慢一些",
+          "notify": "完成后通知我",
+          "notifyOn": "完成后会在这个浏览器里通知你",
+          "refundNote": "积分已冻结——如果生成失败会自动退回。",
+          "tips": {
+            "leave": "可以离开这个页面，完成的视频会保存在「我的视频」。",
+            "share": "完成后可以直接在手机上分享。",
+            "quality": "小技巧：先用 480p 试，满意后再用 720p 或 1080p 重新生成。",
+            "templates": "等待时可以看看其他模板，同样的照片都能用。"
+          },
+          "tabProcessing": "（{percent}%）视频生成中…",
+          "tabDone": "✅ 视频已完成",
+          "tabFailed": "⚠️ 生成失败",
+          "notifyDoneTitle": "你的视频好了 🎬",
+          "notifyDoneBody": "{template} 视频已完成，点击观看。",
+          "notifyFailedTitle": "生成失败",
+          "notifyFailedBody": "积分已退回，点击查看原因。"
+        },
+        "sampleEmptyLabel": "{name} 示例视频",
+        "sampleEmptyBody": "这是用示例照片生成的，添加你的照片做一个属于自己的版本。"
+      },
+      "history": {
+        "title": "我的视频",
+        "empty": "还没有视频。",
+        "processing": "生成中",
+        "succeeded": "已完成",
+        "failed": "失败",
+        "view": "查看"
+      },
+      "page": {
+        "eyebrow": "工作台 · {count} 个模板",
+        "title": "制作你的视频",
+        "subtitle": "选模板、加照片、选版本。生成前就能看到准确价格。"
+      },
+      "templatesSection": {
+        "title": "全部模板",
+        "subtitle": "每个模板都用同样的照片。打开模板查看预览和详情。"
+      },
+      "selected": {
+        "label": "已选模板",
+        "viewPage": "模板详情"
+      },
+      "faq": {
+        "title": "工作台常见问题",
+        "items": {
+          "choose": {
+            "q": "该选哪个模板？",
+            "a": "选你想发布的那个画面。每个模板都有自己的动作、镜头和音乐，并需要固定数量的照片——照片槽会标明每张照片扮演谁。"
+          },
+          "photos": {
+            "q": "什么样的照片效果最好？",
+            "a": "每张照片一个人，正脸清晰、光线均匀。请使用你自己或已同意出镜的朋友的照片；公众人物照片和电影截图无法通过审核。"
+          },
+          "time": {
+            "q": "生成一个视频要多久？",
+            "a": "通常几分钟，包含照片审核。可以离开页面，完成的视频会保存在「我的视频」，浏览器也可以通知你。"
+          },
+          "refund": {
+            "q": "生成失败怎么办？",
+            "a": "这次生成的积分会自动退回余额，换几张照片再试一次即可。"
+          },
+          "privacy": {
+            "q": "我的照片和视频是私密的吗？",
+            "a": "是的。照片和视频只在你自己的账户里可见，上传的照片会在 30 天后自动删除。"
+          }
+        }
+      }
+    },
+    "gallery": {
+      "seo": {
+        "title": "视频模板",
+        "description": "浏览全部视频模板。上传一到三张照片，几分钟就能得到带音乐、可直接发布的竖屏或横屏视频。",
+        "keywords": "AI 视频模板, 照片转视频, AI 跳舞视频, 爆款视频模板, AI 视频制作"
+      },
+      "eyebrow": "{count} 个模板",
+      "title": "挑一个你的高光时刻",
+      "subtitle": "每个模板都是现成的场景。加上你的照片，你就是主角——不用写提示词，也不用剪辑。",
+      "ctaTitle": "照片准备好了吗？",
+      "ctaBody": "打开工作台，切换模板，生成前就能看到价格。",
+      "ctaButton": "打开工作台",
+      "viewAll": "查看全部模板",
+      "moreEyebrow": "模板",
+      "moreTitle": "更多模板",
+      "moreSubtitle": "同样的照片，换一个场景。"
+    },
+    "templatePage": {
+      "seoTitle": "{name} — AI 视频模板 | {appName}",
+      "back": "全部模板",
+      "eyebrow": "模板",
+      "playSample": "播放示例视频",
+      "facts": {
+        "photos": "照片",
+        "length": "时长",
+        "format": "画幅",
+        "from": "起价",
+        "seconds": "约 {seconds} 秒",
+        "credits": "{credits} 积分"
+      },
+      "stepsEyebrow": "使用方法",
+      "stepsTitle": "三步做出你的「{name}」视频",
+      "steps": {
+        "upload": {
+          "title": "添加照片",
+          "body": "这个模板最多需要 {photos} 张照片。每张照片一个人，正脸清晰。"
+        },
+        "render": {
+          "title": "选版本并生成",
+          "body": "选择快速版或高级版以及画质。{credits} 积分起，生成前就会显示价格。"
+        },
+        "share": {
+          "title": "下载并分享",
+          "body": "得到一个约 {seconds} 秒、{aspect} 画幅、带音乐的 MP4，可直接发到抖音、小红书或视频号。"
+        }
+      },
+      "faqTitle": "关于这个模板",
+      "faq": {
+        "photos": {
+          "q": "需要几张照片？",
+          "a": "最多 {photos} 张，每张照片扮演场景中的一个人。请使用已同意出镜的人的日常照片。"
+        },
+        "time": {
+          "q": "需要多长时间？",
+          "a": "一个 {seconds} 秒的视频通常几分钟就好，包含快速的照片审核。"
+        },
+        "refund": {
+          "q": "效果不行怎么办？",
+          "a": "如果生成失败，积分会自动退回，你可以再试一次。"
+        },
+        "privacy": {
+          "q": "谁能看到我的视频？",
+          "a": "只有你。视频保存在你的账户里，上传的照片 30 天后自动删除。"
+        },
+        "commercial": {
+          "q": "可以发到社交媒体吗？",
+          "a": "可以，MP4 归你发布。请确认视频中的每个人都同意出镜。"
+        }
+      }
+    },
+    "home": {
+      "hero": {
+        "badge": "上新",
+        "announce": "{name} 模板",
+        "title": "你的照片，",
+        "titleMuted": "下一个刷屏视频。",
+        "subtitle": "从 {count} 个现成场景里挑一个，放进几张照片，几分钟拿到带音乐、可直接发布的视频。不用提示词，不用剪辑。",
+        "primary": "开始创作",
+        "secondary": "浏览模板",
+        "note": "无需提示词 · 无水印 · 失败自动退款"
+      },
+      "showcase": {
+        "eyebrow": "作品展示",
+        "title": "用模板做出来的",
+        "subtitle": "每个场景的动作、镜头和音乐都保持不变，由你的照片决定谁来出演。"
+      },
+      "steps": {
+        "eyebrow": "使用方法",
+        "title": "三步做出你的视频",
+        "subtitle": "没有时间线，不用写提示词。会选照片就会用。",
+        "items": {
+          "pick": {
+            "title": "选一个模板",
+            "body": "浏览现成的场景——舞蹈、舞台、电影感走路——每个都有自己的镜头和音乐。"
+          },
+          "upload": {
+            "title": "添加照片",
+            "body": "放入一到三张照片，每个照片槽都标明了这张照片在场景中扮演谁。"
+          },
+          "share": {
+            "title": "下载并分享",
+            "body": "几分钟后拿到 MP4，尺寸适配抖音、小红书和视频号。"
+          }
+        }
+      },
+      "features": {
+        "eyebrow": "为什么好用",
+        "title": "专业的效果，零门槛",
+        "items": {
+          "noPrompt": {
+            "title": "不用写提示词",
+            "body": "每个模板都是调好的场景。选模板、加照片、点生成。"
+          },
+          "faces": {
+            "title": "真实人脸，安全审核",
+            "body": "照片会先经过模型审核再生成，人脸保持和照片一致。",
+            "passed": "已通过"
+          },
+          "formats": {
+            "title": "适配每个平台",
+            "body": "竖屏、方形、横屏模板，每个都按平台需要的比例导出。"
+          },
+          "credits": {
+            "title": "按视频付费，失败不收钱",
+            "body": "生成时冻结积分，失败会自动退回。",
+            "ledger": {
+              "charged": "开始生成",
+              "rendering": "生成中",
+              "refunded": "失败 · 已退回"
+            }
+          }
+        }
+      },
+      "templates": {
+        "eyebrow": "模板",
+        "title": "挑一个场景",
+        "subtitle": "模板会持续上新。鼠标悬停即可预览。",
+        "viewAll": "查看全部"
+      },
+      "audience": {
+        "eyebrow": "适合谁",
+        "title": "相册里有照片，就能用",
+        "subtitle": "无论你在哪里发布，模板都能把手里的照片变成动态视频。",
+        "items": {
+          "creators": {
+            "title": "内容创作者",
+            "body": "热点一出来就跟上，不用拍也不用剪。"
+          },
+          "friends": {
+            "title": "朋友和群聊",
+            "body": "生日、聚会、群聊，把整个小团体放进同一个画面。"
+          },
+          "marketers": {
+            "title": "营销人员",
+            "body": "几分钟做出吸睛的社媒短视频。"
+          },
+          "events": {
+            "title": "活动和派对",
+            "body": "给主角一个惊喜：一段由 TA 主演的视频。"
+          },
+          "pets": {
+            "title": "宠物主人",
+            "body": "部分模板支持宠物照片——让你家猫也站上舞台。"
+          },
+          "agencies": {
+            "title": "代理和工作室",
+            "body": "批量为客户制作个性化视频。"
+          }
+        }
+      },
+      "pricing": {
+        "eyebrow": "价格",
+        "title": "做多少，付多少",
+        "subtitle": "积分包，无需订阅。快速版 {fast} 积分起，高级完整版 {sd} 积分起。",
+        "details": "对比版本和画质"
+      },
+      "faq": {
+        "eyebrow": "常见问题",
+        "title": "你可能想问",
+        "items": {
+          "what": {
+            "q": "这是什么？",
+            "a": "一个基于模板的视频制作工具：每个模板是一个现成的场景，有自己的动作、镜头和音乐。你添加照片，AI 把照片里的人放进场景。"
+          },
+          "photos": {
+            "q": "需要什么样的照片？",
+            "a": "每张照片一个人，正脸清晰、光线均匀。请只使用你自己或已同意出镜的人的照片。"
+          },
+          "time": {
+            "q": "生成一个视频要多久？",
+            "a": "通常几分钟。可以离开页面，完成的视频会保存在你的账户里。"
+          },
+          "price": {
+            "q": "怎么收费？",
+            "a": "使用积分付费。快速版 {fast} 积分起；高级完整版 480p 为 {sd} 积分、720p 为 {hd} 积分、1080p 为 {fhd} 积分。每个模板都会显示准确价格。"
+          },
+          "refund": {
+            "q": "生成失败怎么办？",
+            "a": "积分会自动退回余额，只为成功的视频付费。"
+          },
+          "privacy": {
+            "q": "我的照片是私密的吗？",
+            "a": "是的。照片和视频只在你的账户里可见，上传的照片 30 天后自动删除。"
+          }
+        }
+      },
+      "cta": {
+        "title": "下一个视频，只差几张照片",
+        "subtitle": "挑一个模板，几分钟后看它成片。",
+        "button": "开始创作"
+      }
+    },
+    "pricing": {
+      "seo": {
+        "title": "价格 — 积分包",
+        "description": "用积分包按视频付费。快速版 {fast} 积分起；完整视频 480p {sd} 积分、720p {hd} 积分、1080p {fhd} 积分。失败自动退款。"
+      },
+      "eyebrow": "价格",
+      "title": "简单的按次计费",
+      "lede": "购买积分包，按视频付费。快速版 {fast} 积分起；高级完整版 480p {sd} 积分、720p {hd} 积分、1080p {fhd} 积分。",
+      "packs": {
+        "names": {
+          "starter": "入门",
+          "creator": "创作者",
+          "studio": "工作室"
+        },
+        "popular": "最受欢迎",
+        "save": "省 {percent}%",
+        "credits": "{count} 积分",
+        "oneTime": "一次性",
+        "yieldFast": "{count, plural, =0 {不够一个快速版视频} other {# 个快速版视频}}",
+        "yieldFull": "{count, plural, =0 {不够一个完整视频} other {# 个高级完整视频}}",
+        "perVideo": "快速版约 {price} / 个",
+        "cta": "购买积分"
+      },
+      "pro": {
+        "eyebrow": "Pro 订阅",
+        "title": "每月 {credits} 积分",
+        "body": "适合经常创作的用户。未用完的积分可累积，上限 {cap}。可随时在「设置 → 账单」中取消。",
+        "month": "月",
+        "yearly": "或每年 {price}，省 {percent}%",
+        "cta": "订阅"
+      },
+      "included": {
+        "title": "每个积分包都包含",
+        "items": [
+          "全部模板，包括以后上新的",
+          "480p 到 1080p，按视频计费",
+          "生成失败自动退款",
+          "视频保存在你的账户",
+          "无水印",
+          "成片自动配乐"
+        ]
+      },
+      "tiers": {
+        "eyebrow": "版本",
+        "title": "快速版还是高级版",
+        "lede": "在工作台生成前选择版本。提交时冻结积分，失败自动退回。",
+        "fast": {
+          "name": "快速版",
+          "length": "最长 15 秒",
+          "desc": "生成快、价格低。较长的模板会生成最精彩的片段。"
+        },
+        "premium": {
+          "name": "高级版",
+          "length": "完整时长",
+          "desc": "完整时长的整个场景，细节最好，最高 1080p。"
+        },
+        "creditsValue": "{count} 积分",
+        "note": "以上为默认价格，个别模板会略有不同，工作台总会显示准确价格。"
+      },
+      "faqTitle": "价格相关问题",
+      "faq": [
+        {
+          "q": "一个视频多少积分？",
+          "a": "快速版 {fast} 积分起。常见模板的高级完整版 480p 为 {sd} 积分、720p 为 {hd} 积分、1080p 为 {fhd} 积分。生成前会显示准确价格。"
+        },
+        {
+          "q": "生成失败怎么办？",
+          "a": "这次生成的积分会自动退回你的余额。"
+        },
+        {
+          "q": "需要订阅吗？",
+          "a": "不需要。积分包是一次性购买。Pro 订阅是可选的，每月额外获得 {monthly} 积分。"
+        },
+        {
+          "q": "可以退款吗？",
+          "a": "生成失败会自动退回积分。账单相关问题请联系客服。"
+        }
+      ],
+      "creditsAddedToast": "{credits} 积分已到账。",
+      "creditsAddedAction": "去做视频",
+      "unfinishedToast": "你有一笔未完成的购买：{credits} 积分（{price}）。",
+      "unfinishedAction": "继续支付"
+    },
+    "seo": {
+      "home": {
+        "title": "把你的照片变成可发布的短视频",
+        "description": "选一个视频模板，上传一到三张照片，几分钟拿到带音乐、可直接发布的视频。不用提示词，不用剪辑，无水印。",
+        "keywords": "AI 视频制作, 照片转视频, AI 视频模板, AI 跳舞视频, 爆款视频制作"
+      },
+      "studio": {
+        "title": "工作台 — 用照片做视频",
+        "description": "选模板、上传照片，生成带音乐的视频。生成前就能看到准确价格。",
+        "keywords": "AI 视频工作台, 照片转视频, AI 视频生成器, AI 视频模板"
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "common": {
+    "notLinked": "未绑定"
+  },
+  "errors": {
+    "unauthorized": "未授权访问",
+    "notFound": "资源不存在",
+    "invalidEmail": "邮箱格式错误",
+    "rateLimited": "请求过于频繁，请稍后再试"
+  }
+}

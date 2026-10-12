@@ -1,0 +1,92 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "ui": "tui",
+  "tasks": {
+    "setup": {
+      "cache": false
+    },
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        ".env*"
+      ],
+      "outputs": [
+        "dist/**"
+      ]
+    },
+    "lint": {
+      "dependsOn": [
+        "^lint"
+      ]
+    },
+    "lint:fix": {
+      "dependsOn": [
+        "^lint:fix"
+      ]
+    },
+    "fmt": {
+      "dependsOn": [
+        "^fmt"
+      ]
+    },
+    "fmt:check": {
+      "dependsOn": [
+        "^fmt:check"
+      ]
+    },
+    "check-types": {
+      "dependsOn": [
+        "^check-types"
+      ]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "db:push": {
+      "cache": false,
+      "persistent": true
+    },
+    "db:studio": {
+      "cache": false,
+      "persistent": true
+    },
+    "db:studio:local": {
+      "cache": false,
+      "persistent": true
+    },
+    "db:migrate": {
+      "cache": false,
+      "persistent": true
+    },
+    "db:generate": {
+      "cache": false,
+      "persistent": true
+    },
+    "deploy": {
+      "dependsOn": [
+        "build"
+      ],
+      "cache": false,
+      "passThroughEnv": [
+        "CLOUDFLARE_API_TOKEN",
+        "CLOUDFLARE_ACCOUNT_ID",
+        "VITE_SERVER_URL",
+        "VITE_APP_URL",
+        "VITE_TAWK_PROPERTY_ID",
+        "VITE_TAWK_WIDGET_ID",
+        "VITE_TURNSTILE_SITE_KEY",
+        "NODE_ENV"
+      ]
+    },
+    "db:migrate:local": {
+      "cache": false
+    },
+    "test": {
+      "cache": false
+    }
+  }
+}

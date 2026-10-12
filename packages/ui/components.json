@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "base-nova",
+  "rsc": false,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "src/styles/theme.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "iconLibrary": "lucide",
+  "aliases": {
+    "components": "@repo/ui",
+    "utils": "@repo/ui/cn",
+    "ui": "@repo/ui",
+    "lib": "@repo/ui",
+    "hooks": "@repo/ui"
+  },
+  "registries": {
+    "@lucide-animated": "https://lucide-animated.com/r/{name}.json",
+    "@diceui": "https://diceui.com/r/{name}.json",
+    "@smoothui": "https://smoothui.dev/r/{name}.json",
+    "@tailark": "https://tailark.com/r/{name}.json",
+    "@react-bits": "https://reactbits.dev/r/{name}.json"
+  }
+}

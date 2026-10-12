@@ -1,0 +1,71 @@
+{
+  // Replace every your-project / example.com / zero-UUID placeholder before deploying (see SETUP.md).
+  "name": "your-project-server",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-06-15",
+  "compatibility_flags": ["nodejs_compat"],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      // `wrangler d1 create your-project-db` prints both values.
+      "database_name": "your-project-db",
+      "database_id": "00000000-0000-0000-0000-000000000000",
+    },
+  ],
+  "vars": {
+    "NODE_ENV": "production",
+    "WEBSITE_URL": "https://example.com",
+    "SERVER_URL": "https://api.example.com",
+    // Add non-sensitive public IDs here:
+    // GitHub OAuth client ID
+    "GITHUB_CLIENT_ID": "",
+    // Google OAuth client ID
+    "GOOGLE_CLIENT_ID": "",
+    "APIMART_BASE_URL": "https://api.apimart.ai",
+    // Optional: Seedance asset-library group that holds reviewed user photos. Leave empty and
+    // copy the group id from the first render's logs, so later photos land in the same group.
+    "APIMART_ASSET_GROUP_ID": "",
+    // Public base URL of the template media bucket (reference clips and soundtracks), e.g. an R2
+    // public bucket. Files follow the layout in apps/server/src/video/templates.ts.
+    "TEMPLATE_MEDIA_BASE_URL": "https://media.example.com",
+  },
+  "r2_buckets": [
+    {
+      // Private bucket for uploaded photos and finished renders.
+      "binding": "STORAGE",
+      "bucket_name": "your-project-bucket",
+    },
+  ],
+  "send_email": [
+    {
+      "name": "EMAIL",
+    },
+  ],
+  // Email-sending auth routes (see src/middlewares/auth-email-guard.ts).
+  // namespace_id is any integer unique within your Cloudflare account.
+  "ratelimits": [
+    {
+      "name": "AUTH_EMAIL_IP_RATE_LIMITER",
+      "namespace_id": "1001",
+      "simple": { "limit": 5, "period": 60 },
+    },
+    {
+      "name": "AUTH_EMAIL_ADDRESS_RATE_LIMITER",
+      "namespace_id": "1002",
+      "simple": { "limit": 2, "period": 60 },
+    },
+  ],
+  "triggers": {
+    // Every 15 minutes: finish or refund abandoned renders. Daily: credit expiry and photo cleanup.
+    "crons": ["*/15 * * * *", "10 16 * * *"],
+  },
+  "observability": {
+    "logs": {
+      "enabled": true,
+      "invocation_logs": true,
+    },
+    "traces": {
+      "enabled": false,
+    },
+  },
+}

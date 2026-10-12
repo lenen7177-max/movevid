@@ -1,0 +1,60 @@
+{
+  "email": {
+    "verification": {
+      "subject": "Verify your email for {appName}",
+      "preview": "Verify your email address for {appName}",
+      "title": "Verify your email",
+      "greeting": "Hi {name},",
+      "body": "Thanks for signing up! Please click the button below to verify your email address.",
+      "button": "Verify Email",
+      "ignore": "If you didn't create an account, you can safely ignore this email."
+    },
+    "passwordReset": {
+      "subject": "Reset your password for {appName}",
+      "title": "Password Reset",
+      "greeting": "Hello {name}",
+      "body": "Click the button below to reset your password",
+      "button": "Reset Password",
+      "ignore": "If you didn't request a password reset, you can safely ignore this email."
+    },
+    "otp": {
+      "subject": "Your {appName} verification code",
+      "preview": "Use this code to continue with {appName}",
+      "title": "Your verification code",
+      "body": "Use this one-time code to continue with {appName}.",
+      "expires": "This code expires in {minutes} minutes.",
+      "ignore": "If you didn't request this code, you can safely ignore this email."
+    }
+  },
+  "errors": {
+    "unauthorized": "You must be logged in to perform this action",
+    "forbidden": "You don't have permission to access this resource",
+    "notFound": "The requested resource was not found",
+    "invalidFileType": "Invalid file type. Please upload a valid file",
+    "fileTooLarge": "File is too large. Maximum size is {maxSizeMB}MB",
+    "fileNotFound": "File not found in storage",
+    "uploadFailed": "Failed to upload file. Please try again",
+    "invalidUrl": "Invalid URL provided",
+    "accountDeleted": "This account has been deleted",
+    "accountBanned": "This account has been banned",
+    "cannotBanSelf": "You cannot ban your own account",
+    "cannotBlockSelf": "You cannot block your own account",
+    "emailDomainBlocked": "This email domain cannot be used to sign up",
+    "networkBlocked": "Sign-in from this network is not allowed",
+    "tooManyRequests": "Too many requests. Please wait a minute and try again.",
+    "deviceBlocked": "Sign-in from this device is not allowed",
+    "phoneDomainUnavailable": "Phone accounts do not have an email domain to block",
+    "noClientIp": "This user has no recorded IP address",
+    "noClientDevice": "This user has no recorded device",
+    "invalidEmailDomain": "This email domain cannot be blocked",
+    "cannotDemoteLastAdmin": "You cannot demote the last administrator",
+    "operationRequestConflict": "This operation request id is already in use",
+    "insufficientCredits": "The user does not have enough credits for this deduction",
+    "paidMembershipAlreadyActive": "The user already has an active paid membership",
+    "adminOperationFailed": "The administrator operation failed",
+    "invalidRole": "The requested role is not valid",
+    "notificationsDisabled": "Notifications are disabled in app configuration",
+    "notificationSubscriptionNotRegistered": "This device is not registered for notifications",
+    "notificationSendFailed": "The notification could not be sent"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "common": {
+    "notLinked": "未連携"
+  },
+  "errors": {
+    "unauthorized": "認証されていません",
+    "notFound": "リソースが見つかりません",
+    "invalidEmail": "メールアドレスの形式が正しくありません",
+    "rateLimited": "リクエストが多すぎます。しばらくしてからもう一度お試しください"
+  }
+}

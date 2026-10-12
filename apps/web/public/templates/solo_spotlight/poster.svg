@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 1280" width="720" height="1280">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#14151c"/><stop offset="1" stop-color="#07070a"/></linearGradient>
+  <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0.22"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+  <filter id="blur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="65"/></filter>
+  <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.06 0"/></filter>
+</defs>
+<rect width="720" height="1280" fill="url(#bg)"/>
+<g filter="url(#blur)"><circle cx="360" cy="300" r="260" fill="#ffb35b" opacity="0.55"/><circle cx="200" cy="900" r="240" fill="#5b7cff" opacity="0.5"/><circle cx="560" cy="1000" r="220" fill="#ff5b8a" opacity="0.4"/></g>
+<path d="M273.6 0 L446.4 0 L612.0 1280 L108.0 1280 Z" fill="url(#beam)"/>
+<ellipse cx="360.0" cy="1100.8" rx="345.59999999999997" ry="64.0" fill="#000" opacity="0.35"/>
+<g opacity="0.96" fill="#0b0b10" stroke="#ffffff" stroke-opacity="0.16" stroke-width="3">
+  <circle cx="360.0" cy="477.0" r="77.0"/>
+  <path d="M234.0 1100.0 L234.0 686.6 Q234.0 573.2 360.0 573.2 Q486.0 573.2 486.0 686.6 L486.0 1100.0 Z"/>
+</g>
+<rect width="720" height="1280" filter="url(#grain)"/>
+</svg>

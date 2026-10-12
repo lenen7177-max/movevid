@@ -1,0 +1,57 @@
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "sonner";
+import { openSignInDialog } from "@/components/auth/sign-in-dialog";
+import { setPendingCreditOrderId } from "@/hooks/use-pending-credit-order";
+import { useTranslations } from "@/i18n";
+import { getAttributedTemplate } from "@/lib/analytics/attribution";
+import { trackCreditPackCheckout } from "@/lib/analytics/events";
+import { authClient } from "@/lib/auth/auth-client";
+import { openProviderCheckoutUrl } from "@/lib/payments/open-checkout-url";
+import { orpc } from "@/utils/orpc";
+
+function getCurrentPageUrl() {
+  const url = new URL(window.location.href);
+  url.hash = "";
+  url.search = "";
+  return url.toString();
+}
+
+/** Credit pack checkout for the public pricing page. */
+export function usePricingCheckout() {
+  const tCredits = useTranslations("dashboard.credits");
+  const { data: session } = authClient.useSession();
+
+  const createCreditCheckout = useMutation({
+    ...orpc.web.credits.createCheckoutSession.mutationOptions(),
+    onSuccess: ({ url, orderId }) => {
+      setPendingCreditOrderId(orderId);
+      openProviderCheckoutUrl(url);
+    },
+    onError: (error: Error) => {
+      toast.error(`${tCredits("checkoutError")}: ${error.message}`);
+    },
+  });
+
+  const buyCredits = (packageId: string) => {
+    if (!session) {
+      openSignInDialog();
+      return;
+    }
+    trackCreditPackCheckout(packageId);
+    createCreditCheckout.mutate({
+      packageId,
+      returnUrl: getCurrentPageUrl(),
+      templateId: getAttributedTemplate(),
+    });
+  };
+
+  const busyKey = createCreditCheckout.isPending
+    ? (createCreditCheckout.variables?.packageId ?? "credits")
+    : null;
+
+  return {
+    buyCredits,
+    busyKey,
+    isPending: busyKey !== null,
+  };
+}

@@ -1,0 +1,75 @@
+{
+  "name": "@repo/app-config",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./config": {
+      "types": "./src/app-config.ts",
+      "import": "./src/app-config.ts",
+      "default": "./src/app-config.ts"
+    },
+    "./credits": {
+      "types": "./src/credits.ts",
+      "import": "./src/credits.ts",
+      "default": "./src/credits.ts"
+    },
+    "./membership": {
+      "types": "./src/membership/index.ts",
+      "import": "./src/membership/index.ts",
+      "default": "./src/membership/index.ts"
+    },
+    "./rbac": {
+      "types": "./src/rbac/index.ts",
+      "import": "./src/rbac/index.ts",
+      "default": "./src/rbac/index.ts"
+    },
+    "./payments/web": {
+      "types": "./src/payments/web.ts",
+      "import": "./src/payments/web.ts",
+      "default": "./src/payments/web.ts"
+    },
+    "./payments/web-policy": {
+      "types": "./src/payments/web-policy.ts",
+      "import": "./src/payments/web-policy.ts",
+      "default": "./src/payments/web-policy.ts"
+    },
+    "./payments/shared": {
+      "types": "./src/payments/shared.ts",
+      "import": "./src/payments/shared.ts",
+      "default": "./src/payments/shared.ts"
+    },
+    "./storage": {
+      "types": "./src/storage/index.ts",
+      "import": "./src/storage/index.ts",
+      "default": "./src/storage/index.ts"
+    },
+    "./video": {
+      "types": "./src/video.ts",
+      "import": "./src/video.ts",
+      "default": "./src/video.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "check-types": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "fmt": "oxfmt",
+    "fmt:check": "oxfmt --check"
+  },
+  "dependencies": {
+    "@repo/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3",
+    "vitest": "catalog:"
+  }
+}

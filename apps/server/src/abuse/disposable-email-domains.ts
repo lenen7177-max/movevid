@@ -1,0 +1,61 @@
+import { emailDomainCandidates } from "@repo/shared";
+
+/** Common disposable inboxes. This is a short built-in list, not an upstream dump. */
+const DISPOSABLE_EMAIL_DOMAINS = [
+  "10minutemail.com",
+  "10minutemail.net",
+  "burnermail.io",
+  "dispostable.com",
+  "dropmail.me",
+  "emailfake.com",
+  "emailondeck.com",
+  "fakeinbox.com",
+  "fakemailgenerator.com",
+  "getairmail.com",
+  "getnada.com",
+  "grr.la",
+  "guerrillamail.biz",
+  "guerrillamail.com",
+  "guerrillamail.de",
+  "guerrillamail.info",
+  "guerrillamail.net",
+  "guerrillamail.org",
+  "guerrillamailblock.com",
+  "harakirimail.com",
+  "inboxkitten.com",
+  "mailcatch.com",
+  "maildrop.cc",
+  "mailinator.com",
+  "mailinator.net",
+  "mailnesia.com",
+  "mailpoof.com",
+  "mailsac.com",
+  "mintemail.com",
+  "moakt.com",
+  "mohmal.com",
+  "mytemp.email",
+  "sharklasers.com",
+  "spam4.me",
+  "spamgourmet.com",
+  "temp-mail.io",
+  "temp-mail.org",
+  "tempail.com",
+  "tempinbox.com",
+  "tempmail.com",
+  "throwaway.email",
+  "throwawaymail.com",
+  "tmpmail.net",
+  "tmpmail.org",
+  "trash-mail.com",
+  "trashmail.com",
+  "trashmail.de",
+  "yopmail.com",
+  "yopmail.fr",
+  "yopmail.net",
+] as const;
+
+const DISPOSABLE_EMAIL_DOMAIN_SET = new Set<string>(DISPOSABLE_EMAIL_DOMAINS);
+
+export function isDisposableEmailDomain(email: string): boolean {
+  return emailDomainCandidates(email).some((domain) => DISPOSABLE_EMAIL_DOMAIN_SET.has(domain));
+}

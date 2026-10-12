@@ -1,0 +1,60 @@
+{
+  "email": {
+    "verification": {
+      "subject": "{appName} のメールアドレスを確認してください",
+      "preview": "{appName} のメールアドレスを確認",
+      "title": "メールアドレスの確認",
+      "greeting": "{name} さん、こんにちは！",
+      "body": "ご登録ありがとうございます！下のボタンをクリックしてメールアドレスを確認してください。",
+      "button": "メールを確認",
+      "ignore": "アカウントを作成していない場合は、このメールを無視してください。"
+    },
+    "passwordReset": {
+      "subject": "{appName} のパスワードをリセット",
+      "title": "パスワードリセット",
+      "greeting": "{name} さん、こんにちは",
+      "body": "下のボタンをクリックしてパスワードをリセットしてください",
+      "button": "パスワードをリセット",
+      "ignore": "パスワードのリセットをリクエストしていない場合は、このメールを無視してください。"
+    },
+    "otp": {
+      "subject": "{appName} の確認コード",
+      "preview": "このコードで {appName} を続行します",
+      "title": "確認コード",
+      "body": "{appName} を続行するには、このワンタイムコードを使用してください。",
+      "expires": "このコードは {minutes} 分で期限切れになります。",
+      "ignore": "このコードをリクエストしていない場合は、このメールを無視してください。"
+    }
+  },
+  "errors": {
+    "unauthorized": "この操作を行うにはログインが必要です",
+    "forbidden": "このリソースにアクセスする権限がありません",
+    "notFound": "リクエストされたリソースが見つかりません",
+    "invalidFileType": "ファイルタイプが無効です。有効なファイルをアップロードしてください",
+    "fileTooLarge": "ファイルサイズが大きすぎます。最大 {maxSizeMB}MB までアップロード可能です",
+    "fileNotFound": "ストレージにファイルが見つかりません",
+    "uploadFailed": "ファイルのアップロードに失敗しました。もう一度お試しください",
+    "invalidUrl": "無効なURLが指定されました",
+    "accountDeleted": "このアカウントは削除されました",
+    "accountBanned": "このアカウントは凍結されています",
+    "cannotBanSelf": "自分のアカウントを凍結することはできません",
+    "cannotBlockSelf": "自分のアカウントをブロックすることはできません",
+    "emailDomainBlocked": "このメールドメインでは登録できません",
+    "networkBlocked": "このネットワークからのサインインは許可されていません",
+    "tooManyRequests": "リクエストが多すぎます。1分ほど待ってからもう一度お試しください。",
+    "deviceBlocked": "この端末からのサインインは許可されていません",
+    "phoneDomainUnavailable": "電話番号アカウントにはブロックできるメールドメインがありません",
+    "noClientIp": "このユーザーの IP アドレスはまだ記録されていません",
+    "noClientDevice": "このユーザーの端末はまだ記録されていません",
+    "invalidEmailDomain": "このメールドメインはブロックできません",
+    "cannotDemoteLastAdmin": "最後の管理者を降格することはできません",
+    "operationRequestConflict": "この操作リクエスト ID は既に使用されています",
+    "insufficientCredits": "この減算を行うためのクレジットが不足しています",
+    "paidMembershipAlreadyActive": "このユーザーには有効な有料会員権があります",
+    "adminOperationFailed": "管理者操作に失敗しました",
+    "invalidRole": "指定されたロールは無効です",
+    "notificationsDisabled": "アプリ設定で通知機能が無効になっています",
+    "notificationSubscriptionNotRegistered": "このデバイスは通知に登録されていません",
+    "notificationSendFailed": "通知を送信できませんでした"
+  }
+}

@@ -1,0 +1,81 @@
+# Local development environment variables for Wrangler
+# This file is automatically loaded by `wrangler dev`
+# Copy this file to .dev.vars and fill in your actual values
+
+NODE_ENV=development
+WEBSITE_URL=http://localhost:3000
+
+# Better Auth
+# Provider docs: https://better-auth.com/docs/installation
+BETTER_AUTH_SECRET=
+ADMIN_EMAIL=
+SERVER_URL=http://localhost:3001
+
+
+# Cloudflare
+# Provider console: https://dash.cloudflare.com/profile/api-tokens
+CLOUDFLARE_ACCOUNT_ID=
+CLOUDFLARE_API_TOKEN=
+CLOUDFLARE_D1_DATABASE_ID=
+
+# Github OAuth
+# Provider console: https://github.com/settings/developers
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
+
+# Google OAuth
+# Provider console: https://console.cloud.google.com/apis/credentials
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+
+# Sign in with Apple (optional; enable appleEnabled in packages/app-config/src/app-config.ts)
+# Services ID / bundle id registered with Apple, e.g. com.example.web
+APPLE_APP_BUNDLE_IDENTIFIER=
+
+# Resend Email
+# Provider console: https://resend.com/api-keys
+RESEND_API_KEY=
+
+# R2 Storage
+# Provider console: https://dash.cloudflare.com/
+# Public URL for accessing R2 stored files (e.g., https://pub-xxx.r2.dev or your custom domain)
+R2_PUBLIC_URL=
+
+# Alibaba Cloud Dypnsapi
+# Provider docs: https://help.aliyun.com/zh/pnvs/developer-reference/api-dypnsapi-2017-05-25-sendsmsverifycode
+ALIBABA_CLOUD_ACCESS_KEY_ID=
+ALIBABA_CLOUD_ACCESS_KEY_SECRET=
+
+# Aliyun OSS Storage - https://help.aliyun.com/zh/oss/
+# Set common.storage.provider to "aliyun-oss" in packages/app-config/src/app-config.ts to use it.
+# Reuses ALIBABA_CLOUD_ACCESS_KEY_ID / ALIBABA_CLOUD_ACCESS_KEY_SECRET above.
+# Endpoint should not include the bucket name, e.g. oss-cn-hangzhou.aliyuncs.com
+ALIYUN_OSS_BUCKET=
+ALIYUN_OSS_REGION=
+ALIYUN_OSS_ENDPOINT=
+
+# Stripe
+# Provider docs: https://stripe.com/docs/keys
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=
+
+# Creem
+# Provider docs: https://docs.creem.io
+CREEM_API_KEY=
+CREEM_WEBHOOK_SECRET=
+
+# Waffo Pancake - https://docs.waffo.ai/zh/integrate/skill
+# Provider dashboard: https://pancake.waffo.ai/merchant/dashboard/integration
+WAFFO_MERCHANT_ID=
+WAFFO_PRIVATE_KEY=
+WAFFO_ENVIRONMENT=test
+
+# APIMart (Seedance video generation) - https://docs.apimart.ai
+# Provider console: https://apimart.ai
+APIMART_API_KEY=
+# Public base URL of the template media bucket (overrides wrangler.jsonc locally)
+TEMPLATE_MEDIA_BASE_URL=
+
+# Cloudflare Turnstile secret for email auth routes - https://dash.cloudflare.com/?to=/:account/turnstile
+# Local test secret below always passes; production uses the real widget secret.
+TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA

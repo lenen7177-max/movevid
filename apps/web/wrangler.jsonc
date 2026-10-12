@@ -1,0 +1,44 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  // Replace every your-project / example.com placeholder before deploying (see SETUP.md).
+  "name": "your-project-web",
+  "compatibility_date": "2025-09-02",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "./src/server.ts",
+  // Canonical site is the apex domain. Bind www too and redirect it with a Cloudflare Redirect Rule.
+  "routes": [
+    { "pattern": "example.com", "custom_domain": true },
+    { "pattern": "www.example.com", "custom_domain": true },
+  ],
+  "assets": {
+    "not_found_handling": "single-page-application",
+  },
+  "services": [
+    {
+      "binding": "API_SERVICE",
+      // Must match "name" in apps/server/wrangler.jsonc.
+      "service": "your-project-server",
+    },
+  ],
+  "vars": {
+    "VITE_SERVER_URL": "https://api.example.com",
+    "VITE_APP_URL": "https://example.com",
+    "VITE_TEMPLATE_MEDIA_BASE_URL": "",
+    // Optional analytics and support widgets; leave blank to disable.
+    "VITE_GA_MEASUREMENT_ID": "",
+    "VITE_OPENPANEL_CLIENT_ID": "",
+    "VITE_TAWK_PROPERTY_ID": "",
+    "VITE_TAWK_WIDGET_ID": "",
+    // Cloudflare Turnstile site key for email sign-in
+    "VITE_TURNSTILE_SITE_KEY": "<YOUR_TURNSTILE_SITE_KEY>",
+  },
+  "observability": {
+    "logs": {
+      "enabled": true,
+      "invocation_logs": true,
+    },
+    "traces": {
+      "enabled": false,
+    },
+  },
+}
