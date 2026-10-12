@@ -20,34 +20,35 @@ cp apps/web/.env.development.example apps/web/.env.development
 
 In `apps/server/.dev.vars` set at least:
 
-| Key                       | Value                                                        |
-| ------------------------- | ------------------------------------------------------------ |
-| `BETTER_AUTH_SECRET`      | any random 32+ character string (`openssl rand -hex 32`)     |
-| `APIMART_API_KEY`         | your APIMart key                                             |
-| `TEMPLATE_MEDIA_BASE_URL` | public URL of your template media bucket (see step 5)        |
+| Key                       | Value                                                    |
+| ------------------------- | -------------------------------------------------------- |
+| `BETTER_AUTH_SECRET`      | any random 32+ character string (`openssl rand -hex 32`) |
+| `APIMART_API_KEY`         | your APIMart key                                         |
+| `TEMPLATE_MEDIA_BASE_URL` | public URL of your template media bucket (see step 5)    |
 
 ```bash
 pnpm db:migrate:local
 pnpm dev:web+server
 ```
 
-Web runs on http://localhost:3000, the API on http://localhost:3001. If another project already
+Web runs on http://localhost:3000, the API on http://localhost:3001. Local email is not
+delivered: after requesting a sign-in code, run `pnpm -F server dev:last-email` to print it. If another project already
 uses TanStack devtools on port 42069, start the web app with `DEVTOOLS_PORT=42169`.
 
 ## 3. Brand the site
 
-| What                         | Where                                                               |
-| ---------------------------- | ------------------------------------------------------------------- |
-| Product name, support email, website, social link | `packages/app-config/src/app-config.ts` → `common.app` |
-| Email sender domain          | `packages/app-config/src/app-config.ts` → `common.email.from`       |
-| Colors, radius, fonts        | `packages/ui/src/styles/theme.css` (`--primary`, `--ring`, `.dark`) |
-| Logo                         | `apps/web/src/components/logos/svg/logo.tsx` and `apps/web/public/logo.svg` |
-| Favicons and PWA icons       | `apps/web/public/favicon*.ico`, `apps/web/public/pwa/*`             |
-| PWA name and colors          | `apps/web/public/manifest.webmanifest`                              |
-| Social share image           | `apps/web/public/og/og.png` (1200 × 630)                            |
-| All page copy                | `packages/i18n/src/messages/web/{en,zh,jp}.json` → `video`          |
-| Privacy policy and terms     | same files → `legal` (review with your own counsel)                 |
-| Sign-in methods              | `packages/app-config/src/app-config.ts` → `common.auth.methods`     |
+| What                                              | Where                                                                       |
+| ------------------------------------------------- | --------------------------------------------------------------------------- |
+| Product name, support email, website, social link | `packages/app-config/src/app-config.ts` → `common.app`                      |
+| Email sender domain                               | `packages/app-config/src/app-config.ts` → `common.email.from`               |
+| Colors, radius, fonts                             | `packages/ui/src/styles/theme.css` (`--primary`, `--ring`, `.dark`)         |
+| Logo                                              | `apps/web/src/components/logos/svg/logo.tsx` and `apps/web/public/logo.svg` |
+| Favicons and PWA icons                            | `apps/web/public/favicon*.ico`, `apps/web/public/pwa/*`                     |
+| PWA name and colors                               | `apps/web/public/manifest.webmanifest`                                      |
+| Social share image                                | `apps/web/public/og/og.png` (1200 × 630)                                    |
+| All page copy                                     | `packages/i18n/src/messages/web/{en,zh,jp}.json` → `video`                  |
+| Privacy policy and terms                          | same files → `legal` (review with your own counsel)                         |
+| Sign-in methods                                   | `packages/app-config/src/app-config.ts` → `common.auth.methods`             |
 
 Dark is the default theme; visitors can switch to light.
 

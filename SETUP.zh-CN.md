@@ -19,33 +19,33 @@ cp apps/web/.env.development.example apps/web/.env.development
 
 `apps/server/.dev.vars` 至少填写：
 
-| 变量                      | 说明                                                     |
-| ------------------------- | -------------------------------------------------------- |
-| `BETTER_AUTH_SECRET`      | 任意 32 位以上随机字符串（`openssl rand -hex 32`）       |
-| `APIMART_API_KEY`         | APIMart 的 API Key                                       |
-| `TEMPLATE_MEDIA_BASE_URL` | 模板素材桶的公开地址（见第 5 步）                        |
+| 变量                      | 说明                                               |
+| ------------------------- | -------------------------------------------------- |
+| `BETTER_AUTH_SECRET`      | 任意 32 位以上随机字符串（`openssl rand -hex 32`） |
+| `APIMART_API_KEY`         | APIMart 的 API Key                                 |
+| `TEMPLATE_MEDIA_BASE_URL` | 模板素材桶的公开地址（见第 5 步）                  |
 
 ```bash
 pnpm db:migrate:local
 pnpm dev:web+server
 ```
 
-前端 http://localhost:3000，API http://localhost:3001。如果 42069 端口被其他项目的 TanStack devtools 占用，用 `DEVTOOLS_PORT=42169` 启动前端。
+前端 http://localhost:3000，API http://localhost:3001。本地不会真的发邮件：在登录页点「发送验证码」后，运行 `pnpm -F server dev:last-email` 即可看到验证码。如果 42069 端口被其他项目的 TanStack devtools 占用，用 `DEVTOOLS_PORT=42169` 启动前端。
 
 ## 3. 品牌替换
 
-| 内容                         | 位置                                                                 |
-| ---------------------------- | -------------------------------------------------------------------- |
-| 产品名、客服邮箱、官网、社媒 | `packages/app-config/src/app-config.ts` → `common.app`               |
-| 发件域名                     | `packages/app-config/src/app-config.ts` → `common.email.from`        |
-| 配色、圆角、字体             | `packages/ui/src/styles/theme.css`（`--primary`、`--ring`、`.dark`） |
+| 内容                         | 位置                                                                     |
+| ---------------------------- | ------------------------------------------------------------------------ |
+| 产品名、客服邮箱、官网、社媒 | `packages/app-config/src/app-config.ts` → `common.app`                   |
+| 发件域名                     | `packages/app-config/src/app-config.ts` → `common.email.from`            |
+| 配色、圆角、字体             | `packages/ui/src/styles/theme.css`（`--primary`、`--ring`、`.dark`）     |
 | Logo                         | `apps/web/src/components/logos/svg/logo.tsx`、`apps/web/public/logo.svg` |
-| 网站图标、PWA 图标           | `apps/web/public/favicon*.ico`、`apps/web/public/pwa/*`              |
-| PWA 名称和颜色               | `apps/web/public/manifest.webmanifest`                               |
-| 分享图（OG）                 | `apps/web/public/og/og.png`（1200 × 630）                            |
-| 全站文案                     | `packages/i18n/src/messages/web/{en,zh,jp}.json` → `video`           |
-| 隐私政策、服务条款           | 同上 → `legal`（请按你所在地区法律审核）                             |
-| 登录方式                     | `packages/app-config/src/app-config.ts` → `common.auth.methods`      |
+| 网站图标、PWA 图标           | `apps/web/public/favicon*.ico`、`apps/web/public/pwa/*`                  |
+| PWA 名称和颜色               | `apps/web/public/manifest.webmanifest`                                   |
+| 分享图（OG）                 | `apps/web/public/og/og.png`（1200 × 630）                                |
+| 全站文案                     | `packages/i18n/src/messages/web/{en,zh,jp}.json` → `video`               |
+| 隐私政策、服务条款           | 同上 → `legal`（请按你所在地区法律审核）                                 |
+| 登录方式                     | `packages/app-config/src/app-config.ts` → `common.auth.methods`          |
 
 默认深色主题，访客可以切换浅色。
 
