@@ -7,7 +7,7 @@ export type CreditTransactionLabelKey =
   | "expiration"
   | "adjustment";
 
-export type CreditTransactionSourceKey = "system" | "app" | "admin" | "web" | "native" | "provider";
+export type CreditTransactionSourceKey = "system" | "app" | "admin" | "web" | "provider";
 
 export function resolveCreditTransactionLabel(sourceType: string): CreditTransactionLabelKey {
   switch (sourceType) {
@@ -38,9 +38,8 @@ export function resolveCreditTransactionSource(sourceProvider: string): CreditTr
       return "admin";
     case "stripe":
     case "creem":
+    case "waffo":
       return "web";
-    case "revenuecat":
-      return "native";
     default:
       return "provider";
   }

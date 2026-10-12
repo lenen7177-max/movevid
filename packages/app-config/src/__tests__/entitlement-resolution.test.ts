@@ -8,7 +8,7 @@ type SubscriptionRecord = {
   status: SubscriptionStatus;
   planId: string;
   priceId: string;
-  provider: "stripe" | "revenuecat";
+  provider: "stripe" | "creem";
   updatedAt: Date;
 };
 
@@ -16,7 +16,7 @@ type PurchaseRecord = {
   status: "succeeded" | "pending" | "failed" | "refunded";
   planId: string;
   priceId: string;
-  provider: "stripe" | "revenuecat";
+  provider: "stripe" | "creem";
   updatedAt: Date;
 };
 
@@ -62,7 +62,7 @@ function findPriceById(priceId: string): ResolvedPrice | undefined {
 }
 
 function sub(
-  provider: "stripe" | "revenuecat",
+  provider: "stripe" | "creem",
   priceId: string,
   status: SubscriptionStatus,
   updatedAt: Date,
@@ -71,7 +71,7 @@ function sub(
 }
 
 function purchase(
-  provider: "stripe" | "revenuecat",
+  provider: "stripe" | "creem",
   priceId: string,
   status: PurchaseRecord["status"],
   updatedAt: Date,
@@ -106,9 +106,9 @@ describe("resolveCurrentEntitlement — cross-platform scenarios", () => {
     expect(result.source).toBe("subscription");
   });
 
-  it("1.3 one active Native-Monthly => monthly/subscription", () => {
+  it("1.3 one active Creem-Monthly => monthly/subscription", () => {
     const result = resolveCurrentEntitlement({
-      subscriptions: [sub("revenuecat", "n_monthly", "active", T1)],
+      subscriptions: [sub("creem", "n_monthly", "active", T1)],
       purchases: [],
       findPriceById,
     });
@@ -126,9 +126,9 @@ describe("resolveCurrentEntitlement — cross-platform scenarios", () => {
     expect(result.source).toBe("subscription");
   });
 
-  it("1.5 one active Native-Yearly => yearly/subscription", () => {
+  it("1.5 one active Creem-Yearly => yearly/subscription", () => {
     const result = resolveCurrentEntitlement({
-      subscriptions: [sub("revenuecat", "n_yearly", "active", T1)],
+      subscriptions: [sub("creem", "n_yearly", "active", T1)],
       purchases: [],
       findPriceById,
     });
@@ -146,10 +146,10 @@ describe("resolveCurrentEntitlement — cross-platform scenarios", () => {
     expect(result.source).toBe("lifetime");
   });
 
-  it("1.7 one Native-Lifetime purchase => lifetime/lifetime", () => {
+  it("1.7 one Creem-Lifetime purchase => lifetime/lifetime", () => {
     const result = resolveCurrentEntitlement({
       subscriptions: [],
-      purchases: [purchase("revenuecat", "n_lifetime", "succeeded", T1)],
+      purchases: [purchase("creem", "n_lifetime", "succeeded", T1)],
       findPriceById,
     });
     expect(result.tier).toBe("lifetime");
@@ -160,7 +160,7 @@ describe("resolveCurrentEntitlement — cross-platform scenarios", () => {
     const result = resolveCurrentEntitlement({
       subscriptions: [
         sub("stripe", "w_monthly", "active", T1),
-        sub("revenuecat", "n_yearly", "active", T2),
+        sub("creem", "n_yearly", "active", T2),
       ],
       purchases: [],
       findPriceById,
@@ -173,7 +173,7 @@ describe("resolveCurrentEntitlement — cross-platform scenarios", () => {
   it("1.9 N-Monthly(active) + W-Yearly(active) => yearly wins", () => {
     const result = resolveCurrentEntitlement({
       subscriptions: [
-        sub("revenuecat", "n_monthly", "active", T1),
+        sub("creem", "n_monthly", "active", T1),
         sub("stripe", "w_yearly", "active", T2),
       ],
       purchases: [],
@@ -186,7 +186,7 @@ describe("resolveCurrentEntitlement — cross-platform scenarios", () => {
   it("1.10 W-Monthly(active) + N-Lifetime(succeeded) => lifetime wins", () => {
     const result = resolveCurrentEntitlement({
       subscriptions: [sub("stripe", "w_monthly", "active", T1)],
-      purchases: [purchase("revenuecat", "n_lifetime", "succeeded", T2)],
+      purchases: [purchase("creem", "n_lifetime", "succeeded", T2)],
       findPriceById,
     });
     expect(result.tier).toBe("lifetime");
@@ -195,7 +195,7 @@ describe("resolveCurrentEntitlement — cross-platform scenarios", () => {
 
   it("1.11 N-Yearly(active) + W-Lifetime(succeeded) => lifetime wins", () => {
     const result = resolveCurrentEntitlement({
-      subscriptions: [sub("revenuecat", "n_yearly", "active", T1)],
+      subscriptions: [sub("creem", "n_yearly", "active", T1)],
       purchases: [purchase("stripe", "w_lifetime", "succeeded", T2)],
       findPriceById,
     });
@@ -217,7 +217,7 @@ describe("resolveCurrentEntitlement — cross-platform scenarios", () => {
     const result = resolveCurrentEntitlement({
       subscriptions: [
         sub("stripe", "w_monthly", "canceled", T1),
-        sub("revenuecat", "n_yearly", "active", T2),
+        sub("creem", "n_yearly", "active", T2),
       ],
       purchases: [],
       findPriceById,
@@ -252,7 +252,7 @@ describe("resolveCurrentEntitlement — cross-platform scenarios", () => {
   it("1.16 N-Lifetime(refunded) => free/none", () => {
     const result = resolveCurrentEntitlement({
       subscriptions: [],
-      purchases: [purchase("revenuecat", "n_lifetime", "refunded", T1)],
+      purchases: [purchase("creem", "n_lifetime", "refunded", T1)],
       findPriceById,
     });
     expect(result.tier).toBe("free");
@@ -273,7 +273,7 @@ describe("resolveCurrentEntitlement — cross-platform scenarios", () => {
     const result = resolveCurrentEntitlement({
       subscriptions: [
         sub("stripe", "w_monthly", "active", T1),
-        sub("revenuecat", "n_monthly", "active", T2),
+        sub("creem", "n_monthly", "active", T2),
       ],
       purchases: [],
       findPriceById,
@@ -285,7 +285,7 @@ describe("resolveCurrentEntitlement — cross-platform scenarios", () => {
   it("8.2 lifetime + active subscription => lifetime wins", () => {
     const result = resolveCurrentEntitlement({
       subscriptions: [sub("stripe", "w_yearly", "active", T2)],
-      purchases: [purchase("revenuecat", "n_lifetime", "succeeded", T1)],
+      purchases: [purchase("creem", "n_lifetime", "succeeded", T1)],
       findPriceById,
     });
     expect(result.tier).toBe("lifetime");
@@ -295,7 +295,7 @@ describe("resolveCurrentEntitlement — cross-platform scenarios", () => {
   it("8.3 refunded lifetime + active yearly => yearly wins", () => {
     const result = resolveCurrentEntitlement({
       subscriptions: [sub("stripe", "w_yearly", "active", T2)],
-      purchases: [purchase("revenuecat", "n_lifetime", "refunded", T1)],
+      purchases: [purchase("creem", "n_lifetime", "refunded", T1)],
       findPriceById,
     });
     expect(result.tier).toBe("yearly");
@@ -317,7 +317,7 @@ describe("resolveCurrentEntitlement — cross-platform scenarios", () => {
       subscriptions: [],
       purchases: [
         purchase("stripe", "w_lifetime", "succeeded", T1),
-        purchase("revenuecat", "n_lifetime", "succeeded", T2),
+        purchase("creem", "n_lifetime", "succeeded", T2),
       ],
       findPriceById,
     });
