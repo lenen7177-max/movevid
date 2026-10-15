@@ -5,7 +5,7 @@ ready-made scene, upload one to three photos, and get a share-ready video with m
 generation runs on Seedance through [APIMart](https://apimart.ai); everything else — accounts,
 credits, Stripe billing, admin, i18n, SEO — is built in.
 
-> 中文功能介绍见下方 [功能一览](#功能一览)，部署指南见 [SETUP.zh-CN.md](./SETUP.zh-CN.md)。
+> 中文功能介绍见下方 [功能一览](#功能一览)。部署指南见 [SETUP.zh-CN.md](./SETUP.zh-CN.md)。从爆款原片做成深度图模板见 **[复合爆款视频制作手册](./docs/viral-template-playbook.zh-CN.md)**。
 
 ## Features
 
@@ -40,10 +40,11 @@ credits, Stripe billing, admin, i18n, SEO — is built in.
 
 ### For you, the operator
 
+- **Viral template playbook** — how to pick a trend, make a Liblib depth-map clip, write the
+  prompt, review user photos before render, and price the template:
+  **[docs/viral-template-playbook.zh-CN.md](./docs/viral-template-playbook.zh-CN.md)** (中文).
 - **Add a template by editing three files** — its page, the gallery, pricing and the sitemap
-  update on their own. The Chinese playbook for turning a viral clip into a depth-map template
-  (Liblib depth video, prompt, photo review, pricing) is
-  [docs/viral-template-playbook.zh-CN.md](./docs/viral-template-playbook.zh-CN.md).
+  update on their own.
 - **Safety nets** — a 15-minute cron finishes or refunds stuck renders; low APIMart balance
   emails the admin; uploaded photos are deleted after 30 days.
 - **Abuse protection** — disposable-email blocking, one signup grant per IP / device, rate
@@ -92,7 +93,8 @@ credits, Stripe billing, admin, i18n, SEO — is built in.
 
 ### 站长省心
 
-- **加模板只改 3 个文件**：详情页、模板列表、价格、网站地图自动更新。从爆款原片做到深度图模板的完整步骤见 [docs/viral-template-playbook.zh-CN.md](./docs/viral-template-playbook.zh-CN.md)。
+- **复合爆款制作手册**：[docs/viral-template-playbook.zh-CN.md](./docs/viral-template-playbook.zh-CN.md) — 选片、Liblib 深度动作视频、提示词、照片审核、定价。
+- **加模板只改 3 个文件**：详情页、模板列表、价格、网站地图自动更新。
 - **自动兜底**：每 15 分钟处理卡住的生成（完成或退款）；APIMart 余额不足邮件提醒；用户照片 30 天后自动删除。
 - **防薅羊毛**：拦截一次性邮箱，同一 IP / 设备只能领一次赠送积分，邮箱登录有频率限制和人机验证。
 - **SEO 已做好**：每页标题描述、网站地图、robots.txt、llms.txt、结构化数据、分享图、MDX 博客。
@@ -114,7 +116,16 @@ pnpm dev:web+server                                           # web :3000, api :
 ```
 
 Open http://localhost:3000. Then follow **[SETUP.md](./SETUP.md)** to brand the site, add your
-templates, connect Stripe and deploy.
+templates, connect Stripe and deploy. To turn a viral clip into a template, follow
+**[复合爆款视频制作手册](./docs/viral-template-playbook.zh-CN.md)**.
+
+## Docs
+
+| Guide | What it covers |
+| --- | --- |
+| [SETUP.md](./SETUP.md) | Brand, templates, Cloudflare, Stripe, deploy |
+| [SETUP.zh-CN.md](./SETUP.zh-CN.md) | 同上，中文 |
+| **[复合爆款视频制作手册](./docs/viral-template-playbook.zh-CN.md)** | 选爆款 → Liblib 深度动作视频 → 写提示词 → 照片素材库审核 → 提交生成 → 定价 |
 
 ## Project layout
 
@@ -128,6 +139,8 @@ packages/
   ui/         Shared UI components and design tokens
   shared/     Cross-package utilities
   api-client/ Typed oRPC client
+docs/
+  viral-template-playbook.zh-CN.md   复合爆款视频制作手册（选片、深度图、提示词、审核、定价）
 scripts/
   check-placeholders.mjs   Lists placeholders still to replace; flags committed secrets
 ```
