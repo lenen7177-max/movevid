@@ -76,10 +76,14 @@ placeholder posters. Replace them with your own scenes before launch.
 
 ### Reference clips
 
-Seedance reproduces motion, staging and camera from the reference clip. Depth-map renders
-(e.g. made with Video Depth Anything) work well because they carry motion without the original
-people's appearance; set `depthReference: true` in the prompt spec for those. Only use footage
-you have the rights to.
+Seedance reproduces motion, staging and camera from the reference clip. Do not send the
+original viral clip as the reference: faces and copyrighted likeness travel with it. Make a
+grayscale depth-map video first (Liblib / LibTV depth motion capture, or Video Depth Anything)
+so the model only sees motion and staging; set `depthReference: true` in the prompt spec.
+User photos go through APIMart's asset-library review before any render starts — celebrity,
+public-figure and political faces are rejected. The full playbook (picking a trend, writing
+the prompt, review, submit, pricing) is
+**[docs/viral-template-playbook.zh-CN.md](./docs/viral-template-playbook.zh-CN.md)**.
 
 ## 5. Media bucket
 

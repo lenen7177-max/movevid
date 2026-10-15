@@ -41,7 +41,9 @@ credits, Stripe billing, admin, i18n, SEO — is built in.
 ### For you, the operator
 
 - **Add a template by editing three files** — its page, the gallery, pricing and the sitemap
-  update on their own.
+  update on their own. The Chinese playbook for turning a viral clip into a depth-map template
+  (Liblib depth video, prompt, photo review, pricing) is
+  [docs/viral-template-playbook.zh-CN.md](./docs/viral-template-playbook.zh-CN.md).
 - **Safety nets** — a 15-minute cron finishes or refunds stuck renders; low APIMart balance
   emails the admin; uploaded photos are deleted after 30 days.
 - **Abuse protection** — disposable-email blocking, one signup grant per IP / device, rate
@@ -90,7 +92,7 @@ credits, Stripe billing, admin, i18n, SEO — is built in.
 
 ### 站长省心
 
-- **加模板只改 3 个文件**：详情页、模板列表、价格、网站地图自动更新。
+- **加模板只改 3 个文件**：详情页、模板列表、价格、网站地图自动更新。从爆款原片做到深度图模板的完整步骤见 [docs/viral-template-playbook.zh-CN.md](./docs/viral-template-playbook.zh-CN.md)。
 - **自动兜底**：每 15 分钟处理卡住的生成（完成或退款）；APIMart 余额不足邮件提醒；用户照片 30 天后自动删除。
 - **防薅羊毛**：拦截一次性邮箱，同一 IP / 设备只能领一次赠送积分，邮箱登录有频率限制和人机验证。
 - **SEO 已做好**：每页标题描述、网站地图、robots.txt、llms.txt、结构化数据、分享图、MDX 博客。

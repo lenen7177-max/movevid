@@ -63,7 +63,7 @@ pnpm dev:web+server
 
 ### 参考视频
 
-Seedance 会复刻参考视频的动作、站位和镜头。深度图视频（如用 Video Depth Anything 生成）效果好，因为只保留动作、不带原人物外貌；这类素材在提示词配置里设 `depthReference: true`。请只使用你有版权的素材。
+Seedance 会复刻参考视频的动作、站位和镜头。不要把原片直接当参考视频发给模型（人脸和版权会进成片）。先用 Liblib / LibTV 的深度动作捕捉（或 Video Depth Anything）做成灰度深度图，只保留动作和场景；提示词配置里设 `depthReference: true`。用户照片必须先走 APIMart 素材库审核，明星、公众人物、政治人物会被拒。完整选片、写提示词、审核、提交和定价步骤见 **[复合爆款视频制作手册](./docs/viral-template-playbook.zh-CN.md)**。
 
 ## 5. 素材桶
 
