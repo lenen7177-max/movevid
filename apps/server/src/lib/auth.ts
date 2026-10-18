@@ -2,11 +2,13 @@ import { env } from "cloudflare:workers";
 import { resolveCommonConfig } from "@repo/app-config";
 import { rbacConfig } from "@repo/app-config/rbac";
 import { joinUrl, parseHostname, resolveCrossSubdomainCookieDomain } from "@repo/shared";
+import { buildGuestEmail, mergeGuestAccount } from "@/lib/guest-account";
 import { buildPhoneCompatibilityEmail } from "@/lib/phone-email";
 import { type BetterAuthOptions, betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { APIError } from "better-auth/api";
 import { admin } from "better-auth/plugins/admin";
+import { anonymous } from "better-auth/plugins/anonymous";
 import { bearer } from "better-auth/plugins/bearer";
 import { captcha } from "better-auth/plugins";
 import { emailOTP } from "better-auth/plugins/email-otp";
@@ -277,6 +279,8 @@ export function createAuth(d1: D1Database, options: CreateAuthOptions = {}) {
         "/sign-in/email-otp": { window: 60, max: 10 },
         "/phone-number/send-otp": { window: 60, max: 3 },
         "/phone-number/verify": { window: 60, max: 10 },
+        // Guest checkout: each call creates a user row, so a browser rarely needs more than one.
+        "/sign-in/anonymous": { window: 60, max: 5 },
       },
     },
     advanced: {
@@ -355,6 +359,15 @@ export function createAuth(d1: D1Database, options: CreateAuthOptions = {}) {
         roles: betterAuthRoles,
         defaultRole: rbacConfig.defaultRole,
         adminRoles: [...rbacConfig.adminRoles],
+      }),
+      // Guests can render and pay without signing in; see lib/guest-account.ts.
+      anonymous({
+        generateRandomEmail: buildGuestEmail,
+        generateName: () => "Guest",
+        // A guest signing in to a real account brings their credits and renders along.
+        onLinkAccount: async ({ anonymousUser, newUser }) => {
+          await mergeGuestAccount(db, anonymousUser.user.id, newUser.user.id);
+        },
       }),
       localization({
         defaultLocale: "default",

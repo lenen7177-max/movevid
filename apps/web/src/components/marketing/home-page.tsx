@@ -29,7 +29,15 @@ import { templatesNewestFirst } from "@/lib/video/template-catalog";
 import { ANNOUNCED_TEMPLATE_ID, templateLink } from "@/lib/video/templates";
 import { cn } from "@/lib/utils";
 
-export const HOME_FAQ_KEYS = ["what", "photos", "time", "price", "refund", "privacy"] as const;
+export const HOME_FAQ_KEYS = [
+  "what",
+  "account",
+  "photos",
+  "time",
+  "price",
+  "refund",
+  "privacy",
+] as const;
 const STEP_KEYS = ["pick", "upload", "share"] as const;
 const STEP_ICONS = { pick: Clapperboard, upload: Upload, share: Download };
 const AUDIENCE_KEYS = ["creators", "friends", "marketers", "events", "pets", "agencies"] as const;

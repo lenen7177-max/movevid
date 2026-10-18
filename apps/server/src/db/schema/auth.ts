@@ -18,6 +18,8 @@ export const user = sqliteTable("user", {
   banned: integer("banned", { mode: "boolean" }).default(false),
   banReason: text("ban_reason"),
   banExpires: integer("ban_expires", { mode: "timestamp" }),
+  // Better Auth anonymous plugin: a guest who ordered without signing in (see lib/guest-account.ts)
+  isAnonymous: integer("is_anonymous", { mode: "boolean" }).default(false),
 });
 
 export const session = sqliteTable("session", {

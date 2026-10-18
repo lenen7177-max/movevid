@@ -14,6 +14,7 @@ import {
 import { Skeleton } from "@repo/ui/skeleton";
 import useDialogState from "@/hooks/use-dialog-state";
 import { authClient } from "@/lib/auth/auth-client";
+import { isGuestUser } from "@/lib/auth/guest-session";
 import { SignOutDialog } from "../auth/sign-out-dialog";
 
 type UserMenuProps = {
@@ -23,6 +24,8 @@ type UserMenuProps = {
 export default function UserMenu({ onActionComplete }: UserMenuProps = {}) {
   const { data: session, isPending } = authClient.useSession();
   const user = session?.user;
+  // Guests keep their videos and credits in this browser; signing in saves them to an account.
+  const guest = isGuestUser(user);
   const [open, setOpen] = useDialogState();
   const t = useTranslations("common");
 
@@ -81,17 +84,30 @@ export default function UserMenu({ onActionComplete }: UserMenuProps = {}) {
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem
-              variant="destructive"
-              onClick={() => {
-                setOpen(true);
-                completeAction();
-              }}
-            >
-              <div className="flex items-center gap-2.5">
-                <p className="text-sm">{t("signOut")}</p>
-              </div>
-            </DropdownMenuItem>
+            {guest ? (
+              <DropdownMenuItem
+                onClick={() => {
+                  openSignInDialog();
+                  completeAction();
+                }}
+              >
+                <div className="flex items-center gap-2.5">
+                  <p className="text-sm">{t("guestSignIn")}</p>
+                </div>
+              </DropdownMenuItem>
+            ) : (
+              <DropdownMenuItem
+                variant="destructive"
+                onClick={() => {
+                  setOpen(true);
+                  completeAction();
+                }}
+              >
+                <div className="flex items-center gap-2.5">
+                  <p className="text-sm">{t("signOut")}</p>
+                </div>
+              </DropdownMenuItem>
+            )}
           </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>

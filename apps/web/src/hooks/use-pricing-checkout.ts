@@ -1,11 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { openSignInDialog } from "@/components/auth/sign-in-dialog";
 import { setPendingCreditOrderId } from "@/hooks/use-pending-credit-order";
 import { useTranslations } from "@/i18n";
 import { getAttributedTemplate } from "@/lib/analytics/attribution";
 import { trackCreditPackCheckout } from "@/lib/analytics/events";
-import { authClient } from "@/lib/auth/auth-client";
+import { ensureSession } from "@/lib/auth/guest-session";
 import { openProviderCheckoutUrl } from "@/lib/payments/open-checkout-url";
 import { orpc } from "@/utils/orpc";
 
@@ -19,7 +18,6 @@ function getCurrentPageUrl() {
 /** Credit pack checkout for the public pricing page. */
 export function usePricingCheckout() {
   const tCredits = useTranslations("dashboard.credits");
-  const { data: session } = authClient.useSession();
 
   const createCreditCheckout = useMutation({
     ...orpc.web.credits.createCheckoutSession.mutationOptions(),
@@ -32,9 +30,10 @@ export function usePricingCheckout() {
     },
   });
 
-  const buyCredits = (packageId: string) => {
-    if (!session) {
-      openSignInDialog();
+  const buyCredits = async (packageId: string) => {
+    // Signed-out buyers pay as guests; Stripe asks for their email.
+    if (!(await ensureSession())) {
+      toast.error(tCredits("checkoutError"));
       return;
     }
     trackCreditPackCheckout(packageId);

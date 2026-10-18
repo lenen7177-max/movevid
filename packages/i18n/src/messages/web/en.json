@@ -9,7 +9,8 @@
     "signIn": "Sign In",
     "signOut": "Sign out",
     "dashboard": "Dashboard",
-    "history": "History"
+    "history": "History",
+    "guestSignIn": "Sign in to save your videos"
   },
   "dataTable": {
     "columnHeader": {
@@ -263,7 +264,9 @@
         "usage": "Usage",
         "expiration": "Expired credits",
         "adjustment": "Adjustment"
-      }
+      },
+      "guestCheckoutNote": "No account needed: enter your email at checkout and the credits land right here.",
+      "guestSignIn": "Already have an account? Sign in"
     },
     "users": {
       "title": "User management",
@@ -942,7 +945,6 @@
       },
       "balance": "Balance: {balance} credits",
       "generate": "Generate video",
-      "signInToGenerate": "Sign in to generate",
       "viewSample": "See the sample result",
       "sampleFree": "Sample photos: free preview, no credits used",
       "buyCredits": "Get more credits",
@@ -1242,6 +1244,10 @@
           "what": {
             "q": "What is this?",
             "a": "A video maker built on templates: each template is a ready-made scene with its own moves, camera and music. You add photos, the AI puts the people in your photos into the scene."
+          },
+          "account": {
+            "q": "Do I need an account?",
+            "a": "No. Add your photos and pay; the only thing we ask for is your email at checkout. Your videos and credits stay in this browser, and you can sign in with that email (we send a one-time code) to see them on any device."
           },
           "photos": {
             "q": "What photos do I need?",

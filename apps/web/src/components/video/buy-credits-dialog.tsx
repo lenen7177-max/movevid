@@ -18,6 +18,7 @@ import { useTranslations } from "@/i18n";
 import { getAttributedTemplate } from "@/lib/analytics/attribution";
 import { trackCreditPackCheckout } from "@/lib/analytics/events";
 import { authClient } from "@/lib/auth/auth-client";
+import { ensureSession, isGuestUser } from "@/lib/auth/guest-session";
 import { openProviderCheckoutUrl } from "@/lib/payments/open-checkout-url";
 import { orpc } from "@/utils/orpc";
 import { CreditPackGrid } from "./pricing-page";
@@ -36,7 +37,7 @@ function setDialogOpen(open: boolean) {
   for (const listener of listeners) listener();
 }
 
-/** Opens the credit pack picker over the current page; signed-out users get the sign-in dialog. */
+/** Opens the credit pack picker over the current page; signed-out visitors buy as guests. */
 export function openBuyCreditsDialog(options: OpenBuyCreditsOptions = {}) {
   pendingOptions = options;
   setDialogOpen(true);
@@ -90,10 +91,12 @@ export function BuyCreditsDialogRoot() {
     },
   });
 
-  const buy = (packageId: string) => {
-    if (!session) {
-      setDialogOpen(false);
-      openSignInDialog();
+  const guest = !session || isGuestUser(session.user);
+
+  const buy = async (packageId: string) => {
+    // No sign-in wall: a signed-out buyer pays as a guest and Stripe asks for their email.
+    if (!(await ensureSession())) {
+      toast.error(t("checkoutError"));
       return;
     }
     trackCreditPackCheckout(packageId);
@@ -113,7 +116,7 @@ export function BuyCreditsDialogRoot() {
       }),
       {
         duration: 15_000,
-        action: { label: tPricing("unfinishedAction"), onClick: () => buy(order.packageId) },
+        action: { label: tPricing("unfinishedAction"), onClick: () => void buy(order.packageId) },
       },
     );
   });
@@ -125,6 +128,21 @@ export function BuyCreditsDialogRoot() {
           <DialogTitle>{t("purchaseTitle")}</DialogTitle>
           <DialogDescription>
             {session ? <CurrentBalance label={t("balanceLabel")} /> : t("purchaseDescription")}
+            {guest ? (
+              <span className="mt-1 block">
+                {t("guestCheckoutNote")}{" "}
+                <button
+                  type="button"
+                  className="text-foreground underline underline-offset-4"
+                  onClick={() => {
+                    setDialogOpen(false);
+                    openSignInDialog();
+                  }}
+                >
+                  {t("guestSignIn")}
+                </button>
+              </span>
+            ) : null}
           </DialogDescription>
         </DialogHeader>
         {/* pt-2 leaves room for the badges that sit on the card borders. */}
@@ -134,7 +152,7 @@ export function BuyCreditsDialogRoot() {
               createCheckout.isPending ? (createCheckout.variables?.packageId ?? null) : null
             }
             isPending={createCheckout.isPending}
-            onBuy={buy}
+            onBuy={(packageId) => void buy(packageId)}
           />
         </div>
       </DialogContent>

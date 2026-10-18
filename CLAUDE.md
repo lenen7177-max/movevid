@@ -27,6 +27,11 @@ with music. Monorepo:
 - **Credits & payments**: `apps/server/src/credits/` (ledger) and `apps/server/src/payments/`
   (Stripe, Creem, Waffo). Packs and prices are configured in
   `packages/app-config/src/app-config.ts`.
+- **Guest checkout**: no sign-in wall. The first Generate or Buy click signs the browser in as a
+  Better Auth anonymous user (`apps/web/src/lib/auth/guest-session.ts`); Stripe collects the
+  email, the webhook names the guest after it, and signing in later merges the guest's credits,
+  orders and renders into the account (`apps/server/src/lib/guest-account.ts`). Idle guests are
+  purged after a week by the cron.
 - **API**: oRPC routers in `apps/server/src/routers/`; the web client is typed from
   `@server/routers`.
 

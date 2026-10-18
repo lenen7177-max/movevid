@@ -6,6 +6,7 @@ import {
   markCreditOrderStatus,
 } from "@/credits";
 import type { Database } from "@/db";
+import { claimGuestAccount } from "@/lib/guest-account";
 import { billingCheckoutSession, billingPurchase, billingSubscription } from "@/db/schema/payments";
 import type { DbLike } from "../../../infrastructure/repositories/billing-store";
 import {
@@ -75,14 +76,17 @@ export async function handleStripeCheckoutCompleted(
 
     const providerCustomerId =
       typeof session.customer === "string" ? session.customer : session.customer?.id;
+    const buyerEmail = session.customer_details?.email ?? session.customer_email ?? null;
     if (providerCustomerId) {
       await upsertBillingCustomer(db, {
         user: resolvedUser,
         provider: "stripe",
         providerCustomerId,
-        email: session.customer_details?.email ?? session.customer_email ?? null,
+        email: buyerEmail,
       });
     }
+    // A guest who paid can now sign in with the email they gave Stripe.
+    await claimGuestAccount(db, resolvedUser.userId, buyerEmail);
 
     await db
       .update(billingCheckoutSession)

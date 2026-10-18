@@ -1,6 +1,7 @@
 import { useRouterState } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 import { authClient } from "@/lib/auth/auth-client";
+import { isGuestUser } from "@/lib/auth/guest-session";
 import {
   hideTawkTo,
   identifyTawkVisitor,
@@ -20,8 +21,10 @@ export function TawkToChat() {
   const { data: session } = authClient.useSession();
   const previousUserIdRef = useRef<string | null>(null);
   const userId = session?.user.id ?? null;
-  const name = session?.user.name?.trim() || undefined;
-  const email = session?.user.email?.trim() || undefined;
+  // Guests have a placeholder name and address, so they chat as an anonymous visitor.
+  const guest = isGuestUser(session?.user);
+  const name = (!guest && session?.user.name?.trim()) || undefined;
+  const email = (!guest && session?.user.email?.trim()) || undefined;
   const onAuthPage = isAuthPath(pathname);
 
   useEffect(() => {

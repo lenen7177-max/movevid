@@ -9,7 +9,8 @@
     "signIn": "登录",
     "signOut": "退出登录",
     "dashboard": "仪表盘",
-    "history": "历史记录"
+    "history": "历史记录",
+    "guestSignIn": "登录以保存作品"
   },
   "dataTable": {
     "columnHeader": {
@@ -263,7 +264,9 @@
         "usage": "使用积分",
         "expiration": "积分过期",
         "adjustment": "积分调整"
-      }
+      },
+      "guestCheckoutNote": "无需注册：结账时填写邮箱，积分立即到账。",
+      "guestSignIn": "已有账号？登录"
     },
     "users": {
       "title": "用户管理",
@@ -942,7 +945,6 @@
       },
       "balance": "余额：{balance} 积分",
       "generate": "生成视频",
-      "signInToGenerate": "登录后生成",
       "viewSample": "查看示例效果",
       "sampleFree": "示例照片：免费预览，不扣积分",
       "buyCredits": "购买积分",
@@ -1242,6 +1244,10 @@
           "what": {
             "q": "这是什么？",
             "a": "一个基于模板的视频制作工具：每个模板是一个现成的场景，有自己的动作、镜头和音乐。你添加照片，AI 把照片里的人放进场景。"
+          },
+          "account": {
+            "q": "需要注册账号吗？",
+            "a": "不需要。上传照片、付款即可，结账时只需填写邮箱。视频和积分保存在当前浏览器里；之后用这个邮箱登录（我们会发送一次性验证码），就能在任何设备上查看。"
           },
           "photos": {
             "q": "需要什么样的照片？",

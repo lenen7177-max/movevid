@@ -40,6 +40,7 @@ import { Hono } from "hono";
 import { logger } from "hono/logger";
 import { runCreditMaintenance } from "./credits";
 import { createDb } from "./db";
+import { purgeIdleGuestAccounts } from "./lib/guest-account";
 import { checkApimartBalance } from "./video/balance-alert";
 import {
   purgeExpiredVideoInputs,
@@ -330,6 +331,10 @@ export default {
       // Uploaded photos are deleted 30 days after the job; the finished video is kept.
       await purgeExpiredVideoInputs(db, env).catch((error) =>
         console.error("[video] input purge failed", error),
+      );
+      // Guests that never ordered or rendered are deleted after a week.
+      await purgeIdleGuestAccounts(db).catch((error) =>
+        console.error("[guest] idle guest purge failed", error),
       );
     }
     // Finish or refund renders whose owners left before polling completed.

@@ -21,11 +21,11 @@ import { useNavigate } from "@tanstack/react-router";
 import { Coins, Loader2, Wand2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { openSignInDialog } from "@/components/auth/sign-in-dialog";
 import { useTranslations } from "@/i18n";
 import { trackGenerateStart, trackSampleView } from "@/lib/analytics/events";
 import { rememberTemplate } from "@/lib/analytics/attribution";
 import { authClient } from "@/lib/auth/auth-client";
+import { ensureSession } from "@/lib/auth/guest-session";
 import {
   clearHandoffPhotos,
   loadHandoffPhotos,
@@ -193,9 +193,13 @@ export function StudioCreator({
       toast.error(t("errors.needPhotos", { count: minPhotos }));
       return;
     }
+    // No sign-in wall: a visitor becomes a guest and goes straight to picking a pack.
     if (!signedIn) {
-      await saveHandoffPhotos(pair.photos);
-      openSignInDialog();
+      if (!(await ensureSession())) {
+        toast.error(t("errors.generic"));
+        return;
+      }
+      buyCredits();
       return;
     }
     createMutation.mutate();
@@ -211,10 +215,9 @@ export function StudioCreator({
     if (!isVideoModelQuality(next, quality)) setQuality("720p");
   };
   const notEnough = !pair.isSample && signedIn && balance != null && balance < creditsCost;
-  let generateLabel = t("studio.signInToGenerate");
+  let generateLabel = t("studio.generate");
   if (pair.isSample) generateLabel = t("studio.viewSample");
   else if (createMutation.isPending) generateLabel = t("studio.submitting");
-  else if (signedIn) generateLabel = t("studio.generate");
 
   return (
     <CreatorCard

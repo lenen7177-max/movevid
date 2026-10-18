@@ -2,6 +2,7 @@ import { ORPCError } from "@orpc/server";
 import { VIDEO_TEMPLATE_IDS } from "@repo/app-config/video";
 import { z } from "zod";
 import type { Context } from "@/lib/context";
+import { isGuestUser } from "@/lib/guest-account";
 import { protectedProcedure } from "@/lib/orpc";
 
 /** Web payment providers that can create credit package checkout sessions. */
@@ -41,7 +42,10 @@ export const webCreditsRouter = {
           packageId: input.packageId,
           returnUrl: input.returnUrl,
           provider: input.provider,
-          customerEmail: context.session?.user.email,
+          // Guests have a placeholder address; Stripe asks them for a real one instead.
+          customerEmail: isGuestUser(context.session?.user)
+            ? undefined
+            : context.session?.user.email,
           templateId: input.templateId,
         });
         return { url: session.url, orderId: session.creditOrderId };
