@@ -1,3 +1,4 @@
+import { SINGLE_TEMPLATE_ID } from "@repo/app-config/video";
 import { Link } from "@tanstack/react-router";
 import { BrandLogo } from "@/components/logos/brand-logo";
 import { webConfig } from "@/configs/web-config";
@@ -21,7 +22,7 @@ export function SiteFooter() {
       title: t("product"),
       links: [
         { label: navT("studio"), to: "/studio" },
-        { label: navT("templates"), to: "/templates" },
+        ...(SINGLE_TEMPLATE_ID ? [] : [{ label: navT("templates"), to: "/templates" }]),
         { label: navT("pricing"), to: "/pricing" },
         { label: navT("howItWorks"), to: "/", hash: "how-it-works" },
         { label: navT("faq"), to: "/", hash: "faq" },

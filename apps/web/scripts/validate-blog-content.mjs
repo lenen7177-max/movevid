@@ -6,7 +6,16 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, "..");
 
-const locales = ["en", "zh", "jp"];
+// Served locales, read from packages/i18n/src/locales.ts. Folders of other locales (zh, jp
+// while the site is English only) are not built, so they are not checked either.
+const locales = (() => {
+  const source = fs.readFileSync(
+    path.resolve(projectRoot, "../../packages/i18n/src/locales.ts"),
+    "utf8",
+  );
+  const list = /export const supportedLocales = \[([^\]]*)\]/.exec(source)?.[1] ?? '"en"';
+  return [...list.matchAll(/"([a-z]+)"/g)].map(([, locale]) => locale);
+})();
 const collections = ["blog", "author", "category"];
 
 function listCollectionFiles(collection, locale) {
@@ -81,6 +90,7 @@ function diffSet(left, right) {
 
 const errors = [];
 
+// Every served locale has the same posts, authors and categories as the first one.
 for (const collection of collections) {
   const baseline = listCollectionSlugs(collection, locales[0]);
 

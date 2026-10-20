@@ -870,7 +870,33 @@
         "keywords": "ai dance video, two person ai video, photo to dance video, ai duo dance, tiktok dance template",
         "hashtag": "DuoDance #AIDance",
         "leftRole": "Left dancer",
-        "rightRole": "Right dancer"
+        "rightRole": "Right dancer",
+        "seoTitle": "AI Duo Dance Video from Two Photos | {appName}",
+        "h1": "AI Duo Dance: two photos, one synced routine",
+        "trend": {
+          "body": [
+            "Duo dance clips are the side-by-side routines friends film together: an entrance, a few synced eights, a close-up and a shared final pose. Part of the fun is the matching, part is the chemistry between the two dancers.",
+            "With this template you skip the rehearsals. Upload one photo for each dancer and both of you perform the same {seconds}-second routine in a bright studio, in a vertical {aspect} video with music."
+          ]
+        },
+        "faq": [
+          {
+            "q": "Do both people need to be in one photo?",
+            "a": "No. Upload one photo per dancer: the left photo plays the left dancer and the right photo the right dancer."
+          },
+          {
+            "q": "Can I choose the dance moves?",
+            "a": "The routine comes from the template's reference clip, so every Duo Dance video follows the same choreography and music. That keeps it recognizable as the trend."
+          },
+          {
+            "q": "How long is the video?",
+            "a": "About {seconds} seconds in {aspect}. Fast renders use a shorter highlight cut of the same routine."
+          },
+          {
+            "q": "What if it doesn't work?",
+            "a": "If a render fails, its credits are refunded automatically and you can try again."
+          }
+        ]
       },
       "solo_spotlight": {
         "name": "Solo Spotlight",
@@ -1106,6 +1132,19 @@
           "title": "Download and share",
           "body": "Get a {aspect} MP4 of about {seconds} seconds with music, ready for TikTok, Reels or Shorts."
         }
+      },
+      "trendEyebrow": "The trend",
+      "trend": {
+        "title": "What is the {name} trend?",
+        "body": [
+          "{name} is a short video format people recreate on TikTok, Instagram Reels and YouTube Shorts: the moves, the camera and the music stay the same, and only the faces change. That is what makes each version easy to recognize and fun to share.",
+          "You don't need to film or edit anything to join in. Add {photos, plural, one {one photo} other {up to # photos}} and the template recreates the whole {seconds}-second clip with you in it, as a {aspect} video ready to post."
+        ]
+      },
+      "wall": {
+        "eyebrow": "Examples",
+        "title": "{name} videos made with this template",
+        "item": "{name} example {number}"
       },
       "faqTitle": "Questions about this template",
       "faq": {

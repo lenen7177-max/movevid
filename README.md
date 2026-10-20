@@ -29,8 +29,8 @@ credits, Stripe billing, admin, i18n, SEO — is built in.
   - My videos: every render in one place.
   - One-time credit packs (sample prices: $9.99 / $29.99 / $69.99) and a full credit history.
   - A discounted first full video for new accounts.
-- **Everywhere** — English, 简体中文 and 日本語; dark (default) and light themes; works on
-  phones and installs as an app (PWA).
+- **Everywhere** — English site (简体中文 and 日本語 message files included, off by default);
+  dark (default) and light themes; works on phones and installs as an app (PWA).
 
 ### For admins
 
@@ -83,7 +83,7 @@ credits, Stripe billing, admin, i18n, SEO — is built in.
   - 「我的视频」查看全部生成记录。
   - 一次性积分包（示例价 $9.99 / $29.99 / $69.99），完整的积分流水。
   - 新用户首个完整视频享优惠价。
-- **通用**：中文、英文、日文三语；深色（默认）/ 浅色主题；手机可用，可安装到桌面（PWA）。
+- **通用**：默认只开英文站（中文、日文文案文件保留，默认关闭）；深色（默认）/ 浅色主题；手机可用，可安装到桌面（PWA）。
 
 ### 管理员后台
 
@@ -121,10 +121,10 @@ templates, connect Stripe and deploy. To turn a viral clip into a template, foll
 
 ## Docs
 
-| Guide | What it covers |
-| --- | --- |
-| [SETUP.md](./SETUP.md) | Brand, templates, Cloudflare, Stripe, deploy |
-| [SETUP.zh-CN.md](./SETUP.zh-CN.md) | 同上，中文 |
+| Guide                                                               | What it covers                                                             |
+| ------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| [SETUP.md](./SETUP.md)                                              | Brand, templates, Cloudflare, Stripe, deploy                               |
+| [SETUP.zh-CN.md](./SETUP.zh-CN.md)                                  | 同上，中文                                                                 |
 | **[复合爆款视频制作手册](./docs/viral-template-playbook.zh-CN.md)** | 选爆款 → Liblib 深度动作视频 → 写提示词 → 照片素材库审核 → 提交生成 → 定价 |
 
 ## Project layout
@@ -135,28 +135,31 @@ apps/
   server/     Hono API, auth, credits, payments, video pipeline (Cloudflare Worker + D1 + R2)
 packages/
   app-config/ Product config: app info, auth methods, credit packs, prices, video templates
-  i18n/       Messages for web and server (en / zh / jp)
+  i18n/       Messages for web and server (en served; zh / jp kept, off)
   ui/         Shared UI components and design tokens
   shared/     Cross-package utilities
   api-client/ Typed oRPC client
+site.config.jsonc  Per-site settings (name, domain, Cloudflare names and ids); `pnpm site:sync`
 docs/
   viral-template-playbook.zh-CN.md   复合爆款视频制作手册（选片、深度图、提示词、审核、定价）
 scripts/
-  check-placeholders.mjs   Lists placeholders still to replace; flags committed secrets
+  site-sync.mjs            Writes both wrangler.jsonc files etc. from site.config.jsonc
+  check-placeholders.mjs   Deploy gate: placeholders, bad site config, stale generated files, secrets
 ```
 
 ## Common commands
 
-| Command                         | What it does                               |
-| ------------------------------- | ------------------------------------------ |
-| `pnpm dev:web+server`           | Run web and API locally                    |
-| `pnpm check-types`              | Type-check every package                   |
-| `pnpm lint` / `pnpm fmt`        | oxlint / oxfmt                             |
-| `pnpm test`                     | Run all test suites                        |
-| `pnpm db:generate`              | Create a migration after changing a schema |
-| `pnpm check:placeholders`       | Show placeholders left before you deploy   |
-| `pnpm -F server dev:last-email` | Print the latest local sign-in code        |
-| `pnpm deploy`                   | Deploy API then web to Cloudflare          |
+| Command                         | What it does                                   |
+| ------------------------------- | ---------------------------------------------- |
+| `pnpm dev:web+server`           | Run web and API locally                        |
+| `pnpm check-types`              | Type-check every package                       |
+| `pnpm lint` / `pnpm fmt`        | oxlint / oxfmt                                 |
+| `pnpm test`                     | Run all test suites                            |
+| `pnpm db:generate`              | Create a migration after changing a schema     |
+| `pnpm site:sync`                | Regenerate config files from site.config.jsonc |
+| `pnpm check:placeholders`       | Deploy gate; exits 1 while anything is left    |
+| `pnpm -F server dev:last-email` | Print the latest local sign-in code            |
+| `pnpm deploy:all`               | Check, then deploy API and web to Cloudflare   |
 
 ## License
 

@@ -23,6 +23,7 @@ type LocaleSwitcherProps = {
   onActionComplete?: () => void;
 };
 
+/** Language menu; renders nothing while the site serves a single locale (see @repo/i18n). */
 export function LocaleSwitcher({ onActionComplete }: LocaleSwitcherProps = {}) {
   const currentLocale = useLocale();
   const t = useTranslations();
@@ -62,6 +63,8 @@ export function LocaleSwitcher({ onActionComplete }: LocaleSwitcherProps = {}) {
     // Navigate with document reload to apply new translations
     router.navigate({ to: newPath, reloadDocument: true });
   };
+
+  if (supportedLocales.length < 2) return null;
 
   return (
     <DropdownMenu>

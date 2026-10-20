@@ -1,10 +1,10 @@
-import { defaultLocale, type Locale } from "./locales";
+import { defaultLocale, isValidLocale, type KnownLocale, type Locale } from "./locales";
 
 /**
- * Browser language tags we can serve.
+ * Browser language tags we have messages for; only the served ones are picked.
  * Japanese browsers send `ja`; the app locale code is `jp`.
  */
-const primaryLanguageToLocale: Record<string, Locale> = {
+const primaryLanguageToLocale: Record<string, KnownLocale> = {
   en: "en",
   zh: "zh",
   ja: "jp",
@@ -23,7 +23,8 @@ function matchLanguageTag(tag: string): Locale | null {
   const primary = normalized.split("-")[0];
   if (!primary) return null;
 
-  return primaryLanguageToLocale[primary] ?? null;
+  const locale = primaryLanguageToLocale[primary];
+  return isValidLocale(locale) ? locale : null;
 }
 
 function readQuality(parameters: string[]): number | null {

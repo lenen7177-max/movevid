@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "vite build && node scripts/fix-sitemap.mjs",
+    "build": "node scripts/indexnow.mjs --key-file && vite build && node scripts/fix-sitemap.mjs",
     "serve": "vite preview",
     "dev": "vite dev --port=3000 --host",
     "start": "pnpm run dev",
@@ -16,7 +16,8 @@
     "indexnow": "node scripts/indexnow.mjs",
     "cf-typegen": "wrangler types",
     "blog:validate": "node ./scripts/validate-blog-content.mjs",
-    "check-types": "tsc -b ../server && tsc --noEmit"
+    "test": "node --test \"scripts/__tests__/*.test.mjs\"",
+    "check-types": "fumadocs-mdx && tsc -b ../server && tsc --noEmit"
   },
   "dependencies": {
     "@fontsource-variable/geist-mono": "^5.3.0",

@@ -1,4 +1,4 @@
-import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { cloudflare } from "@cloudflare/vite-plugin";
@@ -10,15 +10,31 @@ import mdx from "fumadocs-mdx/vite";
 import { parse } from "jsonc-parser";
 import { defineConfig, loadEnv } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
-import { VIDEO_TEMPLATE_IDS } from "../../packages/app-config/src/video";
+import {
+  SINGLE_TEMPLATE_ID,
+  VIDEO_TEMPLATE_IDS,
+  latestVideoTemplateLaunchDate,
+  videoTemplates,
+} from "../../packages/app-config/src/video";
+import { defaultLocale, localeToHreflang, supportedLocales } from "../../packages/i18n/src/locales";
 import * as MdxConfig from "./source.config";
 import { templateSlug } from "./src/lib/video/slug";
 
-// Every bundled template gets its own landing page at /templates/<slug>.
-const templatePages = VIDEO_TEMPLATE_IDS.map((id) => `/templates/${templateSlug(id)}`);
+const appDirectory = dirname(fileURLToPath(import.meta.url));
+
+// One id per build: this config is loaded more than once per `vite build` (TanStack Start runs
+// nested builds), and the bundles and dist/.build-id must agree, so the first load pins it.
+const pwaBuildId =
+  (process.env.PWA_BUILD_ID ??= `${process.env.CF_PAGES_COMMIT_SHA ?? process.env.GITHUB_SHA ?? "local"}-${Date.now().toString(36)}`);
+
+// Every bundled template gets its own landing page at /templates/<slug>. With a single
+// template the home page is its landing page instead, so /templates/* is left out.
+const templatePages = SINGLE_TEMPLATE_ID
+  ? []
+  : ["/templates", ...VIDEO_TEMPLATE_IDS.map((id) => `/templates/${templateSlug(id)}`)];
 
 const blogPages = (() => {
-  const dir = resolve(dirname(fileURLToPath(import.meta.url)), "content/blog/en");
+  const dir = resolve(appDirectory, "content/blog", defaultLocale);
   if (!existsSync(dir)) return [];
   return readdirSync(dir)
     .filter((name) => name.endsWith(".mdx"))
@@ -28,7 +44,6 @@ const blogPages = (() => {
 const localeNeutralPublicPages = [
   "/",
   "/studio",
-  "/templates",
   "/pricing",
   "/privacy",
   "/terms",
@@ -37,12 +52,12 @@ const localeNeutralPublicPages = [
   ...blogPages,
 ];
 
-// URL prefix, content folder and hreflang code for each locale.
-const sitemapLocales = [
-  { prefix: "", dir: "en", hreflang: "en" },
-  { prefix: "/zh", dir: "zh", hreflang: "zh" },
-  { prefix: "/jp", dir: "jp", hreflang: "ja" },
-] as const;
+// URL prefix, content folder and hreflang code for each served locale (English only by default).
+const sitemapLocales = supportedLocales.map((locale) => ({
+  prefix: locale === defaultLocale ? "" : `/${locale}`,
+  dir: locale,
+  hreflang: localeToHreflang[locale],
+}));
 
 function localizedPath(prefix: string, path: string): string {
   return prefix && path === "/" ? prefix : `${prefix}${path}`;
@@ -60,8 +75,6 @@ const nonPublicPrefixes = [
   "/api",
   "/rpc",
 ];
-
-const appDirectory = dirname(fileURLToPath(import.meta.url));
 
 function isPrerenderablePath(path: string): boolean {
   if (path.includes("#")) {
@@ -121,64 +134,38 @@ function getWranglerViteEnvDefines(
   return defines;
 }
 
-/** Maps each public URL path to its route file, from the createFileRoute ids. */
-function buildRouteFileMap(): Map<string, string> {
-  const map = new Map<string, string>();
-  const walk = (dir: string) => {
-    for (const entry of readdirSync(dir, { withFileTypes: true })) {
-      const file = join(dir, entry.name);
-      if (entry.isDirectory()) {
-        walk(file);
-        continue;
-      }
-      if (!entry.name.endsWith(".tsx")) continue;
-      const id = readFileSync(file, "utf8").match(/createFileRoute\("([^"]+)"\)/)?.[1];
-      // Skip pathless layouts (e.g. "/_public", "/_public/(marketing)"); index routes end in "/".
-      const last = id?.split("/").at(-1) ?? "";
-      if (!id || (!id.endsWith("/") && (last.startsWith("_") || /^\(.*\)$/.test(last)))) {
-        continue;
-      }
-      const segments = id
-        .split("/")
-        .filter((segment) => segment && !segment.startsWith("_") && !/^\(.*\)$/.test(segment));
-      map.set(`/${segments.join("/")}`.replace(/\/$/, "") || "/", file);
-    }
-  };
-  walk(resolve(appDirectory, "src/routes"));
-  return map;
+/** `date:` from a blog post's frontmatter (YYYY-MM-DD, checked by `pnpm blog:validate`). */
+function blogPostDate(localeDir: string, slug: string): string | undefined {
+  const file = join(appDirectory, "content/blog", localeDir, `${slug}.mdx`);
+  if (!existsSync(file)) return undefined;
+  return /^date:\s*["']?([\d-]+)/m.exec(readFileSync(file, "utf8"))?.[1];
 }
 
 /**
- * When a page's own content last changed: blog posts use their MDX file; other pages use
- * their route file plus the landing components it imports. Shared files (messages, layout)
- * are left out, since they change with every release and would mark every page as new.
+ * When a page's own content last changed, from fixed dates rather than the build: template
+ * pages use the template's launchDate, blog posts their frontmatter date and the blog index the
+ * newest post. Every other page uses the newest template's launchDate. TanStack Start writes
+ * the build date for pages without one, and a date that moves on every deploy teaches search
+ * engines to ignore <lastmod> for the whole site.
  */
-function resolveLastModified(path: string, localeDir: string, routeFiles: Map<string, string>) {
-  const files: string[] = [];
-  const blogDir = resolve(appDirectory, "content/blog", localeDir);
-  if (path === "/blog") {
-    if (existsSync(blogDir)) {
-      files.push(...readdirSync(blogDir).map((name) => join(blogDir, name)));
-    }
+function resolveLastModified(path: string, localeDir: string): Date {
+  const templateId = VIDEO_TEMPLATE_IDS.find((id) => path === `/templates/${templateSlug(id)}`);
+  let day: string | undefined;
+  if (templateId) {
+    day = videoTemplates[templateId].launchDate;
   } else if (path.startsWith("/blog/")) {
-    files.push(join(blogDir, `${path.slice("/blog/".length)}.mdx`));
-  } else {
-    const routeFile = routeFiles.get(path);
-    if (routeFile) {
-      files.push(routeFile);
-      const source = readFileSync(routeFile, "utf8");
-      for (const [, name] of source.matchAll(/from "@\/components\/video\/([\w-]+)"/g)) {
-        files.push(resolve(appDirectory, "src/components/video", `${name}.tsx`));
-      }
-    }
+    day = blogPostDate(localeDir, path.slice("/blog/".length));
+  } else if (path === "/blog") {
+    day = blogPages
+      .map((page) => blogPostDate(localeDir, page.slice("/blog/".length)) ?? "")
+      .sort()
+      .at(-1);
   }
-  const times = files.filter((file) => existsSync(file)).map((file) => statSync(file).mtimeMs);
-  return times.length ? new Date(Math.max(...times)) : undefined;
+  return new Date(`${day || latestVideoTemplateLaunchDate()}T00:00:00Z`);
 }
 
-/** Sitemap entries for every locale, with real last-modified dates and hreflang alternates. */
+/** Sitemap entries for every served locale, with fixed last-modified dates and hreflang. */
 function buildPublicPageEntries(host: string | undefined) {
-  const routeFiles = buildRouteFileMap();
   return sitemapLocales.flatMap(({ prefix, dir }) =>
     localeNeutralPublicPages.map((path) => {
       const alternateRefs = host
@@ -187,13 +174,16 @@ function buildPublicPageEntries(host: string | undefined) {
               href: `${host}${localizedPath(locale.prefix, path)}`,
               hreflang: locale.hreflang,
             })),
-            { href: `${host}${path}`, hreflang: "x-default" },
+            // x-default only means something when there is more than one language.
+            ...(sitemapLocales.length > 1
+              ? [{ href: `${host}${path}`, hreflang: "x-default" }]
+              : []),
           ]
         : undefined;
       return {
         path: localizedPath(prefix, path),
         prerender: { crawlLinks: false },
-        sitemap: { lastmod: resolveLastModified(path, dir, routeFiles), alternateRefs },
+        sitemap: { lastmod: resolveLastModified(path, dir), alternateRefs },
       };
     }),
   );
@@ -202,7 +192,6 @@ function buildPublicPageEntries(host: string | undefined) {
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, appDirectory, "");
   const wranglerVars = loadWranglerVars();
-  const pwaBuildId = `${process.env.CF_PAGES_COMMIT_SHA ?? process.env.GITHUB_SHA ?? "local"}-${Date.now().toString(36)}`;
   const sitemapHost = resolveBuildEnvValue("VITE_APP_URL", [
     process.env,
     env,
@@ -224,6 +213,15 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [
       ...(mode === "development" ? [] : [cloudflare({ viteEnvironment: { name: "ssr" } })]),
+      {
+        // dist/.build-id lets scripts/indexnow.mjs wait until /api/pwa-version serves this build.
+        name: "write-build-id",
+        apply: "build",
+        closeBundle() {
+          mkdirSync(resolve(appDirectory, "dist"), { recursive: true });
+          writeFileSync(resolve(appDirectory, "dist/.build-id"), pwaBuildId);
+        },
+      },
       // DEVTOOLS_PORT moves the devtools event bus off 42069 when another project uses it.
       devtools({ eventBusConfig: { port: Number(process.env.DEVTOOLS_PORT) || 42069 } }),
       tsconfigPaths(),

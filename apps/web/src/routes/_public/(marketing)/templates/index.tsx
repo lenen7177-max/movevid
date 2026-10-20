@@ -1,4 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { SINGLE_TEMPLATE_ID } from "@repo/app-config/video";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { buttonVariants } from "@repo/ui/button";
 import { Wand2 } from "lucide-react";
 import { TemplateGallery } from "@/components/video/template-gallery";
@@ -9,6 +10,10 @@ import { templatePath } from "@/lib/video/templates";
 import { buildSeoHead } from "@/utils/seo";
 
 export const Route = createFileRoute("/_public/(marketing)/templates/")({
+  // With a single template there is nothing to browse: its landing page is the home page.
+  beforeLoad: () => {
+    if (SINGLE_TEMPLATE_ID) throw redirect({ to: "/", statusCode: 301 });
+  },
   head: () => {
     const locale = getCurrentLocale();
     const { gallery, templates } = getMessages(locale).video;

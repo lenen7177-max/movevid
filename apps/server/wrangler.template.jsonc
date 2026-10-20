@@ -1,0 +1,73 @@
+//# Template for apps/server/wrangler.jsonc. `pnpm site:sync` fills each {{token}} from
+//# site.config.jsonc and writes the result (these //# lines are dropped). Edit bindings, crons
+//# and other shared settings here; edit site values in site.config.jsonc.
+{
+  "name": "{{serverWorker}}",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-06-15",
+  "compatibility_flags": ["nodejs_compat"],
+  // The API's custom domain, bound on deploy. Must be the host of SERVER_URL below.
+  "routes": [{ "pattern": "{{apiHost}}", "custom_domain": true }],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "{{d1DatabaseName}}",
+      "database_id": "{{d1DatabaseId}}",
+    },
+  ],
+  "vars": {
+    "NODE_ENV": "production",
+    "WEBSITE_URL": "{{siteUrl}}",
+    "SERVER_URL": "{{apiUrl}}",
+    // Non-sensitive public IDs.
+    // GitHub OAuth client ID
+    "GITHUB_CLIENT_ID": "{{githubClientId}}",
+    // Google OAuth client ID
+    "GOOGLE_CLIENT_ID": "{{googleClientId}}",
+    "APIMART_BASE_URL": "https://api.apimart.ai",
+    // Optional: Seedance asset-library group that holds reviewed user photos.
+    "APIMART_ASSET_GROUP_ID": "{{apimartAssetGroupId}}",
+    // Public base URL of the template media bucket (reference clips and soundtracks), e.g. an R2
+    // public bucket. Files follow the layout in apps/server/src/video/templates.ts.
+    "TEMPLATE_MEDIA_BASE_URL": "{{mediaUrl}}",
+  },
+  "r2_buckets": [
+    {
+      // Private bucket for uploaded photos and finished renders.
+      "binding": "STORAGE",
+      "bucket_name": "{{r2Bucket}}",
+    },
+  ],
+  "send_email": [
+    {
+      "name": "EMAIL",
+    },
+  ],
+  // Email-sending auth routes (see src/middlewares/auth-email-guard.ts).
+  // namespace_id must be unique within your Cloudflare account (see site.config.jsonc).
+  "ratelimits": [
+    {
+      "name": "AUTH_EMAIL_IP_RATE_LIMITER",
+      "namespace_id": "{{rateLimitIpNamespaceId}}",
+      "simple": { "limit": 5, "period": 60 },
+    },
+    {
+      "name": "AUTH_EMAIL_ADDRESS_RATE_LIMITER",
+      "namespace_id": "{{rateLimitAddressNamespaceId}}",
+      "simple": { "limit": 2, "period": 60 },
+    },
+  ],
+  "triggers": {
+    // Every 15 minutes: finish or refund abandoned renders. Daily: credit expiry and photo cleanup.
+    "crons": ["*/15 * * * *", "10 16 * * *"],
+  },
+  "observability": {
+    "logs": {
+      "enabled": true,
+      "invocation_logs": true,
+    },
+    "traces": {
+      "enabled": false,
+    },
+  },
+}

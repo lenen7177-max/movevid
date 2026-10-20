@@ -1,3 +1,4 @@
+import { SINGLE_TEMPLATE_ID } from "@repo/app-config/video";
 import { buttonVariants } from "@repo/ui/button";
 import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
@@ -18,7 +19,8 @@ type NavLink = {
 };
 
 const NAV_LINKS: NavLink[] = [
-  { key: "templates", to: "/templates" },
+  // A single-template site has no gallery: its only template is the home page.
+  ...(SINGLE_TEMPLATE_ID ? [] : [{ key: "templates", to: "/templates" } as const]),
   { key: "studio", to: "/studio" },
   { key: "howItWorks", to: "/", hash: "how-it-works" },
   { key: "pricing", to: "/pricing" },

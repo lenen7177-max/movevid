@@ -7,6 +7,7 @@ import { negotiateLocale } from "@repo/i18n";
 import {
   defaultLocale,
   extractLocaleFromPath,
+  extractUnservedLocaleFromPath,
   isValidLocale,
   LOCALE_COOKIE,
   type Locale,
@@ -108,9 +109,21 @@ export function handleLocaleMiddleware(request: Request): LocaleMiddlewareResult
     };
   }
 
+  // /zh/* or /jp/* while that locale is turned off: the page lives at /* now.
+  const unservedLocale = extractUnservedLocaleFromPath(pathname);
+  if (unservedLocale) {
+    const newUrl = new URL(url);
+    newUrl.pathname = pathname.slice(unservedLocale.length + 1) || "/";
+    return {
+      redirect: Response.redirect(newUrl.toString(), 301),
+      locale: defaultLocale,
+      setCookie: canPersist ? initialLocaleCookie(request, defaultLocale) : undefined,
+    };
+  }
+
   const urlLocale = extractLocaleFromPath(pathname);
 
-  // No locale prefix — send first-time and saved non-English visitors to /zh or /jp
+  // No locale prefix — send first-time and saved visitors of another served locale to /<locale>
   if (!urlLocale && locale !== defaultLocale && canPersist) {
     const newUrl = new URL(url);
     newUrl.pathname = `/${locale}${pathname === "/" ? "" : pathname}`;

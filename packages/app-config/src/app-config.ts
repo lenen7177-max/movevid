@@ -1,4 +1,6 @@
 import { deepMerge } from "@repo/shared/platform";
+// Written by `pnpm site:sync` from site.config.jsonc at the repo root; edit that file instead.
+import site from "./site.generated.json";
 import type {
   AppCommonConfig,
   AppConfig,
@@ -144,11 +146,11 @@ const appConfig: AppConfig = {
     // Public app metadata used in UI, links, and platform setup.
     app: {
       // Product display name. Also used in emails, page titles and the OG image.
-      name: "YourBrand",
+      name: site.name,
       // Public support contact.
-      supportEmail: "support@example.com",
+      supportEmail: site.supportEmail,
       // Official marketing or product website.
-      websiteUrl: "https://example.com",
+      websiteUrl: `https://${site.domain}`,
       // Public social profile URL.
       socialUrl: "https://x.com/your_handle",
     },
@@ -215,7 +217,7 @@ const appConfig: AppConfig = {
       // Sender address parts combined into localPart@domain.
       from: {
         localPart: "noreply",
-        domain: "example.com",
+        domain: site.domain,
       },
     },
     // File upload and public asset storage settings.

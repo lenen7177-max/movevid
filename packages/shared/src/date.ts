@@ -1,5 +1,7 @@
 /**
- * Format a date string using Intl.DateTimeFormat with locale-specific formatting
+ * Format a date string using Intl.DateTimeFormat with locale-specific formatting.
+ * Read in UTC, so a date-only value ("2026-01-01") shows the same day on the server and in
+ * every visitor's time zone.
  * @param locale - The locale string (e.g., 'en', 'zh', 'jp')
  * @param value - The date string to format
  * @param localeToDateFormat - Mapping of locale to Intl locale format
@@ -21,6 +23,7 @@ export function formatDate(
     year: "numeric",
     month: "long",
     day: "numeric",
+    timeZone: "UTC",
   }).format(parsed);
 }
 

@@ -17,10 +17,12 @@ async function buildLlmsTxt(): Promise<string> {
   const templates = templatesNewestFirst().map((id) => {
     const template = videoTemplates[id];
     const minPhotos = getVideoMinPhotos(id);
+    // Widened to number: with one template left, the slot count is a literal type.
+    const slots: number = template.slots.length;
     const photos =
-      minPhotos < template.slots.length
-        ? `${minPhotos}–${template.slots.length} photos`
-        : `${template.slots.length} photo${template.slots.length === 1 ? "" : "s"}`;
+      minPhotos < slots
+        ? `${minPhotos}–${slots} photos`
+        : `${slots} photo${slots === 1 ? "" : "s"}`;
     return [
       `- [${video.templates[id].name}](${site}${templatePath(id)}): ${video.templates[id].tagline}`,
       `  Photos: ${photos}. Length: about ${template.durationSeconds} s. Format: ${template.aspectRatio} MP4. From ${templateFromCredits(id)} credits.`,

@@ -1,5 +1,6 @@
 //https://www.fumadocs.dev/docs/internationalization/tanstack-start
 
+import type { KnownLocale } from "@repo/i18n";
 import { useRouter } from "@tanstack/react-router";
 import { defineI18n } from "fumadocs-core/i18n";
 import { defineI18nUI } from "fumadocs-ui/i18n";
@@ -25,21 +26,15 @@ export const fumadocsI18n = defineI18n({
   fallbackLanguage: defaultLocale,
 });
 
+const searchLabels: Record<KnownLocale, string> = { en: "Search", zh: "搜索", jp: "検索" };
+
 const { provider } = defineI18nUI(fumadocsI18n, {
-  translations: {
-    en: {
-      displayName: localeDisplayNames.en,
-      search: "Search",
-    },
-    zh: {
-      displayName: localeDisplayNames.zh,
-      search: "搜索",
-    },
-    jp: {
-      displayName: localeDisplayNames.jp,
-      search: "検索",
-    },
-  },
+  translations: Object.fromEntries(
+    languages.map((locale) => [
+      locale,
+      { displayName: localeDisplayNames[locale], search: searchLabels[locale] },
+    ]),
+  ) as Record<Locale, { displayName: string; search: string }>,
 });
 
 export function useFumadocsI18nProvider(locale: Locale | undefined) {

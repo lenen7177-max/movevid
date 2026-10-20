@@ -3,6 +3,7 @@ import test from "node:test";
 import {
   VIDEO_MODELS,
   VIDEO_TEMPLATE_IDS,
+  getVideoMinPhotos,
   isVideoHighlight,
   videoTemplates,
 } from "@repo/app-config/video";
@@ -38,18 +39,31 @@ test("every prompt stays under the provider's length cap for every photo count",
 });
 
 test("prompts cast exactly the uploaded photos", () => {
-  const squad = getVideoTemplate("squad_walk", "seedance-2.5");
-  assert.ok(squad.buildPrompt(1).includes("@图片1"));
-  assert.ok(!squad.buildPrompt(1).includes("@图片2"));
-  assert.ok(squad.buildPrompt(3).includes("@图片3"));
+  for (const templateId of VIDEO_TEMPLATE_IDS) {
+    for (const model of VIDEO_MODELS) {
+      const template = getVideoTemplate(templateId, model);
+      const slots = videoTemplates[templateId].slots.length;
+      for (let photos = getVideoMinPhotos(templateId); photos <= slots; photos++) {
+        const prompt = template.buildPrompt(photos);
+        const label = `${templateId} ${model} with ${photos} photos`;
+        for (let handle = 1; handle <= photos; handle++) {
+          assert.ok(prompt.includes(`@图片${handle}`), `${label}: casts @图片${handle}`);
+        }
+        assert.ok(!prompt.includes(`@图片${photos + 1}`), `${label}: no @图片${photos + 1}`);
+      }
+    }
+  }
 });
 
-test("template media resolves against TEMPLATE_MEDIA_BASE_URL", () => {
+test("every template's media resolves against TEMPLATE_MEDIA_BASE_URL", () => {
   const env = { TEMPLATE_MEDIA_BASE_URL: "https://media.example.com/" };
-  assert.equal(
-    templateMediaUrl(env, "templates/duo_dance/reference.mp4"),
-    "https://media.example.com/templates/duo_dance/reference.mp4",
-  );
+  for (const templateId of VIDEO_TEMPLATE_IDS) {
+    const { referenceVideoPath } = getVideoTemplate(templateId, "seedance-2.5");
+    assert.equal(
+      templateMediaUrl(env, referenceVideoPath),
+      `https://media.example.com/${referenceVideoPath}`,
+    );
+  }
   assert.equal(
     templateMediaUrl(env, "https://cdn.example.com/a.mp4"),
     "https://cdn.example.com/a.mp4",

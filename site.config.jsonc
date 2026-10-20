@@ -1,0 +1,57 @@
+// Everything that makes this copy of the template its own site. A new site edits this file,
+// then runs `pnpm site:sync`, which rewrites the generated files from it:
+//   apps/server/wrangler.jsonc, apps/web/wrangler.jsonc   (from their wrangler.template.jsonc)
+//   apps/web/public/manifest.webmanifest                  (PWA name)
+//   packages/app-config/src/site.generated.json          (name, domain, support email)
+// `pnpm check:placeholders` runs before every deploy and fails while a value below is still a
+// placeholder, is malformed, or the generated files are out of date.
+{
+  // Product name: page titles, emails, the PWA name and the share image.
+  "name": "YourBrand",
+  // Optional: the PWA's home-screen label (default: name). Keep it under ~12 characters.
+  // "shortName": "YourBrand",
+
+  // Apex domain, without https:// or www. The site is served at https://<domain> (www is bound
+  // too and redirects there) and the API at https://api.<domain>.
+  "domain": "example.com",
+  // Optional: support address on the legal pages (default: support@<domain>).
+  // "supportEmail": "help@example.com",
+  // Public base URL of the template media bucket: reference clips, soundtracks, previews and
+  // sample videos (layout in apps/server/src/video/templates.ts).
+  "mediaUrl": "https://media.example.com",
+
+  "cloudflare": {
+    // Worker names, unique within your Cloudflare account. The web worker calls the server
+    // worker through a service binding.
+    "webWorker": "your-project-web",
+    "serverWorker": "your-project-server",
+    // `npx wrangler d1 create <name>` prints the database_id.
+    "d1DatabaseName": "your-project-db",
+    "d1DatabaseId": "00000000-0000-0000-0000-000000000000",
+    // Private R2 bucket for uploaded photos and finished renders.
+    "r2Bucket": "your-project-bucket",
+    // Rate limiters on the email-sending auth routes. Any positive integers, but unique within
+    // your Cloudflare account and different from each other: sites sharing an id share one
+    // counter. Number your sites, e.g. the 3rd site uses 3001 and 3002.
+    "rateLimitNamespaceIds": {
+      "authEmailIp": "<YOUR_RATELIMIT_NAMESPACE_ID_1>",
+      "authEmailAddress": "<YOUR_RATELIMIT_NAMESPACE_ID_2>",
+    },
+  },
+
+  // Cloudflare Turnstile site key (public) for email sign-in.
+  "turnstileSiteKey": "<YOUR_TURNSTILE_SITE_KEY>",
+
+  // Optional public IDs. Leave empty to turn the feature off.
+  "public": {
+    "githubClientId": "",
+    "googleClientId": "",
+    "gaMeasurementId": "",
+    "openpanelClientId": "",
+    "tawkPropertyId": "",
+    "tawkWidgetId": "",
+    // Seedance asset-library group for reviewed user photos. Leave empty and copy the group id
+    // from the first render's logs, so later photos land in the same group.
+    "apimartAssetGroupId": "",
+  },
+}

@@ -1,4 +1,5 @@
 import { videoConfig } from "@repo/app-config/video";
+import { type KnownLocale, localeToHreflang } from "@repo/i18n";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@repo/ui/accordion";
 import { buttonVariants } from "@repo/ui/button";
 import { Check, Loader2 } from "lucide-react";
@@ -41,10 +42,10 @@ export function fillPricingValues(template: string): string {
 
 export function useMoney() {
   const locale = useLocale();
-  const formatter = new Intl.NumberFormat(locale === "jp" ? "ja" : locale, {
+  const formatter = new Intl.NumberFormat(localeToHreflang[locale as KnownLocale] ?? locale, {
     style: "currency",
     currency: "USD",
-    // "$9.99" in every locale, rather than "US$9.99" on the zh page.
+    // "$9.99" in every locale, rather than "US$9.99" on a zh page.
     currencyDisplay: "narrowSymbol",
   });
   return (cents: number) => formatter.format(cents / 100);

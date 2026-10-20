@@ -1,5 +1,6 @@
 import {
   isValidLocale,
+  knownLocales,
   localeCookieName,
   localeDisplayNames,
   type Locale,
@@ -35,4 +36,15 @@ export function extractLocaleFromPath(pathname: string): Locale | null {
   const match = /^\/([a-z]{2})(?:\/|$)/.exec(pathname);
   const locale = match?.[1];
   return locale && isValidLocale(locale) && locale !== defaultLocale ? locale : null;
+}
+
+/**
+ * Prefix of a locale that has messages but is not served, e.g. /zh while the site is English
+ * only, so old links can be redirected to the English page.
+ */
+export function extractUnservedLocaleFromPath(pathname: string): string | null {
+  const code = /^\/([a-z]{2})(?:\/|$)/.exec(pathname)?.[1];
+  return code && (knownLocales as readonly string[]).includes(code) && !isValidLocale(code)
+    ? code
+    : null;
 }

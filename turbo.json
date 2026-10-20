@@ -6,41 +6,25 @@
       "cache": false
     },
     "build": {
-      "dependsOn": [
-        "^build"
-      ],
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        ".env*"
-      ],
-      "outputs": [
-        "dist/**"
-      ]
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "env": ["INDEXNOW_KEY"],
+      "outputs": ["dist/**"]
     },
     "lint": {
-      "dependsOn": [
-        "^lint"
-      ]
+      "dependsOn": ["^lint"]
     },
     "lint:fix": {
-      "dependsOn": [
-        "^lint:fix"
-      ]
+      "dependsOn": ["^lint:fix"]
     },
     "fmt": {
-      "dependsOn": [
-        "^fmt"
-      ]
+      "dependsOn": ["^fmt"]
     },
     "fmt:check": {
-      "dependsOn": [
-        "^fmt:check"
-      ]
+      "dependsOn": ["^fmt:check"]
     },
     "check-types": {
-      "dependsOn": [
-        "^check-types"
-      ]
+      "dependsOn": ["^check-types"]
     },
     "dev": {
       "cache": false,
@@ -67,9 +51,7 @@
       "persistent": true
     },
     "deploy": {
-      "dependsOn": [
-        "build"
-      ],
+      "dependsOn": ["build"],
       "cache": false,
       "passThroughEnv": [
         "CLOUDFLARE_API_TOKEN",
@@ -79,6 +61,13 @@
         "VITE_TAWK_PROPERTY_ID",
         "VITE_TAWK_WIDGET_ID",
         "VITE_TURNSTILE_SITE_KEY",
+        "INDEXNOW_KEY",
+        "GIT_*",
+        "XDG_CONFIG_HOME",
+        "SSH_AUTH_SOCK",
+        "GPG_TTY",
+        "GPG_AGENT_INFO",
+        "GNUPGHOME",
         "NODE_ENV"
       ]
     },

@@ -8,7 +8,7 @@ import { defaultLocale, supportedLocales } from "@/i18n/config";
 
 type JsonLdPrimitive = string | number | boolean | null;
 type JsonLdValue = JsonLdPrimitive | JsonLdObject | JsonLdValue[];
-type JsonLdObject = {
+export type JsonLdObject = {
   [key: string]: JsonLdValue | undefined;
 };
 
@@ -26,6 +26,8 @@ export interface SeoOptions {
   robots?: string;
   image?: string;
   imageAlt?: string;
+  /** The page's main video (MP4), for og:video. */
+  video?: { url: string; type?: string };
   type?: "website" | "article";
   siteName?: string;
   twitterSite?: string;
@@ -123,11 +125,14 @@ function buildAlternateLinks(canonicalPath: string, origin: string): Array<SeoLi
     };
   });
 
-  alternates.push({
-    rel: "alternate",
-    hrefLang: "x-default",
-    href: toAbsoluteUrl(localeNeutralPath, origin),
-  });
+  // x-default only means something when there is more than one language to choose from.
+  if (supportedLocales.length > 1) {
+    alternates.push({
+      rel: "alternate",
+      hrefLang: "x-default",
+      href: toAbsoluteUrl(localeNeutralPath, origin),
+    });
+  }
 
   return alternates;
 }
@@ -168,7 +173,8 @@ export function buildSeoHead(options: SeoOptions): SeoHead {
   const canonicalUrl = toAbsoluteUrl(canonicalPath, origin);
   const description = options.description;
   const keywords = normalizeKeywords(options.keywords);
-  const robots = options.robots ?? "index,follow";
+  // max-video-preview:-1 lets search engines show video previews of any length.
+  const robots = options.robots ?? "index,follow,max-video-preview:-1";
   const type = options.type ?? "website";
   const twitterSite = options.twitterSite ?? canonicalUrl;
 
@@ -217,6 +223,17 @@ export function buildSeoHead(options: SeoOptions): SeoHead {
 
   if (imageUrl && options.imageAlt) {
     meta.push({ property: "og:image:alt", content: options.imageAlt });
+  }
+
+  if (options.video) {
+    const videoUrl = toAbsoluteUrl(options.video.url, origin);
+    meta.push(
+      { property: "og:video", content: videoUrl },
+      ...(videoUrl.startsWith("https://")
+        ? [{ property: "og:video:secure_url", content: videoUrl }]
+        : []),
+      { property: "og:video:type", content: options.video.type ?? "video/mp4" },
+    );
   }
 
   const links: SeoLinkTag[] = [

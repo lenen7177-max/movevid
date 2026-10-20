@@ -5,6 +5,7 @@
     "**/node_modules/**",
     "**/.turbo/**",
     "**/.wrangler/**",
+    "**/wrangler.jsonc",
     "**/src/db/migrations/meta/**"
   ]
 }

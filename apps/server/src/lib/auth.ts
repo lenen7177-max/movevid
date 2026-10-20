@@ -29,7 +29,7 @@ import {
   sendSignInOtpEmailFromRequest,
   sendVerificationEmailFromRequest,
 } from "../emails";
-import type { Locale } from "@repo/i18n";
+import type { KnownLocale } from "@repo/i18n";
 
 const commonConfig = resolveCommonConfig();
 const emailOtpConfig = commonConfig.auth.otp.email;
@@ -52,7 +52,7 @@ const betterAuthLocaleMap = {
   en: "default",
   zh: "zh-Hans",
   jp: "ja-JP",
-} as const satisfies Record<Locale, string>;
+} as const satisfies Record<KnownLocale, string>;
 
 const authCache = new WeakMap<D1Database, ReturnType<typeof betterAuth>>();
 

@@ -1,0 +1,46 @@
+//# Template for apps/web/wrangler.jsonc. `pnpm site:sync` fills each {{token}} from
+//# site.config.jsonc and writes the result (these //# lines are dropped). Edit bindings and
+//# other shared settings here; edit site values in site.config.jsonc.
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "{{webWorker}}",
+  "compatibility_date": "2025-09-02",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "./src/server.ts",
+  // Canonical site is the apex domain. www is bound too and redirects there (src/server.ts).
+  "routes": [
+    { "pattern": "{{domain}}", "custom_domain": true },
+    { "pattern": "{{wwwHost}}", "custom_domain": true },
+  ],
+  "assets": {
+    "not_found_handling": "single-page-application",
+  },
+  "services": [
+    {
+      "binding": "API_SERVICE",
+      // The server worker's name (apps/server/wrangler.jsonc).
+      "service": "{{serverWorker}}",
+    },
+  ],
+  "vars": {
+    "VITE_SERVER_URL": "{{apiUrl}}",
+    "VITE_APP_URL": "{{siteUrl}}",
+    "VITE_TEMPLATE_MEDIA_BASE_URL": "{{mediaUrl}}",
+    // Optional analytics and support widgets; blank turns them off.
+    "VITE_GA_MEASUREMENT_ID": "{{gaMeasurementId}}",
+    "VITE_OPENPANEL_CLIENT_ID": "{{openpanelClientId}}",
+    "VITE_TAWK_PROPERTY_ID": "{{tawkPropertyId}}",
+    "VITE_TAWK_WIDGET_ID": "{{tawkWidgetId}}",
+    // Cloudflare Turnstile site key for email sign-in
+    "VITE_TURNSTILE_SITE_KEY": "{{turnstileSiteKey}}",
+  },
+  "observability": {
+    "logs": {
+      "enabled": true,
+      "invocation_logs": true,
+    },
+    "traces": {
+      "enabled": false,
+    },
+  },
+}

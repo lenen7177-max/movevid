@@ -9,6 +9,7 @@ import { DefaultCatchBoundary } from "@/components/feedback/default-catch-bounda
 import { NavigationProgress } from "@/components/layout/navigation-progress";
 import { getPwaHeadConfig } from "@/configs/pwa-config";
 import { webConfig } from "@/configs/web-config";
+import { localeToHreflang } from "@repo/i18n";
 import { getCurrentLocale } from "@/i18n";
 import { getGoogleAnalyticsScripts } from "@/lib/analytics/google-analytics";
 import type { orpc } from "@/utils/orpc";
@@ -77,7 +78,7 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
 
 function RootDocument() {
   const locale = getCurrentLocale();
-  const htmlLang = locale === "jp" ? "ja" : locale;
+  const htmlLang = localeToHreflang[locale];
 
   return (
     <html lang={htmlLang} suppressHydrationWarning>

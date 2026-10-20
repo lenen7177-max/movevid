@@ -1,9 +1,14 @@
 import { defineCollections, frontmatterSchema } from "fumadocs-mdx/config";
 import { z } from "zod";
+import { supportedLocales } from "../../packages/i18n/src/locales";
+
+// Only the served locales' folders (content/<collection>/<locale>/…) are compiled.
+const files = supportedLocales.map((locale) => `${locale}/**/*.mdx`);
 
 export const author = defineCollections({
   type: "doc",
   dir: "content/author",
+  files,
   schema: z.object({
     name: z.string(),
     avatar: z.string().optional(),
@@ -15,6 +20,7 @@ export const author = defineCollections({
 export const category = defineCollections({
   type: "doc",
   dir: "content/category",
+  files,
   schema: z.object({
     name: z.string(),
     description: z.string().optional(),
@@ -24,6 +30,7 @@ export const category = defineCollections({
 export const blog = defineCollections({
   type: "doc",
   dir: "content/blog",
+  files,
   schema: frontmatterSchema.extend({
     date: z.string(),
     published: z.boolean().default(true),

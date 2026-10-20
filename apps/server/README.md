@@ -18,11 +18,12 @@ pnpm run dev                     # http://localhost:3001
 cp .env.production.example .env.production   # secrets only
 pnpm run secrets:bulk:production             # upload them to the worker
 pnpm run db:migrate                          # apply migrations to the remote D1
-pnpm run deploy
+pnpm deploy:server                           # from the repo root: deploy gate, then wrangler deploy
 ```
 
-Public values (URLs, OAuth client IDs, `TEMPLATE_MEDIA_BASE_URL`) live in `wrangler.jsonc`
-`vars`. Do not put the same key in both `vars` and the secrets file.
+Public values (URLs, OAuth client IDs, `TEMPLATE_MEDIA_BASE_URL`) come from the root
+`site.config.jsonc`; `pnpm site:sync` writes them into the generated `wrangler.jsonc` `vars`.
+Do not put the same key in both `vars` and the secrets file.
 
 ## Layout
 

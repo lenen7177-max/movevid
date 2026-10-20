@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { resolveWebCommonConfig } from "../app-config";
 import {
+  SINGLE_TEMPLATE_ID,
   VIDEO_MODELS,
   VIDEO_TEMPLATE_IDS,
   type VideoModel,
@@ -10,6 +11,7 @@ import {
   getVideoCreditsCost,
   getVideoRenderSeconds,
   isVideoHighlight,
+  isVideoModelQuality,
 } from "../video";
 
 // APIMart USD per billed second (reference + output). Update when your provider prices change.
@@ -67,15 +69,19 @@ describe("video pricing", () => {
   });
 
   it("renders the full clip on seedance-2.5 and the highlight cut on 2.0 models", () => {
-    expect(isVideoHighlight("duo_dance", "seedance-2.5")).toBe(false);
-    expect(getVideoRenderSeconds("duo_dance", "seedance-2.5")).toBe(
-      videoTemplates.duo_dance.durationSeconds,
-    );
-    expect(isVideoHighlight("duo_dance", "seedance-2.0-fast")).toBe(true);
-    expect(getVideoRenderSeconds("duo_dance", "seedance-2.0-fast")).toBe(12);
-    // Short templates have no highlight: every model renders them in full.
-    expect(isVideoHighlight("solo_spotlight", "seedance-2.0-fast")).toBe(false);
-    expect(getVideoRenderSeconds("solo_spotlight", "seedance-2.0-fast")).toBe(10);
+    for (const templateId of VIDEO_TEMPLATE_IDS) {
+      const template: { durationSeconds: number; highlightSeconds?: number } =
+        videoTemplates[templateId];
+      for (const model of VIDEO_MODELS) {
+        const label = `${templateId} ${model}`;
+        // Short templates have no highlight: every model renders them in full.
+        const highlight = videoModels[model].highlight && template.highlightSeconds != null;
+        expect(isVideoHighlight(templateId, model), label).toBe(highlight);
+        expect(getVideoRenderSeconds(templateId, model), label).toBe(
+          highlight ? template.highlightSeconds : template.durationSeconds,
+        );
+      }
+    }
   });
 
   it("lets the smallest pack buy a fast render on every template", () => {
@@ -88,7 +94,29 @@ describe("video pricing", () => {
     }
   });
 
-  it("rejects 1080p on Seedance 2.0 models", () => {
-    expect(() => getVideoCreditsCost("1080p", "duo_dance", "seedance-2.0-fast")).toThrow();
+  it("rejects 1080p on models that don't render it", () => {
+    for (const templateId of VIDEO_TEMPLATE_IDS) {
+      for (const model of VIDEO_MODELS) {
+        if (isVideoModelQuality(model, "1080p")) continue;
+        expect(() => getVideoCreditsCost("1080p", templateId, model), model).toThrow();
+      }
+    }
+  });
+});
+
+describe("video templates", () => {
+  it("gives every template a real YYYY-MM-DD launch date that isn't in the future", () => {
+    for (const templateId of VIDEO_TEMPLATE_IDS) {
+      const { launchDate } = videoTemplates[templateId];
+      expect(launchDate, templateId).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+      const day = new Date(`${launchDate}T00:00:00Z`);
+      expect(day.toISOString().slice(0, 10), templateId).toBe(launchDate);
+      expect(day.getTime(), templateId).toBeLessThanOrEqual(Date.now());
+    }
+  });
+
+  it("picks the single-template home page only when one template ships", () => {
+    const ids: readonly string[] = VIDEO_TEMPLATE_IDS;
+    expect(SINGLE_TEMPLATE_ID).toBe(ids.length === 1 ? ids[0] : null);
   });
 });

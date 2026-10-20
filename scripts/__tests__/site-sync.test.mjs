@@ -1,0 +1,143 @@
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
+import test from "node:test";
+import { fileURLToPath } from "node:url";
+import { parseJsonc } from "../lib/jsonc.mjs";
+import { countPlaceholders } from "../lib/placeholders.mjs";
+import {
+  readSiteConfig,
+  renderSiteFiles,
+  renderTemplate,
+  siteTokens,
+  staleSiteFiles,
+  validateSiteConfig,
+} from "../site-sync.mjs";
+import { filledSiteConfig } from "./fixtures.mjs";
+
+const ROOT = resolve(fileURLToPath(new URL("../..", import.meta.url)));
+
+test("the committed generated files match site.config.jsonc", () => {
+  const config = readSiteConfig(ROOT);
+  assert.deepEqual(validateSiteConfig(config), []);
+  assert.deepEqual(staleSiteFiles(config, ROOT), [], "run `pnpm site:sync`");
+});
+
+test("a filled-in config validates and renders without placeholders", () => {
+  const config = filledSiteConfig();
+  assert.deepEqual(validateSiteConfig(config), []);
+  const files = renderSiteFiles(config, ROOT);
+  for (const [path, content] of files) {
+    assert.deepEqual(countPlaceholders(content), [], path);
+  }
+  const server = parseJsonc(files.get("apps/server/wrangler.jsonc"));
+  const web = parseJsonc(files.get("apps/web/wrangler.jsonc"));
+  assert.equal(server.name, "dancebooth-server");
+  assert.deepEqual(server.routes, [{ pattern: "api.dancebooth.app", custom_domain: true }]);
+  assert.equal(server.vars.SERVER_URL, "https://api.dancebooth.app");
+  assert.equal(server.vars.WEBSITE_URL, "https://dancebooth.app");
+  assert.equal(server.d1_databases[0].database_id, config.cloudflare.d1DatabaseId);
+  assert.deepEqual(
+    server.ratelimits.map((limiter) => limiter.namespace_id),
+    ["3001", "3002"],
+  );
+  assert.deepEqual(
+    web.routes.map((route) => route.pattern),
+    ["dancebooth.app", "www.dancebooth.app"],
+  );
+  assert.equal(web.services[0].service, "dancebooth-server");
+  assert.equal(web.vars.VITE_TURNSTILE_SITE_KEY, config.turnstileSiteKey);
+  assert.equal(JSON.parse(files.get("apps/web/public/manifest.webmanifest")).name, "Dance Booth");
+  assert.deepEqual(JSON.parse(files.get("packages/app-config/src/site.generated.json")), {
+    name: "Dance Booth",
+    domain: "dancebooth.app",
+    supportEmail: "support@dancebooth.app",
+  });
+});
+
+test("rate-limit namespace ids accept numbers and must be distinct positive integers", () => {
+  const withIds = (authEmailIp, authEmailAddress) =>
+    filledSiteConfig({
+      cloudflare: {
+        ...filledSiteConfig().cloudflare,
+        rateLimitNamespaceIds: { authEmailIp, authEmailAddress },
+      },
+    });
+  assert.deepEqual(validateSiteConfig(withIds(3001, 3002)), []);
+  assert.match(validateSiteConfig(withIds("3001", "3001")).join("\n"), /reuses namespace id 3001/);
+  assert.match(validateSiteConfig(withIds("abc", "3002")).join("\n"), /must be a positive integer/);
+  assert.match(validateSiteConfig(withIds("0", "3002")).join("\n"), /must be a positive integer/);
+  assert.match(validateSiteConfig(withIds("", "3002")).join("\n"), /is required/);
+  // Placeholders are reported by the placeholder scan, not twice here.
+  assert.deepEqual(validateSiteConfig(withIds("<YOUR_RATELIMIT_NAMESPACE_ID_1>", "3002")), []);
+});
+
+test("malformed site values are reported with their path", () => {
+  const cloudflare = filledSiteConfig().cloudflare;
+  const cases = [
+    [{ domain: "https://dancebooth.app" }, /domain .* must be a lowercase apex domain/],
+    [{ domain: "www.dancebooth.app" }, /should be the apex domain/],
+    [{ domain: "DanceBooth.app" }, /domain .* must be a lowercase apex domain/],
+    [{ mediaUrl: "http://media.dancebooth.app" }, /mediaUrl .* must be an https:\/\/ URL/],
+    [{ supportEmail: "nobody" }, /supportEmail .* must be an email address/],
+    [{ turnstileSiteKey: "" }, /turnstileSiteKey is required/],
+    [{ domian: "typo.app" }, /domian is not a known setting/],
+    [{ cloudflare: { ...cloudflare, webWorker: "Dance_Web" } }, /webWorker .* must be lowercase/],
+    [{ cloudflare: { ...cloudflare, webWorker: "same", serverWorker: "same" } }, /different/],
+    [{ cloudflare: { ...cloudflare, r2Bucket: "ab" } }, /r2Bucket .* must be 3–63/],
+    [{ cloudflare: { ...cloudflare, d1DatabaseId: "not-a-uuid" } }, /d1DatabaseId .* UUID/],
+    [{ cloudflare: { ...cloudflare, d1DatabaseName: undefined } }, /d1DatabaseName is required/],
+    [{ cloudflare: undefined }, /cloudflare is required/],
+    [{ public: { gaId: "G-1" } }, /public\.gaId is not a known setting/],
+  ];
+  for (const [overrides, expected] of cases) {
+    const issues = validateSiteConfig(filledSiteConfig(overrides)).join("\n");
+    assert.match(issues, expected, JSON.stringify(overrides));
+  }
+});
+
+test("templates drop //# notes, escape values and reject unknown tokens", () => {
+  const template = '//# note for template readers\n{\n  "name": "{{name}}"\n}\n';
+  const out = renderTemplate(template, { name: 'Say "hi" \\ bye' }, "t.jsonc");
+  assert.ok(out.startsWith("// Generated by `pnpm site:sync`"));
+  assert.ok(!out.includes("note for template readers"));
+  assert.equal(parseJsonc(out).name, 'Say "hi" \\ bye');
+  assert.throws(() => renderTemplate('{"a": "{{missing}}"}', {}, "t.jsonc"), /unknown token/);
+});
+
+test("every token the templates use is provided", () => {
+  const tokens = siteTokens(filledSiteConfig());
+  for (const template of [
+    "apps/server/wrangler.template.jsonc",
+    "apps/web/wrangler.template.jsonc",
+  ]) {
+    const source = readFileSync(resolve(ROOT, template), "utf8")
+      .split("\n")
+      .filter((line) => !line.startsWith("//#"))
+      .join("\n");
+    for (const [, key] of source.matchAll(/\{\{(\w+)\}\}/g)) {
+      assert.ok(key in tokens, `${template} uses {{${key}}}`);
+    }
+  }
+});
+
+test("tokens may have inner spaces; a malformed one is an error, not output", () => {
+  assert.equal(parseJsonc(renderTemplate('{"a": "{{ name }}"}', { name: "x" }, "t")).a, "x");
+  assert.throws(() => renderTemplate('{"a": "{{name}"}', { name: "x" }, "t.jsonc"), /\{\{/);
+});
+
+test("a BOM, CRLF line ends and punycode domains are accepted", () => {
+  assert.deepEqual(parseJsonc('﻿{\r\n  "a": 1, // note\r\n}\r\n'), { a: 1 });
+  assert.deepEqual(validateSiteConfig(filledSiteConfig({ domain: "xn--fiqs8s.xn--55qx5d" })), []);
+});
+
+test("placeholder hosts are matched whole, not inside other names", () => {
+  const labels = (text) =>
+    countPlaceholders(text)
+      .map(([label]) => label)
+      .join(",");
+  assert.equal(labels("https://my-example.com https://example.community"), "");
+  assert.match(labels('"https://api.example.com"'), /example\.com/);
+  assert.equal(labels("my-your-project-db"), "");
+  assert.match(labels('"your-project-web"'), /your-project/);
+});

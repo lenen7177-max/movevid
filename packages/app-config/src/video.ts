@@ -53,6 +53,11 @@ export type VideoPhotoSlot = (typeof VIDEO_PHOTO_SLOTS)[number];
 export type VideoAspectRatio = "16:9" | "4:3" | "1:1" | "3:4" | "9:16";
 
 type VideoTemplateShape = {
+  /**
+   * Day the template went live, as YYYY-MM-DD. Fixed on purpose: it is the VideoObject
+   * uploadDate and the sitemap <lastmod> of the template page, which must not move on rebuilds.
+   */
+  launchDate: string;
   aspectRatio: VideoAspectRatio;
   durationSeconds: number;
   /** Which photos the template casts, in prompt order. */
@@ -83,6 +88,7 @@ type VideoTemplateShape = {
 export const videoTemplates = {
   // Two friends, one routine: a 20s vertical dance with a 12s highlight for Seedance 2.0.
   duo_dance: {
+    launchDate: "2026-01-01",
     aspectRatio: "9:16",
     durationSeconds: 20,
     slots: ["left", "right"],
@@ -91,6 +97,7 @@ export const videoTemplates = {
   },
   // One person (or a pet) owns the stage: a 10s vertical spotlight moment.
   solo_spotlight: {
+    launchDate: "2026-01-01",
     aspectRatio: "9:16",
     durationSeconds: 10,
     slots: ["left"],
@@ -101,6 +108,7 @@ export const videoTemplates = {
   },
   // One to three friends walk toward the camera in slow motion, 12s widescreen.
   squad_walk: {
+    launchDate: "2026-01-15",
     aspectRatio: "16:9",
     durationSeconds: 12,
     slots: ["left", "middle", "right"],
@@ -109,6 +117,22 @@ export const videoTemplates = {
     creditsCost: { "480p": 35, "720p": 70, "1080p": 125 },
   },
 } as const satisfies Record<VideoTemplateId, VideoTemplateShape>;
+
+/**
+ * The only template when the site ships exactly one. The home page then is that template's
+ * landing page and /templates/<slug> redirects to it, so the same page never has two URLs.
+ */
+export const SINGLE_TEMPLATE_ID: VideoTemplateId | null =
+  (VIDEO_TEMPLATE_IDS as readonly VideoTemplateId[]).length === 1 ? VIDEO_TEMPLATE_IDS[0] : null;
+
+/** Launch date of the newest template (YYYY-MM-DD), for pages that list every template. */
+export function latestVideoTemplateLaunchDate(): string {
+  return (
+    VIDEO_TEMPLATE_IDS.map((id) => videoTemplates[id].launchDate)
+      .sort()
+      .at(-1) ?? ""
+  );
+}
 
 export function isVideoTemplateId(value: unknown): value is VideoTemplateId {
   return typeof value === "string" && (VIDEO_TEMPLATE_IDS as readonly string[]).includes(value);
@@ -120,7 +144,8 @@ export function isVideoModel(value: unknown): value is VideoModel {
 
 /** Settings shared by web and server. */
 export const videoConfig = {
-  defaultTemplateId: "duo_dance" as VideoTemplateId,
+  // The studio's starting template (the oldest one), so deleting a template never breaks it.
+  defaultTemplateId: VIDEO_TEMPLATE_IDS[0] as VideoTemplateId,
   // seedance-2.5 credits per render, by quality, for templates without their own creditsCost
   // (sized for a 20s clip). Refunded automatically when the render fails.
   qualities: {
