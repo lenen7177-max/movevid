@@ -14,6 +14,7 @@ export {
   sendVerificationEmailFromRequest,
 } from "./senders/sign-up-verify-email";
 export { sendSignInOtpEmail, sendSignInOtpEmailFromRequest } from "./senders/email-otp-email";
+export { sendVideoReadyEmail } from "./senders/video-ready-email";
 export type { EmailProvider, SendEmailParams } from "./types";
 
 let cachedProvider: EmailProvider | null = null;

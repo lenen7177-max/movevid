@@ -10,12 +10,14 @@ export async function sendEmail({
   template,
   from,
   text,
+  replyTo,
 }: {
   to: string;
   subject: string;
   template: ReactElement;
   from?: string;
   text?: string;
+  replyTo?: string;
 }) {
   await emailProvider.send({
     to,
@@ -23,6 +25,7 @@ export async function sendEmail({
     template,
     from,
     text,
+    replyTo,
   });
 }
 

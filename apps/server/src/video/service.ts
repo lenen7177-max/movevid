@@ -32,6 +32,7 @@ import {
   templateMediaUrl,
 } from "./config";
 import { alertApimartOutOfBalance, isApimartOutOfBalance } from "./balance-alert";
+import { notifyVideoReady } from "./ready-email";
 import { type VideoErrorCode, classifyVideoError } from "./errors";
 import {
   APPEARANCE_NOTE_QUESTION,
@@ -47,6 +48,7 @@ type VideoEnv = Pick<
   | "APIMART_BASE_URL"
   | "APIMART_ASSET_GROUP_ID"
   | "SERVER_URL"
+  | "WEBSITE_URL"
   | "STORAGE"
   | "ADMIN_EMAIL"
 > &
@@ -459,6 +461,8 @@ export async function syncVideoJob(
   db: Database,
   env: VideoEnv,
   job: VideoJobRow,
+  /** Runs work after the response (the Worker's waitUntil); without it the work is awaited. */
+  defer?: (task: Promise<unknown>) => void,
 ): Promise<VideoJobRow> {
   if (job.status !== "processing") return job;
 
@@ -526,7 +530,14 @@ export async function syncVideoJob(
       })
       .where(and(eq(videoJob.id, job.id), eq(videoJob.status, "processing")))
       .returning();
-    if (updated) await releaseJobAssets(env, updated);
+    if (updated) {
+      await releaseJobAssets(env, updated);
+      // Only the sync whose update moved the job to succeeded gets a row back, so this sends once.
+      // A client poll returns without waiting for the mail.
+      const notify = notifyVideoReady(db, env, updated);
+      if (defer) defer(notify);
+      else await notify;
+    }
     return updated ?? (await reload(db, job.id)) ?? job;
   }
 

@@ -57,7 +57,7 @@
 
 ## 1. 准备
 
-- Node.js 22+、pnpm 10（`corepack enable`）
+- Node.js 22.18+、pnpm 10（`corepack enable`）
 - Cloudflare 账号（Workers、D1、R2、邮件服务、Turnstile）
 - [APIMart](https://apimart.ai) 账号并充值，用于 Seedance 视频生成
 - Stripe 账号（也支持 Creem / Waffo）

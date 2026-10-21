@@ -21,7 +21,7 @@ the `wrangler.template.jsonc` files. The full new-site checklist is in
 
 ## 1. Prerequisites
 
-- Node.js 22+ and pnpm 10 (`corepack enable`)
+- Node.js 22.18+ and pnpm 10 (`corepack enable`)
 - A Cloudflare account (Workers, D1, R2, Email Routing / Email Service, Turnstile)
 - An [APIMart](https://apimart.ai) account with balance, for Seedance video generation
 - A Stripe account (or Creem / Waffo)

@@ -1337,6 +1337,9 @@
         "yieldFast": "{count, plural, =0 {Not enough for a Fast video} one {1 Fast video} other {# Fast videos}}",
         "yieldFull": "{count, plural, =0 {Not enough for a full video} one {1 full Premium video} other {# full Premium videos}}",
         "perVideo": "About {price} per Fast video",
+        "equalsFull": "{count, plural, one {= 1 full video} other {= # full videos}}",
+        "orFast": "{count, plural, one {or 1 quick 480p video} other {or # quick 480p videos}}",
+        "firstFullNote": "Your first full video (Premium, 480p) costs only {credits} credits.",
         "cta": "Buy credits"
       },
       "included": {

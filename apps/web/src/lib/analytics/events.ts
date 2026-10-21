@@ -7,8 +7,9 @@ import { trackGoogleEvent } from "./google-analytics";
  * (sign_up, login, begin_checkout, purchase) so revenue and funnels work out of the box;
  * the video_* events cover the product steps in between.
  *
- * Funnel: page_view → sign_up/login → video_generate_start → video_generate_complete
- *         → begin_checkout → purchase (and video_share after a render).
+ * Funnel: page_view → upload_photo → click_generate → begin_checkout → purchase
+ *         → video_generate_start → video_generate_complete (and video_share after a render).
+ * sign_up/login fire whenever a visitor signs in or becomes a guest along the way.
  */
 
 const ONCE_KEY_PREFIX = "analytics.once:";
@@ -46,6 +47,36 @@ export function trackAuthSession(user: { id: string; createdAt: Date | string })
 
 export function trackSampleView(templateId: string) {
   trackGoogleEvent("video_view_sample", { template: templateId });
+}
+
+/** A photo was added to an upload slot (picked or dropped, and accepted). Samples don't count. */
+export function trackPhotoUpload(input: { templateId: string; slot: string; photos: number }) {
+  trackGoogleEvent("upload_photo", {
+    template: input.templateId,
+    slot: input.slot,
+    photos: input.photos,
+  });
+}
+
+/**
+ * Every click on the Generate button with the user's own photos, before any sign-in, guest
+ * session or checkout. `next_step` says where the click led: "create" (render submitted),
+ * "checkout" (no credits: the buy dialog opens) or "missing_photos".
+ */
+export function trackGenerateClick(input: {
+  templateId: string;
+  quality: string;
+  model: string;
+  photos: number;
+  nextStep: "create" | "checkout" | "missing_photos";
+}) {
+  trackGoogleEvent("click_generate", {
+    template: input.templateId,
+    quality: input.quality,
+    model: input.model,
+    photos: input.photos,
+    next_step: input.nextStep,
+  });
 }
 
 export function trackGenerateStart(input: {

@@ -9,6 +9,8 @@ import {
   videoModels,
   videoTemplates,
   getVideoCreditsCost,
+  getVideoFastCountForCredits,
+  getVideoFullCountForCredits,
   getVideoRenderSeconds,
   isVideoHighlight,
   isVideoModelQuality,
@@ -92,6 +94,25 @@ describe("video pricing", () => {
         smallest?.credits ?? 0,
       );
     }
+  });
+
+  it("counts full videos per pack with the first-full offer applied once", () => {
+    // Default template: first full video 30 credits, then 55 each.
+    expect(getVideoFullCountForCredits(29, { firstFull: true })).toBe(0);
+    expect(getVideoFullCountForCredits(30, { firstFull: true })).toBe(1);
+    expect(getVideoFullCountForCredits(84, { firstFull: true })).toBe(1);
+    expect(getVideoFullCountForCredits(85, { firstFull: true })).toBe(2);
+    expect(getVideoFullCountForCredits(30)).toBe(0);
+    expect(getVideoFullCountForCredits(110)).toBe(2);
+    expect(getVideoFastCountForCredits(30)).toBe(2);
+  });
+
+  it("keeps the starter pack's '1 full video or 2 quick 480p videos' claim true", () => {
+    // The pricing cards feature this pack with that headline (apps/web pricing-page.tsx).
+    const starter = packs.find((pack) => pack.id === "starter");
+    expect(starter).toBeDefined();
+    expect(getVideoFullCountForCredits(starter?.credits ?? 0, { firstFull: true })).toBe(1);
+    expect(getVideoFastCountForCredits(starter?.credits ?? 0)).toBe(2);
   });
 
   it("rejects 1080p on models that don't render it", () => {

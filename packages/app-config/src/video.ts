@@ -233,3 +233,31 @@ export function getVideoFirstFullCredits(
   const regular = getVideoCreditsCost(quality, templateId, model);
   return regular > offer ? offer : null;
 }
+
+/**
+ * Full videos (seedance-2.5 at 480p) that `credits` pay for on the template. With `firstFull`
+ * (an account that hasn't kept a full video yet) the first one is priced at the first-full offer,
+ * so the 30-credit starter pack makes exactly one.
+ */
+export function getVideoFullCountForCredits(
+  credits: number,
+  {
+    templateId = videoConfig.defaultTemplateId,
+    firstFull = false,
+  }: { templateId?: VideoTemplateId; firstFull?: boolean } = {},
+): number {
+  const regular = getVideoCreditsCost("480p", templateId, "seedance-2.5");
+  const first =
+    (firstFull ? getVideoFirstFullCredits("480p", templateId, "seedance-2.5") : null) ?? regular;
+  if (regular <= 0 || credits < first) return 0;
+  return 1 + Math.floor((credits - first) / regular);
+}
+
+/** Fast videos (seedance-2.0-fast at 480p) that `credits` pay for on the template. */
+export function getVideoFastCountForCredits(
+  credits: number,
+  templateId: VideoTemplateId = videoConfig.defaultTemplateId,
+): number {
+  const cost = getVideoCreditsCost("480p", templateId, "seedance-2.0-fast");
+  return cost > 0 ? Math.floor(credits / cost) : 0;
+}

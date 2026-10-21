@@ -77,6 +77,14 @@ export async function createContext({ context }: CreateContextOptions) {
 
   return {
     env: context.env,
+    /** Keeps `task` running after the response; outside a Worker request it just runs. */
+    waitUntil: (task: Promise<unknown>) => {
+      try {
+        context.executionCtx.waitUntil(task);
+      } catch {
+        // No ExecutionContext (tests, local scripts): the promise still runs on its own.
+      }
+    },
     session,
     db,
     auth,

@@ -1,5 +1,5 @@
 import { VIDEO_PHOTO_SLOTS, type VideoTemplateId, videoTemplates } from "@repo/app-config/video";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { useTranslations } from "@/i18n";
 import type { VideoPhotos, VideoSide } from "@/lib/video/photo-handoff";
@@ -17,10 +17,22 @@ export type PhotoPair = {
   setSamplePhotos: (photos: VideoPhotos) => void;
 };
 
+type UsePhotoPairOptions = {
+  /** Called after a picked photo passed validation and filled `side`; `count` is the photos now in the form. */
+  onPhotoAdded?: (side: VideoSide, count: number) => void;
+};
+
 /** Holds the picked photos (one per template slot) with validated files and preview URLs. */
-export function usePhotoPair(): PhotoPair {
+export function usePhotoPair({ onPhotoAdded }: UsePhotoPairOptions = {}): PhotoPair {
   const t = useTranslations("video.errors");
-  const [photos, setPhotosState] = useState<VideoPhotos>({});
+  const [photos, setPhotosValue] = useState<VideoPhotos>({});
+  // The latest photos and which of them are bundled samples, for counting after an await.
+  const latest = useRef<VideoPhotos>({});
+  const samples = useRef(new WeakSet<File>());
+  const setPhotosState = (next: VideoPhotos | ((current: VideoPhotos) => VideoPhotos)) => {
+    latest.current = typeof next === "function" ? next(latest.current) : next;
+    setPhotosValue(latest.current);
+  };
   const [previews, setPreviews] = useState<Partial<Record<VideoSide, string>>>({});
   const [isSample, setIsSample] = useState(false);
 
@@ -47,7 +59,13 @@ export function usePhotoPair(): PhotoPair {
       setPhotosState((current) => ({ ...current, [side]: prepared }));
     } catch (error) {
       toast.error(error instanceof PhotoError ? t(error.code) : t("unreadable"));
+      return;
     }
+    const own = VIDEO_PHOTO_SLOTS.filter((slot) => {
+      const photo = latest.current[slot];
+      return photo && !samples.current.has(photo);
+    }).length;
+    onPhotoAdded?.(side, own);
   };
 
   return {
@@ -62,6 +80,7 @@ export function usePhotoPair(): PhotoPair {
     },
     setSamplePhotos: (next: VideoPhotos) => {
       setIsSample(true);
+      for (const file of Object.values(next)) if (file) samples.current.add(file);
       setPhotosState(next);
     },
   };

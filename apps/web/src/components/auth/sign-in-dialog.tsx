@@ -14,6 +14,9 @@ import { useTranslations } from "@/i18n";
 import { EmailSignInForm } from "./email/email-sign-in-form";
 import { TermsAgreement } from "./terms-agreement";
 
+const googleEnabled = webConfig.auth.methods.googleEnabled;
+const emailOtpEnabled = webConfig.auth.methods.emailOtpEnabled;
+
 let dialogOpen = false;
 const listeners = new Set<() => void>();
 
@@ -94,7 +97,7 @@ function SignInDialog({
           </DialogHeader>
         </div>
         <div className="space-y-4 px-6 py-5">
-          {isEnteringCode ? null : (
+          {!googleEnabled || isEnteringCode ? null : (
             <button
               type="button"
               className="flex h-12 w-full items-center justify-center gap-3 rounded-xl bg-white text-[15px] font-medium text-neutral-900 shadow-sm ring-1 ring-black/10 transition-colors hover:bg-neutral-100 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none disabled:pointer-events-none disabled:opacity-60"
@@ -109,9 +112,10 @@ function SignInDialog({
               {authT("loginWithGoogle")}
             </button>
           )}
-          {webConfig.auth.methods.emailOtpEnabled ? (
+          {emailOtpEnabled ? (
             <>
-              {isEnteringCode ? null : (
+              {/* "Or continue with" only sits between two methods. */}
+              {!googleEnabled || isEnteringCode ? null : (
                 <FieldSeparator className="my-1">{authT("orContinueWith")}</FieldSeparator>
               )}
               <EmailSignInForm

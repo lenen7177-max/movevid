@@ -22,7 +22,12 @@ import { Coins, Loader2, Wand2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useTranslations } from "@/i18n";
-import { trackGenerateStart, trackSampleView } from "@/lib/analytics/events";
+import {
+  trackGenerateClick,
+  trackGenerateStart,
+  trackPhotoUpload,
+  trackSampleView,
+} from "@/lib/analytics/events";
 import { rememberTemplate } from "@/lib/analytics/attribution";
 import { authClient } from "@/lib/auth/auth-client";
 import { ensureSession } from "@/lib/auth/guest-session";
@@ -71,7 +76,9 @@ export function StudioCreator({
   const t = useTranslations("video");
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const pair = usePhotoPair();
+  const pair = usePhotoPair({
+    onPhotoAdded: (slot, photos) => trackPhotoUpload({ templateId, slot, photos }),
+  });
   const slots: readonly VideoPhotoSlot[] = videoTemplates[templateId].slots;
   const minPhotos = getVideoMinPhotos(templateId);
   // Uploads in slot order; templates with optional photos take them from the first slot on.
@@ -189,10 +196,14 @@ export function StudioCreator({
       await navigate({ to: "/studio", search: { demo: true, template: templateId } });
       return;
     }
+    const click = { templateId, quality, model, photos: uploaded.length };
     if (uploaded.length < minPhotos) {
+      trackGenerateClick({ ...click, nextStep: "missing_photos" });
       toast.error(t("errors.needPhotos", { count: minPhotos }));
       return;
     }
+    // Sent before the guest session and checkout, so every click reaches GA.
+    trackGenerateClick({ ...click, nextStep: signedIn ? "create" : "checkout" });
     // No sign-in wall: a visitor becomes a guest and goes straight to picking a pack.
     if (!signedIn) {
       if (!(await ensureSession())) {
@@ -215,6 +226,20 @@ export function StudioCreator({
     if (!isVideoModelQuality(next, quality)) setQuality("720p");
   };
   const notEnough = !pair.isSample && signedIn && balance != null && balance < creditsCost;
+  // Without enough credits the Generate slot shows Buy credits; with the photos in, that click
+  // still counts as one (click_generate is only for clicks with the user's own photos).
+  const buyCreditsInstead = () => {
+    if (uploaded.length >= minPhotos) {
+      trackGenerateClick({
+        templateId,
+        quality,
+        model,
+        photos: uploaded.length,
+        nextStep: "checkout",
+      });
+    }
+    buyCredits();
+  };
   let generateLabel = t("studio.generate");
   if (pair.isSample) generateLabel = t("studio.viewSample");
   else if (createMutation.isPending) generateLabel = t("studio.submitting");
@@ -229,7 +254,7 @@ export function StudioCreator({
       disabled={busy}
       primaryAction={
         notEnough ? (
-          <Button type="button" size="lg" onClick={buyCredits}>
+          <Button type="button" size="lg" onClick={buyCreditsInstead}>
             {t("studio.buyCredits")}
           </Button>
         ) : (

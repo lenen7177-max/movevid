@@ -24,6 +24,22 @@
       "body": "Use this one-time code to continue with {appName}.",
       "expires": "This code expires in {minutes} minutes.",
       "ignore": "If you didn't request this code, you can safely ignore this email."
+    },
+    "videoReady": {
+      "subject": "Your {appName} video is ready",
+      "preview": "Your video is ready to watch, download and post.",
+      "title": "Your video is ready",
+      "greeting": "Hi {name},",
+      "body": "Your video has finished rendering. Open it to watch it with its music.",
+      "button": "Watch your video",
+      "linkFallback": "Or copy this link into your browser:",
+      "downloadTitle": "Download it",
+      "download": "On the video page, tap Download MP4. Wait a moment while the music is added, then the MP4 saves to your device.",
+      "tiktokTitle": "Post it to TikTok",
+      "tiktok": "On your phone, tap Share on the video page and pick TikTok, or open TikTok, tap + and choose the video you saved. On a computer, tap Share, then TikTok: the video downloads, a caption is copied and the TikTok upload page opens.",
+      "reply": "Not happy with it? Just reply to this email and we'll help.",
+      "signIn": "Opening it on a different device or browser? Sign in with this email address first to see your video.",
+      "footer": "You're receiving this because you made a video with {appName}."
     }
   },
   "errors": {

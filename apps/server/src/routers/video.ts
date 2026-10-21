@@ -129,7 +129,7 @@ export const videoRouter = {
       const userId = requireUserId(context);
       const job = await getVideoJobForUser(context.db, userId, input.id);
       if (!job) throw new ORPCError("NOT_FOUND");
-      const synced = await syncVideoJob(context.db, context.env, job);
+      const synced = await syncVideoJob(context.db, context.env, job, context.waitUntil);
       return toPublicVideoJob(context.env, synced);
     }),
 

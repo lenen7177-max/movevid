@@ -16,7 +16,7 @@ export function createResendEmailProvider({
 
   return {
     key: "resend",
-    async send({ from, to, subject, html, text, template }: SendEmailParams) {
+    async send({ from, to, subject, html, text, template, replyTo }: SendEmailParams) {
       if (!client) {
         throw new Error("RESEND_API_KEY is not configured");
       }
@@ -31,7 +31,7 @@ export function createResendEmailProvider({
         throw new Error("Email content is missing");
       }
 
-      const base = { from: resolvedFrom, to, subject };
+      const base = { from: resolvedFrom, to, subject, ...(replyTo ? { replyTo } : {}) };
 
       const payload: CreateEmailOptions = renderedHtml
         ? ({ ...base, html: renderedHtml } as CreateEmailOptions)

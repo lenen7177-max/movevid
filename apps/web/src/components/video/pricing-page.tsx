@@ -1,16 +1,24 @@
-import { videoConfig } from "@repo/app-config/video";
+import {
+  getVideoFastCountForCredits,
+  getVideoFullCountForCredits,
+  videoConfig,
+} from "@repo/app-config/video";
 import { type KnownLocale, localeToHreflang } from "@repo/i18n";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@repo/ui/accordion";
 import { buttonVariants } from "@repo/ui/button";
+import { useQuery } from "@tanstack/react-query";
 import { Check, Loader2 } from "lucide-react";
 import type { ReactNode } from "react";
 import { usePricingCheckout } from "@/hooks/use-pricing-checkout";
 import { useLocale, useTranslations } from "@/i18n";
+import { authClient } from "@/lib/auth/auth-client";
 import { cn } from "@/lib/utils";
 import { getVideoPricing } from "@/lib/video/pricing";
+import { orpc } from "@/utils/orpc";
 
-// The middle pack is highlighted as the suggested step up from the smallest one.
-const FEATURED_PACK_INDEX = 1;
+// The starter pack is highlighted: its credits pay for exactly one first full video, the
+// cheapest way to try the product. Use a pack id from app-config, or null for none.
+const FEATURED_PACK_ID: string | null = "starter";
 
 // Default template rates: full videos on Premium, fast renders (up to 15 s) on Fast.
 const FULL_480 = videoConfig.qualities["480p"].creditsCost;
@@ -98,15 +106,35 @@ export function CreditPackGrid({
   const t = useTranslations("video.pricing.packs");
   const money = useMoney();
   const { packs } = getVideoPricing();
+  // Whether the viewer's first full video still gets the first-full price; signed-out visitors
+  // (and the server render, while the session loads) count as eligible, like the studio's price
+  // does. Once a viewer is known to be signed in, the claim waits for their offer.
+  const { data: session, isPending: sessionPending } = authClient.useSession();
+  const signedIn = Boolean(session?.user);
+  const offerQuery = useQuery({
+    queryKey: ["video", "offer", signedIn],
+    queryFn: () => orpc.video.offer.call({}),
+    enabled: !sessionPending,
+    staleTime: 60_000,
+  });
+  const firstFull = offerQuery.data?.firstFull ?? !signedIn;
+  const firstFullCredits = videoConfig.firstFullCredits;
   const firstPack = packs[0];
   // Savings are measured against the smallest pack.
   const baseCentsPerCredit = firstPack ? firstPack.amountCents / firstPack.credits : 0;
 
   return (
     <div className={cn("grid gap-4", gridClassName)}>
-      {packs.map((pack, index) => {
-        const featured = index === FEATURED_PACK_INDEX;
+      {packs.map((pack) => {
+        const featured = pack.id === FEATURED_PACK_ID;
         const centsPerCredit = pack.amountCents / pack.credits;
+        const fullCount = getVideoFullCountForCredits(pack.credits, { firstFull });
+        const fastCount = getVideoFastCountForCredits(pack.credits);
+        // The first full video costs less only when the pack can't buy one at the regular price.
+        const firstFullMakesIt =
+          firstFull &&
+          firstFullCredits != null &&
+          fullCount > getVideoFullCountForCredits(pack.credits);
         const savePercent = Math.round((1 - centsPerCredit / baseCentsPerCredit) * 100);
         return (
           <div
@@ -134,14 +162,32 @@ export function CreditPackGrid({
             <p className="text-muted-foreground mt-1 text-sm">
               {t("credits", { count: pack.credits })} · {t("oneTime")}
             </p>
+            {featured && fullCount > 0 ? (
+              <div className="mt-4">
+                <p className="text-lg font-semibold">
+                  {t("equalsFull", { count: fullCount })}
+                  {fastCount > 0 ? (
+                    <span className="text-muted-foreground text-sm font-normal">
+                      {" "}
+                      {t("orFast", { count: fastCount })}
+                    </span>
+                  ) : null}
+                </p>
+                {firstFullMakesIt ? (
+                  <p className="text-muted-foreground mt-1 text-xs">
+                    {t("firstFullNote", { credits: firstFullCredits })}
+                  </p>
+                ) : null}
+              </div>
+            ) : null}
             <ul className="mt-6 space-y-2.5 text-sm">
               <li className="flex gap-2">
                 <Check className="text-primary mt-0.5 size-4 shrink-0" aria-hidden="true" />
-                {t("yieldFast", { count: Math.floor(pack.credits / FAST_480) })}
+                {t("yieldFast", { count: fastCount })}
               </li>
               <li className="flex gap-2">
                 <Check className="text-primary mt-0.5 size-4 shrink-0" aria-hidden="true" />
-                {t("yieldFull", { count: Math.floor(pack.credits / FULL_480) })}
+                {t("yieldFull", { count: fullCount })}
               </li>
               <li className="flex gap-2">
                 <Check className="text-primary mt-0.5 size-4 shrink-0" aria-hidden="true" />

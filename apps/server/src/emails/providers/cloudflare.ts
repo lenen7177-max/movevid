@@ -14,7 +14,7 @@ export function createCloudflareEmailProvider({
 }): EmailProvider {
   return {
     key: "cloudflare",
-    async send({ from, to, subject, html, text, template }: SendEmailParams) {
+    async send({ from, to, subject, html, text, template, replyTo }: SendEmailParams) {
       const resolvedFrom = from ?? defaultFrom;
       if (!resolvedFrom) {
         throw new Error("Email service is not configured with a from address");
@@ -30,6 +30,7 @@ export function createCloudflareEmailProvider({
           from: resolvedFrom,
           to,
           subject,
+          ...(replyTo ? { replyTo } : {}),
           ...(renderedHtml ? { html: renderedHtml } : {}),
           ...(text ? { text } : {}),
         });

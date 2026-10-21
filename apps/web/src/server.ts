@@ -1,6 +1,7 @@
 import handler from "@tanstack/react-start/server-entry";
 import { extractLocaleFromPath, shouldIgnorePath } from "./i18n/config";
 import { applyLocaleMiddleware, handleLocaleMiddleware } from "./i18n/server";
+import { isIndexableHost } from "./lib/seo/indexable-host";
 
 declare const __PWA_BUILD_ID__: string;
 
@@ -28,8 +29,11 @@ function shouldApplyNoIndex(pathname: string): boolean {
   return noIndexPathRegex.test(stripLocalePrefix(pathname));
 }
 
-function applyNoIndexHeader(response: Response, pathname: string): Response {
-  if (!shouldApplyNoIndex(pathname)) {
+// Pages on any host but the canonical one (workers.dev and preview URLs) are never indexed,
+// whatever the path. The canonical apex keeps the path rules only.
+function applyNoIndexHeader(response: Response, url: URL): Response {
+  const indexableHost = isIndexableHost(url.hostname, import.meta.env.VITE_APP_URL);
+  if (indexableHost && !shouldApplyNoIndex(url.pathname)) {
     return response;
   }
 
@@ -94,7 +98,8 @@ async function renderPage(req: Request, url: URL, ctx?: WorkerContext): Promise<
 }
 
 // www and plain-http requests answer with a 301 to the canonical https apex, so search engines
-// index one URL per page. Other hosts (localhost, workers.dev previews) are left alone.
+// index one URL per page. Other hosts (localhost, workers.dev previews) are not redirected; they
+// answer with X-Robots-Tag: noindex instead (applyNoIndexHeader).
 function canonicalRedirect(url: URL): Response | null {
   const appUrl: string | undefined = import.meta.env.VITE_APP_URL;
   if (!appUrl) return null;
@@ -109,11 +114,10 @@ export default {
     const url = new URL(req.url);
     const redirect = canonicalRedirect(url);
     if (redirect) return redirect;
-    const pathname = url.pathname;
     const localeResult = handleLocaleMiddleware(req);
 
     const response = localeResult.redirect ?? (await renderPage(req, url, ctx));
     const localeResponse = applyLocaleMiddleware(response, localeResult);
-    return applyNoIndexHeader(localeResponse, pathname);
+    return applyNoIndexHeader(localeResponse, url);
   },
 };
