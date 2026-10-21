@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { updatedDateErrors } from "./blog-dates.mjs";
 import { checkTemplateGuides, readTemplateIds } from "./blog-guides.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -137,6 +138,9 @@ for (const locale of locales) {
 
     if (typeof frontmatter.date !== "string" || !dateRegex.test(frontmatter.date)) {
       errors.push(`[blog] ${locale}/${slug} has invalid date format: ${String(frontmatter.date)}`);
+    }
+    for (const error of updatedDateErrors(frontmatter)) {
+      errors.push(`[blog] ${locale}/${slug} ${error}`);
     }
 
     if (typeof frontmatter.author !== "string" || !authorSlugs.has(frontmatter.author)) {

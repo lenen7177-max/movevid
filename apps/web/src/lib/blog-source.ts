@@ -7,6 +7,8 @@ export interface BlogFrontmatter {
   title: string;
   description?: string;
   date: string;
+  /** Day of the last substantive change (YYYY-MM-DD), when set. */
+  updated?: string;
   published: boolean;
   featured?: boolean;
   readTime?: string;

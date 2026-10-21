@@ -25,8 +25,16 @@ export function createCloudflareEmailProvider({
         throw new Error("Email content is missing");
       }
 
+      // Declared in wrangler.jsonc only when site.config.jsonc sets emailProvider "cloudflare".
+      const binding = (env as { EMAIL?: SendEmail }).EMAIL;
+      if (!binding) {
+        throw new Error(
+          'The EMAIL send_email binding is missing: set emailProvider to "cloudflare" in site.config.jsonc and run `pnpm site:sync`',
+        );
+      }
+
       try {
-        await env.EMAIL.send({
+        await binding.send({
           from: resolvedFrom,
           to,
           subject,

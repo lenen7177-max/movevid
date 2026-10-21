@@ -1,8 +1,9 @@
 # Setup guide
 
 From a fresh copy to a live site. Run `pnpm check:placeholders` at any point to see what is
-left to replace, which `site.config.jsonc` values are malformed and whether the generated files
-are stale. It is the deploy gate: it exits 1 while anything is left, and `pnpm deploy:server` /
+left to replace (placeholders, the template's own logo, share image, favicon and PWA icons, the
+example video templates and blog posts), which `site.config.jsonc` values are malformed and
+whether the generated files are stale. It is the deploy gate: it exits 1 while anything is left, and `pnpm deploy:server` /
 `pnpm deploy:web` run it first and stop there.
 
 ## 0. One file per site: `site.config.jsonc`
@@ -11,8 +12,11 @@ Site identity and Cloudflare settings live in `site.config.jsonc` at the repo ro
 is commented): name, domain, optional social profile URLs (`socialUrls`: the Organization
 JSON-LD `sameAs` and footer links; empty for none), media bucket URL, worker names, D1 name and
 id, R2 bucket, the two rate-limit namespace ids (positive integers, unique within your
-Cloudflare account and different from each other), the Turnstile site key and optional public
-IDs (OAuth client IDs, analytics, Tawk.to, APIMart asset group). After editing it run `pnpm site:sync`, which
+Cloudflare account and different from each other), the email provider (`emailProvider`,
+required: `resend` or `cloudflare`), the Turnstile site key and optional public
+IDs (OAuth client IDs, analytics, Tawk.to, APIMart asset group). Google and GitHub sign-in turn
+on exactly when their client ID is set; also put `GOOGLE_CLIENT_SECRET` / `GITHUB_CLIENT_SECRET`
+in `apps/server/.env.production` and upload it (step 8). After editing it run `pnpm site:sync`, which
 rewrites `apps/server/wrangler.jsonc`, `apps/web/wrangler.jsonc` (from their
 `wrangler.template.jsonc`), the PWA name in `apps/web/public/manifest.webmanifest` and
 `packages/app-config/src/site.generated.json`. Never edit those by hand: the deploy gate
@@ -58,6 +62,7 @@ uses TanStack devtools on port 42069, start the web app with `DEVTOOLS_PORT=4216
 | -------------------------------------------- | ------------------------------------------------------------------------------ |
 | Product name, domain, support email, socials | `site.config.jsonc` (then `pnpm site:sync`)                                    |
 | Email sender                                 | `noreply@<domain>`; the local part is in `app-config.ts` → `common.email.from` |
+| Email provider                               | `site.config.jsonc` → `emailProvider` (`resend` or `cloudflare`)               |
 | Colors, radius, fonts                        | `packages/ui/src/styles/theme.css` (`--primary`, `--ring`, `.dark`)            |
 | Logo                                         | `apps/web/src/components/logos/svg/logo.tsx` and `apps/web/public/logo.svg`    |
 | Favicons and PWA icons                       | `apps/web/public/favicon*.ico`, `apps/web/public/pwa/*`                        |
@@ -66,6 +71,7 @@ uses TanStack devtools on port 42069, start the web app with `DEVTOOLS_PORT=4216
 | All page copy                                | `packages/i18n/src/messages/web/en.json` → `video`                             |
 | Privacy policy and terms                     | same files → `legal` (review with your own counsel)                            |
 | Sign-in methods                              | `packages/app-config/src/app-config.ts` → `common.auth.methods`                |
+| Google / GitHub sign-in                      | `site.config.jsonc` → `public.googleClientId` / `githubClientId`               |
 
 Dark is the default theme; visitors can switch to light.
 
@@ -76,6 +82,16 @@ language back on, follow the steps at the top of `packages/i18n/src/locales.ts`.
 
 The full new-site checklist (every file and setting to change) is in
 [SETUP.zh-CN.md § 0](./SETUP.zh-CN.md#0-起一个新站要改的所有地方).
+
+### Blog
+
+Posts are MDX files in `apps/web/content/blog/en/`; each template's how-to guide starts from
+`docs/how-to-guide-template.mdx`. In the frontmatter, `date` is the publish day
+(`"YYYY-MM-DD"`). The optional `updated: "YYYY-MM-DD"` is the day of the last substantive
+change (new or corrected steps, facts, prices) and must not be before `date`; the post's
+BlogPosting `dateModified` and its sitemap `<lastmod>` use it, else `date`. Only set or bump it
+for real content changes, never as a date-only refresh. Run `pnpm -F web blog:validate` after
+editing posts.
 
 ## 4. Templates
 
@@ -170,17 +186,26 @@ Then:
   the server worker.
 - `rateLimitNamespaceIds` are positive integers that must be unique within your Cloudflare
   account (sites sharing an id share a counter). `pnpm check:placeholders` checks them.
-- Enable Cloudflare Email Service for your domain (or switch `common.email.provider` to
-  `resend` and set `RESEND_API_KEY`).
+- Email goes out through `emailProvider` in `site.config.jsonc` (required; the template sets
+  `resend`, and sites made before this setting used `cloudflare`). `resend` needs
+  `<domain>` verified in Resend and the `RESEND_API_KEY` worker secret. With `cloudflare`,
+  enable Cloudflare Email Service for the domain; `pnpm site:sync` then adds the `EMAIL`
+  `send_email` binding to `apps/server/wrangler.jsonc` (it is left out for Resend).
 
 ## 8. Deploy
 
 ```bash
 cp apps/server/.env.production.example apps/server/.env.production   # fill in secrets
+pnpm -F server secrets:bulk:production -- --dry-run   # lists the key names it will upload
 pnpm -F server secrets:bulk:production
 pnpm db:migrate
 pnpm deploy:all
 ```
+
+`secrets:bulk:production` uploads only keys with a value and never the local-only
+`CLOUDFLARE_*` keys `pnpm db:migrate` reads; it prints key names, never values. It can't
+prompt, so run `npx wrangler login` first; when your login sees several Cloudflare accounts,
+the file's `CLOUDFLARE_ACCOUNT_ID` picks the one to use.
 
 `pnpm deploy:all` (and `pnpm deploy:server` / `pnpm deploy:web` on their own) runs
 `pnpm check:placeholders` first and stops before building if it fails. Don't type plain
@@ -213,7 +238,10 @@ For IndexNow, export `INDEXNOW_KEY` before deploying (or put it in `apps/web/.en
 - [ ] `pnpm check:placeholders` passes (exit 0)
 - [ ] After the deploy, `pnpm launch:check https://<domain>` passes: no-JS checks of status
       codes, http/www redirects, robots.txt, sitemap, llms.txt, the IndexNow key file
-      (`INDEXNOW_KEY=… pnpm launch:check …`) and the home page's head, JSON-LD and links
+      (`INDEXNOW_KEY=… pnpm launch:check …`), the home page's head, JSON-LD and links, and
+      MX records for the support address's domain (`SUPPORT_EMAIL=…` to check another address)
+- [ ] The support address receives mail: Cloudflare Email Routing forwards it to the team
+      inbox, and a real test mail from an outside account arrived
 - [ ] Templates have your own reference clips, soundtracks, posters and previews
 - [ ] Stripe is in live mode with live price IDs, and the webhook is receiving events
 - [ ] A test render completes, the soundtrack plays, and a forced failure refunds credits

@@ -3,6 +3,7 @@ export function filledSiteConfig(overrides = {}) {
   return {
     name: "Dance Booth",
     domain: "dancebooth.app",
+    emailProvider: "resend",
     mediaUrl: "https://media.dancebooth.app",
     cloudflare: {
       webWorker: "dancebooth-web",

@@ -17,6 +17,7 @@ import {
   videoTemplates,
 } from "../../packages/app-config/src/video";
 import { defaultLocale, localeToHreflang, supportedLocales } from "../../packages/i18n/src/locales";
+import { frontmatterDates, lastModifiedDay } from "./scripts/blog-dates.mjs";
 import * as MdxConfig from "./source.config";
 import { templateSlug } from "./src/lib/video/slug";
 
@@ -134,17 +135,20 @@ function getWranglerViteEnvDefines(
   return defines;
 }
 
-/** `date:` from a blog post's frontmatter (YYYY-MM-DD, checked by `pnpm blog:validate`). */
-function blogPostDate(localeDir: string, slug: string): string | undefined {
+/**
+ * `date:` and `updated:` from a blog post's frontmatter (YYYY-MM-DD, checked by
+ * `pnpm blog:validate`).
+ */
+function blogPostDates(localeDir: string, slug: string): { date?: string; updated?: string } {
   const file = join(appDirectory, "content/blog", localeDir, `${slug}.mdx`);
-  if (!existsSync(file)) return undefined;
-  return /^date:\s*["']?([\d-]+)/m.exec(readFileSync(file, "utf8"))?.[1];
+  if (!existsSync(file)) return {};
+  return frontmatterDates(readFileSync(file, "utf8"));
 }
 
 /**
  * When a page's own content last changed, from fixed dates rather than the build: template
- * pages use the template's launchDate, blog posts their frontmatter date and the blog index the
- * newest post. Every other page uses the newest template's launchDate. TanStack Start writes
+ * pages use the template's launchDate, blog posts their frontmatter `updated` (else `date`) and
+ * the blog index the newest post's `date` (it lists posts, so it changes when one is published). Every other page uses the newest template's launchDate. TanStack Start writes
  * the build date for pages without one, and a date that moves on every deploy teaches search
  * engines to ignore <lastmod> for the whole site.
  */
@@ -154,10 +158,10 @@ function resolveLastModified(path: string, localeDir: string): Date {
   if (templateId) {
     day = videoTemplates[templateId].launchDate;
   } else if (path.startsWith("/blog/")) {
-    day = blogPostDate(localeDir, path.slice("/blog/".length));
+    day = lastModifiedDay(blogPostDates(localeDir, path.slice("/blog/".length)));
   } else if (path === "/blog") {
     day = blogPages
-      .map((page) => blogPostDate(localeDir, page.slice("/blog/".length)) ?? "")
+      .map((page) => blogPostDates(localeDir, page.slice("/blog/".length)).date ?? "")
       .sort()
       .at(-1);
   }

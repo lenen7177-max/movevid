@@ -2,12 +2,22 @@
 // Launch check against a live site, without JavaScript: `pnpm launch:check https://mysite.com`.
 // Fetches the pages search engines and AI crawlers read first and checks status codes,
 // redirects, robots.txt, the sitemap, llms.txt, the IndexNow key file and the home page's
-// <head>, structured data and links. Prints a pass/fail table and exits 1 on any failure.
+// <head>, structured data and links, and that the support address has MX records (DNS over
+// HTTPS). Prints a pass/fail table and exits 1 on any failure.
 //   INDEXNOW_KEY=<key> pnpm launch:check https://mysite.com   also checks /<key>.txt
+//   SUPPORT_EMAIL=<address> pnpm launch:check …               checks that address's domain
+// The support address is site.generated.json's when its domain is the checked site, else
+// support@<domain>.
 // Against localhost the http:// and www. redirects are skipped (they need the real domain).
+import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { fileURLToPath } from "node:url";
+import { domainToASCII, fileURLToPath } from "node:url";
 import { PLACEHOLDERS } from "./lib/placeholders.mjs";
+import { TEMPLATE_BRAND_ASSETS, sha256Of } from "./lib/template-defaults.mjs";
+
+const ROOT = resolve(fileURLToPath(new URL("..", import.meta.url)));
+const SITE_FILE = "packages/app-config/src/site.generated.json";
+export const DNS_OVER_HTTPS = "https://cloudflare-dns.com/dns-query";
 
 /** AI search and training crawlers robots.txt should name (apps/web/src/routes/robots[.]txt.ts). */
 export const AI_CRAWLERS = [
@@ -144,6 +154,29 @@ export function canonicalHref(html) {
   return null;
 }
 
+/** content of <meta property="og:image">, or null. */
+export function ogImageUrl(html) {
+  for (const [tag] of html.matchAll(/<meta\b[^>]*>/gi)) {
+    if ((attr(tag, "property") ?? attr(tag, "name")) === "og:image") return attr(tag, "content");
+  }
+  return null;
+}
+
+/**
+ * The served files (`[{ url, bytes }]`) that are byte-for-byte the template's own brand files:
+ * the logo, favicon, share image and app icons were never replaced.
+ */
+export function templateBrandFiles(served) {
+  const known = TEMPLATE_BRAND_ASSETS.flatMap(({ path, sha256 }) =>
+    sha256.map((hash) => ({ hash, path })),
+  );
+  return served.flatMap(({ url, bytes }) => {
+    const name = new URL(url, "https://x.invalid").pathname;
+    const match = known.find(({ hash, path }) => hash === sha256Of(bytes, path));
+    return match ? [name] : [];
+  });
+}
+
 /** Every <script type="application/ld+json"> block, parsed: [{ ok, types?, error? }]. */
 export function jsonLdBlocks(html) {
   return [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)]
@@ -198,6 +231,92 @@ export function pagePlaceholders(html) {
   return hits;
 }
 
+/** site.generated.json (name, domain, supportEmail, …), or null when it can't be read. */
+export function readSiteInfo(root = ROOT) {
+  try {
+    return JSON.parse(readFileSync(resolve(root, SITE_FILE), "utf8"));
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * The checked site's support address: `override` (SUPPORT_EMAIL) when given, site.generated.json's
+ * supportEmail when its domain is the checked site's, else support@<domain> (www. dropped).
+ */
+export function resolveSupportEmail(origin, { site, override } = {}) {
+  if (override) return override;
+  const domain = new URL(origin).hostname.replace(/^www\./, "");
+  if (site?.domain === domain && site.supportEmail) return site.supportEmail;
+  return `support@${domain}`;
+}
+
+/** Reserved and template domains that never receive mail (example.com, *.test, …). */
+export function isExampleDomain(domain) {
+  return (
+    /(?:^|\.)example\.(?:com|net|org)$/.test(domain) ||
+    /(?:^|\.)(?:example|test|invalid|localhost)$/.test(domain)
+  );
+}
+
+/**
+ * MX records from a DNS-over-HTTPS JSON answer, by priority: { status, records: [{ priority,
+ * exchange }] }. A null MX ("0 .", RFC 7505) has exchange "".
+ */
+export function parseMxAnswer(body) {
+  const records = (body?.Answer ?? [])
+    .filter((answer) => answer?.type === 15)
+    .map((answer) => {
+      const [priority, exchange = ""] = String(answer.data ?? "")
+        .trim()
+        .split(/\s+/);
+      return { priority: Number(priority), exchange: exchange.replace(/\.$/, "") };
+    })
+    .sort((a, b) => a.priority - b.priority);
+  return { status: body?.Status, records };
+}
+
+/** MX lookup over DNS-over-HTTPS (Cloudflare's resolver); `fetchImpl` is injectable for tests. */
+export async function lookupMx(domain, fetchImpl = fetch) {
+  const response = await fetchImpl(`${DNS_OVER_HTTPS}?name=${encodeURIComponent(domain)}&type=MX`, {
+    headers: { accept: "application/dns-json" },
+    signal: AbortSignal.timeout(10_000),
+  });
+  if (!response.ok) throw new Error(`DNS-over-HTTPS lookup: status ${response.status}`);
+  return parseMxAnswer(await response.json());
+}
+
+const MAIL_FIX =
+  "forward it to the team inbox with Cloudflare Email Routing (launch checklist A10), then send it a real test mail (E14)";
+
+/**
+ * [status, detail] for "the support address can receive mail": its domain has MX records.
+ * Skipped for local bases and example domains.
+ */
+export async function supportInboxCheck(origin, supportEmail, fetchImpl = fetch) {
+  if (isLocalBase(origin)) return ["SKIP", "local base URL"];
+  const written = /^[^@\s]+@([^@\s]+\.[^@\s]+)$/.exec(supportEmail ?? "")?.[1];
+  // Punycode for DNS (münchen.de → xn--mnchen-3ya.de); "" when the name is not a valid domain.
+  const domain = written && domainToASCII(written);
+  if (!domain) return ["FAIL", `support address "${supportEmail}" is not an email address`];
+  if (isExampleDomain(domain)) return ["SKIP", `${supportEmail} is an example domain`];
+  const { status, records } = await lookupMx(domain, fetchImpl);
+  if (status === 3) {
+    return ["FAIL", `${domain} does not exist in DNS (NXDOMAIN): mail to ${supportEmail} bounces`];
+  }
+  if (status !== 0) return ["FAIL", `MX lookup for ${domain} failed (DNS status ${status})`];
+  const exchanges = records.filter((record) => record.exchange);
+  if (exchanges.length === 0) {
+    const why = records.length ? "a null MX (accepts no mail)" : "no MX records";
+    return ["FAIL", `${domain} has ${why}: mail to ${supportEmail} bounces; ${MAIL_FIX}`];
+  }
+  const more = exchanges.length > 1 ? ` (+${exchanges.length - 1})` : "";
+  return [
+    "PASS",
+    `${supportEmail} → ${exchanges[0].exchange}${more}; send a real test mail before launch (E14)`,
+  ];
+}
+
 export function isNoindex(headerValue) {
   return /\bnoindex\b/i.test(headerValue ?? "");
 }
@@ -212,6 +331,14 @@ export function formatTable(results) {
     .join("\n");
 }
 
+async function getBytes(url) {
+  const response = await fetch(url, {
+    headers: { "User-Agent": "launch-check (+no-js)" },
+    signal: AbortSignal.timeout(20_000),
+  });
+  return { status: response.status, bytes: Buffer.from(await response.arrayBuffer()) };
+}
+
 async function get(url) {
   const response = await fetch(url, {
     redirect: "manual",
@@ -224,7 +351,12 @@ async function get(url) {
 
 export async function runChecks(
   origin,
-  { indexNowKey, today = new Date().toISOString().slice(0, 10) } = {},
+  {
+    indexNowKey,
+    today = new Date().toISOString().slice(0, 10),
+    supportEmail = resolveSupportEmail(origin, { site: readSiteInfo() }),
+    fetchDns = fetch,
+  } = {},
 ) {
   const results = [];
   const record = (name, status, detail = "") => results.push({ name, status, detail });
@@ -330,6 +462,8 @@ export async function runChecks(
     record("IndexNow key file", "SKIP", "INDEXNOW_KEY not set");
   }
 
+  await check("support inbox MX", () => supportInboxCheck(origin, supportEmail, fetchDns));
+
   const homeChecks = [
     "home: one <h1>",
     "home: <title>",
@@ -339,6 +473,7 @@ export async function runChecks(
     "home: no placeholders",
     "home: ≥ 3 internal links",
     "home: guide link 200",
+    "brand files replaced",
   ];
   if (!home || home.status !== 200) {
     for (const name of homeChecks) record(name, "FAIL", "home page not loaded");
@@ -400,6 +535,21 @@ export async function runChecks(
       });
     }
   }
+  await check(homeChecks[8], async () => {
+    const absolute = (url) => new URL(url, `${origin}/`).href;
+    const urls = new Set(TEMPLATE_BRAND_ASSETS.flatMap(({ url }) => (url ? [absolute(url)] : [])));
+    const og = ogImageUrl(html);
+    if (og) urls.add(absolute(og));
+    const served = [];
+    for (const url of urls) {
+      const response = await getBytes(url);
+      if (response.status === 200) served.push({ url, bytes: response.bytes });
+    }
+    const left = templateBrandFiles(served);
+    return left.length
+      ? ["FAIL", `still the template's own: ${left.join(" ")} (launch checklist B11)`]
+      : ["PASS", `${served.length} checked`];
+  });
   return results;
 }
 
@@ -412,7 +562,14 @@ async function main() {
     process.exit(2);
   }
   console.log(`Launch check for ${origin}\n`);
-  const results = await runChecks(origin, { indexNowKey: process.env.INDEXNOW_KEY?.trim() });
+  const supportEmail = resolveSupportEmail(origin, {
+    site: readSiteInfo(),
+    override: process.env.SUPPORT_EMAIL?.trim(),
+  });
+  const results = await runChecks(origin, {
+    indexNowKey: process.env.INDEXNOW_KEY?.trim(),
+    supportEmail,
+  });
   console.log(formatTable(results));
   const failed = results.filter((result) => result.status === "FAIL").length;
   const skipped = results.filter((result) => result.status === "SKIP").length;

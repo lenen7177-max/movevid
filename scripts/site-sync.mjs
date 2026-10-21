@@ -2,7 +2,8 @@
 // Writes the per-site files from site.config.jsonc:
 //   apps/server/wrangler.jsonc, apps/web/wrangler.jsonc  ← their wrangler.template.jsonc
 //   apps/web/public/manifest.webmanifest                 ← name / short_name
-//   packages/app-config/src/site.generated.json          ← name, domain, support email, socials
+//   packages/app-config/src/site.generated.json          ← name, domain, support email, socials,
+//                                                           email provider, social sign-in
 //   node scripts/site-sync.mjs           write them (`pnpm site:sync`)
 //   node scripts/site-sync.mjs --check   exit 1 when any is out of date
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
@@ -42,6 +43,7 @@ const KEYS = {
     "domain",
     "supportEmail",
     "socialUrls",
+    "emailProvider",
     "mediaUrl",
     "cloudflare",
     "turnstileSiteKey",
@@ -67,6 +69,9 @@ const KEYS = {
   ],
 };
 
+/** Transactional email providers (apps/server/src/emails/providers); the first is the default. */
+export const EMAIL_PROVIDERS = ["resend", "cloudflare"];
+
 const WORKER_NAME = /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/;
 const BUCKET_NAME = /^[a-z0-9][a-z0-9-]{1,61}[a-z0-9]$/;
 // The last label may be punycode, the form internationalized TLDs (xn--…) take in Cloudflare.
@@ -76,6 +81,7 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 const POSITIVE_INTEGER = /^[1-9]\d{0,15}$/;
 const HTTPS_URL = /^https:\/\/[^\s/]+(?:\/\S*)?$/;
+const GOOGLE_CLIENT_ID = /^[\w-]+\.apps\.googleusercontent\.com$/;
 
 export function readSiteConfig(root = ROOT) {
   return parseJsonc(readFileSync(resolve(root, SITE_CONFIG_FILE), "utf8"));
@@ -144,6 +150,17 @@ export function validateSiteConfig(config) {
       });
     }
   }
+  if (config.emailProvider === undefined) {
+    // No default: before this setting existed the template always used the Cloudflare binding,
+    // so a missing value must be a choice, not a silent switch to Resend.
+    issues.push(
+      `${at("emailProvider")} is required: ${EMAIL_PROVIDERS.map((name) => `"${name}"`).join(" or ")} (sites made before this setting used "cloudflare")`,
+    );
+  } else if (!EMAIL_PROVIDERS.includes(config.emailProvider)) {
+    issues.push(
+      `${at("emailProvider")} ${JSON.stringify(config.emailProvider)} must be one of ${EMAIL_PROVIDERS.map((name) => `"${name}"`).join(", ")}`,
+    );
+  }
   string(config.mediaUrl, "mediaUrl", {
     pattern: HTTPS_URL,
     hint: "must be an https:// URL",
@@ -210,9 +227,51 @@ export function validateSiteConfig(config) {
       for (const key of KEYS.public) {
         string(config.public[key], `public.${key}`, { required: false });
       }
+      issues.push(...oauthClientIdIssues(config.public, at));
     }
   }
   return issues;
+}
+
+/**
+ * OAuth client ids are public (they ship in wrangler.jsonc vars and turn the sign-in button on);
+ * the client secrets are worker secrets. Catch a secret pasted into the id field.
+ */
+function oauthClientIdIssues(publicIds, at) {
+  const issues = [];
+  const google = publicIds.googleClientId;
+  if (typeof google === "string" && google !== "" && !isPlaceholder(google)) {
+    if (/^GOCSPX-/.test(google.trim())) {
+      issues.push(
+        `${at("public.googleClientId")} looks like the client secret; put that in the GOOGLE_CLIENT_SECRET worker secret and the client ID (….apps.googleusercontent.com) here`,
+      );
+    } else if (!GOOGLE_CLIENT_ID.test(google)) {
+      issues.push(
+        `${at("public.googleClientId")} "${google}" must be the OAuth client ID ending in .apps.googleusercontent.com`,
+      );
+    }
+  }
+  const github = publicIds.githubClientId;
+  if (typeof github === "string" && github !== "" && !isPlaceholder(github)) {
+    if (/^[0-9a-f]{40}$/.test(github.trim())) {
+      issues.push(
+        `${at("public.githubClientId")} looks like the client secret (40 hex characters); put that in the GITHUB_CLIENT_SECRET worker secret and the client ID here`,
+      );
+    } else if (!/^[\w.-]+$/.test(github)) {
+      issues.push(`${at("public.githubClientId")} "${github}" must be the OAuth app's client ID`);
+    }
+  }
+  return issues;
+}
+
+/**
+ * Social sign-in follows its client id: Google / GitHub sign-in is on exactly when
+ * site.config.jsonc has that provider's public client id.
+ */
+export function socialSignIn(config) {
+  const publicIds = config.public ?? {};
+  const has = (value) => typeof value === "string" && value.trim() !== "";
+  return { google: has(publicIds.googleClientId), github: has(publicIds.githubClientId) };
 }
 
 /** The {{token}} values used by the wrangler templates. */
@@ -229,6 +288,7 @@ export function siteTokens(config) {
     apiUrl: `https://api.${config.domain}`,
     mediaUrl: String(config.mediaUrl ?? "").replace(/\/+$/, ""),
     supportEmail: config.supportEmail || `support@${config.domain}`,
+    emailProvider: config.emailProvider,
     webWorker: cloudflare.webWorker,
     serverWorker: cloudflare.serverWorker,
     d1DatabaseName: cloudflare.d1DatabaseName,
@@ -250,11 +310,45 @@ export function siteTokens(config) {
 /** Text with LF line endings (a Windows checkout with core.autocrlf has CRLF). */
 const lf = (text) => text.replace(/\r\n/g, "\n");
 
+const DIRECTIVE = /^\s*\/\/#(\w+)(.*)$/;
+const CONDITION = /^\s+(\w+)\s*(==|!=)\s*"([^"]*)"\s*$/;
+
+/**
+ * Template lines with `//#` notes dropped and `//#if token == "value"` … `//#endif` blocks kept
+ * only when the condition holds (`!=` too; blocks may nest).
+ */
+function templateLines(template, tokens, templateName) {
+  const lines = [];
+  const open = [];
+  lf(template)
+    .split("\n")
+    .forEach((line, index) => {
+      const where = `${templateName}:${index + 1}`;
+      const directive = DIRECTIVE.exec(line);
+      if (directive?.[1] === "if") {
+        const condition = CONDITION.exec(directive[2]);
+        if (!condition) throw new Error(`${where}: write //#if <token> == "<value>" (or !=)`);
+        const [, key, operator, value] = condition;
+        if (!(key in tokens)) throw new Error(`${where}: unknown token ${key} in //#if`);
+        const equal = String(tokens[key] ?? "") === value;
+        open.push(operator === "==" ? equal : !equal);
+      } else if (directive?.[1] === "endif") {
+        if (!open.length) throw new Error(`${where}: //#endif without //#if`);
+        open.pop();
+      } else if (directive) {
+        // Notes are `//# text`; `//#else`, `//#elif` and the like are not supported.
+        throw new Error(`${where}: unknown directive //#${directive[1]} (only //#if and //#endif)`);
+      } else if (!/^\s*\/\/#/.test(line) && open.every(Boolean)) {
+        lines.push(line);
+      }
+    });
+  if (open.length) throw new Error(`${templateName}: //#if without //#endif`);
+  return lines;
+}
+
 /** A wrangler template with its {{tokens}} filled in; tokens always sit inside JSON strings. */
 export function renderTemplate(template, tokens, templateName = "template") {
-  const body = lf(template)
-    .split("\n")
-    .filter((line) => !line.startsWith("//#"))
+  const body = templateLines(template, tokens, templateName)
     .join("\n")
     .replace(/\{\{\s*(\w+)\s*\}\}/g, (_match, key) => {
       if (!(key in tokens)) throw new Error(`${templateName}: unknown token {{${key}}}`);
@@ -286,6 +380,9 @@ export function renderSiteFiles(config, root = ROOT) {
     domain: tokens.domain,
     supportEmail: tokens.supportEmail,
     socialUrls: Array.isArray(config.socialUrls) ? config.socialUrls : [],
+    emailProvider: tokens.emailProvider,
+    // Only whether each provider is on; the client ids themselves are in wrangler.jsonc vars.
+    socialSignIn: socialSignIn(config),
   };
   files.set(APP_CONFIG_SITE_FILE, `${JSON.stringify(site, null, 2)}\n`);
   return files;

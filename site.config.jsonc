@@ -2,7 +2,8 @@
 // then runs `pnpm site:sync`, which rewrites the generated files from it:
 //   apps/server/wrangler.jsonc, apps/web/wrangler.jsonc   (from their wrangler.template.jsonc)
 //   apps/web/public/manifest.webmanifest                  (PWA name)
-//   packages/app-config/src/site.generated.json          (name, domain, support email, socials)
+//   packages/app-config/src/site.generated.json          (name, domain, support email, socials,
+//                                                         email provider)
 // `pnpm check:placeholders` runs before every deploy and fails while a value below is still a
 // placeholder, is malformed, or the generated files are out of date.
 {
@@ -21,6 +22,12 @@
   // Organization's sameAs in the home page's JSON-LD and links in the footer. Leave the list
   // empty for none (no sameAs, no social links).
   "socialUrls": [],
+  // Transactional email (sign-in codes, render-ready mails), sent from noreply@<domain>:
+  //   "resend"      Resend; set the RESEND_API_KEY worker secret and verify <domain> in Resend.
+  //   "cloudflare"  Cloudflare Email Service through the worker's send_email binding (added to
+  //                 apps/server/wrangler.jsonc by `pnpm site:sync` only for this provider).
+  // Required (sites made before this setting used "cloudflare").
+  "emailProvider": "resend",
   // Public base URL of the template media bucket: reference clips, soundtracks, previews and
   // sample videos (layout in apps/server/src/video/templates.ts).
   "mediaUrl": "https://media.example.com",
@@ -49,7 +56,12 @@
 
   // Optional public IDs. Leave empty to turn the feature off.
   "public": {
+    // OAuth client IDs. Sign in with GitHub / Google is shown exactly when its client ID is set
+    // here. Also set the client secret as a worker secret in apps/server/.env.production
+    // (GITHUB_CLIENT_SECRET / GOOGLE_CLIENT_SECRET, uploaded by `pnpm -F server
+    // secrets:bulk:production`), or the button appears but sign-in fails.
     "githubClientId": "",
+    // Ends in .apps.googleusercontent.com.
     "googleClientId": "",
     "gaMeasurementId": "",
     "openpanelClientId": "",

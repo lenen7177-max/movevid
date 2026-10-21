@@ -1,5 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 import {
   canonicalHref,
   countH1,
@@ -7,6 +10,8 @@ import {
   guideLinks,
   hasSitemapLine,
   internalLinks,
+  DNS_OVER_HTTPS,
+  isExampleDomain,
   isHomeRedirect,
   isLocalBase,
   isNoindex,
@@ -14,10 +19,15 @@ import {
   lastmodsAllToday,
   missingCrawlers,
   normalizeBase,
+  ogImageUrl,
   pagePlaceholders,
   pageTitle,
+  parseMxAnswer,
   parseSitemap,
   redirectsTo,
+  resolveSupportEmail,
+  supportInboxCheck,
+  templateBrandFiles,
 } from "../launch-check.mjs";
 
 test("the base URL is reduced to an origin; paths are refused", () => {
@@ -142,4 +152,156 @@ test("the report is an aligned table", () => {
   const lines = table.split("\n");
   assert.equal(lines.length, 4);
   assert.match(lines[3], /^sitemap\.xml\s+FAIL\s+status 404$/);
+});
+
+test("the support address comes from site.generated.json only for the same domain", () => {
+  const site = { domain: "dancebooth.app", supportEmail: "help@dancebooth.app" };
+  assert.equal(resolveSupportEmail("https://dancebooth.app", { site }), "help@dancebooth.app");
+  assert.equal(resolveSupportEmail("https://www.dancebooth.app", { site }), "help@dancebooth.app");
+  assert.equal(resolveSupportEmail("https://other.app", { site }), "support@other.app");
+  assert.equal(resolveSupportEmail("https://other.app", { site: null }), "support@other.app");
+  assert.equal(
+    resolveSupportEmail("https://other.app", { site, override: "team@mail.other.app" }),
+    "team@mail.other.app",
+  );
+});
+
+test("example and reserved domains are recognised", () => {
+  for (const domain of ["example.com", "api.example.org", "shop.test", "x.example", "localhost"]) {
+    assert.equal(isExampleDomain(domain), true, domain);
+  }
+  for (const domain of ["dancebooth.app", "my-example.com", "example.community"]) {
+    assert.equal(isExampleDomain(domain), false, domain);
+  }
+});
+
+test("MX answers are parsed by priority; a null MX has no exchange", () => {
+  const parsed = parseMxAnswer({
+    Status: 0,
+    Answer: [
+      { name: "dancebooth.app", type: 15, data: "86 route3.mx.cloudflare.net." },
+      { name: "dancebooth.app", type: 5, data: "alias.example." },
+      { name: "dancebooth.app", type: 15, data: "12 route1.mx.cloudflare.net." },
+    ],
+  });
+  assert.deepEqual(parsed, {
+    status: 0,
+    records: [
+      { priority: 12, exchange: "route1.mx.cloudflare.net" },
+      { priority: 86, exchange: "route3.mx.cloudflare.net" },
+    ],
+  });
+  assert.deepEqual(parseMxAnswer({ Status: 0, Answer: [{ type: 15, data: "0 ." }] }).records, [
+    { priority: 0, exchange: "" },
+  ]);
+  assert.deepEqual(parseMxAnswer({ Status: 0 }).records, []);
+});
+
+/** A fetch that answers DNS-over-HTTPS queries from `answers` (domain → JSON body). */
+function fakeDns(answers, calls = []) {
+  return async (url, init) => {
+    calls.push({ url, accept: init?.headers?.accept });
+    const name = new URL(url).searchParams.get("name");
+    if (!(name in answers)) return new Response("boom", { status: 502 });
+    return new Response(JSON.stringify(answers[name]), { status: 200 });
+  };
+}
+
+test("the support inbox check needs MX records on the address's domain", async () => {
+  const calls = [];
+  const fetchDns = fakeDns(
+    {
+      "dancebooth.app": {
+        Status: 0,
+        Answer: [
+          { type: 15, data: "12 route1.mx.cloudflare.net." },
+          { type: 15, data: "86 route2.mx.cloudflare.net." },
+        ],
+      },
+      "nomail.app": { Status: 0 },
+      "nullmx.app": { Status: 0, Answer: [{ type: 15, data: "0 ." }] },
+      "gone.app": { Status: 3 },
+      "broken.app": { Status: 2 },
+      "xn--mnchen-3ya.de": { Status: 0, Answer: [{ type: 15, data: "10 mx.mnchen.de." }] },
+    },
+    calls,
+  );
+  const [status, detail] = await supportInboxCheck(
+    "https://dancebooth.app",
+    "support@dancebooth.app",
+    fetchDns,
+  );
+  assert.equal(status, "PASS");
+  assert.match(detail, /route1\.mx\.cloudflare\.net \(\+1\)/);
+  assert.equal(calls[0].url, `${DNS_OVER_HTTPS}?name=dancebooth.app&type=MX`);
+  assert.equal(calls[0].accept, "application/dns-json");
+
+  const none = await supportInboxCheck("https://nomail.app", "support@nomail.app", fetchDns);
+  assert.equal(none[0], "FAIL");
+  assert.match(none[1], /no MX records/);
+  assert.match(none[1], /Cloudflare Email Routing \(launch checklist A10\)/);
+  assert.match(none[1], /real test mail \(E14\)/);
+  assert.match(
+    (await supportInboxCheck("https://nullmx.app", "support@nullmx.app", fetchDns))[1],
+    /null MX/,
+  );
+  assert.match(
+    (await supportInboxCheck("https://gone.app", "support@gone.app", fetchDns))[1],
+    /NXDOMAIN/,
+  );
+  assert.match(
+    (await supportInboxCheck("https://broken.app", "support@broken.app", fetchDns))[1],
+    /DNS status 2/,
+  );
+  // Unicode domains are looked up as punycode.
+  assert.equal((await supportInboxCheck("https://x.app", "hi@münchen.de", fetchDns))[0], "PASS");
+  // The address's own domain is looked up, not the site's.
+  const other = await supportInboxCheck("https://site.app", "help@dancebooth.app", fetchDns);
+  assert.equal(other[0], "PASS");
+  await assert.rejects(
+    supportInboxCheck("https://site.app", "support@unknown.app", fetchDns),
+    /status 502/,
+  );
+});
+
+test("the support inbox check is skipped for local bases and example domains", async () => {
+  const fetchDns = () => assert.fail("no DNS lookup expected");
+  assert.deepEqual(
+    await supportInboxCheck("http://localhost:3000", "support@dancebooth.app", fetchDns),
+    ["SKIP", "local base URL"],
+  );
+  assert.equal(
+    (await supportInboxCheck("https://example.com", "support@example.com", fetchDns))[0],
+    "SKIP",
+  );
+  assert.equal(
+    (await supportInboxCheck("https://dancebooth.app", "not-an-address", fetchDns))[0],
+    "FAIL",
+  );
+});
+
+test("the share image comes from og:image", () => {
+  assert.equal(
+    ogImageUrl('<meta property="og:image" content="https://dancebooth.app/og/og.png">'),
+    "https://dancebooth.app/og/og.png",
+  );
+  assert.equal(ogImageUrl('<meta name="og:image" content="/og.png" />'), "/og.png");
+  assert.equal(ogImageUrl("<meta property=og:title content=x>"), null);
+});
+
+test("served brand files that are the template's own are named", () => {
+  const root = fileURLToPath(new URL("../..", import.meta.url));
+  const logo = readFileSync(join(root, "apps/web/public/logo.svg"));
+  const og = readFileSync(join(root, "apps/web/public/og/og.png"));
+  assert.deepEqual(
+    templateBrandFiles([
+      { url: "/logo.svg", bytes: logo },
+      { url: "https://dancebooth.app/og/og.png?v=2", bytes: og },
+      { url: "/favicon.ico", bytes: Buffer.from("our own icon") },
+    ]),
+    ["/logo.svg", "/og/og.png"],
+  );
+  // A CRLF copy of the logo is still the template's.
+  const crlf = Buffer.from(logo.toString("utf8").replace(/\n/g, "\r\n"));
+  assert.deepEqual(templateBrandFiles([{ url: "/logo.svg", bytes: crlf }]), ["/logo.svg"]);
 });

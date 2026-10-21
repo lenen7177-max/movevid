@@ -6,15 +6,19 @@
 //     namespace ids that are not positive integers or repeat)
 //   - a file generated from site.config.jsonc is out of date (`pnpm site:sync`)
 //   - the generated wrangler.jsonc routes don't match the domain, or the rate-limit ids collide
+//   - emailProvider is "cloudflare" but the server wrangler.jsonc has no EMAIL send_email binding
 //   - a local .env file or the shell sets a VITE_* URL/key, or the D1 id for migrations, to
 //     something other than what site.config.jsonc says (they would win over it at build time)
 //   - something that looks like a committed secret
+//   - the template's own brand files (logo, share image, favicon, PWA icons, compared by
+//     SHA-256), its example video templates or its example blog posts are still there
 import { execSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { parseEnv } from "node:util";
 import { parseJsonc, stripJsoncComments } from "./lib/jsonc.mjs";
 import { countPlaceholders, isPlaceholder } from "./lib/placeholders.mjs";
+import { templateDefaults, templateDefaultsReport } from "./lib/template-defaults.mjs";
 import {
   GENERATED_FILES,
   SITE_CONFIG_FILE,
@@ -140,6 +144,12 @@ function deployConfigIssues(tokens) {
         issues.push(`${file}: API route "${pattern}" differs from SERVER_URL host "${serverHost}"`);
       }
     }
+    const emailBinding = (server.send_email ?? []).some((binding) => binding.name === "EMAIL");
+    if (tokens.emailProvider === "cloudflare" && !emailBinding) {
+      issues.push(
+        `${file}: emailProvider is "cloudflare" but there is no send_email binding named EMAIL (keep it in apps/server/wrangler.template.jsonc)`,
+      );
+    }
     const seen = new Map();
     for (const limiter of server.ratelimits ?? []) {
       const id = String(limiter.namespace_id ?? "");
@@ -227,6 +237,8 @@ const deployIssues =
     ? [...deployConfigIssues(siteTokens(config)), ...overrideIssues()]
     : [];
 
+const defaultsReport = templateDefaultsReport(templateDefaults(process.cwd()));
+
 if (placeholderHits.size) {
   console.log("Placeholders still to replace:\n");
   for (const [label, entries] of placeholderHits) {
@@ -246,14 +258,25 @@ if (deployIssues.length) {
   console.log("\nDeploy config to fix:\n");
   for (const issue of deployIssues) console.log(`• ${issue}`);
 }
+if (defaultsReport.length) {
+  console.log("\nTemplate content to replace or delete (launch checklist B9/B11/B12):\n");
+  for (const line of defaultsReport) console.log(line);
+}
 if (secretHits.size) {
   console.error(`\n✗ Possible secrets committed in:\n    ${[...secretHits].join("\n    ")}`);
 }
 
 const problems =
-  placeholderHits.size + siteIssues.length + stale.length + deployIssues.length + secretHits.size;
+  placeholderHits.size +
+  siteIssues.length +
+  stale.length +
+  deployIssues.length +
+  defaultsReport.length +
+  secretHits.size;
 if (problems) {
   console.error("\n✗ Not ready to deploy: fix the items above (see SETUP.md).");
   process.exit(1);
 }
-console.log("✓ No placeholders left; site config and generated files are in order.");
+console.log(
+  "✓ No placeholders or template content left; site config and generated files are in order.",
+);

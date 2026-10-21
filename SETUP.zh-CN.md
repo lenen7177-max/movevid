@@ -1,6 +1,6 @@
 # 部署指南（中文）
 
-从拿到代码到网站上线。任何时候都可以运行 `pnpm check:placeholders`，查看还有哪些占位符没替换、`site.config.jsonc` 里哪些值不合法、生成文件是否过期。它是部署前的关卡：有任何一项就 exit 1，`pnpm deploy:server` 和 `pnpm deploy:web` 会先跑它，不通过就不部署。
+从拿到代码到网站上线。任何时候都可以运行 `pnpm check:placeholders`，查看还有哪些占位符没替换、哪些模板自带的 Logo / 分享图 / 图标、示例模板和示例文章还没换掉或删掉、`site.config.jsonc` 里哪些值不合法、生成文件是否过期。它是部署前的关卡：有任何一项就 exit 1，`pnpm deploy:server` 和 `pnpm deploy:web` 会先跑它，不通过就不部署。
 
 ## 0. 起一个新站：要改的所有地方
 
@@ -15,7 +15,8 @@
   - R2 桶名 `r2Bucket`
   - 限流 id `rateLimitNamespaceIds`
   - Turnstile site key `turnstileSiteKey`
-  - 可选的公开 ID `public.*`：OAuth client ID、GA、OpenPanel、Tawk.to、APIMart 素材组
+  - 发信方式 `emailProvider`（必填）：`resend` 或 `cloudflare`。模板填的是 `resend`；有这个设置之前做的站用的是 `cloudflare`
+  - 可选的公开 ID `public.*`：OAuth client ID、GA、OpenPanel、Tawk.to、APIMart 素材组。填了 `googleClientId` / `githubClientId` 就自动开启 Google / GitHub 登录，同时要在 `apps/server/.env.production` 里填 `GOOGLE_CLIENT_SECRET` / `GITHUB_CLIENT_SECRET` 并上传为 Worker 密钥
 - [ ] 限流 id 是正整数。**同一个 Cloudflare 账号内每个站都必须唯一**，两个限流器之间也不能相同；重复的话几个站会共用同一个计数器，互相限流。建议按站编号分配，例如第 3 个站用 `3001`、`3002`
 - [ ] 改完运行 `pnpm site:sync`，它会重新生成下面这些文件。不要手改它们，`pnpm check:placeholders` 会把手改或忘了同步的文件报成过期：
   - `apps/server/wrangler.jsonc`：Worker 名、`api.<域名>` 路由、D1、R2、限流 id、`WEBSITE_URL` / `SERVER_URL` 等
@@ -41,7 +42,7 @@
 **文案与内容**
 
 - [ ] `packages/i18n/src/messages/web/en.json` → `video`：首页、定价、FAQ 等全站文案；→ `legal`：隐私政策和服务条款（按当地法律审核）。站点只开英文，`zh.json`、`jp.json` 不用改
-- [ ] `apps/web/content/blog/en/`：替换示例文章（`date` 写成 `YYYY-MM-DD`），`content/author/en/team.mdx` 改成你的作者；改完跑 `pnpm -F web blog:validate`
+- [ ] `apps/web/content/blog/en/`：替换示例文章（`date` 写成 `YYYY-MM-DD`；文章有实质改动时可加 `updated: "YYYY-MM-DD"`，不能早于 `date`，结构化数据的 dateModified 和网站地图 lastmod 会用它。只改日期、没改内容时不要动它），`content/author/en/team.mdx` 改成你的作者；改完跑 `pnpm -F web blog:validate`
 - [ ] 每个模板配一篇教程：`content/blog/en/how-to-make-<模板 slug>.mdx`，frontmatter 写 `template: <模板 id>`（骨架在 `docs/how-to-guide-template.mdx`，数字用 `<TemplateValue>` / `<TemplateFacts>` 从配置读）。模板页会出现「Read the full guide」卡片，文章顶部和底部会链接回模板页；没有教程的模板 `blog:validate` 只警告
 
 **支付与密钥**
@@ -174,16 +175,19 @@ npx wrangler r2 bucket create <你的素材桶>        # 设为公开，地址�
   - 前端路由是 `<domain>` 和 `www.<domain>`
   - `API_SERVICE` 指向服务端 Worker
 - `rateLimitNamespaceIds` 的两个 id：任意正整数，**同一个 Cloudflare 账号内每个站必须唯一**，两个之间也不能相同。同账号的两个站用了同一个 id，会共用一个限流计数器。`pnpm check:placeholders` 会检查它们是否还是占位符、是否为正整数、是否重复。
-- 为域名开启 Cloudflare 邮件服务（或把 `common.email.provider` 改成 `resend` 并设置 `RESEND_API_KEY`）。
+- 发信方式由 `site.config.jsonc` 的 `emailProvider` 决定（必填，模板填的是 `resend`）。用 `resend`：在 Resend 验证 `<domain>`，并设置 Worker 密钥 `RESEND_API_KEY`。改成 `cloudflare` 时为域名开启 Cloudflare 邮件服务，`pnpm site:sync` 会在 `apps/server/wrangler.jsonc` 里加上 `EMAIL` 的 `send_email` 绑定（用 Resend 时不生成）。
 
 ## 8. 部署
 
 ```bash
 cp apps/server/.env.production.example apps/server/.env.production   # 填写密钥
+pnpm -F server secrets:bulk:production -- --dry-run   # 只列出要上传的键名
 pnpm -F server secrets:bulk:production
 pnpm db:migrate
 pnpm deploy:all
 ```
+
+`secrets:bulk:production` 只上传有值的键，也不会上传 `pnpm db:migrate` 用的本地键 `CLOUDFLARE_*`；它只打印键名，不打印值。它不能交互，先运行 `npx wrangler login`；登录的账号下有多个 Cloudflare 账户时，用文件里的 `CLOUDFLARE_ACCOUNT_ID` 选定账户。
 
 `pnpm deploy:all`（以及单独的 `pnpm deploy:server` / `pnpm deploy:web`）会先跑 `pnpm check:placeholders`，没通过就停下，不会构建也不会部署。注意别写成 `pnpm deploy`：那是 pnpm 自带的命令，不会跑这里的脚本。
 

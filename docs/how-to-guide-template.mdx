@@ -20,6 +20,10 @@ template: "[template_id]"
      slug is the template id with dashes (duo_dance -> how-to-make-duo-dance).
   2. Fill in the frontmatter: `template:` is the VIDEO_TEMPLATE_IDS id, `date` is the
      publish day as YYYY-MM-DD, `author` is a file in content/author/en/.
+     Later, after a substantive change (new or corrected steps, facts, prices), add
+     `updated: "YYYY-MM-DD"` below `date` (not before it). The page's dateModified and the
+     sitemap lastmod use it. Don't bump it for typo fixes or to make the post look fresh: a
+     date that moves without real changes teaches search engines to ignore it.
   3. Replace every [bracketed note]. Write only what is true for the template on this site:
      take numbers from <TemplateValue> / <TemplateFacts> (they read app-config), the
      timeline from the template's prompt in apps/server/src/video/templates.ts, and no

@@ -33,6 +33,9 @@ export const blog = defineCollections({
   files,
   schema: frontmatterSchema.extend({
     date: z.string(),
+    // Day of the last substantive change (YYYY-MM-DD, not before `date`; checked by
+    // blog:validate). BlogPosting dateModified and the sitemap lastmod use it, else `date`.
+    updated: z.string().optional(),
     published: z.boolean().default(true),
     featured: z.boolean().optional().default(false),
     readTime: z.string().optional(),

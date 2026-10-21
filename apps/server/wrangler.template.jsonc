@@ -38,11 +38,15 @@
       "bucket_name": "{{r2Bucket}}",
     },
   ],
+  //# Cloudflare Email Service binding, only when site.config.jsonc sets emailProvider to
+  //# "cloudflare" (the Resend provider sends over HTTPS and needs no binding).
+  //#if emailProvider == "cloudflare"
   "send_email": [
     {
       "name": "EMAIL",
     },
   ],
+  //#endif
   // Email-sending auth routes (see src/middlewares/auth-email-guard.ts).
   // namespace_id must be unique within your Cloudflare account (see site.config.jsonc).
   "ratelimits": [

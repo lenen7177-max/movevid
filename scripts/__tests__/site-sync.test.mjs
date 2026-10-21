@@ -10,6 +10,7 @@ import {
   renderSiteFiles,
   renderTemplate,
   siteTokens,
+  socialSignIn,
   staleSiteFiles,
   validateSiteConfig,
 } from "../site-sync.mjs";
@@ -53,6 +54,8 @@ test("a filled-in config validates and renders without placeholders", () => {
     domain: "dancebooth.app",
     supportEmail: "support@dancebooth.app",
     socialUrls: [],
+    emailProvider: "resend",
+    socialSignIn: { google: false, github: false },
   });
   const withSocials = renderSiteFiles(
     filledSiteConfig({ socialUrls: ["https://www.tiktok.com/@dancebooth"] }),
@@ -62,6 +65,130 @@ test("a filled-in config validates and renders without placeholders", () => {
     JSON.parse(withSocials.get("packages/app-config/src/site.generated.json")).socialUrls,
     ["https://www.tiktok.com/@dancebooth"],
   );
+});
+
+test("the send_email binding is generated only for the cloudflare email provider", () => {
+  const render = (overrides) => renderSiteFiles(filledSiteConfig(overrides), ROOT);
+  const server = (files) => parseJsonc(files.get("apps/server/wrangler.jsonc"));
+  const site = (files) => JSON.parse(files.get("packages/app-config/src/site.generated.json"));
+
+  const byDefault = render({});
+  assert.equal(server(byDefault).send_email, undefined);
+  assert.equal(site(byDefault).emailProvider, "resend"); // the fixture's value
+  const resend = render({ emailProvider: "resend" });
+  assert.equal(
+    resend.get("apps/server/wrangler.jsonc"),
+    byDefault.get("apps/server/wrangler.jsonc"),
+  );
+
+  const cloudflare = render({ emailProvider: "cloudflare" });
+  assert.deepEqual(server(cloudflare).send_email, [{ name: "EMAIL" }]);
+  assert.equal(site(cloudflare).emailProvider, "cloudflare");
+  // Apart from the binding, the two outputs are the same file.
+  const withoutBinding = cloudflare
+    .get("apps/server/wrangler.jsonc")
+    .replace(/\n  "send_email": \[\n    \{\n      "name": "EMAIL",\n    \},\n  \],/, "");
+  assert.equal(withoutBinding, byDefault.get("apps/server/wrangler.jsonc"));
+});
+
+test("social sign-in is on exactly when its client id is set", () => {
+  const signIn = (publicIds) => {
+    const config = filledSiteConfig({ public: publicIds });
+    const site = JSON.parse(
+      renderSiteFiles(config, ROOT).get("packages/app-config/src/site.generated.json"),
+    );
+    assert.deepEqual(site.socialSignIn, socialSignIn(config));
+    return site.socialSignIn;
+  };
+  assert.deepEqual(signIn({ githubClientId: "", googleClientId: "" }), {
+    google: false,
+    github: false,
+  });
+  assert.deepEqual(signIn({}), { google: false, github: false });
+  assert.deepEqual(signIn({ googleClientId: "1234-abc.apps.googleusercontent.com" }), {
+    google: true,
+    github: false,
+  });
+  assert.deepEqual(signIn({ githubClientId: "Ov23liAbCdEf12345678" }), {
+    google: false,
+    github: true,
+  });
+  assert.deepEqual(signIn({ githubClientId: "   ", googleClientId: "" }), {
+    google: false,
+    github: false,
+  });
+  // Only the flags reach site.generated.json, never the ids.
+  const json = renderSiteFiles(
+    filledSiteConfig({ public: { googleClientId: "1234-abc.apps.googleusercontent.com" } }),
+    ROOT,
+  ).get("packages/app-config/src/site.generated.json");
+  assert.ok(!json.includes("googleusercontent"));
+});
+
+test("OAuth client ids are checked for shape and pasted secrets", () => {
+  const issues = (publicIds) =>
+    validateSiteConfig(filledSiteConfig({ public: publicIds })).join("\n");
+  assert.equal(issues({ googleClientId: "1234-abc.apps.googleusercontent.com" }), "");
+  assert.equal(issues({ githubClientId: "Iv1.0123456789abcdef" }), "");
+  assert.match(
+    issues({ googleClientId: "GOCSPX-abcdef" }),
+    /googleClientId looks like the client secret/,
+  );
+  assert.match(issues({ googleClientId: "1234-abc" }), /must be the OAuth client ID ending in/);
+  assert.match(
+    issues({ githubClientId: "0123456789abcdef0123456789abcdef01234567" }),
+    /githubClientId looks like the client secret/,
+  );
+  assert.match(issues({ githubClientId: "has space" }), /githubClientId "has space" must be/);
+});
+
+test("emailProvider must be a known provider", () => {
+  const { emailProvider: _omitted, ...missing } = filledSiteConfig();
+  assert.match(validateSiteConfig(missing).join("\n"), /emailProvider is required/);
+  assert.deepEqual(validateSiteConfig(filledSiteConfig({ emailProvider: "cloudflare" })), []);
+  assert.deepEqual(validateSiteConfig(filledSiteConfig({ emailProvider: "resend" })), []);
+  assert.match(
+    validateSiteConfig(filledSiteConfig({ emailProvider: "sendgrid" })).join("\n"),
+    /emailProvider "sendgrid" must be one of "resend", "cloudflare"/,
+  );
+  assert.match(
+    validateSiteConfig(filledSiteConfig({ emailProvider: "" })).join("\n"),
+    /emailProvider "" must be one of/,
+  );
+});
+
+test("//#if blocks keep or drop lines by a token's value", () => {
+  const template = [
+    "{",
+    '  "a": 1,',
+    '  //#if mode == "on"',
+    '  "on": true,',
+    '  //#if extra != ""',
+    '  "extra": "{{extra}}",',
+    "  //#endif",
+    "  //#endif",
+    '//#if mode != "on"',
+    '  "off": true,',
+    "//#endif",
+    "}",
+  ].join("\n");
+  const render = (tokens) => parseJsonc(renderTemplate(template, tokens, "t.jsonc"));
+  assert.deepEqual(render({ mode: "on", extra: "x" }), { a: 1, on: true, extra: "x" });
+  assert.deepEqual(render({ mode: "on", extra: "" }), { a: 1, on: true });
+  assert.deepEqual(render({ mode: "off", extra: "x" }), { a: 1, off: true });
+  assert.throws(() => renderTemplate('//#if nope == "x"\n//#endif', {}, "t"), /unknown token nope/);
+  assert.throws(
+    () => renderTemplate('//#if mode == "x"\n', { mode: "x" }, "t"),
+    /without \/\/#endif/,
+  );
+  assert.throws(() => renderTemplate("//#endif\n", {}, "t"), /without \/\/#if/);
+  assert.throws(() => renderTemplate("//#if mode\n//#endif", { mode: "x" }, "t"), /write \/\/#if/);
+  assert.throws(
+    () => renderTemplate('//#if mode == "x"\n//#else\n//#endif', { mode: "x" }, "t"),
+    /unknown directive \/\/#else/,
+  );
+  // Notes (`//# text`) are still dropped, not mistaken for directives.
+  assert.deepEqual(parseJsonc(renderTemplate("//# a note\n{}", {}, "t")), {});
 });
 
 test("rate-limit namespace ids accept numbers and must be distinct positive integers", () => {

@@ -6,6 +6,7 @@ import type {
   AppConfig,
   AppCreditsConfig,
   AppPlatformCommonConfig,
+  EmailProviderKey,
   ResolvedWebCommonConfig,
 } from "./types";
 
@@ -166,11 +167,11 @@ const appConfig: AppConfig = {
         emailOtpEnabled: true,
         // Controls SMS auth UI entry points.
         smsEnabled: false,
-        // Controls GitHub sign-in UI entry points.
-        githubEnabled: false,
-        // Controls Google sign-in UI entry points. Turn on after setting GOOGLE_CLIENT_ID
-        // (wrangler.jsonc) and GOOGLE_CLIENT_SECRET (secret).
-        googleEnabled: false,
+        // GitHub and Google sign-in are on exactly when site.config.jsonc has their public
+        // client id (`public.githubClientId` / `public.googleClientId`). Their client secrets
+        // are worker secrets: GITHUB_CLIENT_SECRET / GOOGLE_CLIENT_SECRET.
+        githubEnabled: site.socialSignIn?.github ?? false,
+        googleEnabled: site.socialSignIn?.google ?? false,
         // Controls Apple sign-in UI entry points.
         appleEnabled: false,
       },
@@ -212,8 +213,10 @@ const appConfig: AppConfig = {
     },
     // Outbound email provider settings.
     email: {
-      // Provider used to send transactional email.
-      provider: "cloudflare",
+      // Provider used to send transactional email: site.config.jsonc `emailProvider`
+      // (validated by `pnpm site:sync`); "cloudflare", the old fixed value, if the generated file
+      // predates the setting.
+      provider: (site.emailProvider ?? "cloudflare") as EmailProviderKey,
       // Sender address parts combined into localPart@domain.
       from: {
         localPart: "noreply",

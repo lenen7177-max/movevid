@@ -37,11 +37,6 @@
       "bucket_name": "your-project-bucket",
     },
   ],
-  "send_email": [
-    {
-      "name": "EMAIL",
-    },
-  ],
   // Email-sending auth routes (see src/middlewares/auth-email-guard.ts).
   // namespace_id must be unique within your Cloudflare account (see site.config.jsonc).
   "ratelimits": [

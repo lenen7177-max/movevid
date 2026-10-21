@@ -16,7 +16,8 @@ pnpm run dev                     # http://localhost:3001
 
 ```bash
 cp .env.production.example .env.production   # secrets only
-pnpm run secrets:bulk:production             # upload them to the worker
+pnpm run secrets:bulk:production -- --dry-run # list the key names it would upload
+pnpm run secrets:bulk:production             # upload the non-empty ones to the worker
 pnpm run db:migrate                          # apply migrations to the remote D1
 pnpm deploy:server                           # from the repo root: deploy gate, then wrangler deploy
 ```
@@ -66,6 +67,6 @@ granted the `admin` role automatically.
 | `pnpm run db:generate`             | Generate a migration from schema changes   |
 | `pnpm run db:migrate:local`        | Apply migrations to local D1               |
 | `pnpm run db:migrate`              | Apply migrations to remote D1              |
-| `pnpm run secrets:bulk:production` | Upload `.env.production` as worker secrets |
+| `pnpm run secrets:bulk:production` | Upload non-empty `.env.production` secrets |
 | `pnpm run cf-typegen`              | Regenerate `worker-configuration.d.ts`     |
 | `pnpm run email-preview`           | Preview email templates (port 4000)        |

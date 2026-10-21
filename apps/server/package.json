@@ -23,11 +23,11 @@
     "fmt:check": "oxfmt --check",
     "deploy": "wrangler deploy",
     "deploy:dev": "wrangler deploy",
-    "secrets:bulk:production": "wrangler secret bulk .env.production",
+    "secrets:bulk:production": "node scripts/secrets-bulk.mjs",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings",
     "generate-types": "wrangler types",
     "email-preview": "pnpm dlx react-email dev --dir src/emails/templates --port 4000",
-    "test:node": "node --test --import tsx src/video/__tests__/*.test.ts src/payments/providers/creem/__tests__/*.test.ts src/sms/providers/__tests__/*.test.ts src/lib/__tests__/*.test.ts src/analytics/__tests__/*.test.ts",
+    "test:node": "node --test --import tsx src/video/__tests__/*.test.ts src/payments/providers/creem/__tests__/*.test.ts src/sms/providers/__tests__/*.test.ts src/lib/__tests__/*.test.ts src/analytics/__tests__/*.test.ts scripts/__tests__/*.test.mjs",
     "dev:last-email": "node scripts/last-email.mjs"
   },
   "dependencies": {

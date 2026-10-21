@@ -2,5 +2,10 @@
   "name": "YourBrand",
   "domain": "example.com",
   "supportEmail": "support@example.com",
-  "socialUrls": []
+  "socialUrls": [],
+  "emailProvider": "resend",
+  "socialSignIn": {
+    "google": false,
+    "github": false
+  }
 }

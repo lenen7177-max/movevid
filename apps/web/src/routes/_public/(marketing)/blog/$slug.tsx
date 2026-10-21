@@ -27,6 +27,8 @@ type DetailLoaderData = {
     title: string;
     description?: string;
     date: string;
+    /** Day of the last substantive change, when the frontmatter sets `updated`. */
+    updated?: string;
     thumbnail?: string;
     readTime?: string;
     categories: Array<{ slug: string; name: string }>;
@@ -94,7 +96,7 @@ export const Route = createFileRoute("/_public/(marketing)/blog/$slug")({
                 headline: post.title,
                 description,
                 datePublished: post.date,
-                dateModified: post.date,
+                dateModified: post.updated ?? post.date,
                 inLanguage: locale,
                 image: post.thumbnail ? `${webConfig.AppUrl}${post.thumbnail}` : undefined,
                 mainEntityOfPage: `${webConfig.AppUrl}${canonicalPath}`,
@@ -170,6 +172,7 @@ const serverLoader = createServerFn({
         title: post.data.title,
         description: post.data.description,
         date: post.data.date,
+        updated: post.data.updated,
         thumbnail: post.data.thumbnail,
         readTime: post.data.readTime,
         categories,
