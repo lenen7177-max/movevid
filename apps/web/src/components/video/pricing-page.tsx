@@ -1,4 +1,5 @@
 import {
+  SINGLE_TEMPLATE_ID,
   getVideoFastCountForCredits,
   getVideoFullCountForCredits,
   videoConfig,
@@ -7,13 +8,16 @@ import { type KnownLocale, localeToHreflang } from "@repo/i18n";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@repo/ui/accordion";
 import { buttonVariants } from "@repo/ui/button";
 import { useQuery } from "@tanstack/react-query";
-import { Check, Loader2 } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { ArrowRight, Check, Loader2 } from "lucide-react";
 import type { ReactNode } from "react";
 import { usePricingCheckout } from "@/hooks/use-pricing-checkout";
 import { useLocale, useTranslations } from "@/i18n";
 import { authClient } from "@/lib/auth/auth-client";
 import { cn } from "@/lib/utils";
 import { getVideoPricing } from "@/lib/video/pricing";
+import { templatesNewestFirst } from "@/lib/video/template-catalog";
+import { templatePath } from "@/lib/video/templates";
 import { orpc } from "@/utils/orpc";
 
 // The starter pack is highlighted: its credits pay for exactly one first full video, the
@@ -245,7 +249,41 @@ function TierGuide() {
   );
 }
 
-/** Public pricing page: credit packs, the tier guide and FAQ. */
+/** Back to making a video: the template (home) page, or every template's page. */
+function PricingNext() {
+  const t = useTranslations("video.pricing.next");
+  const tTemplates = useTranslations("video.templates");
+  const links = SINGLE_TEMPLATE_ID
+    ? [{ to: "/", label: t("single", { name: tTemplates(`${SINGLE_TEMPLATE_ID}.name`) }) }]
+    : templatesNewestFirst().map((id) => ({
+        to: templatePath(id),
+        label: t("template", { name: tTemplates(`${id}.name`) }),
+      }));
+  return (
+    <section className="mx-auto mt-24 max-w-3xl px-4 text-center sm:px-6">
+      <p className="eyebrow">{t("eyebrow")}</p>
+      <h2 className="display mt-3 text-3xl sm:text-4xl">{t("title")}</h2>
+      <ul className="mt-8 flex flex-wrap justify-center gap-3">
+        {links.map((link) => (
+          <li key={link.to}>
+            <Link
+              to={link.to}
+              className={cn(
+                buttonVariants({ size: "lg", variant: SINGLE_TEMPLATE_ID ? "default" : "outline" }),
+                "rounded-full",
+              )}
+            >
+              {link.label}
+              <ArrowRight aria-hidden="true" />
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+/** Public pricing page: credit packs, the tier guide, FAQ and the way back to a template. */
 export function PricingPage() {
   const t = useTranslations("video.pricing");
   const { buyCredits, busyKey, isPending } = usePricingCheckout();
@@ -301,6 +339,8 @@ export function PricingPage() {
           ))}
         </Accordion>
       </section>
+
+      <PricingNext />
     </main>
   );
 }

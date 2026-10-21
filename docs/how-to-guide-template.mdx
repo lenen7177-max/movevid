@@ -1,0 +1,83 @@
+---
+title: "How to Make an AI [Template name] Video from [N] Photos"
+description: "[One sentence: what the guide covers.]"
+date: "[YYYY-MM-DD]"
+published: true
+featured: false
+readTime: "[N] min read"
+author: "team"
+categories: ["guides"]
+tags: ["[template name]", "how to"]
+template: "[template_id]"
+---
+
+{/*
+  Skeleton for a template's how-to guide (one per template). Not built: only
+  apps/web/content/blog/<locale>/*.mdx is compiled, so this file never reaches the sitemap.
+
+  To use it:
+  1. Copy it to apps/web/content/blog/en/how-to-make-<template-slug>.mdx, where the template
+     slug is the template id with dashes (duo_dance -> how-to-make-duo-dance).
+  2. Fill in the frontmatter: `template:` is the VIDEO_TEMPLATE_IDS id, `date` is the
+     publish day as YYYY-MM-DD, `author` is a file in content/author/en/.
+  3. Replace every [bracketed note]. Write only what is true for the template on this site:
+     take numbers from <TemplateValue> / <TemplateFacts> (they read app-config), the
+     timeline from the template's prompt in apps/server/src/video/templates.ts, and no
+     invented stats, song names or celebrities.
+  4. Run `pnpm -F web blog:validate`. The template page then shows a "Read the full guide"
+     card, and the post shows a call to action back to the template at its top and bottom.
+
+  Inline values: <TemplateValue template="<id>" name="photos | seconds | aspect | credits |
+  price | highlightSeconds | minutes" />. Price table: <TemplateFacts template="<id>" />.
+  Delete this comment once the guide is written.
+  Example: apps/web/content/blog/en/how-to-make-duo-dance.mdx (delete it together with the
+  example duo_dance template).
+*/}
+
+[Two sentences: what the template makes and who it is for.]
+
+## What the [Template name] trend is
+
+[What people recreate and why it is fun to share. Describe the format, not specific creators.]
+
+What you get: a <TemplateValue template="[template_id]" name="aspect" /> video of about <TemplateValue template="[template_id]" name="seconds" /> seconds with music, made from <TemplateValue template="[template_id]" name="photos" /> photos.
+
+## Second by second
+
+| Time    | What happens                     |
+| ------- | -------------------------------- |
+| [0–4 s] | [Shot 1, from the prompt's shots] |
+| [4–…]   | [Shot 2]                         |
+
+[If the template has a highlight cut: what the Fast version renders instead.]
+
+## Photo tips
+
+- [Who each photo slot plays, in order.]
+- [Face, light and file rules from the create form.]
+- [Pets, only if the template allowsPets.]
+- Only people who agreed to be in the video.
+
+## Step by step
+
+1. **Upload [N] photos.** [Slot names.]
+2. **Pick a version and quality.**
+
+<TemplateFacts template="[template_id]" />
+
+3. **Confirm and create.** [Consent box, create button, one-time packs from <TemplateValue template="[template_id]" name="price" />.]
+4. **Wait a few minutes.** [Photo review, render, refund on failure.]
+5. **Download or post to TikTok.** [Share flow on phones and computers.]
+
+## Common mistakes
+
+- [Mistake, and what to do instead.]
+
+## FAQ
+
+**[Question]?**
+[Answer that matches the template page FAQ.]
+
+## Sources
+
+[Where the facts come from: the template page, the pricing page, and any outside page you cite, linked.]

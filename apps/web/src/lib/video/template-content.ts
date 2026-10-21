@@ -1,12 +1,40 @@
-import { type VideoTemplateId, videoTemplates } from "@repo/app-config/video";
+import { resolveWebCommonConfig } from "@repo/app-config";
+import {
+  type VideoTemplateId,
+  getVideoPurchaseQuote,
+  videoTemplateAllowsPets,
+  videoTemplates,
+} from "@repo/app-config/video";
 import { type Locale } from "@repo/i18n";
 import { type Messages, createTranslator } from "use-intl";
 import { webConfig } from "@/configs/web-config";
 import { getMessages } from "@/i18n";
+import { getVideoPricing } from "./pricing";
 import { templateFromCredits } from "./template-catalog";
 
 export const TEMPLATE_STEP_KEYS = ["upload", "render", "share"] as const;
 export const TEMPLATE_FAQ_KEYS = ["photos", "time", "refund", "privacy", "commercial"] as const;
+/**
+ * Asked on every template page, after its own or the default questions: price, pets (only
+ * where the template takes them), posting to TikTok and watermarks.
+ */
+export const TEMPLATE_SHARED_FAQ_KEYS = ["free", "pets", "tiktok", "watermark"] as const;
+export const TEMPLATE_WHO_KEYS = ["yourself", "friend", "parents", "pet"] as const;
+
+const usd = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  currencyDisplay: "narrowSymbol",
+});
+
+/**
+ * Cents of the cheapest pack that pays for the template's cheapest render for a new visitor
+ * (no credits yet), or null when no pack is big enough. Same rule as the create button.
+ */
+export function templateFromPriceCents(templateId: VideoTemplateId): number | null {
+  const quote = getVideoPurchaseQuote(templateFromCredits(templateId), 0, getVideoPricing().packs);
+  return quote?.kind === "pack" ? quote.pack.amountCents : null;
+}
 
 /**
  * Translator over the `video` messages: `useTranslations("video")` in components,
@@ -32,6 +60,11 @@ export function templateCopyValues(templateId: VideoTemplateId) {
     seconds: template.durationSeconds,
     aspect: template.aspectRatio,
     credits: templateFromCredits(templateId),
+    // "$9.99", or the credits when no pack covers a render (then nothing is for sale anyway).
+    price: (() => {
+      const cents = templateFromPriceCents(templateId);
+      return cents == null ? `${templateFromCredits(templateId)} credits` : usd.format(cents / 100);
+    })(),
   };
 }
 
@@ -40,9 +73,11 @@ export type TemplateFaqItem = { q: string; a: string };
 /**
  * A template page's own copy. Each template can set, under `video.templates.<id>` in the web
  * messages: `seoTitle`, `h1`, `faq` (a list of {q, a}), `trend` ({title?, body: [paragraphs]})
- * and `samples` (one caption per sample-wall clip). Anything left out falls back to the shared
- * copy in `video.templatePage`. All of them may use {name}, {appName}, {photos}, {seconds},
- * {aspect} and {credits}.
+ * `samples` (one caption per sample-wall clip), `cta` (the create button, "Make my … video")
+ * and `who` (same shape as `video.templatePage.who`, any key). Anything left out falls back to
+ * the shared copy in `video.templatePage`. All of them may use {name}, {appName}, {photos},
+ * {seconds}, {aspect}, {credits} and {price}. The shared questions (TEMPLATE_SHARED_FAQ_KEYS)
+ * follow the template's own FAQ, minus any it already asks word for word.
  */
 export function templatePageContent(t: VideoTranslator, templateId: VideoTemplateId) {
   const own = (key: string) => `templates.${templateId}.${key}`;
@@ -53,7 +88,27 @@ export function templatePageContent(t: VideoTranslator, templateId: VideoTemplat
     return Array.isArray(raw) ? raw.map((_, index) => `${key}.${index}`) : null;
   };
 
-  const faqKeys = list(own("faq")) ?? TEMPLATE_FAQ_KEYS.map((key) => `templatePage.faq.${key}`);
+  const allowsPets = videoTemplateAllowsPets(templateId);
+  const signupGrant = resolveWebCommonConfig().credits?.signupGrant;
+  const grant = signupGrant?.enabled ? signupGrant.amount : null;
+  const faqValues = { ...values, grant: grant ?? 0 };
+  const sharedFaqKeys = TEMPLATE_SHARED_FAQ_KEYS.flatMap((key) => {
+    if (key === "pets" && !allowsPets) return [];
+    // "Is it free?" answers from the signup grant setting: not free unless it is on.
+    if (key === "free" && grant != null) return ["templatePage.faq.freeGrant"];
+    return [`templatePage.faq.${key}`];
+  });
+  const faqKeys = [
+    ...(list(own("faq")) ?? TEMPLATE_FAQ_KEYS.map((key) => `templatePage.faq.${key}`)),
+    ...sharedFaqKeys,
+  ];
+  const faq: TemplateFaqItem[] = [];
+  for (const key of faqKeys) {
+    const q = t(`${key}.q`, faqValues);
+    if (!faq.some((item) => item.q === q)) faq.push({ q, a: t(`${key}.a`, faqValues) });
+  }
+  // A template's own `who` copy wins key by key over the shared one.
+  const pick = (key: string) => t(t.has(own(key)) ? own(key) : `templatePage.${key}`, values);
   const trendBody = list(own("trend.body")) ?? list("templatePage.trend.body") ?? [];
 
   return {
@@ -62,9 +117,15 @@ export function templatePageContent(t: VideoTranslator, templateId: VideoTemplat
     seoTitle: t(t.has(own("seoTitle")) ? own("seoTitle") : "templatePage.seoTitle", values),
     h1: t.has(own("h1")) ? t(own("h1"), values) : name,
     description: t(own("description"), values),
-    faq: faqKeys.map(
-      (key): TemplateFaqItem => ({ q: t(`${key}.q`, values), a: t(`${key}.a`, values) }),
-    ),
+    faq,
+    who: {
+      title: pick("who.title"),
+      cards: TEMPLATE_WHO_KEYS.filter((key) => key !== "pet" || allowsPets).map((key) => ({
+        key,
+        title: pick(`who.cards.${key}.title`),
+        body: pick(`who.cards.${key}.body`),
+      })),
+    },
     trend: {
       title: t(t.has(own("trend.title")) ? own("trend.title") : "templatePage.trend.title", values),
       paragraphs: trendBody.map((key) => t(key, values)),

@@ -14,6 +14,8 @@ export interface BlogFrontmatter {
   author: string;
   categories: string[];
   tags?: string[];
+  /** The video template this post is the how-to guide for. */
+  template?: string;
 }
 
 export interface BlogPage {
@@ -85,6 +87,11 @@ export function sortBlogPagesByDateDesc(pages: BlogPage[]): BlogPage[] {
 
 export function getBlogPageBySlug(slug: string, locale: string): BlogPage | undefined {
   return blogSource.getPage([slug], locale) as BlogPage | undefined;
+}
+
+/** The published how-to guide paired with a template (`template:` frontmatter), if any. */
+export function getTemplateGuidePage(templateId: string, locale: string): BlogPage | undefined {
+  return getPublishedBlogPages(locale).find((page) => page.data.template === templateId);
 }
 
 export function getAuthorPageBySlug(slug: string, locale: string): AuthorPage | undefined {

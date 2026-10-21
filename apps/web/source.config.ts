@@ -40,5 +40,7 @@ export const blog = defineCollections({
     author: z.string(),
     categories: z.array(z.string()),
     tags: z.array(z.string()).optional().default([]),
+    // How-to guide for a video template (a VIDEO_TEMPLATE_IDS id, checked by blog:validate).
+    template: z.string().optional(),
   }),
 });

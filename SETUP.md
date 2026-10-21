@@ -8,10 +8,11 @@ are stale. It is the deploy gate: it exits 1 while anything is left, and `pnpm d
 ## 0. One file per site: `site.config.jsonc`
 
 Site identity and Cloudflare settings live in `site.config.jsonc` at the repo root (each field
-is commented): name, domain, media bucket URL, worker names, D1 name and id, R2 bucket, the
-two rate-limit namespace ids (positive integers, unique within your Cloudflare account and
-different from each other), the Turnstile site key and optional public IDs (OAuth client IDs,
-analytics, Tawk.to, APIMart asset group). After editing it run `pnpm site:sync`, which
+is commented): name, domain, optional social profile URLs (`socialUrls`: the Organization
+JSON-LD `sameAs` and footer links; empty for none), media bucket URL, worker names, D1 name and
+id, R2 bucket, the two rate-limit namespace ids (positive integers, unique within your
+Cloudflare account and different from each other), the Turnstile site key and optional public
+IDs (OAuth client IDs, analytics, Tawk.to, APIMart asset group). After editing it run `pnpm site:sync`, which
 rewrites `apps/server/wrangler.jsonc`, `apps/web/wrangler.jsonc` (from their
 `wrangler.template.jsonc`), the PWA name in `apps/web/public/manifest.webmanifest` and
 `packages/app-config/src/site.generated.json`. Never edit those by hand: the deploy gate
@@ -55,7 +56,7 @@ uses TanStack devtools on port 42069, start the web app with `DEVTOOLS_PORT=4216
 
 | What                                         | Where                                                                          |
 | -------------------------------------------- | ------------------------------------------------------------------------------ |
-| Product name, domain, support email          | `site.config.jsonc` (then `pnpm site:sync`)                                    |
+| Product name, domain, support email, socials | `site.config.jsonc` (then `pnpm site:sync`)                                    |
 | Email sender                                 | `noreply@<domain>`; the local part is in `app-config.ts` → `common.email.from` |
 | Colors, radius, fonts                        | `packages/ui/src/styles/theme.css` (`--primary`, `--ring`, `.dark`)            |
 | Logo                                         | `apps/web/src/components/logos/svg/logo.tsx` and `apps/web/public/logo.svg`    |
@@ -210,6 +211,9 @@ For IndexNow, export `INDEXNOW_KEY` before deploying (or put it in `apps/web/.en
 ## 9. Before launch
 
 - [ ] `pnpm check:placeholders` passes (exit 0)
+- [ ] After the deploy, `pnpm launch:check https://<domain>` passes: no-JS checks of status
+      codes, http/www redirects, robots.txt, sitemap, llms.txt, the IndexNow key file
+      (`INDEXNOW_KEY=… pnpm launch:check …`) and the home page's head, JSON-LD and links
 - [ ] Templates have your own reference clips, soundtracks, posters and previews
 - [ ] Stripe is in live mode with live price IDs, and the webhook is receiving events
 - [ ] A test render completes, the soundtrack plays, and a forced failure refunds credits

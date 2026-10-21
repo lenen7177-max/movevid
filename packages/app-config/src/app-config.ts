@@ -151,8 +151,8 @@ const appConfig: AppConfig = {
       supportEmail: site.supportEmail,
       // Official marketing or product website.
       websiteUrl: `https://${site.domain}`,
-      // Public social profile URL.
-      socialUrl: "https://x.com/your_handle",
+      // Public social profiles (site.config.jsonc `socialUrls`); empty for none.
+      socialUrls: site.socialUrls,
     },
     // Authentication provider settings shared by platform UIs.
     auth: {

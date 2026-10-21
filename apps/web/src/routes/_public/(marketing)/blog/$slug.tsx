@@ -13,6 +13,8 @@ import { HashScrollHandler } from "@/components/blog/hash-scroll-handler";
 import { MobileToc } from "@/components/blog/mobile-toc";
 import { ReadMoreSection } from "@/components/blog/read-more-section";
 import { TableOfContents } from "@/components/blog/table-of-contents";
+import { TemplateCta } from "@/components/blog/template-cta";
+import { type VideoTemplateId, isVideoTemplateId } from "@repo/app-config/video";
 import { buttonVariants } from "@repo/ui/button";
 import { webConfig } from "@/configs/web-config";
 import { getCurrentLocale, getMessages, type Locale, useLocale, useTranslations } from "@/i18n";
@@ -28,6 +30,8 @@ type DetailLoaderData = {
     thumbnail?: string;
     readTime?: string;
     categories: Array<{ slug: string; name: string }>;
+    /** Set when the post is a template's how-to guide. */
+    template: VideoTemplateId | null;
   };
   author?: {
     name: string;
@@ -169,6 +173,7 @@ const serverLoader = createServerFn({
         thumbnail: post.data.thumbnail,
         readTime: post.data.readTime,
         categories,
+        template: isVideoTemplateId(post.data.template) ? post.data.template : null,
       },
       author: author
         ? {
@@ -234,6 +239,9 @@ function RouteComponent() {
               {loaderData.post.description}
             </p>
           ) : null}
+          {loaderData.post.template ? (
+            <TemplateCta templateId={loaderData.post.template} className="max-w-4xl" />
+          ) : null}
         </div>
       </div>
       <div className="relative z-10 flex border-x border-border lg:items-start lg:divide-x lg:divide-border">
@@ -260,6 +268,9 @@ function RouteComponent() {
                 })}
               </Suspense>
             </div>
+            {loaderData.post.template ? (
+              <TemplateCta templateId={loaderData.post.template} className="mt-10" />
+            ) : null}
           </div>
 
           <div className="mt-10">

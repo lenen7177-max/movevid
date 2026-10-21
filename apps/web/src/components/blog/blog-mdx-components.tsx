@@ -2,6 +2,7 @@ import defaultMdxComponents from "fumadocs-ui/mdx";
 import type { MDXComponents } from "mdx/types";
 import type { HTMLAttributes } from "react";
 import { CopyHeader } from "./copy-header";
+import { TemplateFacts, TemplateValue } from "./template-facts";
 
 function createHeading(level: 1 | 2 | 3 | 4 | 5 | 6) {
   const Heading = ({ children, ...props }: HTMLAttributes<HTMLHeadingElement>) => {
@@ -25,6 +26,8 @@ export function getBlogMdxComponents(components?: MDXComponents): MDXComponents 
     h4: createHeading(4),
     h5: createHeading(5),
     h6: createHeading(6),
+    TemplateFacts,
+    TemplateValue,
     ...components,
   };
 }

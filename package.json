@@ -30,6 +30,7 @@
     "commit": "git add . && npx cz",
     "clean": "rm -rf node_modules apps/*/node_modules packages/*/node_modules .turbo apps/*/.turbo && pnpm store prune",
     "check:placeholders": "node scripts/check-placeholders.mjs",
+    "launch:check": "node scripts/launch-check.mjs",
     "site:sync": "node scripts/site-sync.mjs",
     "test": "turbo test && pnpm test:scripts",
     "test:scripts": "node --test \"scripts/__tests__/*.test.mjs\"",

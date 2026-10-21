@@ -261,3 +261,27 @@ export function getVideoFastCountForCredits(
   const cost = getVideoCreditsCost("480p", templateId, "seedance-2.0-fast");
   return cost > 0 ? Math.floor(credits / cost) : 0;
 }
+
+/** A credit pack as the storefront shows it: credits delivered and the price in cents. */
+export type VideoPackOffer = { id: string; credits: number; amountCents: number };
+
+/**
+ * What the create button quotes for a render that costs `cost` credits: the credits themselves
+ * when the balance covers them, else the cheapest pack that makes up the shortfall (buying it
+ * pays for this render), or null when no pack is big enough.
+ */
+export function getVideoPurchaseQuote(
+  cost: number,
+  balance: number,
+  packs: readonly VideoPackOffer[],
+): { kind: "credits"; credits: number } | { kind: "pack"; pack: VideoPackOffer } | null {
+  if (balance >= cost) return { kind: "credits", credits: cost };
+  const shortfall = cost - Math.max(0, balance);
+  const pack = packs
+    .filter((option) => option.credits >= shortfall)
+    .reduce<VideoPackOffer | null>(
+      (best, option) => (best && best.amountCents <= option.amountCents ? best : option),
+      null,
+    );
+  return pack ? { kind: "pack", pack } : null;
+}

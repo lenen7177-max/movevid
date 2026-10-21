@@ -255,8 +255,8 @@ export type AppCommonConfig = {
     supportEmail: string;
     /** Official website URL. */
     websiteUrl: string;
-    /** Social media URL (e.g. X/Twitter profile). */
-    socialUrl: string;
+    /** Public social profile URLs (TikTok, X, …); empty when the site lists none. */
+    socialUrls: readonly string[];
   };
   /** Authentication provider configuration shared by auth UIs. */
   auth: {

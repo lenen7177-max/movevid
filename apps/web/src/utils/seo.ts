@@ -82,7 +82,8 @@ function applyLocalePrefix(path: string, locale: Locale): string {
   return `/${locale}${path === "/" ? "" : path}`;
 }
 
-function resolveOrigin(): string {
+/** Origin used for canonical URLs and structured data: VITE_APP_URL, else the request's. */
+export function resolveOrigin(): string {
   const configuredOrigin = trimTrailingSlash(import.meta.env.VITE_APP_URL ?? "");
   if (configuredOrigin) {
     return configuredOrigin;

@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { checkTemplateGuides, readTemplateIds } from "./blog-guides.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -110,16 +111,22 @@ for (const collection of collections) {
 }
 
 const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+const warnings = [];
+const templateIds = readTemplateIds(
+  path.resolve(projectRoot, "../../packages/app-config/src/video.ts"),
+);
 
 for (const locale of locales) {
   const authorSlugs = new Set(listCollectionSlugs("author", locale));
   const categorySlugs = new Set(listCollectionSlugs("category", locale));
   const blogFiles = listCollectionFiles("blog", locale);
+  const guidePosts = [];
 
   for (const file of blogFiles) {
     const filePath = path.join(projectRoot, "content", "blog", locale, file);
     const frontmatter = parseFrontmatter(filePath);
     const slug = file.replace(/\.mdx$/, "");
+    guidePosts.push({ slug, template: frontmatter.template, published: frontmatter.published });
 
     const requiredFields = ["title", "date", "author", "categories"];
     for (const field of requiredFields) {
@@ -148,7 +155,14 @@ for (const locale of locales) {
       }
     }
   }
+
+  // How-to guides pair with templates through `template: <template_id>`.
+  const pairing = checkTemplateGuides(guidePosts, templateIds, { locale });
+  errors.push(...pairing.errors);
+  warnings.push(...pairing.warnings);
 }
+
+for (const warning of warnings) console.warn(`warning: ${warning}`);
 
 if (errors.length > 0) {
   console.error("Blog content validation failed:");

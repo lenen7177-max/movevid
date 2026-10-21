@@ -5,6 +5,8 @@ import { fillPricingValues } from "@/components/video/pricing-page";
 import { TemplatePage } from "@/components/video/template-page";
 import { webConfig } from "@/configs/web-config";
 import { getCurrentLocale, getMessages } from "@/i18n";
+import { organizationId, organizationLd, webSiteLd } from "@/lib/seo/site-ld";
+import { fetchTemplateGuide } from "@/lib/video/template-guide";
 import { buildTemplateHead } from "@/lib/video/template-seo";
 import { buildSeoHead } from "@/utils/seo";
 
@@ -16,11 +18,19 @@ function webApplicationLd(description: string, locale: string) {
     applicationCategory: "MultimediaApplication",
     operatingSystem: "Web",
     inLanguage: locale,
-    publisher: { "@type": "Organization", name: webConfig.AppName },
+    publisher: { "@id": organizationId() },
   };
 }
 
 export const Route = createFileRoute("/_public/(marketing)/(landing-page)/")({
+  // A single-template home page links to that template's how-to guide.
+  loader: async () => ({
+    guide: SINGLE_TEMPLATE_ID
+      ? await fetchTemplateGuide({
+          data: { templateId: SINGLE_TEMPLATE_ID, locale: getCurrentLocale() },
+        })
+      : null,
+  }),
   head: () => {
     const locale = getCurrentLocale();
     const { seo, home, templates } = getMessages(locale).video;
@@ -28,7 +38,9 @@ export const Route = createFileRoute("/_public/(marketing)/(landing-page)/")({
     // Single-template site: the home page is that template's landing page, so its title and
     // H1 lead with the template's keyword and /templates/<slug> redirects here.
     if (SINGLE_TEMPLATE_ID) {
+      // buildTemplateHead adds the Organization node itself.
       return buildTemplateHead(SINGLE_TEMPLATE_ID, [
+        webSiteLd(locale),
         webApplicationLd(templates[SINGLE_TEMPLATE_ID].description, locale),
       ]);
     }
@@ -44,6 +56,8 @@ export const Route = createFileRoute("/_public/(marketing)/(landing-page)/")({
       ldJson: {
         "@context": "https://schema.org",
         "@graph": [
+          organizationLd(),
+          webSiteLd(locale),
           webApplicationLd(seo.home.description, locale),
           {
             "@type": "FAQPage",
@@ -65,5 +79,10 @@ export const Route = createFileRoute("/_public/(marketing)/(landing-page)/")({
 });
 
 function HomeRoute() {
-  return SINGLE_TEMPLATE_ID ? <TemplatePage templateId={SINGLE_TEMPLATE_ID} /> : <HomePage />;
+  const { guide } = Route.useLoaderData();
+  return SINGLE_TEMPLATE_ID ? (
+    <TemplatePage templateId={SINGLE_TEMPLATE_ID} guide={guide} />
+  ) : (
+    <HomePage />
+  );
 }

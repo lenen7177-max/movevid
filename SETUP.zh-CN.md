@@ -9,7 +9,7 @@
 **站点身份和 Cloudflare 配置：只改 `site.config.jsonc`**
 
 - [ ] 根目录 `site.config.jsonc`，每项都有注释：
-  - 站点名 `name`、域名 `domain`、素材桶地址 `mediaUrl`，可选 `supportEmail`、`shortName`
+  - 站点名 `name`、域名 `domain`、素材桶地址 `mediaUrl`，可选 `supportEmail`、`shortName`、`socialUrls`（社媒主页 https 链接，用于 Organization JSON-LD 的 sameAs 和页脚，留空则不显示）
   - Worker 名 `cloudflare.webWorker` / `serverWorker`
   - D1 名称和 id `d1DatabaseName` / `d1DatabaseId`
   - R2 桶名 `r2Bucket`
@@ -35,13 +35,14 @@
 - [ ] `apps/server/src/video/templates.ts`：参考视频、配乐、提示词
 - [ ] `apps/web/src/lib/video/templates.ts`：封面、预览、示例成片、视频墙 `samples`（3–6 条）
 - [ ] `packages/i18n/src/messages/web/en.json` → `video.templates.<id>`：名称、介绍、关键词，以及可选的 `seoTitle`、`h1`、`faq`、`trend`、`samples`
-- [ ] 删掉不用的示例模板（`duo_dance`、`solo_spotlight`、`squad_walk`）：上面四处一起删，再删 `apps/web/public/templates/<id>/`。只剩 1 个模板时首页自动变成该模板的落地页
+- [ ] 删掉不用的示例模板（`duo_dance`、`solo_spotlight`、`squad_walk`）：上面四处一起删，再删 `apps/web/public/templates/<id>/` 和它配对的示例教程文章（`apps/web/content/blog/en/how-to-make-<slug>.mdx`，如 `how-to-make-duo-dance.mdx`）。只剩 1 个模板时首页自动变成该模板的落地页
 - [ ] 素材桶上传参考视频、配乐、预览和样片（第 5 节）
 
 **文案与内容**
 
 - [ ] `packages/i18n/src/messages/web/en.json` → `video`：首页、定价、FAQ 等全站文案；→ `legal`：隐私政策和服务条款（按当地法律审核）。站点只开英文，`zh.json`、`jp.json` 不用改
 - [ ] `apps/web/content/blog/en/`：替换示例文章（`date` 写成 `YYYY-MM-DD`），`content/author/en/team.mdx` 改成你的作者；改完跑 `pnpm -F web blog:validate`
+- [ ] 每个模板配一篇教程：`content/blog/en/how-to-make-<模板 slug>.mdx`，frontmatter 写 `template: <模板 id>`（骨架在 `docs/how-to-guide-template.mdx`，数字用 `<TemplateValue>` / `<TemplateFacts>` 从配置读）。模板页会出现「Read the full guide」卡片，文章顶部和底部会链接回模板页；没有教程的模板 `blog:validate` 只警告
 
 **支付与密钥**
 
@@ -115,7 +116,8 @@ pnpm dev:web+server
    - `faq`：`[{ "q": "…", "a": "…" }]`，替换通用 FAQ（页面和 FAQPage 结构化数据都用它）。
    - `trend`：`{ "title": "…", "body": ["段落", "段落"] }`，「What is the {X} trend」段落；`title` 可省略，默认「What is the {name} trend?」。
    - `samples`：视频墙每条样片的标题，按顺序一条一个字符串。
-   - 以上都可以用 `{name}`、`{appName}`、`{photos}`、`{seconds}`、`{aspect}`、`{credits}`。
+   - `cta`：生成按钮文字，默认「Make my {name} video」，价格自动加在后面；`who`：「Who to make it of」卡片，结构同 `video.templatePage.who`，可只覆盖部分键。
+   - 以上都可以用 `{name}`、`{appName}`、`{photos}`、`{seconds}`、`{aspect}`、`{credits}`、`{price}`（能买下最便宜一次渲染的最小充值包价格）。
 4. **展示素材**：`apps/web/src/lib/video/templates.ts`：封面、预览视频、可选的示例结果 `sample`，以及视频墙 `samples`（3–6 条，类型上限制了数量，例如 `[1, 2, 3, 4].map((n) => sampleClip("<id>", n))`，对应素材桶里的 `templates/<id>/samples/<n>.mp4` 和 `<n>.jpg`）。每条样片输出一个 VideoObject，第一条有声成片作为 `og:video`。
 
 模板详情页（`/templates/<id 用短横线>`）、模板列表、工作台、sitemap 和 llms.txt 会自动更新。`pnpm -F @repo/app-config test` 检查每个模板的毛利率和上线日期，`pnpm -F server test` 检查提示词长度不超过 Seedance 上限、照片数和 `@图片` 一致。测试会遍历所有模板 id，删掉示例模板不会挂。

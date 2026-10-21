@@ -4,6 +4,8 @@ export interface WebConfig {
   AppName: string;
   AppUrl: string;
   SupportEmail: string;
+  /** Public social profiles from site.config.jsonc; empty for none. */
+  SocialUrls: readonly string[];
   adminUserManagementEnabled: boolean;
   adminPaidUsersEnabled: boolean;
   pwa: Required<Pick<NonNullable<AppWebConfig["pwa"]>, "enabled">> &

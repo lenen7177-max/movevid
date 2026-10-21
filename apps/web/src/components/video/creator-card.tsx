@@ -23,17 +23,21 @@ type CreatorCardProps = {
   /** Shows a template switcher; without it the template is fixed (landing pages). */
   onTemplateChange?: (templateId: VideoTemplateId) => void;
   disabled?: boolean;
-  /** Primary action shown next to "Try sample photos" (generate, sign in, buy credits). */
+  /** Primary action (generate, buy credits), full width under the controls. */
   primaryAction: ReactNode;
   /** Optional controls between the template bar and the actions (quality, cost). */
   children?: ReactNode;
+  /** Shown right above the primary action, e.g. the consent checkbox. */
+  beforeAction?: ReactNode;
   /** Optional note under the actions. */
   footer?: ReactNode;
+  /** The fixed-template bar (name · photos · length); landing pages already show it in the H1. */
+  showTemplateBar?: boolean;
   id?: string;
   className?: string;
 };
 
-/** Shared creator: photo pair, template bar, sample photos and the primary action. */
+/** Shared creator: photo pair, sample photos, template bar and the primary action. */
 export function CreatorCard({
   pair,
   templateId,
@@ -41,7 +45,9 @@ export function CreatorCard({
   disabled,
   primaryAction,
   children,
+  beforeAction,
   footer,
+  showTemplateBar = true,
   id,
   className,
 }: CreatorCardProps) {
@@ -90,6 +96,20 @@ export function CreatorCard({
         allowsPets={videoTemplateAllowsPets(templateId)}
         disabled={disabled}
       />
+      {showSamples ? (
+        // Fills the photo slots above, so it sits right under them.
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          className="mt-3 w-full"
+          disabled={loadingSamples || disabled}
+          onClick={trySamples}
+        >
+          <Sparkles aria-hidden="true" />
+          {t("studio.trySamples")}
+        </Button>
+      ) : null}
       {onTemplateChange ? (
         <fieldset className="mt-4" disabled={disabled}>
           <legend className="mb-2 flex items-center gap-2 text-sm font-medium">
@@ -128,7 +148,7 @@ export function CreatorCard({
             ))}
           </div>
         </fieldset>
-      ) : (
+      ) : showTemplateBar ? (
         <div className="bg-muted/60 mt-4 flex items-center justify-between gap-3 rounded-xl px-3 py-2.5">
           <span className="flex items-center gap-2 text-sm font-medium">
             <Clapperboard className="text-primary size-4" aria-hidden="true" />
@@ -138,23 +158,10 @@ export function CreatorCard({
             {isNewTemplate(templateId) ? t("card.new") : templateMeta(templateId)}
           </span>
         </div>
-      )}
+      ) : null}
       {children}
-      <div className={cn("mt-4 grid gap-2", showSamples && "sm:grid-cols-2")}>
-        {showSamples ? (
-          <Button
-            type="button"
-            variant="outline"
-            size="lg"
-            disabled={loadingSamples || disabled}
-            onClick={trySamples}
-          >
-            <Sparkles aria-hidden="true" />
-            {t("studio.trySamples")}
-          </Button>
-        ) : null}
-        {primaryAction}
-      </div>
+      {beforeAction}
+      <div className="mt-3 grid">{primaryAction}</div>
       {footer}
     </div>
   );

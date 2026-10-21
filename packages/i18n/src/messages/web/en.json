@@ -46,7 +46,22 @@
       "backToBlog": "Back to Blog",
       "onThisPage": "On this page",
       "readMore": "Read more",
-      "loading": "Loading article..."
+      "loading": "Loading article...",
+      "templateCta": {
+        "eyebrow": "Try the template",
+        "title": "Make your own {name} video",
+        "body": "Add {photosLabel} and get a {seconds}-second {aspect} video with music in a few minutes.",
+        "button": "Open the {name} template"
+      },
+      "templateFacts": {
+        "version": "Version",
+        "length": "Length",
+        "quality": "Quality",
+        "credits": "Credits",
+        "wait": "Typical wait",
+        "seconds": "{seconds} s",
+        "minutes": "About {minutes} min"
+      }
     }
   },
   "auth": {
@@ -971,11 +986,14 @@
       },
       "balance": "Balance: {balance} credits",
       "generate": "Generate video",
+      "ctaPrice": "{label} · {price}",
+      "ctaCredits": "{label} · {cost} credits",
       "viewSample": "See the sample result",
       "sampleFree": "Sample photos: free preview, no credits used",
       "buyCredits": "Get more credits",
       "submitting": "Starting render…",
-      "consent": "By generating you confirm everyone pictured agreed to be featured.",
+      "consentCheck": "I'm 18 or older, and everyone in my photos is me or an adult who agreed to be in this video. No celebrities, public figures or anyone under 18.",
+      "reassurance": "AI-generated video · One-time payment · No subscription · Ready in about {minutes} min · Credits back if it fails",
       "result": {
         "title": "Your video",
         "emptyTitle": "Your video will appear here",
@@ -1107,8 +1125,10 @@
     "templatePage": {
       "seoTitle": "{name} — AI video template | {appName}",
       "back": "All templates",
-      "eyebrow": "Template",
+      "eyebrow": "AI-generated video template",
+      "cta": "Make my {name} video",
       "playSample": "Play the sample video",
+      "sampleBadge": "AI-generated sample · not your result",
       "facts": {
         "photos": "Photos",
         "length": "Length",
@@ -1133,6 +1153,11 @@
           "body": "Get a {aspect} MP4 of about {seconds} seconds with music, ready for TikTok, Reels or Shorts."
         }
       },
+      "guide": {
+        "eyebrow": "The full guide",
+        "cta": "Read the full guide",
+        "blog": "Photo tips and more guides on the blog"
+      },
       "trendEyebrow": "The trend",
       "trend": {
         "title": "What is the {name} trend?",
@@ -1140,6 +1165,34 @@
           "{name} is a short video format people recreate on TikTok, Instagram Reels and YouTube Shorts: the moves, the camera and the music stay the same, and only the faces change. That is what makes each version easy to recognize and fun to share.",
           "You don't need to film or edit anything to join in. Add {photos, plural, one {one photo} other {up to # photos}} and the template recreates the whole {seconds}-second clip with you in it, as a {aspect} video ready to post."
         ]
+      },
+      "who": {
+        "eyebrow": "Who to make it of",
+        "title": "Who will you put in your {name} video?",
+        "cards": {
+          "yourself": {
+            "title": "Yourself",
+            "body": "Use a clear, front-facing selfie and star in the {name} video yourself."
+          },
+          "friend": {
+            "title": "A friend",
+            "body": "Make one with your best friend, then send it to them or post it together."
+          },
+          "parents": {
+            "title": "Your parents",
+            "body": "Put your mum and dad in a trend they would never film themselves. Ask them first."
+          },
+          "pet": {
+            "title": "Your pet",
+            "body": "This template also works with a photo of your cat, dog or other pet, one animal per photo."
+          }
+        }
+      },
+      "pricing": {
+        "eyebrow": "Pricing",
+        "title": "Pay once, no subscription",
+        "lede": "Credits come in one-time packs and never renew. Your {name} video starts at {price}.",
+        "allPacks": "See every pack and what each version costs"
       },
       "wall": {
         "eyebrow": "Examples",
@@ -1167,7 +1220,31 @@
         "commercial": {
           "q": "Can I post it on social media?",
           "a": "Yes — the MP4 is yours to post. Make sure everyone in it agreed to appear."
+        },
+        "free": {
+          "q": "Is it free?",
+          "a": "No. Each video costs credits, and credits come in one-time packs from {price}. There is no subscription."
+        },
+        "freeGrant": {
+          "q": "Is it free?",
+          "a": "New accounts can get {grant} free credits to try it. After that each video costs credits from one-time packs, starting at {price}. There is no subscription."
+        },
+        "pets": {
+          "q": "Can I use my pet?",
+          "a": "Yes. This template works with a clear, front-facing photo of your cat, dog or other pet as well as with people, one animal per photo."
+        },
+        "tiktok": {
+          "q": "How do I post it on TikTok?",
+          "a": "When your video is ready, press Share. On a phone it opens the share sheet, where you pick TikTok; on a computer the TikTok button downloads the MP4, copies a caption and opens TikTok's upload page, so you drag the video in and paste the caption. If TikTok mutes the music, add a track from its own sound library."
+        },
+        "watermark": {
+          "q": "Is there a watermark?",
+          "a": "No. Videos are rendered without a watermark and the MP4 you download is yours to post."
         }
+      },
+      "closing": {
+        "title": "Make your {name} video now",
+        "body": "Add {photos, plural, one {your photo} other {your photos}}, pick a version and get your video in a few minutes."
       }
     },
     "home": {
@@ -1389,6 +1466,12 @@
           "a": "Failed renders are refunded in credits automatically. For billing questions, contact support."
         }
       ],
+      "next": {
+        "eyebrow": "Ready?",
+        "title": "Pick a template and make your video",
+        "single": "Make my {name} video",
+        "template": "{name} template"
+      },
       "creditsAddedToast": "{credits} credits added to your account.",
       "creditsAddedAction": "Create a video",
       "unfinishedToast": "You have an unfinished purchase: {credits} credits ({price}).",

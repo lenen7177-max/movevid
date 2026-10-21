@@ -10,6 +10,28 @@ type FooterLink = { label: string; to: string; hash?: string };
 
 const currentYear = new Date().getFullYear();
 
+const SOCIAL_NAMES: Record<string, string> = {
+  "tiktok.com": "TikTok",
+  "instagram.com": "Instagram",
+  "youtube.com": "YouTube",
+  "x.com": "X",
+  "twitter.com": "X",
+  "facebook.com": "Facebook",
+  "linkedin.com": "LinkedIn",
+  "threads.net": "Threads",
+  "pinterest.com": "Pinterest",
+};
+
+/** "TikTok" for https://www.tiktok.com/@brand; the bare host for anything else. */
+function socialLabel(url: string): string {
+  try {
+    const host = new URL(url).hostname.replace(/^www\./, "");
+    return SOCIAL_NAMES[host] ?? host;
+  } catch {
+    return url;
+  }
+}
+
 /** Marketing footer: brand, product links, every template, legal. */
 export function SiteFooter() {
   const t = useTranslations("video.footer");
@@ -60,6 +82,22 @@ export function SiteFooter() {
             >
               {webConfig.SupportEmail}
             </a>
+            {webConfig.SocialUrls.length > 0 ? (
+              <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+                {webConfig.SocialUrls.map((url) => (
+                  <li key={url}>
+                    <a
+                      href={url}
+                      target="_blank"
+                      rel="me noopener noreferrer"
+                      className="text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      {socialLabel(url)}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
           </div>
           {sections.map((section) => (
             <div key={section.title}>

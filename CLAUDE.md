@@ -46,10 +46,15 @@ pnpm test                # all test suites
 pnpm db:generate         # migration after a schema change; pnpm db:migrate:local to apply
 pnpm site:sync           # regenerate wrangler.jsonc etc. after editing site.config.jsonc
 pnpm check:placeholders  # deploy gate (exit 1): placeholders, bad site config, stale files
+pnpm launch:check <url>  # no-JS checks against a live site (status, redirects, robots, sitemap)
 ```
 
 ## Conventions
 
+- Each template can have one how-to guide: a blog post at
+  `apps/web/content/blog/en/how-to-make-<template-slug>.mdx` with `template: <template_id>` in
+  its frontmatter (checked by `pnpm -F web blog:validate`; skeleton in
+  `docs/how-to-guide-template.mdx`). The template page links to it and the post links back.
 - Copy goes in `packages/i18n/src/messages/web/en.json`. The site is English only; `zh.json` and
   `jp.json` are not required for new copy.
 - Web routes are file-based under `apps/web/src/routes/`; `routeTree.gen.ts` is generated.

@@ -35,7 +35,7 @@ const SECRETS = [
 // Files where placeholders are expected to stay (docs, tests, these scripts). Generated files
 // are left out too: their source is site.config.jsonc, and staleness is checked separately.
 const IGNORE = [
-  /^scripts\/(?:check-placeholders|site-sync)\.mjs$/,
+  /^scripts\/(?:check-placeholders|site-sync|launch-check)\.mjs$/,
   /^scripts\/lib\//,
   /\.md$/,
   /__tests__\//,

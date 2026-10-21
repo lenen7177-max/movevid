@@ -2,7 +2,7 @@
 // then runs `pnpm site:sync`, which rewrites the generated files from it:
 //   apps/server/wrangler.jsonc, apps/web/wrangler.jsonc   (from their wrangler.template.jsonc)
 //   apps/web/public/manifest.webmanifest                  (PWA name)
-//   packages/app-config/src/site.generated.json          (name, domain, support email)
+//   packages/app-config/src/site.generated.json          (name, domain, support email, socials)
 // `pnpm check:placeholders` runs before every deploy and fails while a value below is still a
 // placeholder, is malformed, or the generated files are out of date.
 {
@@ -16,6 +16,11 @@
   "domain": "example.com",
   // Optional: support address on the legal pages (default: support@<domain>).
   // "supportEmail": "help@example.com",
+  // Optional: the brand's public social profiles as https:// URLs, e.g.
+  // ["https://www.tiktok.com/@yourbrand", "https://x.com/yourbrand"]. They become the
+  // Organization's sameAs in the home page's JSON-LD and links in the footer. Leave the list
+  // empty for none (no sameAs, no social links).
+  "socialUrls": [],
   // Public base URL of the template media bucket: reference clips, soundtracks, previews and
   // sample videos (layout in apps/server/src/video/templates.ts).
   "mediaUrl": "https://media.example.com",

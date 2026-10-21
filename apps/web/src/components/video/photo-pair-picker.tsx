@@ -54,7 +54,7 @@ function PhotoSlot({
           if (!disabled) onSelect(side, event.dataTransfer.files[0]);
         }}
         className={cn(
-          "group bg-muted/40 hover:border-primary/60 hover:bg-primary/5 relative flex aspect-[3/4] cursor-pointer flex-col items-center justify-center gap-2 overflow-hidden rounded-2xl border border-dashed border-foreground/15 text-center transition-colors",
+          "group bg-muted/40 hover:border-primary/60 hover:bg-primary/5 relative flex aspect-[3/4] cursor-pointer lg:aspect-[4/5] flex-col items-center justify-center gap-2 overflow-hidden rounded-2xl border border-dashed border-foreground/15 text-center transition-colors",
           dragging && "border-primary bg-primary/15",
           showPreview && "border-solid border-transparent",
           disabled && "pointer-events-none opacity-60",
@@ -155,7 +155,7 @@ export function PhotoPairPicker({
   };
 
   return (
-    <div className={cn("space-y-3", className)}>
+    <div className={cn("space-y-3 lg:space-y-2", className)}>
       <div
         className={cn(
           "flex items-center",

@@ -10,16 +10,18 @@ import {
   getVideoCreditsCost,
   getVideoFirstFullCredits,
   getVideoMinPhotos,
+  getVideoPurchaseQuote,
   getVideoRenderSeconds,
   getVideoTemplateModels,
   isVideoHighlight,
   isVideoModelQuality,
 } from "@repo/app-config/video";
 import { Button } from "@repo/ui/button";
+import { Checkbox } from "@repo/ui/checkbox";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { Coins, Loader2, Wand2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useTranslations } from "@/i18n";
 import {
@@ -38,9 +40,11 @@ import {
 } from "@/lib/video/photo-handoff";
 import { cn } from "@/lib/utils";
 import { orpc } from "@/utils/orpc";
+import { getVideoPricing } from "@/lib/video/pricing";
 import { estimateRenderMinutes } from "@/lib/video/render-eta";
 import { openBuyCreditsDialog } from "./buy-credits-dialog";
 import { CreatorCard } from "./creator-card";
+import { useMoney } from "./pricing-page";
 import { usePhotoPair } from "./use-photo-pair";
 
 /** How each model is offered: by what it's for, not by its name (keys of video.studio.version). */
@@ -57,6 +61,10 @@ type StudioCreatorProps = {
   onModelChange?: (model: VideoModel) => void;
   /** Locks the form while the studio's current render is still running. */
   jobProcessing?: boolean;
+  /** Landing pages repeat the button's label (with its price) in the sticky and closing CTAs. */
+  onCtaLabelChange?: (label: string) => void;
+  /** Hides the fixed-template bar; landing pages already name the template in the H1. */
+  hideTemplateBar?: boolean;
   id?: string;
   className?: string;
 };
@@ -70,10 +78,14 @@ export function StudioCreator({
   onTemplateChange,
   onModelChange,
   jobProcessing,
+  onCtaLabelChange,
+  hideTemplateBar,
   id,
   className,
 }: StudioCreatorProps) {
   const t = useTranslations("video");
+  const money = useMoney();
+  const [consented, setConsented] = useSessionConsent();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const pair = usePhotoPair({
@@ -240,9 +252,34 @@ export function StudioCreator({
     }
     buyCredits();
   };
-  let generateLabel = t("studio.generate");
+  // "Make my Duo Dance video · $9.99": the price is the cheapest pack that pays for this render
+  // (credits in hand count), or its credit cost once the balance covers it.
+  const templateCta = `templates.${templateId}.cta`;
+  const ctaName = t.has(templateCta)
+    ? t(templateCta)
+    : t("templatePage.cta", { name: t(`templates.${templateId}.name`) });
+  // Signed-out visitors hold no credits; a signed-in balance still loading quotes nothing yet.
+  const heldCredits = signedIn ? balance : 0;
+  const quote =
+    heldCredits == null
+      ? null
+      : getVideoPurchaseQuote(creditsCost, heldCredits, getVideoPricing().packs);
+  let ctaLabel = ctaName;
+  if (quote?.kind === "pack") {
+    ctaLabel = t("studio.ctaPrice", { label: ctaName, price: money(quote.pack.amountCents) });
+  } else if (quote?.kind === "credits") {
+    ctaLabel = t("studio.ctaCredits", { label: ctaName, cost: quote.credits });
+  }
+  let generateLabel = ctaLabel;
   if (pair.isSample) generateLabel = t("studio.viewSample");
   else if (createMutation.isPending) generateLabel = t("studio.submitting");
+
+  useEffect(() => {
+    onCtaLabelChange?.(ctaLabel);
+  }, [ctaLabel, onCtaLabelChange]);
+
+  // Rendering or buying needs the age and consent confirmation; the free sample preview doesn't.
+  const needsConsent = !pair.isSample && !consented;
 
   return (
     <CreatorCard
@@ -252,16 +289,39 @@ export function StudioCreator({
       className={className}
       pair={pair}
       disabled={busy}
+      showTemplateBar={!hideTemplateBar}
+      beforeAction={
+        pair.isSample ? null : (
+          <label className="mt-3 flex cursor-pointer items-start gap-2.5 text-xs leading-5 lg:leading-4">
+            <Checkbox
+              checked={consented}
+              onCheckedChange={(checked) => setConsented(checked)}
+              disabled={busy}
+              className="mt-0.5"
+            />
+            <span>{t("studio.consentCheck")}</span>
+          </label>
+        )
+      }
       primaryAction={
         notEnough ? (
-          <Button type="button" size="lg" onClick={buyCreditsInstead}>
-            {t("studio.buyCredits")}
+          <Button
+            type="button"
+            size="lg"
+            data-main-cta=""
+            className="h-auto min-h-10 py-2 whitespace-normal"
+            disabled={needsConsent}
+            onClick={buyCreditsInstead}
+          >
+            {ctaLabel}
           </Button>
         ) : (
           <Button
             type="button"
             size="lg"
-            disabled={busy || (sessionPending && !pair.isSample)}
+            data-main-cta=""
+            className="h-auto min-h-10 py-2 whitespace-normal"
+            disabled={busy || needsConsent || (sessionPending && !pair.isSample)}
             onClick={generate}
           >
             {createMutation.isPending ? (
@@ -273,7 +333,23 @@ export function StudioCreator({
           </Button>
         )
       }
-      footer={<p className="text-muted-foreground mt-3 text-xs">{t("studio.consent")}</p>}
+      footer={
+        <p className="text-muted-foreground mt-2 text-center text-xs text-balance">
+          {/* Segments never break inside, so a wrapped line never starts with a "·". */}
+          {t("studio.reassurance", {
+            minutes: estimateRenderMinutes(templateId, quality, model),
+          })
+            .split(" · ")
+            .map((segment, index, segments) => (
+              <Fragment key={segment}>
+                <span className="whitespace-nowrap">
+                  {segment}
+                  {index < segments.length - 1 ? " ·" : ""}
+                </span>{" "}
+              </Fragment>
+            ))}
+        </p>
+      }
     >
       <fieldset className="mt-4" disabled={busy}>
         <legend className="mb-2 text-sm font-medium">{t("studio.version.label")}</legend>
@@ -374,7 +450,7 @@ export function StudioCreator({
           })}
         </div>
       </fieldset>
-      <div className="mt-4 flex items-center justify-between gap-2 text-sm">
+      <div className="mt-3 flex items-center justify-between gap-2 text-sm">
         <span className="flex items-center gap-1.5 font-medium">
           <Coins className="text-primary size-4" aria-hidden="true" />
           {pair.isSample ? t("studio.sampleFree") : t("studio.cost", { cost: creditsCost })}
@@ -388,4 +464,28 @@ export function StudioCreator({
       </div>
     </CreatorCard>
   );
+}
+
+const CONSENT_STORAGE_KEY = "video-create-consent";
+
+/** The consent checkbox, remembered for the browser session (e.g. across a checkout trip). */
+function useSessionConsent() {
+  const [consented, setConsentedState] = useState(false);
+  useEffect(() => {
+    try {
+      setConsentedState(window.sessionStorage.getItem(CONSENT_STORAGE_KEY) === "1");
+    } catch {
+      // Storage can be blocked (private mode); the box then simply starts unchecked.
+    }
+  }, []);
+  const setConsented = (next: boolean) => {
+    setConsentedState(next);
+    try {
+      if (next) window.sessionStorage.setItem(CONSENT_STORAGE_KEY, "1");
+      else window.sessionStorage.removeItem(CONSENT_STORAGE_KEY);
+    } catch {
+      // Not remembered, still applied to this page.
+    }
+  };
+  return [consented, setConsented] as const;
 }

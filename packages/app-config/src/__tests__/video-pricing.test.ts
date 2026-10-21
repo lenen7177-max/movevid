@@ -11,6 +11,7 @@ import {
   getVideoCreditsCost,
   getVideoFastCountForCredits,
   getVideoFullCountForCredits,
+  getVideoPurchaseQuote,
   getVideoRenderSeconds,
   isVideoHighlight,
   isVideoModelQuality,
@@ -122,6 +123,44 @@ describe("video pricing", () => {
         expect(() => getVideoCreditsCost("1080p", templateId, model), model).toThrow();
       }
     }
+  });
+});
+
+describe("create button quote", () => {
+  const offers = packs.map((pack) => ({
+    id: pack.id,
+    credits: pack.credits,
+    amountCents: Math.round(pack.price * 100),
+  }));
+
+  it("quotes the starter pack for the default selection of a new visitor", () => {
+    const cost = getVideoCreditsCost("480p", "duo_dance", "seedance-2.0-fast");
+    expect(getVideoPurchaseQuote(cost, 0, offers)).toEqual({
+      kind: "pack",
+      pack: { id: "starter", credits: 30, amountCents: 999 },
+    });
+  });
+
+  it("quotes credits when the balance covers the render", () => {
+    expect(getVideoPurchaseQuote(15, 15, offers)).toEqual({ kind: "credits", credits: 15 });
+  });
+
+  it("quotes the cheapest pack that covers the shortfall, never one too small", () => {
+    // 205 credits with none in hand: only the 250-credit pack pays for it.
+    expect(getVideoPurchaseQuote(205, 0, offers)).toMatchObject({ pack: { credits: 250 } });
+    // With 120 in hand the 100-credit pack makes up the rest.
+    expect(getVideoPurchaseQuote(205, 120, offers)).toMatchObject({ pack: { credits: 100 } });
+    // Packs come in any order; the cheapest that covers wins.
+    const reversed = [...offers].reverse();
+    expect(getVideoPurchaseQuote(20, 0, reversed)).toMatchObject({ pack: { id: "starter" } });
+    for (const cost of [1, 15, 30, 55, 115, 205]) {
+      const quote = getVideoPurchaseQuote(cost, 0, offers);
+      if (quote?.kind === "pack") expect(quote.pack.credits).toBeGreaterThanOrEqual(cost);
+    }
+  });
+
+  it("quotes nothing when no pack is big enough", () => {
+    expect(getVideoPurchaseQuote(10_000, 0, offers)).toBeNull();
   });
 });
 

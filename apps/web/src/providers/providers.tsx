@@ -4,7 +4,7 @@ import { RootProvider } from "fumadocs-ui/provider/tanstack";
 import type { ReactNode } from "react";
 import { Toaster } from "@repo/ui/sonner";
 import { TooltipProvider } from "@repo/ui/tooltip";
-import { PwaInstaller } from "@/components/pwa/pwa-installer";
+import { PwaInstaller, PwaPromptCapture } from "@/components/pwa/pwa-installer";
 import { PwaUpdater } from "@/components/pwa/pwa-updater";
 import { ThemeProvider, useTheme } from "@/components/providers/theme-provider";
 import { getCurrentLocale, getMessages, IntlProvider } from "@/i18n";
@@ -14,6 +14,7 @@ import { AuthEventTracker } from "@/lib/analytics/auth-event-tracker";
 import { useFumadocsI18nProvider } from "@/lib/fumadocs-i18n";
 import { TawkToChat } from "@/lib/support/tawkto-chat";
 import { isPwaEnabled } from "@/configs/pwa-config";
+import { isInstallPromptRoute } from "@/lib/pwa-install-routes";
 import { webConfig } from "@/configs/web-config";
 import { queryClient } from "@/utils/orpc";
 
@@ -45,7 +46,8 @@ export function Providers({ children }: { children: ReactNode }) {
               <AcquisitionReporter />
               <ClientOnly>
                 <TawkToChat />
-                {pwaEnabled && <PwaInstaller />}
+                {pwaEnabled && <PwaPromptCapture />}
+                {pwaEnabled && isInstallPromptRoute(pathname) && <PwaInstaller />}
                 <PwaUpdater enabled={webConfig.pwa.enabled} shouldRegister={pwaEnabled} />
               </ClientOnly>
               {children}

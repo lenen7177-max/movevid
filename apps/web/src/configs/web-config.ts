@@ -34,6 +34,7 @@ export const webConfig: WebConfig = {
   AppName: commonConfig.app.name,
   AppUrl: resolveAppUrl(),
   SupportEmail: commonConfig.app.supportEmail,
+  SocialUrls: commonConfig.app.socialUrls,
   adminUserManagementEnabled: commonConfig.admin.userManagement.enabled,
   adminPaidUsersEnabled: commonConfig.admin.paidUsers.enabled,
   pwa: {

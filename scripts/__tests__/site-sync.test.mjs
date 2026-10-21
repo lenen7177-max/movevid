@@ -52,7 +52,16 @@ test("a filled-in config validates and renders without placeholders", () => {
     name: "Dance Booth",
     domain: "dancebooth.app",
     supportEmail: "support@dancebooth.app",
+    socialUrls: [],
   });
+  const withSocials = renderSiteFiles(
+    filledSiteConfig({ socialUrls: ["https://www.tiktok.com/@dancebooth"] }),
+    ROOT,
+  );
+  assert.deepEqual(
+    JSON.parse(withSocials.get("packages/app-config/src/site.generated.json")).socialUrls,
+    ["https://www.tiktok.com/@dancebooth"],
+  );
 });
 
 test("rate-limit namespace ids accept numbers and must be distinct positive integers", () => {
@@ -80,6 +89,10 @@ test("malformed site values are reported with their path", () => {
     [{ domain: "DanceBooth.app" }, /domain .* must be a lowercase apex domain/],
     [{ mediaUrl: "http://media.dancebooth.app" }, /mediaUrl .* must be an https:\/\/ URL/],
     [{ supportEmail: "nobody" }, /supportEmail .* must be an email address/],
+    [{ socialUrls: "https://x.com/dancebooth" }, /socialUrls must be a list/],
+    [{ socialUrls: ["http://x.com/dancebooth"] }, /socialUrls\[0\] .* must be an https:\/\/ URL/],
+    [{ socialUrls: [""] }, /socialUrls\[0\] must be a non-empty string/],
+    [{ socialUrls: ["https://x.com/a", "https://x.com/a"] }, /socialUrls\[1\] .* listed twice/],
     [{ turnstileSiteKey: "" }, /turnstileSiteKey is required/],
     [{ domian: "typo.app" }, /domian is not a known setting/],
     [{ cloudflare: { ...cloudflare, webWorker: "Dance_Web" } }, /webWorker .* must be lowercase/],

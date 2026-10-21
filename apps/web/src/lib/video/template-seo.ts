@@ -1,6 +1,7 @@
 import { type VideoTemplateId, videoTemplates } from "@repo/app-config/video";
 import { webConfig } from "@/configs/web-config";
 import { getCurrentLocale, getMessages } from "@/i18n";
+import { organizationLd } from "@/lib/seo/site-ld";
 import { type JsonLdObject, buildSeoHead } from "@/utils/seo";
 import {
   type TemplatePageContent,
@@ -84,8 +85,9 @@ export function templateFaqLd(faq: TemplatePageContent["faq"], locale: string) {
 
 /**
  * <head> of a template's landing page: title, description, canonical, og:video and the
- * VideoObject / HowTo / FAQPage graph. Used by /templates/<slug>, and by the home page when
- * the site has a single template (`extraGraph` then adds the WebApplication node).
+ * Organization / VideoObject / HowTo / FAQPage graph. Used by /templates/<slug>, and by the
+ * home page when the site has a single template (`extraGraph` then adds the WebSite and
+ * WebApplication nodes).
  */
 export function buildTemplateHead(templateId: VideoTemplateId, extraGraph: JsonLdObject[] = []) {
   const locale = getCurrentLocale();
@@ -106,6 +108,8 @@ export function buildTemplateHead(templateId: VideoTemplateId, extraGraph: JsonL
     ldJson: {
       "@context": "https://schema.org",
       "@graph": [
+        // The same Organization node (by @id) as the home page.
+        organizationLd(),
         ...extraGraph,
         ...templateVideoGraph(templateId, content, locale),
         templateHowToLd({

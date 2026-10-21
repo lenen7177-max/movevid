@@ -2,7 +2,7 @@
 // Writes the per-site files from site.config.jsonc:
 //   apps/server/wrangler.jsonc, apps/web/wrangler.jsonc  ← their wrangler.template.jsonc
 //   apps/web/public/manifest.webmanifest                 ← name / short_name
-//   packages/app-config/src/site.generated.json          ← name, domain, support email
+//   packages/app-config/src/site.generated.json          ← name, domain, support email, socials
 //   node scripts/site-sync.mjs           write them (`pnpm site:sync`)
 //   node scripts/site-sync.mjs --check   exit 1 when any is out of date
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
@@ -41,6 +41,7 @@ const KEYS = {
     "shortName",
     "domain",
     "supportEmail",
+    "socialUrls",
     "mediaUrl",
     "cloudflare",
     "turnstileSiteKey",
@@ -74,6 +75,7 @@ const DOMAIN =
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 const POSITIVE_INTEGER = /^[1-9]\d{0,15}$/;
+const HTTPS_URL = /^https:\/\/[^\s/]+(?:\/\S*)?$/;
 
 export function readSiteConfig(root = ROOT) {
   return parseJsonc(readFileSync(resolve(root, SITE_CONFIG_FILE), "utf8"));
@@ -123,8 +125,27 @@ export function validateSiteConfig(config) {
     pattern: EMAIL,
     hint: "must be an email address",
   });
+  if (config.socialUrls !== undefined) {
+    if (!Array.isArray(config.socialUrls)) {
+      issues.push(`${at("socialUrls")} must be a list of https:// URLs (or [] for none)`);
+    } else {
+      const seen = new Set();
+      config.socialUrls.forEach((url, index) => {
+        const path = `socialUrls[${index}]`;
+        if (typeof url !== "string" || url === "") {
+          issues.push(`${at(path)} must be a non-empty string`);
+          return;
+        }
+        if (!isPlaceholder(url) && !HTTPS_URL.test(url)) {
+          issues.push(`${at(path)} "${url}" must be an https:// URL`);
+        }
+        if (seen.has(url)) issues.push(`${at(path)} "${url}" is listed twice`);
+        seen.add(url);
+      });
+    }
+  }
   string(config.mediaUrl, "mediaUrl", {
-    pattern: /^https:\/\/[^\s/]+(?:\/\S*)?$/,
+    pattern: HTTPS_URL,
     hint: "must be an https:// URL",
   });
   string(config.turnstileSiteKey, "turnstileSiteKey");
@@ -260,7 +281,12 @@ export function renderSiteFiles(config, root = ROOT) {
   manifest.short_name = config.shortName || tokens.name;
   files.set(MANIFEST_FILE, `${JSON.stringify(manifest, null, 2)}\n`);
 
-  const site = { name: tokens.name, domain: tokens.domain, supportEmail: tokens.supportEmail };
+  const site = {
+    name: tokens.name,
+    domain: tokens.domain,
+    supportEmail: tokens.supportEmail,
+    socialUrls: Array.isArray(config.socialUrls) ? config.socialUrls : [],
+  };
   files.set(APP_CONFIG_SITE_FILE, `${JSON.stringify(site, null, 2)}\n`);
   return files;
 }

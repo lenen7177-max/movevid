@@ -10,11 +10,30 @@ type CaseVideoProps = {
   label: string;
   /** Shown on the poster, e.g. "Highlight · 12 s" when the clip switches with the version. */
   badge?: string;
+  /** Says the clip is an example, not the viewer's render; stays on while it plays. */
+  sampleLabel?: string;
   className?: string;
 };
 
+/**
+ * "Sample, not your result" pill: bottom-left on the poster, top-left while the clip plays
+ * (clear of the controls' bar and of Safari's mute button at top-right; the badge gives way).
+ */
+function SampleLabel({ text, playing = false }: { text: string; playing?: boolean }) {
+  return (
+    <span
+      className={cn(
+        "pointer-events-none absolute z-10 max-w-[calc(100%-1.5rem)] rounded-full bg-black/65 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur",
+        playing ? "top-3 left-3" : "bottom-3 left-3",
+      )}
+    >
+      {text}
+    </span>
+  );
+}
+
 /** Poster with a play button. The clip starts only after a click. */
-export function CaseVideo({ src, poster, label, badge, className }: CaseVideoProps) {
+export function CaseVideo({ src, poster, label, badge, sampleLabel, className }: CaseVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [started, setStarted] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -56,11 +75,12 @@ export function CaseVideo({ src, poster, label, badge, className }: CaseVideoPro
           onError={() => setFailed(true)}
         />
       )}
-      {badge ? (
+      {badge && !(sampleLabel && started) ? (
         <span className="bg-background/85 pointer-events-none absolute top-3 left-3 z-10 rounded-full px-2.5 py-1 font-mono text-[11px] font-medium backdrop-blur">
           {badge}
         </span>
       ) : null}
+      {sampleLabel ? <SampleLabel text={sampleLabel} playing={started} /> : null}
       {started || failed ? null : (
         <button
           type="button"
@@ -87,11 +107,14 @@ export function TemplateMedia({
   templateId,
   playing = true,
   alt = "",
+  sampleLabel,
   className,
 }: {
   templateId: VideoTemplateId;
   playing?: boolean;
   alt?: string;
+  /** See CaseVideo. */
+  sampleLabel?: string;
   className?: string;
 }) {
   const poster = templatePoster(templateId);
@@ -114,6 +137,7 @@ export function TemplateMedia({
           className="absolute inset-0 size-full object-cover"
         />
       ) : null}
+      {sampleLabel ? <SampleLabel text={sampleLabel} /> : null}
     </div>
   );
 }
