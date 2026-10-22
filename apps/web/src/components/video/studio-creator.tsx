@@ -15,6 +15,7 @@ import {
   getVideoTemplateModels,
   isVideoHighlight,
   isVideoModelQuality,
+  isVideoTemplateOpen,
 } from "@repo/app-config/video";
 import { Button } from "@repo/ui/button";
 import { Checkbox } from "@repo/ui/checkbox";
@@ -282,6 +283,8 @@ export function StudioCreator({
 
   // Rendering or buying needs the age and consent confirmation; the free sample preview doesn't.
   const needsConsent = !pair.isSample && !consented;
+  // Template page is live before its media: no renders and no packs until it opens.
+  const open = isVideoTemplateOpen(templateId);
 
   return (
     <CreatorCard
@@ -293,7 +296,7 @@ export function StudioCreator({
       disabled={busy}
       showTemplateBar={!hideTemplateBar}
       beforeAction={
-        pair.isSample ? null : (
+        pair.isSample || !open ? null : (
           <label className="mt-3 flex cursor-pointer items-start gap-2.5 text-xs leading-5 lg:leading-4">
             <Checkbox
               checked={consented}
@@ -306,7 +309,17 @@ export function StudioCreator({
         )
       }
       primaryAction={
-        notEnough ? (
+        !open ? (
+          <Button
+            type="button"
+            size="lg"
+            data-main-cta=""
+            className="h-auto min-h-10 py-2 whitespace-normal"
+            disabled
+          >
+            {t("studio.comingSoon")}
+          </Button>
+        ) : notEnough ? (
           <Button
             type="button"
             size="lg"

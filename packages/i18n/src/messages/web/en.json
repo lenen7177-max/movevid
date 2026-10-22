@@ -50,7 +50,7 @@
       "templateCta": {
         "eyebrow": "Try the template",
         "title": "Make your own {name} video",
-        "body": "Add {photosLabel} and get a {seconds}-second {aspect} video with music in a few minutes.",
+        "body": "Add {photosLabel} and get a {seconds}-second {aspect} video in a few minutes.",
         "button": "Open the {name} template"
       },
       "templateFacts": {
@@ -958,7 +958,7 @@
       "ai_celebrity_autograph": {
         "name": "AI Celebrity Autograph",
         "tagline": "One photo and you're the star — fans, flashes and an autograph outside the hotel.",
-        "description": "Upload one photo and walk out of a grand hotel at night as the celebrity everyone came to see: a bodyguard at your side, fans filming behind the barriers, and you signing one fan's notepad before a smile to the camera. Vertical, about 10 seconds, with crowd sound.",
+        "description": "Upload one photo and walk out of a grand hotel at night as the celebrity everyone came to see: a bodyguard at your side, fans filming behind the barriers, and you signing one fan's notepad before a smile to the camera. Vertical, about 10 seconds, silent so you can add a trending sound when you post.",
         "keywords": "ai celebrity autograph, ai autograph trend, tiktok autograph trend, famous ai trend, ai celebrity video generator, fake famous video, photo to video ai",
         "hashtag": "AICelebrityAutograph #AutographTrend",
         "leftRole": "Star",
@@ -1150,7 +1150,7 @@
         "items": {
           "choose": {
             "q": "Which template should I pick?",
-            "a": "Pick the moment you want to post. Each template keeps its own moves, camera and music, and asks for a set number of photos — the photo slots show who each photo plays."
+            "a": "Pick the moment you want to post. Each template keeps its own moves and camera, and asks for a set number of photos — the photo slots show who each photo plays."
           },
           "photos": {
             "q": "What photos work best?",
@@ -1178,12 +1178,13 @@
         "cost": "{credits} credits",
         "short": "{credits} credits · buy credits",
         "photoGone": "The photos for this video are no longer stored. Upload them again to make a new version."
-      }
+      },
+      "comingSoon": "Coming soon: renders open in a few days"
     },
     "gallery": {
       "seo": {
         "title": "Video templates",
-        "description": "Browse every video template. Upload one to three photos and get a share-ready vertical or widescreen video with music in minutes.",
+        "description": "Browse every video template. Upload one to three photos and get a share-ready vertical or widescreen video in minutes.",
         "keywords": "ai video templates, photo to video, ai dance video, viral video templates, ai video maker"
       },
       "eyebrow": "{count, plural, one {# template} other {# templates}}",
@@ -1225,7 +1226,7 @@
         },
         "share": {
           "title": "Download and share",
-          "body": "Get a {aspect} MP4 of about {seconds} seconds with music, ready for TikTok, Reels or Shorts."
+          "body": "Get a {aspect} MP4 of about {seconds} seconds, ready for TikTok, Reels or Shorts."
         }
       },
       "guide": {
@@ -1237,7 +1238,7 @@
       "trend": {
         "title": "What is the {name} trend?",
         "body": [
-          "{name} is a short video format people recreate on TikTok, Instagram Reels and YouTube Shorts: the moves, the camera and the music stay the same, and only the faces change. That is what makes each version easy to recognize and fun to share.",
+          "{name} is a short video format people recreate on TikTok, Instagram Reels and YouTube Shorts: the moves and the camera stay the same, and only the faces change. That is what makes each version easy to recognize and fun to share.",
           "You don't need to film or edit anything to join in. Add {photos, plural, one {one photo} other {up to # photos}} and the template recreates the whole {seconds}-second clip with you in it, as a {aspect} video ready to post."
         ]
       },
@@ -1328,7 +1329,7 @@
         "announce": "{name} template",
         "title": "Your photos.",
         "titleMuted": "Their next favorite video.",
-        "subtitle": "Pick a ready-made scene, drop in your photo, and get a share-ready video with music in minutes. No prompts. No editing.",
+        "subtitle": "Pick a ready-made scene, drop in your photo, and get a share-ready video in minutes. No prompts. No editing.",
         "primary": "Start creating",
         "secondary": "Browse templates",
         "note": "No prompt · No watermark · Refund if it fails"
@@ -1336,7 +1337,7 @@
       "showcase": {
         "eyebrow": "Showcase",
         "title": "Made with templates",
-        "subtitle": "Every scene keeps its moves, camera and music. Your photos decide who's in it."
+        "subtitle": "Every scene keeps its moves and camera. Your photos decide who's in it."
       },
       "steps": {
         "eyebrow": "How it works",
@@ -1434,7 +1435,7 @@
         "items": {
           "what": {
             "q": "What is this?",
-            "a": "A video maker built on templates: each template is a ready-made scene with its own moves, camera and music. You add photos, the AI puts the people in your photos into the scene."
+            "a": "A video maker built on templates: each template is a ready-made scene with its own moves and camera. You add photos, the AI puts the people in your photos into the scene."
           },
           "account": {
             "q": "Do I need an account?",
@@ -1492,7 +1493,8 @@
         "equalsFull": "{count, plural, one {= 1 full video} other {= # full videos}}",
         "orFast": "{count, plural, one {or 1 quick 480p video} other {or # quick 480p videos}}",
         "firstFullNote": "Your first full video (Premium, 480p) costs only {credits} credits.",
-        "cta": "Buy credits"
+        "cta": "Buy credits",
+        "comingSoon": "Coming soon"
       },
       "included": {
         "title": "Every pack includes",
@@ -1502,7 +1504,7 @@
           "Automatic refunds for failed renders",
           "Videos saved in your account",
           "No watermark",
-          "Music added to finished videos"
+          "Ready for a trending sound on TikTok"
         ]
       },
       "tiers": {
@@ -1555,12 +1557,12 @@
     "seo": {
       "home": {
         "title": "Turn your photos into share-ready videos",
-        "description": "Pick a video template, upload one to three photos and get a share-ready video with music in minutes. No prompt, no editing, no watermark.",
+        "description": "Pick a video template, upload one to three photos and get a share-ready video in minutes. No prompt, no editing, no watermark.",
         "keywords": "ai video maker, photo to video ai, ai video templates, ai dance video, viral video maker"
       },
       "studio": {
         "title": "Studio — make a video from your photos",
-        "description": "Pick a template, upload your photos and render a video with music. See the exact price before you generate.",
+        "description": "Pick a template, upload your photos and render a video. See the exact price before you generate.",
         "keywords": "ai video studio, photo to video, ai video generator, ai video templates"
       }
     },

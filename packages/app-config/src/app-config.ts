@@ -40,6 +40,9 @@ const creditSignupGrant = {
  * and must match the Stripe price. Size packs against your render costs; see
  * packages/app-config/src/video.ts for per-template credit prices.
  */
+// Live prices in the shared Stripe account (products "MoveVid – Starter/Creator/Studio",
+// metadata app=movevid). No test-mode account is connected yet, so test reuses the live ids:
+// local checkout needs test prices added here before it works with test keys.
 const webCreditPackages = [
   {
     id: "starter",
@@ -48,10 +51,10 @@ const webCreditPackages = [
     web: {
       provider: "stripe",
       test: {
-        providerPriceId: "price_STARTER_TEST_PLACEHOLDER",
+        providerPriceId: "price_1UTJCVQw56gZx76kmaV6uoH1",
       },
       prod: {
-        providerPriceId: "price_STARTER_LIVE_PLACEHOLDER",
+        providerPriceId: "price_1UTJCVQw56gZx76kmaV6uoH1",
       },
       currency: "usd",
       // Price amount in minor units, such as cents.
@@ -65,10 +68,10 @@ const webCreditPackages = [
     web: {
       provider: "stripe",
       test: {
-        providerPriceId: "price_CREATOR_TEST_PLACEHOLDER",
+        providerPriceId: "price_1UTJCbQw56gZx76kVeLzS43h",
       },
       prod: {
-        providerPriceId: "price_CREATOR_LIVE_PLACEHOLDER",
+        providerPriceId: "price_1UTJCbQw56gZx76kVeLzS43h",
       },
       currency: "usd",
       amountCents: 2999,
@@ -81,10 +84,10 @@ const webCreditPackages = [
     web: {
       provider: "stripe",
       test: {
-        providerPriceId: "price_STUDIO_TEST_PLACEHOLDER",
+        providerPriceId: "price_1UTJCeQw56gZx76k84hQYEiE",
       },
       prod: {
-        providerPriceId: "price_STUDIO_LIVE_PLACEHOLDER",
+        providerPriceId: "price_1UTJCeQw56gZx76k84hQYEiE",
       },
       currency: "usd",
       amountCents: 6999,

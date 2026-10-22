@@ -1,5 +1,5 @@
 import { ORPCError } from "@orpc/server";
-import { VIDEO_TEMPLATE_IDS } from "@repo/app-config/video";
+import { ANY_VIDEO_TEMPLATE_OPEN, VIDEO_TEMPLATE_IDS } from "@repo/app-config/video";
 import { z } from "zod";
 import type { Context } from "@/lib/context";
 import { isGuestUser } from "@/lib/guest-account";
@@ -35,6 +35,9 @@ export const webCreditsRouter = {
     .input(createCreditCheckoutInputSchema)
     .output(z.object({ url: z.url(), orderId: z.string() }))
     .handler(async ({ context, input }) => {
+      if (!ANY_VIDEO_TEMPLATE_OPEN) {
+        throw new ORPCError("BAD_REQUEST", { message: "Renders are not open yet" });
+      }
       const user = resolveCreditUser(context);
       try {
         const session = await context.credits.createCheckoutSession({

@@ -82,6 +82,12 @@ type VideoTemplateShape = {
   liteCreditsCost?: VideoLiteCredits;
   /** Models the template can be rendered with (default: all of them). */
   models?: readonly VideoModel[];
+  /**
+   * The page is live but renders are not open yet (reference clip or other media still being
+   * made). The create button shows "Coming soon" and the server refuses new jobs. Remove it once
+   * the media bucket has the template's files and a test render passes.
+   */
+  comingSoon?: boolean;
 };
 
 /** Output shape and price per template. */
@@ -93,8 +99,10 @@ export const videoTemplates = {
     aspectRatio: "9:16",
     durationSeconds: 10,
     slots: ["left"],
-    soundtrack: true,
+    // Silent on purpose: no licensed track; people add a trending sound when they post.
+    soundtrack: false,
     creditsCost: { "480p": 30, "720p": 60, "1080p": 105 },
+    comingSoon: true,
   },
 } as const satisfies Record<VideoTemplateId, VideoTemplateShape>;
 
@@ -116,6 +124,15 @@ export function latestVideoTemplateLaunchDate(): string {
       .at(-1) ?? ""
   );
 }
+
+/** Whether new renders of the template are open (false while it is marked comingSoon). */
+export function isVideoTemplateOpen(templateId: VideoTemplateId): boolean {
+  const template: VideoTemplateShape = videoTemplates[templateId];
+  return !template.comingSoon;
+}
+
+/** Whether any template takes renders yet; credit packs are only sold once one does. */
+export const ANY_VIDEO_TEMPLATE_OPEN = VIDEO_TEMPLATE_IDS.some((id) => isVideoTemplateOpen(id));
 
 export function isVideoTemplateId(value: unknown): value is VideoTemplateId {
   return typeof value === "string" && (VIDEO_TEMPLATE_IDS as readonly string[]).includes(value);

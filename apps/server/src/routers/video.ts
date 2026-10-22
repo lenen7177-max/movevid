@@ -3,6 +3,7 @@ import {
   VIDEO_MODELS,
   VIDEO_QUALITIES,
   VIDEO_TEMPLATE_IDS,
+  isVideoTemplateOpen,
   videoConfig,
 } from "@repo/app-config/video";
 import { z } from "zod";
@@ -107,9 +108,16 @@ export const videoRouter = {
         const source = input.sourceJobId
           ? await loadSourceJobPhotos(context.db, context.env, userId, input.sourceJobId)
           : null;
+        const templateId = source?.templateId ?? input.templateId;
+        if (!isVideoTemplateOpen(templateId)) {
+          throw new ORPCError("BAD_REQUEST", {
+            message: "TEMPLATE_NOT_OPEN",
+            data: { reason: "TEMPLATE_NOT_OPEN" },
+          });
+        }
         const job = await createVideoJob(context.db, context.env, context.credits, {
           userId,
-          templateId: source?.templateId ?? input.templateId,
+          templateId,
           quality: input.quality,
           model: input.model,
           photos: source?.photos ?? { left: input.left, middle: input.middle, right: input.right },

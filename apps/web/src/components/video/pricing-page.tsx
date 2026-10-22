@@ -1,4 +1,5 @@
 import {
+  ANY_VIDEO_TEMPLATE_OPEN,
   SINGLE_TEMPLATE_ID,
   getVideoFastCountForCredits,
   getVideoFullCountForCredits,
@@ -201,11 +202,11 @@ export function CreditPackGrid({
             <div className="mt-auto pt-8">
               <CheckoutButton
                 featured={featured}
-                disabled={isPending}
+                disabled={isPending || !ANY_VIDEO_TEMPLATE_OPEN}
                 busy={busyKey === pack.id}
                 onClick={() => onBuy(pack.id)}
               >
-                {t("cta")}
+                {ANY_VIDEO_TEMPLATE_OPEN ? t("cta") : t("comingSoon")}
               </CheckoutButton>
             </div>
           </div>
