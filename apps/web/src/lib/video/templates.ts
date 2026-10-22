@@ -71,7 +71,16 @@ type VideoTemplateMedia = {
    * `video.templates.<id>.samples` (one string per clip).
    */
   samples?: VideoSampleWall;
+  /**
+   * Optional: original posts of the trend on TikTok, shown with TikTok's own embed player in the
+   * "What is the … trend" section and credited to their creators. Never downloaded or presented
+   * as renders from this site.
+   */
+  trendVideos?: readonly TrendVideo[];
 };
+
+/** A TikTok post that shows the trend, embedded with TikTok's player (credited, not copied). */
+export type TrendVideo = { tiktokId: string; author: string };
 
 /** Media-bucket clip `templates/<id>/samples/<n>.mp4` with its poster `<n>.jpg`. */
 export function sampleClip(templateId: VideoTemplateId, n: number): VideoSampleClip {
@@ -94,6 +103,11 @@ export function sampleClip(templateId: VideoTemplateId, n: number): VideoSampleC
 export const VIDEO_TEMPLATE_MEDIA: Record<VideoTemplateId, VideoTemplateMedia> = {
   ai_celebrity_autograph: {
     poster: "/templates/ai_celebrity_autograph/poster.svg",
+    trendVideos: [
+      { tiktokId: "7673848706940095766", author: "capcutdailyuk" },
+      { tiktokId: "7699361308772306184", author: "inlove1422" },
+      { tiktokId: "7699133560552197383", author: "818817_cj_clarksonjames" },
+    ],
     previewVideo: MEDIA_BASE ? media("templates/ai_celebrity_autograph/preview.mp4") : undefined,
   },
 };
@@ -199,4 +213,9 @@ const ASPECT_CLASSES = {
 /** Tailwind aspect class matching the template's output video. */
 export function templateAspectClass(templateId: VideoTemplateId): string {
   return ASPECT_CLASSES[videoTemplates[templateId].aspectRatio];
+}
+
+/** TikTok posts embedded in the template's trend section (empty when it has none). */
+export function templateTrendVideos(templateId: VideoTemplateId): readonly TrendVideo[] {
+  return VIDEO_TEMPLATE_MEDIA[templateId].trendVideos ?? [];
 }

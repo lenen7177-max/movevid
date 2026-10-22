@@ -29,7 +29,12 @@ import { CreditPackGrid } from "./pricing-page";
 import { StickyCreateCta, scrollToCreateForm } from "./sticky-create-cta";
 import { StudioCreator } from "./studio-creator";
 import { MoreTemplates, useTemplatePhotosLabel } from "./template-gallery";
-import { sampleForModel, sampleWall, templateAspectClass } from "@/lib/video/templates";
+import {
+  sampleForModel,
+  sampleWall,
+  templateAspectClass,
+  templateTrendVideos,
+} from "@/lib/video/templates";
 import { videoConfig } from "@repo/app-config/video";
 
 /** Preview on the template page: the sample render for the picked version, else the template loop. */
@@ -358,6 +363,7 @@ export function TemplatePage({
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
+            <TrendVideos templateId={templateId} />
           </div>
         </section>
       ) : null}
@@ -391,5 +397,42 @@ export function TemplatePage({
         alsoHideOver={["#closing-cta", "footer"]}
       />
     </main>
+  );
+}
+
+/**
+ * The trend's original TikTok posts, in TikTok's own embed player: credited to their creators,
+ * loaded only when scrolled near, and labeled as not made on this site.
+ */
+function TrendVideos({ templateId }: { templateId: VideoTemplateId }) {
+  const t = useTranslations("video.templatePage");
+  const videos = templateTrendVideos(templateId);
+  if (videos.length === 0) return null;
+  return (
+    <div className="mt-10">
+      <h3 className="text-lg font-medium">{t("trendVideosTitle")}</h3>
+      <p className="text-muted-foreground mt-1 text-sm">{t("trendVideosNote")}</p>
+      <ul className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-3">
+        {videos.map((video) => (
+          <li key={video.tiktokId} className="flex flex-col gap-2">
+            <iframe
+              src={`https://www.tiktok.com/player/v1/${video.tiktokId}?description=1&music_info=0&rel=0`}
+              title={t("trendVideoTitle", { author: video.author })}
+              loading="lazy"
+              allow="fullscreen; encrypted-media; picture-in-picture"
+              className="bg-muted aspect-[9/16] w-full rounded-2xl border"
+            />
+            <a
+              href={`https://www.tiktok.com/@${video.author}/video/${video.tiktokId}`}
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+              className="text-muted-foreground hover:text-foreground text-xs underline-offset-4 hover:underline"
+            >
+              {t("trendVideoCredit", { author: video.author })}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

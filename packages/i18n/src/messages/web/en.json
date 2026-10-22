@@ -1321,7 +1321,11 @@
       "closing": {
         "title": "Make your {name} video now",
         "body": "Add {photos, plural, one {your photo} other {your photos}}, pick a version and get your video in a few minutes."
-      }
+      },
+      "trendVideosTitle": "The trend on TikTok",
+      "trendVideosNote": "Original posts embedded from TikTok and credited to their creators. They were made with other apps, not with MoveVid.",
+      "trendVideoTitle": "TikTok post by @{author}",
+      "trendVideoCredit": "@{author} on TikTok"
     },
     "home": {
       "hero": {
