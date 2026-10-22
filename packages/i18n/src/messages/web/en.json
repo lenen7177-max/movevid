@@ -957,24 +957,24 @@
     "templates": {
       "ai_celebrity_autograph": {
         "name": "AI Celebrity Autograph",
-        "tagline": "One photo and you're the star — fans, flashes and an autograph outside the hotel.",
-        "description": "Upload one photo and walk out of a grand hotel at night as the celebrity everyone came to see: a bodyguard at your side, fans filming behind the barriers, and you signing one fan's notepad before a smile to the camera. Vertical, about 10 seconds, silent so you can add a trending sound when you post.",
+        "tagline": "One photo and you're the star of a fan meet: your own giant poster, phones up, autographs.",
+        "description": "Upload one photo and take your seat at your own fan meet: a giant poster of your face behind you, fans filming on their phones, and you signing a photo for one of them before a big smile. Vertical, about 11 seconds, silent so you can add a trending sound when you post.",
         "keywords": "ai celebrity autograph, ai autograph trend, tiktok autograph trend, famous ai trend, ai celebrity video generator, fake famous video, photo to video ai",
         "hashtag": "AICelebrityAutograph #AutographTrend",
         "leftRole": "Star",
         "seoTitle": "AI Celebrity Autograph Video from One Photo | {appName}",
-        "h1": "AI Celebrity Autograph: be the star fans line up for",
+        "h1": "AI Celebrity Autograph: your own fan meet from one photo",
         "trend": {
           "title": "What is the AI celebrity autograph trend?",
           "body": [
-            "In the autograph trend, an ordinary photo becomes a celebrity moment: you step out of a hotel past a bodyguard, fans behind the barriers hold up their phones, and you stop to sign one of their notepads. It works because it looks like real fan-cam footage of someone famous, and the someone is you.",
-            "This template gives you that moment from one photo. You get a {seconds}-second {aspect} clip filmed from the fans' side of the barrier, with the walk-out, the wave, the autograph and a final look at the camera."
+            "In the autograph trend, an ordinary photo becomes a celebrity fan meet: you walk up to a signing table under a giant poster of your own face, fans hold up their phones, and you sign a photo for one of them. It works because it looks like real fan-cam footage of someone famous, and the someone is you.",
+            "This template gives you that moment from one photo. You get a {seconds}-second {aspect} clip filmed from the fans' side of the table: the walk-in, the smile, the autograph and the hand-back."
           ]
         },
         "faq": [
           {
             "q": "Does a real celebrity appear in the video?",
-            "a": "No. You are the star. The fans and the bodyguard are generic extras, and no real celebrity, brand or hotel name appears in the clip."
+            "a": "No. You are the star, and the poster behind you shows your own face. The fans and the bodyguard are generic extras, and no real celebrity or brand appears in the clip."
           },
           {
             "q": "Is the autograph a real signature?",

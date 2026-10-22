@@ -92,16 +92,17 @@ type VideoTemplateShape = {
 
 /** Output shape and price per template. */
 export const videoTemplates = {
-  // You as the star: leave a hotel at night past bodyguards and fans, then sign a fan's
-  // notepad. One photo, a 10s vertical clip.
+  // You as the star of a fan meet: a giant poster of your face, fans filming, and you signing
+  // their photos. One photo, an 11s vertical clip (one continuous fan-cam shot).
   ai_celebrity_autograph: {
     launchDate: "2026-10-22",
     aspectRatio: "9:16",
-    durationSeconds: 10,
+    durationSeconds: 11,
     slots: ["left"],
     // Silent on purpose: no licensed track; people add a trending sound when they post.
     soundtrack: false,
-    creditsCost: { "480p": 30, "720p": 60, "1080p": 105 },
+    // Sized for 11s: 720p at 60 would sit just under the 80% margin floor on the starter pack.
+    creditsCost: { "480p": 30, "720p": 65, "1080p": 115 },
     comingSoon: true,
   },
 } as const satisfies Record<VideoTemplateId, VideoTemplateShape>;
