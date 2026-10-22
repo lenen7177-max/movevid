@@ -41,7 +41,7 @@ type VideoLiteCredits = Record<VideoLiteModel, Record<"480p" | "720p", number>>;
  * Template ids, oldest first. Each id needs a server entry (reference media + prompt) and
  * web copy under `video.templates.<id>`. The URL slug is the id with dashes (duo-dance).
  */
-export const VIDEO_TEMPLATE_IDS = ["duo_dance", "solo_spotlight", "squad_walk"] as const;
+export const VIDEO_TEMPLATE_IDS = ["ai_celebrity_autograph"] as const;
 
 export type VideoTemplateId = (typeof VIDEO_TEMPLATE_IDS)[number];
 
@@ -86,46 +86,27 @@ type VideoTemplateShape = {
 
 /** Output shape and price per template. */
 export const videoTemplates = {
-  // Two friends, one routine: a 20s vertical dance with a 12s highlight for Seedance 2.0.
-  duo_dance: {
-    launchDate: "2026-01-01",
-    aspectRatio: "9:16",
-    durationSeconds: 20,
-    slots: ["left", "right"],
-    soundtrack: true,
-    highlightSeconds: 12,
-  },
-  // One person (or a pet) owns the stage: a 10s vertical spotlight moment.
-  solo_spotlight: {
-    launchDate: "2026-01-01",
+  // You as the star: leave a hotel at night past bodyguards and fans, then sign a fan's
+  // notepad. One photo, a 10s vertical clip.
+  ai_celebrity_autograph: {
+    launchDate: "2026-10-22",
     aspectRatio: "9:16",
     durationSeconds: 10,
     slots: ["left"],
-    allowsPets: true,
     soundtrack: true,
     creditsCost: { "480p": 30, "720p": 60, "1080p": 105 },
-    // Premium only: Seedance 2.0 fast drifts on pets' ears and muzzles and on standing pets
-    // (see the viral template playbook).
-    models: ["seedance-2.5"],
-  },
-  // One to three friends walk toward the camera in slow motion, 12s widescreen.
-  squad_walk: {
-    launchDate: "2026-01-15",
-    aspectRatio: "16:9",
-    durationSeconds: 12,
-    slots: ["left", "middle", "right"],
-    minPhotos: 1,
-    soundtrack: true,
-    creditsCost: { "480p": 35, "720p": 70, "1080p": 125 },
   },
 } as const satisfies Record<VideoTemplateId, VideoTemplateShape>;
 
 /**
- * The only template when the site ships exactly one. The home page then is that template's
- * landing page and /templates/<slug> redirects to it, so the same page never has two URLs.
+ * The only template when the site ships exactly one: the home page then is that template's
+ * landing page and /templates/<slug> redirects to it.
+ *
+ * MoveVid is a hub that keeps adding template pages, so this stays null even while there is
+ * one template: every template keeps its /templates/<slug> URL from day one and the home page
+ * lists the templates. Adding a template never moves an existing page.
  */
-export const SINGLE_TEMPLATE_ID: VideoTemplateId | null =
-  (VIDEO_TEMPLATE_IDS as readonly VideoTemplateId[]).length === 1 ? VIDEO_TEMPLATE_IDS[0] : null;
+export const SINGLE_TEMPLATE_ID: VideoTemplateId | null = null;
 
 /** Launch date of the newest template (YYYY-MM-DD), for pages that list every template. */
 export function latestVideoTemplateLaunchDate(): string {

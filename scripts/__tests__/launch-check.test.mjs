@@ -291,8 +291,10 @@ test("the share image comes from og:image", () => {
 
 test("served brand files that are the template's own are named", () => {
   const root = fileURLToPath(new URL("../..", import.meta.url));
-  const logo = readFileSync(join(root, "apps/web/public/logo.svg"));
-  const og = readFileSync(join(root, "apps/web/public/og/og.png"));
+  // The template's original brand files (this site has replaced its own).
+  const fixtures = join(root, "scripts/__tests__/fixtures/template-brand");
+  const logo = readFileSync(join(fixtures, "logo.svg"));
+  const og = readFileSync(join(fixtures, "og/og.png"));
   assert.deepEqual(
     templateBrandFiles([
       { url: "/logo.svg", bytes: logo },

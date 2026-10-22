@@ -1,7 +1,7 @@
 {
-  "name": "YourBrand",
-  "domain": "example.com",
-  "supportEmail": "support@example.com",
+  "name": "MoveVid",
+  "domain": "movevid.com",
+  "supportEmail": "support@movevid.com",
   "socialUrls": [],
   "emailProvider": "resend",
   "socialSignIn": {

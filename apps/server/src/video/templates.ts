@@ -31,138 +31,55 @@ function media(id: VideoTemplateId, cut: "" | "-highlight" = "") {
   };
 }
 
-const duoDance: ReferencePromptSpec = {
-  title: "竖屏双人舞蹈短片",
-  aspectRatio: "9:16 竖屏",
-  durationSeconds: 20,
-  cast: [
-    { role: "左侧舞者", action: "全程站在画面左侧，跳完整段编舞，和右侧舞者有眼神互动。" },
-    { role: "右侧舞者", action: "全程站在画面右侧，与左侧舞者动作同步，结尾一起定格。" },
-  ],
-  scene:
-    "明亮的室内练舞室，浅色木地板，一面落地镜，柔和的顶光加侧窗自然光。地面有自然接触阴影。不增加文字或品牌元素。",
-  camera:
-    "固定机位正面全景为主，中段有一次推近到双人半身，结尾回到全景。保留轻微手持感与自然运动模糊，不新增镜头。",
-  shots: [
-    {
-      time: "00.00—04.00",
-      title: "双人入场",
-      body: "两人从画面两侧走到中央站定，相视一笑，跟随节拍点头准备。",
-    },
-    {
-      time: "04.00—12.00",
-      title: "主歌编舞",
-      body: "两人同步完成手臂波浪、侧步、转身和拍手，动作与@视频1 的节拍和切点对齐。",
-    },
-    {
-      time: "12.00—17.00",
-      title: "推近半身",
-      body: "镜头推近到双人半身，两人肩靠肩做手部动作并对镜头微笑。",
-    },
-    {
-      time: "17.00—20.00",
-      title: "收尾定格",
-      body: "镜头拉回全景，两人完成最后一个八拍，摆出同一个结束姿势并定格。",
-    },
-  ],
-};
-
-const duoDanceHighlight: ReferencePromptSpec = {
-  ...duoDance,
-  durationSeconds: 12,
-  shots: [
-    {
-      time: "00.00—07.00",
-      title: "主歌编舞",
-      body: "两人同步完成手臂波浪、侧步、转身和拍手，动作与@视频1 的节拍和切点对齐。",
-    },
-    {
-      time: "07.00—12.00",
-      title: "推近半身并定格",
-      body: "镜头推近到双人半身，两人肩靠肩做手部动作，最后摆出同一个结束姿势。",
-    },
-  ],
-};
-
-const soloSpotlight: ReferencePromptSpec = {
-  title: "竖屏单人聚光灯表演短片",
+// Draft timeline for the "star entrance" version of the trend. Re-time every shot against the
+// depth reference clip once it is made (docs/viral-template-playbook.zh-CN.md §1–2).
+const aiCelebrityAutograph: ReferencePromptSpec = {
+  title: "竖屏明星出场签名短片",
   aspectRatio: "9:16 竖屏",
   durationSeconds: 10,
   cast: [
     {
-      role: "主角",
+      role: "明星（主角）",
       action:
-        "站在舞台中央的聚光灯下完成整段表演。照片若是猫狗等宠物，就让这只宠物以拟人的姿态完成同样的动作。",
+        "全程是画面焦点：从酒店门口走出，自信地对粉丝挥手，接过一位粉丝递来的笔，在对方的本子上快速签名，最后抬头对镜头微笑。",
     },
   ],
   scene:
-    "黑色小剧场舞台，一束暖白色聚光灯从上方打下，背景有轻微烟雾和点状灯光虚化。地面反射聚光灯光斑。",
-  camera: "中景开场，随动作缓慢推近到近景，最后一个动作时轻微仰拍。保留胶片颗粒感，不加滤镜。",
+    "夜晚的高级酒店门口，暖色门廊灯和玻璃旋转门，红色地毯，两侧金属护栏后挤满举着手机拍摄的成年粉丝，手机闪光灯和屏幕光此起彼伏。主角身边有一名穿黑西装、戴耳麦的保镖。粉丝和保镖都是普通路人长相，不像任何真实名人。签名只是潦草的笔画，不出现可读的文字或真实签名。",
+  camera:
+    "粉丝视角的手持竖屏拍摄，略带晃动和自动对焦呼吸感。开场中景，主角走近时跟拍到近景，签名时给本子和手部一个短暂的近景，结尾回到主角的半身近景。",
   shots: [
     {
       time: "00.00—03.00",
-      title: "灯亮",
-      body: "聚光灯亮起，主角抬头看向镜头，整理衣领。",
+      title: "走出酒店",
+      body: "主角在保镖陪同下从酒店门口走出，粉丝尖叫举起手机，闪光灯连闪。",
     },
     {
-      time: "03.00—08.00",
-      title: "高光动作",
-      body: "主角跟随节拍完成转身、指向镜头和一个标志性的定点动作。",
+      time: "03.00—06.00",
+      title: "沿护栏走近",
+      body: "主角沿着护栏朝镜头走来，向两侧粉丝挥手致意，保镖在一侧护着。",
     },
     {
-      time: "08.00—10.00",
-      title: "谢幕",
-      body: "主角对镜头鞠躬或挥手，聚光灯慢慢收窄。",
+      time: "06.00—09.00",
+      title: "签名",
+      body: "一位粉丝从护栏后递出本子和笔，主角接过笔在本子上快速签了几笔，把笔递回去。",
+    },
+    {
+      time: "09.00—10.00",
+      title: "看镜头",
+      body: "主角抬头看向镜头，露出自然的明星式微笑，画面停在半身近景。",
     },
   ],
-};
-
-const squadWalk: ReferencePromptSpec = {
-  title: "横屏好友慢动作走来短片",
-  aspectRatio: "16:9 横屏",
-  durationSeconds: 12,
-  cast: [
-    { role: "中间的人", action: "走在队伍正中，节奏最稳，结尾摘下墨镜看向镜头。" },
-    { role: "左侧的人", action: "走在中间人的左边，边走边整理外套。" },
-    { role: "右侧的人", action: "走在中间人的右边，边走边转头和左侧的人击掌。" },
+  avoid: [
+    "画面里只有一个主角，其他人都是背景里的粉丝和保镖，不复制主角的脸。",
+    "不出现任何真实明星、品牌标志、酒店名称或可读的签名文字。",
   ],
-  scene: "傍晚的城市街道，路面微湿反光，两侧是虚化的霓虹招牌和路灯，逆光让人物边缘有暖色轮廓光。",
-  camera: "长焦低机位正面跟拍，人物以慢动作朝镜头走来，景深很浅，结尾停在中近景。",
-  shots: [
-    {
-      time: "00.00—05.00",
-      title: "并排走来",
-      body: "人物从远处并排朝镜头走来，步伐一致，头发和衣角随慢动作摆动。",
-    },
-    {
-      time: "05.00—09.00",
-      title: "互动",
-      body: "按各自的动作描述互动，始终保持并排队形和统一步速。",
-    },
-    {
-      time: "09.00—12.00",
-      title: "收尾",
-      body: "人物在镜头前停下，看向镜头，画面停在中近景。",
-    },
-  ],
-  avoid: ["人物数量严格等于照片数量，不补充路人或额外的同伴。"],
+  depthReference: true,
 };
 
 export const videoServerTemplates: Record<VideoTemplateId, VideoServerTemplate> = {
-  duo_dance: {
-    ...media("duo_dance"),
-    buildPrompt: (photos) => buildReferencePrompt(duoDance, photos),
-    highlight: {
-      ...media("duo_dance", "-highlight"),
-      buildPrompt: (photos) => buildReferencePrompt(duoDanceHighlight, photos),
-    },
-  },
-  solo_spotlight: {
-    ...media("solo_spotlight"),
-    buildPrompt: (photos) => buildReferencePrompt(soloSpotlight, photos),
-  },
-  squad_walk: {
-    ...media("squad_walk"),
-    buildPrompt: (photos) => buildReferencePrompt(squadWalk, photos),
+  ai_celebrity_autograph: {
+    ...media("ai_celebrity_autograph"),
+    buildPrompt: (photos) => buildReferencePrompt(aiCelebrityAutograph, photos),
   },
 };

@@ -862,35 +862,7 @@
       "photos": "{count} 张照片",
       "photoRange": "{min}–{max} 张照片"
     },
-    "templates": {
-      "duo_dance": {
-        "name": "双人舞",
-        "tagline": "两个朋友，一套编舞——明亮练舞室里的同步舞蹈。",
-        "description": "上传两张照片，你们俩会在同一画面里跳完整段编舞：入场、同步舞蹈、半身特写和同一个结束定格。竖屏，约 20 秒，带音乐。",
-        "keywords": "AI 跳舞视频, 双人 AI 视频, 照片变跳舞视频, AI 双人舞, 抖音舞蹈模板",
-        "hashtag": "双人舞 #AI跳舞",
-        "leftRole": "左侧舞者",
-        "rightRole": "右侧舞者"
-      },
-      "solo_spotlight": {
-        "name": "聚光灯独秀",
-        "tagline": "一张照片，一束聚光灯——只属于你的舞台时刻。",
-        "description": "一张照片就够了：灯光亮起，你完成标志性动作，在烟雾缭绕的舞台上谢幕。宠物照片也可以。竖屏，约 10 秒，带音乐。",
-        "keywords": "AI 舞台视频, 单张照片生成视频, 宠物 AI 视频, 照片转视频, AI 表演视频",
-        "hashtag": "聚光灯 #AI视频",
-        "leftRole": "主角"
-      },
-      "squad_walk": {
-        "name": "慢动作走来",
-        "tagline": "最多三个好友，霓虹街头的慢动作出场。",
-        "description": "添加一到三张照片，在霓虹街头朝镜头慢动作走来——头发飘动、衣角翻飞，最后看向镜头。横屏，约 12 秒，带音乐。",
-        "keywords": "慢动作走路 AI, 好友出场视频, 朋友 AI 视频, 多人 AI 视频, 电影感 AI 视频",
-        "hashtag": "慢动作 #好友出场",
-        "leftRole": "中间",
-        "middleRole": "左侧",
-        "rightRole": "右侧"
-      }
-    },
+    "templates": {},
     "slots": {
       "photoNumber": "照片 {n}",
       "upload": "添加照片",

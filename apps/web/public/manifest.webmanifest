@@ -1,7 +1,7 @@
 {
   "id": "/",
-  "name": "YourBrand",
-  "short_name": "YourBrand",
+  "name": "MoveVid",
+  "short_name": "MoveVid",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

@@ -98,13 +98,14 @@ describe("video pricing", () => {
   });
 
   it("counts full videos per pack with the first-full offer applied once", () => {
-    // Default template: first full video 30 credits, then 55 each.
+    // MoveVid's default template (ai_celebrity_autograph) costs 30 credits at 480p, the same as
+    // the first-full offer, so the offer never lowers it: every full video is 30 credits.
     expect(getVideoFullCountForCredits(29, { firstFull: true })).toBe(0);
     expect(getVideoFullCountForCredits(30, { firstFull: true })).toBe(1);
-    expect(getVideoFullCountForCredits(84, { firstFull: true })).toBe(1);
-    expect(getVideoFullCountForCredits(85, { firstFull: true })).toBe(2);
-    expect(getVideoFullCountForCredits(30)).toBe(0);
-    expect(getVideoFullCountForCredits(110)).toBe(2);
+    expect(getVideoFullCountForCredits(59, { firstFull: true })).toBe(1);
+    expect(getVideoFullCountForCredits(60, { firstFull: true })).toBe(2);
+    expect(getVideoFullCountForCredits(30)).toBe(1);
+    expect(getVideoFullCountForCredits(110)).toBe(3);
     expect(getVideoFastCountForCredits(30)).toBe(2);
   });
 
@@ -134,7 +135,7 @@ describe("create button quote", () => {
   }));
 
   it("quotes the starter pack for the default selection of a new visitor", () => {
-    const cost = getVideoCreditsCost("480p", "duo_dance", "seedance-2.0-fast");
+    const cost = getVideoCreditsCost("480p", "ai_celebrity_autograph", "seedance-2.0-fast");
     expect(getVideoPurchaseQuote(cost, 0, offers)).toEqual({
       kind: "pack",
       pack: { id: "starter", credits: 30, amountCents: 999 },
@@ -175,8 +176,7 @@ describe("video templates", () => {
     }
   });
 
-  it("picks the single-template home page only when one template ships", () => {
-    const ids: readonly string[] = VIDEO_TEMPLATE_IDS;
-    expect(SINGLE_TEMPLATE_ID).toBe(ids.length === 1 ? ids[0] : null);
+  it("keeps every template on its own /templates/<slug> page (MoveVid is a hub)", () => {
+    expect(SINGLE_TEMPLATE_ID).toBeNull();
   });
 });

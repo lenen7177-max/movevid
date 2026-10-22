@@ -178,9 +178,13 @@ test("the cloudflare email provider without an EMAIL binding fails the gate", (t
 
 test("the template's own brand files fail the gate until replaced", (t) => {
   const dir = siteRepo(t, filledSiteConfig());
-  for (const path of ["apps/web/public/logo.svg", "apps/web/public/og/og.png"]) {
+  // This site replaced its brand files, so the template's originals come from a fixture copy.
+  for (const [path, fixture] of [
+    ["apps/web/public/logo.svg", "logo.svg"],
+    ["apps/web/public/og/og.png", "og/og.png"],
+  ]) {
     mkdirSync(dirname(join(dir, path)), { recursive: true });
-    cpSync(join(ROOT, path), join(dir, path));
+    cpSync(join(ROOT, "scripts/__tests__/fixtures/template-brand", fixture), join(dir, path));
   }
   // A Windows checkout's CRLF logo is still the template's.
   const logo = join(dir, "apps/web/public/logo.svg");

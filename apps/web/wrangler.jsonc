@@ -2,14 +2,14 @@
 // Do not edit: change those files and run `pnpm site:sync` again.
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "your-project-web",
+  "name": "movevid-web",
   "compatibility_date": "2025-09-02",
   "compatibility_flags": ["nodejs_compat"],
   "main": "./src/server.ts",
   // Canonical site is the apex domain. www is bound too and redirects there (src/server.ts).
   "routes": [
-    { "pattern": "example.com", "custom_domain": true },
-    { "pattern": "www.example.com", "custom_domain": true },
+    { "pattern": "movevid.com", "custom_domain": true },
+    { "pattern": "www.movevid.com", "custom_domain": true },
   ],
   "assets": {
     "not_found_handling": "single-page-application",
@@ -18,20 +18,20 @@
     {
       "binding": "API_SERVICE",
       // The server worker's name (apps/server/wrangler.jsonc).
-      "service": "your-project-server",
+      "service": "movevid-server",
     },
   ],
   "vars": {
-    "VITE_SERVER_URL": "https://api.example.com",
-    "VITE_APP_URL": "https://example.com",
-    "VITE_TEMPLATE_MEDIA_BASE_URL": "https://media.example.com",
+    "VITE_SERVER_URL": "https://api.movevid.com",
+    "VITE_APP_URL": "https://movevid.com",
+    "VITE_TEMPLATE_MEDIA_BASE_URL": "https://media.movevid.com",
     // Optional analytics and support widgets; blank turns them off.
     "VITE_GA_MEASUREMENT_ID": "",
     "VITE_OPENPANEL_CLIENT_ID": "",
     "VITE_TAWK_PROPERTY_ID": "",
     "VITE_TAWK_WIDGET_ID": "",
     // Cloudflare Turnstile site key for email sign-in
-    "VITE_TURNSTILE_SITE_KEY": "<YOUR_TURNSTILE_SITE_KEY>",
+    "VITE_TURNSTILE_SITE_KEY": "0x4AAAAAAFgi4LGC-dlni4JH",
   },
   "observability": {
     "logs": {

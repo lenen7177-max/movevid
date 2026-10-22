@@ -92,17 +92,9 @@ export function sampleClip(templateId: VideoTemplateId, n: number): VideoSampleC
  * or list each clip as { video, poster } for files elsewhere.
  */
 export const VIDEO_TEMPLATE_MEDIA: Record<VideoTemplateId, VideoTemplateMedia> = {
-  duo_dance: {
-    poster: "/templates/duo_dance/poster.svg",
-    previewVideo: MEDIA_BASE ? media("templates/duo_dance/preview.mp4") : undefined,
-  },
-  solo_spotlight: {
-    poster: "/templates/solo_spotlight/poster.svg",
-    previewVideo: MEDIA_BASE ? media("templates/solo_spotlight/preview.mp4") : undefined,
-  },
-  squad_walk: {
-    poster: "/templates/squad_walk/poster.svg",
-    previewVideo: MEDIA_BASE ? media("templates/squad_walk/preview.mp4") : undefined,
+  ai_celebrity_autograph: {
+    poster: "/templates/ai_celebrity_autograph/poster.svg",
+    previewVideo: MEDIA_BASE ? media("templates/ai_celebrity_autograph/preview.mp4") : undefined,
   },
 };
 
