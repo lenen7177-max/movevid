@@ -45,6 +45,10 @@ export function trackAuthSession(user: { id: string; createdAt: Date | string })
   }
 }
 
+export function trackMusicToggle(templateId: string, on: boolean) {
+  trackGoogleEvent("video_music_toggle", { on, template: templateId });
+}
+
 export function trackSampleView(templateId: string) {
   trackGoogleEvent("video_view_sample", { template: templateId });
 }

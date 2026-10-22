@@ -30,6 +30,14 @@ function socialLabel(url: string): string {
   }
 }
 
+/** Assistants that open with a prefilled question about the site (AI search / GEO). */
+const ASK_AI = [
+  { name: "ChatGPT", url: "https://chatgpt.com/?q=" },
+  { name: "Claude", url: "https://claude.ai/new?q=" },
+  { name: "Perplexity", url: "https://www.perplexity.ai/search?q=" },
+  { name: "Grok", url: "https://grok.com/?q=" },
+] as const;
+
 /** Marketing footer: brand, product links, every template, legal. */
 export function SiteFooter() {
   const t = useTranslations("video.footer");
@@ -38,6 +46,9 @@ export function SiteFooter() {
   const authT = useTranslations("auth");
   // Read per render: on Workers, module scope runs before any request, where the clock reads 1970.
   const currentYear = new Date().getFullYear();
+  const askAiQuestion = encodeURIComponent(
+    t("askAi.prompt", { appName: webConfig.AppName, url: webConfig.AppUrl }),
+  );
 
   const sections: Array<{ title: string; links: FooterLink[] }> = [
     {
@@ -60,9 +71,19 @@ export function SiteFooter() {
     {
       title: t("resources"),
       links: [
+        { label: navT("examples"), to: "/examples" },
         { label: navT("blog"), to: "/blog" },
         { label: authT("termsOfService"), to: "/terms" },
         { label: authT("privacyPolicy"), to: "/privacy" },
+        { label: t("refunds"), to: "/refund-policy" },
+        { label: t("cookies"), to: "/cookie-policy" },
+      ],
+    },
+    {
+      title: t("company"),
+      links: [
+        { label: t("about"), to: "/about" },
+        { label: t("contact"), to: "/contact" },
       ],
     },
   ];
@@ -70,7 +91,7 @@ export function SiteFooter() {
   return (
     <footer className="border-t">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-        <div className="grid gap-12 lg:grid-cols-[1.4fr_repeat(3,1fr)]">
+        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.4fr_repeat(4,1fr)]">
           <div className="max-w-xs">
             <Link to="/" className="inline-flex">
               <BrandLogo size={28} />
@@ -119,7 +140,29 @@ export function SiteFooter() {
           ))}
         </div>
         <div className="text-muted-foreground mt-16 flex flex-col gap-4 border-t pt-8 text-xs sm:flex-row sm:items-start sm:justify-between">
-          <p className="max-w-xl leading-5">{t("disclaimer", { appName: webConfig.AppName })}</p>
+          <div className="max-w-xl space-y-3">
+            <p className="leading-5">{t("disclaimer", { appName: webConfig.AppName })}</p>
+            <p className="flex flex-wrap gap-x-3 gap-y-1">
+              <span>{t("askAi.label", { appName: webConfig.AppName })}</span>
+              {ASK_AI.map((assistant) => (
+                <a
+                  key={assistant.name}
+                  href={`${assistant.url}${askAiQuestion}`}
+                  target="_blank"
+                  rel="noopener"
+                  className="text-foreground hover:text-primary font-medium transition-colors"
+                >
+                  {assistant.name}
+                </a>
+              ))}
+              <a
+                href="/llms.txt"
+                className="text-foreground hover:text-primary font-medium transition-colors"
+              >
+                llms.txt
+              </a>
+            </p>
+          </div>
           <p className="shrink-0">
             {t("copyright", { year: currentYear, appName: webConfig.AppName })}
           </p>

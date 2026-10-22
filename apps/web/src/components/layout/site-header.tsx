@@ -1,6 +1,6 @@
 import { SINGLE_TEMPLATE_ID } from "@repo/app-config/video";
 import { buttonVariants } from "@repo/ui/button";
-import { Link } from "@tanstack/react-router";
+import { Link, useHydrated } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { CreditBalanceIndicator } from "@/components/dashboard/credit-balance-indicator";
@@ -13,7 +13,7 @@ import { authClient } from "@/lib/auth/auth-client";
 import { cn } from "@/lib/utils";
 
 type NavLink = {
-  key: "templates" | "studio" | "howItWorks" | "pricing" | "faq";
+  key: "templates" | "examples" | "studio" | "howItWorks" | "pricing" | "faq" | "blog";
   to: string;
   hash?: string;
 };
@@ -21,16 +21,20 @@ type NavLink = {
 const NAV_LINKS: NavLink[] = [
   // A single-template site has no gallery: its only template is the home page.
   ...(SINGLE_TEMPLATE_ID ? [] : [{ key: "templates", to: "/templates" } as const]),
+  { key: "examples", to: "/examples" },
   { key: "studio", to: "/studio" },
   { key: "howItWorks", to: "/", hash: "how-it-works" },
   { key: "pricing", to: "/pricing" },
   { key: "faq", to: "/", hash: "faq" },
+  { key: "blog", to: "/blog" },
 ];
 
 /** Marketing header: logo, centered links, account actions. Turns translucent on scroll. */
 export function SiteHeader() {
   const t = useTranslations("video.nav");
   const { data: session } = authClient.useSession();
+  // The server doesn't know the session; show the balance only after hydration so SSR matches.
+  const signedIn = useHydrated() && Boolean(session?.user);
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -85,7 +89,7 @@ export function SiteHeader() {
         <div className="hidden items-center gap-2 lg:flex">
           <ThemeSwitch />
           <LocaleSwitcher />
-          {session?.user ? <CreditBalanceIndicator /> : null}
+          {signedIn ? <CreditBalanceIndicator /> : null}
           <UserMenu />
           <Link
             to="/studio"
@@ -133,7 +137,7 @@ export function SiteHeader() {
           <div className="mt-8 flex flex-wrap items-center gap-2 border-t pt-6">
             <ThemeSwitch onActionComplete={close} />
             <LocaleSwitcher onActionComplete={close} />
-            {session?.user ? <CreditBalanceIndicator /> : null}
+            {signedIn ? <CreditBalanceIndicator /> : null}
             <UserMenu onActionComplete={close} />
           </div>
           <Link

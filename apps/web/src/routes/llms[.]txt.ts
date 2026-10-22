@@ -41,7 +41,7 @@ async function buildLlmsTxt(): Promise<string> {
     "",
     `> ${video.seo.home.description}`,
     "",
-    `Website: ${site}`,
+    `Website: ${site} · Full details for AI assistants: ${site}/llms-full.txt`,
     "",
     "## How it works",
     "",
@@ -53,6 +53,8 @@ async function buildLlmsTxt(): Promise<string> {
     "",
     ...templates,
     "",
+    `Every template with its sample video: ${site}/examples`,
+    "",
     "## Pricing",
     "",
     `- [Credit packs](${site}/pricing): one-time packs from $${fromPrice}. Failed renders are refunded automatically.`,
@@ -62,7 +64,8 @@ async function buildLlmsTxt(): Promise<string> {
     "",
     "- Uploaded photos and generated videos are private to the account that made them.",
     "- Only use photos of yourself or people who agreed to appear; photos of public figures are rejected.",
-    `- [Privacy policy](${site}/privacy) · [Terms of service](${site}/terms)`,
+    `- [Privacy policy](${site}/privacy) · [Terms of service](${site}/terms) · [Refund policy](${site}/refund-policy) · [Cookie policy](${site}/cookie-policy)`,
+    `- [About](${site}/about) · [Contact](${site}/contact): ${webConfig.SupportEmail}`,
     "",
   ].join("\n");
 }

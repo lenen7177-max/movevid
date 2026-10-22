@@ -24,10 +24,12 @@ import { CreditPackGrid, fillPricingValues } from "@/components/video/pricing-pa
 import { TemplateMedia } from "@/components/video/media";
 import { TemplateGallery } from "@/components/video/template-gallery";
 import { usePricingCheckout } from "@/hooks/use-pricing-checkout";
-import { useTranslations } from "@/i18n";
+import { webConfig } from "@/configs/web-config";
+import { useLocale, useTranslations } from "@/i18n";
 import { templatesNewestFirst } from "@/lib/video/template-catalog";
 import { ANNOUNCED_TEMPLATE_ID, templateLink } from "@/lib/video/templates";
 import { cn } from "@/lib/utils";
+import { formatEffectiveDate } from "@/utils/date";
 
 export const HOME_FAQ_KEYS = [
   "what",
@@ -38,6 +40,8 @@ export const HOME_FAQ_KEYS = [
   "refund",
   "privacy",
 ] as const;
+/** Bump when the FAQ answers change; shown under the heading and sent as dateModified. */
+export const FAQ_UPDATED_AT = "2026-10-21";
 const STEP_KEYS = ["pick", "upload", "share"] as const;
 const STEP_ICONS = { pick: Clapperboard, upload: Upload, share: Download };
 const AUDIENCE_KEYS = ["creators", "friends", "marketers", "events", "pets", "agencies"] as const;
@@ -422,10 +426,26 @@ function PricingSection() {
 
 function Faq() {
   const t = useTranslations("video.home.faq");
+  const videoT = useTranslations("video");
+  const locale = useLocale();
   return (
     <section id="faq" className="scroll-mt-24 py-20 sm:py-28">
       <div className="mx-auto max-w-3xl px-4 sm:px-6">
         <SectionHeading eyebrow={t("eyebrow")} title={t("title")} />
+        {/* Shows readers (and search engines) who wrote the answers and that they're current. */}
+        <p className="text-muted-foreground mt-4 text-center text-xs">
+          <Link
+            to="/about"
+            rel="author"
+            className="hover:text-foreground underline-offset-4 hover:underline"
+          >
+            {videoT("byline", { appName: webConfig.AppName })}
+          </Link>
+          {" · "}
+          <time dateTime={FAQ_UPDATED_AT}>
+            {videoT("updated", { date: formatEffectiveDate(locale, FAQ_UPDATED_AT) })}
+          </time>
+        </p>
         <Accordion className="bg-card mt-12 w-full rounded-3xl border px-6 py-2">
           {HOME_FAQ_KEYS.map((key) => (
             <AccordionItem key={key} value={key}>

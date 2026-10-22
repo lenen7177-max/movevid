@@ -14,6 +14,7 @@ import {
   getVideoJobForUser,
   isVideoFirstFullEligible,
   listVideoJobsForUser,
+  loadSourceJobPhotos,
   syncVideoJob,
   toPublicVideoJob,
 } from "@/video/service";
@@ -88,23 +89,30 @@ export const videoRouter = {
         quality: z.enum(VIDEO_QUALITIES).default(videoConfig.defaultQuality),
         // Clients from before model choice send none and keep getting seedance-2.5.
         model: z.enum(VIDEO_MODELS).default("seedance-2.5"),
-        left: photoSchema,
+        // Required unless sourceJobId is set.
+        left: photoSchema.optional(),
         // Only three-person templates use middle and one-photo templates skip right;
         // the service checks the template's slots.
         middle: photoSchema.optional(),
         right: photoSchema.optional(),
+        // Makes one of the user's earlier videos again (another version or quality) from its
+        // stored photos instead of uploads.
+        sourceJobId: z.string().optional(),
       }),
     )
     .output(jobSchema)
     .handler(async ({ context, input }) => {
       const userId = requireUserId(context);
       try {
+        const source = input.sourceJobId
+          ? await loadSourceJobPhotos(context.db, context.env, userId, input.sourceJobId)
+          : null;
         const job = await createVideoJob(context.db, context.env, context.credits, {
           userId,
-          templateId: input.templateId,
+          templateId: source?.templateId ?? input.templateId,
           quality: input.quality,
           model: input.model,
-          photos: { left: input.left, middle: input.middle, right: input.right },
+          photos: source?.photos ?? { left: input.left, middle: input.middle, right: input.right },
         });
         return toPublicVideoJob(context.env, job);
       } catch (error) {

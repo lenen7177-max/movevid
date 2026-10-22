@@ -1,6 +1,6 @@
 import { SINGLE_TEMPLATE_ID } from "@repo/app-config/video";
 import { createFileRoute } from "@tanstack/react-router";
-import { HOME_FAQ_KEYS, HomePage } from "@/components/marketing/home-page";
+import { FAQ_UPDATED_AT, HOME_FAQ_KEYS, HomePage } from "@/components/marketing/home-page";
 import { fillPricingValues } from "@/components/video/pricing-page";
 import { TemplatePage } from "@/components/video/template-page";
 import { webConfig } from "@/configs/web-config";
@@ -62,6 +62,8 @@ export const Route = createFileRoute("/_public/(marketing)/(landing-page)/")({
           {
             "@type": "FAQPage",
             inLanguage: locale,
+            dateModified: FAQ_UPDATED_AT,
+            author: { "@id": `${webConfig.AppUrl}/#organization` },
             mainEntity: HOME_FAQ_KEYS.map((key) => ({
               "@type": "Question",
               name: home.faq.items[key].q,

@@ -61,7 +61,8 @@
         "wait": "Typical wait",
         "seconds": "{seconds} s",
         "minutes": "About {minutes} min"
-      }
+      },
+      "updated": "Updated {date}"
     }
   },
   "auth": {
@@ -846,6 +847,72 @@
           "content": "Questions about these terms: {supportEmail}."
         }
       }
+    },
+    "refunds": {
+      "title": "Refund Policy",
+      "description": "When you get your credits or money back on {appName}, and how refunds reach you.",
+      "effectiveDate": "2026-10-21",
+      "sections": {
+        "failedRenders": {
+          "title": "Videos that fail",
+          "content": "A video uses the number of credits shown before you press Generate. If a photo isn't approved by the video provider's review, or the render fails for any reason, those credits go back to your balance automatically, usually within minutes. You don't need to ask, and you can use them for another video right away."
+        },
+        "creditPacks": {
+          "title": "Credit packs",
+          "content": "Credit packs are one-time purchases, not subscriptions, and purchased credits don't expire. Credits are added to your account as soon as the payment succeeds, so delivered credits aren't refunded in cash, except where the law requires it, the payment failed, or we didn't deliver the credits you paid for.\n\nIf a payment went through but the credits are missing, contact us and we'll add them or refund the payment."
+        },
+        "freeCredits": {
+          "title": "Free and promotional credits",
+          "content": "Credits we grant for free, for example on sign-up or in a promotion, have no cash value, can't be refunded and may expire as shown in your credit history."
+        },
+        "ourSide": {
+          "title": "When something goes wrong on our side",
+          "content": "If an outage or a bug on our side stops videos from being made, the credits are returned as described above. If you were affected in a way these rules don't cover, write to us and we'll put it right."
+        },
+        "howRefundsAppear": {
+          "title": "How cash refunds appear",
+          "content": "Cash refunds go back to your original payment method through our payment provider. A refund issued shortly after the payment often cancels the pending charge, so the charge may simply disappear from your statement. Otherwise banks usually show the refund within 5 to 10 business days."
+        },
+        "contactUs": {
+          "title": "Questions and requests",
+          "content": "If you think you were charged by mistake or a refund hasn't arrived, email {supportEmail} from the address on your account, with the date and amount of the payment.\n\nMandatory consumer rights in your place of residence remain in force."
+        }
+      }
+    },
+    "cookies": {
+      "title": "Cookie Policy",
+      "description": "The cookies and on-device storage {appName} uses, and how you can control them.",
+      "effectiveDate": "2026-10-21",
+      "sections": {
+        "overview": {
+          "title": "What this page covers",
+          "content": "Cookies are small files a website stores in your browser. Besides cookies, we keep some information in your browser's local storage and IndexedDB. This page lists what we store and why. Our Privacy Policy explains how we handle personal data overall."
+        },
+        "essential": {
+          "title": "Needed for the site to work",
+          "content": "A sign-in cookie keeps you signed in. A language cookie and a theme setting remember your choices. A random device identifier, kept in a cookie and in local storage, helps us stop abuse of sign-ups and free credits.\n\nThese can't be switched off on the site. Blocking them in your browser signs you out or resets your preferences."
+        },
+        "onDevice": {
+          "title": "Stored only on your device",
+          "content": "When you sign in or go to checkout, the photos you picked are kept in your browser (IndexedDB) so they're still there when you come back, and they're cleared once they're used. We also remember a checkout in progress so we can confirm it when you return, and small preferences such as whether you turned the soundtrack off.\n\nThis information stays in your browser and isn't used for advertising."
+        },
+        "analytics": {
+          "title": "Analytics",
+          "content": "If analytics is enabled, we use it to count visits and see which pages and steps work; the analytics provider may set its own cookies, such as Google Analytics' _ga. We also keep, in local storage, the page that first brought you here and the last template you used, so purchases can be credited to the right page.\n\nAnalytics never receives your photos or videos."
+        },
+        "payments": {
+          "title": "Payments",
+          "content": "Checkout happens on our payment provider's pages. The provider sets its own cookies there to process the payment and prevent fraud; see its privacy policy for details."
+        },
+        "choices": {
+          "title": "Your choices",
+          "content": "You can block or delete cookies and site data in your browser settings at any time. Blocking analytics cookies doesn't change how the site works. Blocking the sign-in cookie signs you out."
+        },
+        "contactUs": {
+          "title": "Contact",
+          "content": "Questions about cookies or storage: {supportEmail}."
+        }
+      }
     }
   },
   "video": {
@@ -859,7 +926,8 @@
       "blog": "Blog",
       "startCreating": "Start creating",
       "openMenu": "Open menu",
-      "closeMenu": "Close menu"
+      "closeMenu": "Close menu",
+      "examples": "Examples"
     },
     "footer": {
       "product": "Product",
@@ -867,7 +935,16 @@
       "resources": "Resources",
       "description": "Turn everyday photos into share-ready trend videos. Pick a template, add your photos, get an MP4 in minutes.",
       "disclaimer": "{appName} is an independent creative tool. Only upload photos of people who agreed to appear. Videos are generated by AI and may contain imperfections.",
-      "copyright": "© {year} {appName}. All rights reserved."
+      "copyright": "© {year} {appName}. All rights reserved.",
+      "company": "Company",
+      "about": "About",
+      "contact": "Contact",
+      "refunds": "Refund Policy",
+      "cookies": "Cookie Policy",
+      "askAi": {
+        "label": "Ask AI about {appName}:",
+        "prompt": "What is {appName} ({url})? Summarize what it does, how it works and what it costs, using {url}/llms.txt."
+      }
     },
     "card": {
       "alt": "{name} template preview",
@@ -1013,6 +1090,8 @@
         "again": "Make another",
         "videoLabel": "Generated video",
         "mixing": "Adding the soundtrack…",
+        "music": "Music",
+        "musicOffHint": "Music off: the download is silent. When you post to TikTok or Instagram, add the original song from the app's sound library — the video then shows up on that song's page.",
         "share": {
           "button": "Share",
           "preparing": "Preparing to share…",
@@ -1104,6 +1183,15 @@
             "a": "Yes. Your photos and videos are only visible in your own account. Uploaded photos are deleted automatically after 30 days."
           }
         }
+      },
+      "upgrade": {
+        "title": "Make it even better",
+        "body": "Same photos, nothing to upload: render this video again on Premium or in a higher quality.",
+        "premium": "Premium · full {seconds} s",
+        "sharper": "{quality}",
+        "cost": "{credits} credits",
+        "short": "{credits} credits · buy credits",
+        "photoGone": "The photos for this video are no longer stored. Upload them again to make a new version."
       }
     },
     "gallery": {
@@ -1488,6 +1576,86 @@
         "title": "Studio — make a video from your photos",
         "description": "Pick a template, upload your photos and render a video with music. See the exact price before you generate.",
         "keywords": "ai video studio, photo to video, ai video generator, ai video templates"
+      }
+    },
+    "byline": "By the {appName} team",
+    "updated": "Updated {date}",
+    "announce": {
+      "badge": "New",
+      "text": "{name} is here",
+      "cta": "Try it",
+      "dismiss": "Dismiss"
+    },
+    "examples": {
+      "seo": {
+        "title": "Examples: every template and what it makes",
+        "description": "Watch every template's sample video, see how many photos it needs and what it costs, and start one with your own photos."
+      },
+      "eyebrow": "Examples",
+      "title": "Every template, and what it makes",
+      "subtitle": "Each template copies the moves, camera and timing of its reference clip. Your photos replace the people, the outfits and the room.",
+      "useTemplate": "Try it with my photos",
+      "fromCredits": "From {credits} credits",
+      "templatePage": "About this template",
+      "photos": "{photos, select, 1 {1 photo} other {{photos} photos}} · {seconds} s",
+      "private": {
+        "title": "Why you won't see customers' videos here",
+        "body": "Videos made on {appName} are private. We never publish them, show them to other users or use them in examples or marketing, so this page shows each template's own sample. The fastest way to see yours: make a video with your photos.",
+        "cta": "Try it with my photos"
+      }
+    }
+  },
+  "company": {
+    "about": {
+      "title": "About {appName}",
+      "description": "What {appName} is, how it works and who runs it.",
+      "sections": {
+        "whatItIs": {
+          "title": "What {appName} is",
+          "content": "{appName} turns everyday photos into short, share-ready trend videos. Pick a template, add the photos it asks for, and download an MP4 without a watermark."
+        },
+        "howItWorks": {
+          "title": "How it works",
+          "content": "Each template starts from a reference clip that carries the moves, the staging and the camera. An AI video model recasts that clip with the people in your photos, and the template's soundtrack is added to the finished video.\n\nYour photos first go through the model provider's review. If a photo isn't approved or the render fails, your credits come back automatically."
+        },
+        "pricing": {
+          "title": "Straightforward pricing",
+          "content": "No subscription. Credit packs are one-time purchases and purchased credits don't expire. You see the exact price of a video before you start."
+        },
+        "privacy": {
+          "title": "Your photos stay yours",
+          "content": "Uploaded photos and finished videos are private to your account. We never publish them, show them to other users or use them in examples or marketing."
+        },
+        "independent": {
+          "title": "An independent tool",
+          "content": "{appName} is an independent creative tool. It is not affiliated with, endorsed by or sponsored by the artists, labels or creators behind the trends its templates follow."
+        },
+        "contactUs": {
+          "title": "Get in touch",
+          "content": "Questions, feedback or press: {supportEmail}."
+        }
+      }
+    },
+    "contact": {
+      "title": "Contact us",
+      "description": "How to reach the {appName} team about a video, a payment, a refund or your data.",
+      "sections": {
+        "email": {
+          "title": "Email",
+          "content": "Write to {supportEmail}. A person reads every message."
+        },
+        "orders": {
+          "title": "Help with a video or a payment",
+          "content": "Write from the email on your account and include the date of the purchase or render. If you have the link to your video, include it too: it lets us find it quickly."
+        },
+        "refunds": {
+          "title": "Refunds",
+          "content": "Videos that fail return their credits automatically. Our Refund Policy explains how it works and how long cash refunds take to appear."
+        },
+        "privacy": {
+          "title": "Privacy and data requests",
+          "content": "To ask what data we hold, or to have your photos, videos or account deleted, email us from the address on your account. Our Privacy Policy has the details."
+        }
       }
     }
   }

@@ -1,6 +1,7 @@
 import {
   VIDEO_TEMPLATE_IDS,
   type VideoModel,
+  type VideoQuality,
   type VideoTemplateId,
   videoConfig,
   videoTemplates,
@@ -9,12 +10,13 @@ import {
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@repo/ui/accordion";
 import { Badge } from "@repo/ui/badge";
 import { Button, buttonVariants } from "@repo/ui/button";
+import { Switch } from "@repo/ui/switch";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Clapperboard, Download, ImageOff, Loader2, RotateCcw } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "@/i18n";
-import { trackGenerateResult } from "@/lib/analytics/events";
+import { trackGenerateResult, trackMusicToggle } from "@/lib/analytics/events";
 import { authClient } from "@/lib/auth/auth-client";
 import {
   sampleForModel,
@@ -30,9 +32,12 @@ import { MoreTemplates } from "./template-gallery";
 import { RenderProgress, useRenderAlerts } from "./render-progress";
 import { ShareActions } from "./share-actions";
 import { MODEL_TIER, StudioCreator } from "./studio-creator";
+import { UpgradeOffers } from "./upgrade-offers";
 import { useSoundtrackedVideo } from "./use-soundtracked-video";
 
 const POLL_MS = 4000;
+// Set when the user turned the soundtrack off, so the next finished video starts silent too.
+const MUSIC_OFF_KEY = "video:music-off";
 // Friendly copy for failures the server recognizes; anything else shows the raw reason.
 const FAILURE_COPY = {
   photo_rejected: "photoRejected",
@@ -59,6 +64,7 @@ function FinishedVideo({
   jobId,
   templateId,
   model,
+  quality,
   videoUrl,
   autoPlay,
   onReset,
@@ -66,12 +72,27 @@ function FinishedVideo({
   jobId: string;
   templateId: VideoTemplateId;
   model: VideoModel;
+  quality: VideoQuality;
   videoUrl: string;
   autoPlay: boolean;
   onReset: () => void;
 }) {
   const t = useTranslations("video.studio.result");
-  const video = useSoundtrackedVideo(videoUrl, templateId, model);
+  // Music is on by default; off hands over the silent render to add the sound in TikTok/Instagram.
+  // The first render is always the spinner (the video is picked in an effect), so this is SSR-safe.
+  const [withMusic, setWithMusic] = useState(
+    () => typeof window === "undefined" || window.localStorage.getItem(MUSIC_OFF_KEY) !== "1",
+  );
+  const video = useSoundtrackedVideo(videoUrl, templateId, model, withMusic);
+  const toggleMusic = (on: boolean) => {
+    setWithMusic(on);
+    if (on) {
+      window.localStorage.removeItem(MUSIC_OFF_KEY);
+    } else {
+      window.localStorage.setItem(MUSIC_OFF_KEY, "1");
+    }
+    trackMusicToggle(templateId, on);
+  };
   const aspect = templateAspectClass(templateId);
   const fileName = `video-${jobId.slice(0, 8)}.mp4`;
 
@@ -102,6 +123,16 @@ function FinishedVideo({
         autoPlay={autoPlay}
         playsInline
       />
+      {/* Hidden for silent templates, and when mixing failed (only the silent render exists). */}
+      {videoTemplates[templateId].soundtrack && (video.withSoundtrack || !withMusic) ? (
+        <div className="space-y-1">
+          <label className="flex items-center gap-2 text-sm font-medium">
+            <Switch checked={withMusic} onCheckedChange={toggleMusic} />
+            {t("music")}
+          </label>
+          {withMusic ? null : <p className="text-muted-foreground text-xs">{t("musicOffHint")}</p>}
+        </div>
+      ) : null}
       <div className="flex flex-wrap gap-2">
         <a href={video.downloadHref} className={buttonVariants()} download={fileName}>
           <Download aria-hidden="true" />
@@ -119,6 +150,7 @@ function FinishedVideo({
         templateId={templateId}
         withSoundtrack={video.withSoundtrack}
       />
+      <UpgradeOffers jobId={jobId} templateId={templateId} model={model} quality={quality} />
     </div>
   );
 }
@@ -246,6 +278,7 @@ export function ResultPanel({
         jobId={job.id}
         templateId={job.templateId}
         model={job.model}
+        quality={job.quality}
         videoUrl={job.videoUrl}
         autoPlay={autoPlay}
         onReset={onReset}

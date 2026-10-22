@@ -634,6 +634,35 @@ export async function purgeStaleVideoAssets(env: VideoEnv): Promise<number> {
   return deleted;
 }
 
+/**
+ * The photos of one of the user's earlier jobs, for making the same video again on a better
+ * version or quality without uploading them again. Throws MISSING_PHOTO once they're purged.
+ */
+export async function loadSourceJobPhotos(
+  db: Database,
+  env: VideoEnv,
+  userId: string,
+  sourceJobId: string,
+): Promise<{ templateId: VideoTemplateId; photos: Partial<Record<VideoPhotoSlot, File>> }> {
+  const job = await getVideoJobForUser(db, userId, sourceJobId);
+  if (!job || job.inputsDeletedAt) {
+    throw new VideoJobError("MISSING_PHOTO", "The earlier video's photos are no longer stored");
+  }
+  const entries = await Promise.all(
+    jobSlots(job).map(async (slot) => {
+      const key = job[SLOT_COLUMNS[slot].image];
+      const object = key ? await env.STORAGE.get(key) : null;
+      if (!object) {
+        throw new VideoJobError("MISSING_PHOTO", "The earlier video's photos are no longer stored");
+      }
+      const type = object.httpMetadata?.contentType ?? "image/jpeg";
+      const file = new File([await object.arrayBuffer()], fileName(slot, type), { type });
+      return [slot, file] as const;
+    }),
+  );
+  return { templateId: job.templateId as VideoTemplateId, photos: Object.fromEntries(entries) };
+}
+
 const INPUT_RETENTION_MS = 30 * 24 * 60 * 60 * 1000;
 const INPUT_PURGE_LIMIT = 200;
 

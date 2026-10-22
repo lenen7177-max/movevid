@@ -6,11 +6,15 @@ type SoundtrackedVideo =
   | { status: "mixing" }
   | { status: "ready"; src: string; downloadHref: string; withSoundtrack: boolean };
 
-/** Returns a playable/downloadable URL with the template's soundtrack added, falling back to the silent render. */
+/**
+ * Returns a playable/downloadable URL with the template's soundtrack added, falling back to the
+ * silent render. With `withMusic` off the silent render is returned as-is, without mixing.
+ */
 export function useSoundtrackedVideo(
   videoUrl: string | null,
   templateId: VideoTemplateId,
   model: VideoModel,
+  withMusic = true,
 ): SoundtrackedVideo | null {
   const [state, setState] = useState<SoundtrackedVideo | null>(null);
 
@@ -20,8 +24,8 @@ export function useSoundtrackedVideo(
       return;
     }
 
-    // Silent templates: play and download the render as-is.
-    if (!videoTemplates[templateId].soundtrack) {
+    // Silent templates (or music turned off): play and download the render as-is.
+    if (!(withMusic && videoTemplates[templateId].soundtrack)) {
       setState({
         status: "ready",
         src: videoUrl,
@@ -61,7 +65,7 @@ export function useSoundtrackedVideo(
       cancelled = true;
       if (objectUrl) URL.revokeObjectURL(objectUrl);
     };
-  }, [videoUrl, templateId, model]);
+  }, [videoUrl, templateId, model, withMusic]);
 
   return state;
 }

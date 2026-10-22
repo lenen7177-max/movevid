@@ -103,8 +103,14 @@ export const Route = createFileRoute("/_public/(marketing)/blog/$slug")({
                 author: {
                   "@type": "Organization",
                   name: loaderData?.author?.name ?? webConfig.AppName,
+                  url: `${webConfig.AppUrl}/about`,
                 },
-                publisher: { "@type": "Organization", name: webConfig.AppName },
+                publisher: {
+                  "@type": "Organization",
+                  name: webConfig.AppName,
+                  url: webConfig.AppUrl,
+                  logo: `${webConfig.AppUrl}/logo.svg`,
+                },
               },
             ],
           }
@@ -228,6 +234,16 @@ function RouteComponent() {
             <time className="font-medium text-muted-foreground">
               {formatDate(locale, loaderData.post.date, localeToDateFormat)}
             </time>
+            {loaderData.post.updated ? (
+              <time
+                dateTime={loaderData.post.updated}
+                className="font-medium text-muted-foreground"
+              >
+                {t("updated", {
+                  date: formatDate(locale, loaderData.post.updated, localeToDateFormat),
+                })}
+              </time>
+            ) : null}
             {loaderData.post.readTime ? (
               <span className="font-medium text-muted-foreground">{loaderData.post.readTime}</span>
             ) : null}
