@@ -1133,7 +1133,7 @@
         "view": "View"
       },
       "page": {
-        "eyebrow": "Studio · {count} templates",
+        "eyebrow": "Studio · {count, plural, one {# template} other {# templates}}",
         "title": "Make your video",
         "subtitle": "Pick a template, add your photos and choose a version. You'll see the exact price before anything renders."
       },
@@ -1186,7 +1186,7 @@
         "description": "Browse every video template. Upload one to three photos and get a share-ready vertical or widescreen video with music in minutes.",
         "keywords": "ai video templates, photo to video, ai dance video, viral video templates, ai video maker"
       },
-      "eyebrow": "{count} templates",
+      "eyebrow": "{count, plural, one {# template} other {# templates}}",
       "title": "Pick your moment",
       "subtitle": "Every template is a ready-made scene. Add your photos and you're the star — no prompt, no editing.",
       "ctaTitle": "Photos ready?",
@@ -1328,7 +1328,7 @@
         "announce": "{name} template",
         "title": "Your photos.",
         "titleMuted": "Their next favorite video.",
-        "subtitle": "Pick one of {count} ready-made scenes, drop in a few photos, and get a share-ready video with music in minutes. No prompts. No editing.",
+        "subtitle": "Pick a ready-made scene, drop in your photo, and get a share-ready video with music in minutes. No prompts. No editing.",
         "primary": "Start creating",
         "secondary": "Browse templates",
         "note": "No prompt · No watermark · Refund if it fails"
@@ -1345,7 +1345,7 @@
         "items": {
           "pick": {
             "title": "Pick a template",
-            "body": "Browse ready-made scenes — dances, stage moments, cinematic walks — each with its own camera and music."
+            "body": "Browse ready-made scenes from the latest photo trends, each with its own moves, camera and sound."
           },
           "upload": {
             "title": "Add your photos",
