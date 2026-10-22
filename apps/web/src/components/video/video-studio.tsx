@@ -38,6 +38,7 @@ const FAILURE_COPY = {
   photo_rejected: "photoRejected",
   content_blocked: "contentBlocked",
   timeout: "renderTimeout",
+  service_unavailable: "serviceUnavailable",
 } as const;
 // A rejected photo is named by its position in the template ("Photo 3"), not by left/right.
 const REJECTED_PHOTO_SLOT = {

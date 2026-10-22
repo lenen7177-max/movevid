@@ -7,6 +7,7 @@ export const VIDEO_ERROR_CODES = [
   "photo_right_rejected",
   "content_blocked",
   "timeout",
+  "service_unavailable",
 ] as const;
 export type VideoErrorCode = (typeof VIDEO_ERROR_CODES)[number];
 
@@ -19,9 +20,16 @@ const ASSET_REVIEW_FAILED_PATTERN = /^asset_review_failed:(left|middle|right)/;
 const CONTENT_BLOCKED_PATTERN =
   /content policy|content safety|safety review|SensitiveContentDetected/i;
 
+// The provider failing on its side (outages, dropped connections, our APIMart balance), not the
+// photo: e.g. asset review answering "A temporary problem occurred … try again in a moment". Without
+// this, a provider outage that fails every review tells users their photos were rejected.
+const SERVICE_UNAVAILABLE_PATTERN =
+  /temporar(?:y|ily)|try again in a moment|connection problem|aborted due to timeout|insufficient account balance|submit_interrupted/i;
+
 /** Maps a raw provider error to a code the client can explain to users. */
 export function classifyVideoError(error: string | null): VideoErrorCode | null {
   if (!error) return null;
+  if (SERVICE_UNAVAILABLE_PATTERN.test(error)) return "service_unavailable";
   const slot = ASSET_REVIEW_FAILED_PATTERN.exec(error)?.[1];
   if (slot) return `photo_${slot as VideoPhotoSlot}_rejected`;
   if (PHOTO_REJECTED_PATTERN.test(error)) return "photo_rejected";

@@ -958,7 +958,8 @@
       "photoRejected": "A photo didn't pass review. Photos of public figures, news photos and copyrighted images aren't accepted. Try an everyday photo of yourself or a friend who agreed to be featured.",
       "photoNumberRejected": "Photo {n} didn't pass review. Photos of public figures, minors, news photos and copyrighted images aren't accepted. Try an everyday photo of yourself or a friend who agreed to be featured.",
       "contentBlocked": "The video model's content review blocked this render. Try everyday photos of yourself or friends who agreed to be featured.",
-      "renderTimeout": "The render took too long and was stopped. Please try again."
+      "renderTimeout": "The render took too long and was stopped. Please try again.",
+      "serviceUnavailable": "Our video service had a temporary problem, so this video couldn't be made. It wasn't your photo, and your credits were refunded. Please try again in a few minutes."
     },
     "studio": {
       "templateLabel": "Template",

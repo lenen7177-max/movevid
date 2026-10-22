@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useHydrated } from "@tanstack/react-router";
 import { useTranslations } from "@/i18n";
 import { openSignInDialog } from "@/components/auth/sign-in-dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/avatar";
@@ -23,6 +23,9 @@ type UserMenuProps = {
 
 export default function UserMenu({ onActionComplete }: UserMenuProps = {}) {
   const { data: session, isPending } = authClient.useSession();
+  // The server always renders the skeleton (it doesn't know the session); keep it until hydration
+  // so the first client render matches and React doesn't throw away the header.
+  const hydrated = useHydrated();
   const user = session?.user;
   // Guests keep their videos and credits in this browser; signing in saves them to an account.
   const guest = isGuestUser(user);
@@ -36,7 +39,7 @@ export default function UserMenu({ onActionComplete }: UserMenuProps = {}) {
     });
   };
 
-  if (isPending) {
+  if (!hydrated || isPending) {
     return <Skeleton className="h-9 w-24" />;
   }
 

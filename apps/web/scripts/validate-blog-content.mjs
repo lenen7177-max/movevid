@@ -111,7 +111,8 @@ for (const collection of collections) {
   }
 }
 
-const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+// Plain dates or ISO timestamps (posts use "2026-01-01T12:00:00Z" so same-day posts sort).
+const dateRegex = /^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}(:\d{2})?(\.\d+)?Z?)?$/;
 const warnings = [];
 const templateIds = readTemplateIds(
   path.resolve(projectRoot, "../../packages/app-config/src/video.ts"),

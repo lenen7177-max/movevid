@@ -38,6 +38,46 @@ type ApimartEnv = Pick<Cloudflare.Env, "APIMART_API_KEY" | "APIMART_BASE_URL">;
 
 const REQUEST_TIMEOUT_MS = 30_000;
 
+// Pauses before retrying a photo upload or review submission that failed on APIMart's side.
+const RETRY_DELAYS_MS = [1_000, 3_000];
+
+/**
+ * Whether a request failed without a usable answer from APIMart, so trying again may work: a
+ * timeout, a dropped connection, or a 429/5xx. A 4xx (bad image, no balance) fails the same way
+ * every time.
+ */
+export function isTransientApimartError(error: unknown): boolean {
+  if (error instanceof Error) {
+    if (error.name === "TimeoutError" || error.name === "AbortError") return true;
+    if (error instanceof TypeError) return true;
+    return /aborted due to timeout|^apimart_[a-z_]+_(?:429|5\d\d)\b/.test(error.message);
+  }
+  return false;
+}
+
+/**
+ * Runs `request` again after a short pause when it fails transiently. Only for requests that are
+ * safe to repeat: a duplicate upload or photo review costs nothing, while a duplicate render
+ * would be billed twice, so render submission doesn't go through here.
+ */
+export async function withApimartRetry<T>(
+  label: string,
+  request: () => Promise<T>,
+  delaysMs: readonly number[] = RETRY_DELAYS_MS,
+): Promise<T> {
+  for (let attempt = 0; ; attempt++) {
+    try {
+      return await request();
+    } catch (error) {
+      const delay = delaysMs[attempt];
+      if (delay === undefined || !isTransientApimartError(error)) throw error;
+      const message = error instanceof Error ? error.message : String(error);
+      console.warn("[video] apimart retry", label, attempt + 1, message);
+      await new Promise((resolve) => setTimeout(resolve, delay));
+    }
+  }
+}
+
 function resolveBase(env: ApimartEnv): { base: string; key: string } {
   const key = env.APIMART_API_KEY;
   if (!key) throw new Error("missing_apimart_key");
@@ -47,15 +87,19 @@ function resolveBase(env: ApimartEnv): { base: string; key: string } {
 /** Uploads an image to APIMart and returns a URL Seedance can read. */
 export async function uploadImage(env: ApimartEnv, file: Blob, fileName: string): Promise<string> {
   const { base, key } = resolveBase(env);
-  const form = new FormData();
-  form.set("file", file, fileName);
-  const resp = await fetch(`${base}/v1/uploads/images`, {
-    method: "POST",
-    headers: { Authorization: `Bearer ${key}` },
-    body: form,
-    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+  const resp = await withApimartRetry("upload", async () => {
+    // A fresh body and timeout per attempt: a sent FormData can't be reused.
+    const form = new FormData();
+    form.set("file", file, fileName);
+    const attempt = await fetch(`${base}/v1/uploads/images`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${key}` },
+      body: form,
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+    });
+    if (!attempt.ok) throw await errorFromResponse(attempt, "apimart_upload");
+    return attempt;
   });
-  if (!resp.ok) throw await errorFromResponse(resp, "apimart_upload");
   const payload = (await resp.json()) as { url?: unknown; data?: { url?: unknown } };
   const url = readString(payload.url) ?? readString(payload.data?.url);
   if (!url) throw new Error("apimart_upload_url_missing");
@@ -78,24 +122,27 @@ export async function submitImageAsset(
   input: { model: string; imageUrl: string; name: string; groupId?: string },
 ): Promise<string> {
   const { base, key } = resolveBase(env);
-  const resp = await fetch(`${base}/v1/seedance2/private-avatar/assets`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${key}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      model: input.model,
-      // Without a group id the provider creates a new group on every call.
-      ...(input.groupId
-        ? { group_id: input.groupId }
-        : { group: { name: "video-template-photos" } }),
-      asset_type: "Image",
-      assets: [{ url: input.imageUrl, name: input.name }],
-    }),
-    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+  const resp = await withApimartRetry("asset", async () => {
+    const attempt = await fetch(`${base}/v1/seedance2/private-avatar/assets`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${key}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: input.model,
+        // Without a group id the provider creates a new group on every call.
+        ...(input.groupId
+          ? { group_id: input.groupId }
+          : { group: { name: "video-template-photos" } }),
+        asset_type: "Image",
+        assets: [{ url: input.imageUrl, name: input.name }],
+      }),
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+    });
+    if (!attempt.ok) throw await errorFromResponse(attempt, "apimart_asset");
+    return attempt;
   });
-  if (!resp.ok) throw await errorFromResponse(resp, "apimart_asset");
   const taskId = parseTaskId(await resp.json());
   if (!taskId) throw new Error("apimart_asset_task_id_missing");
   return taskId;

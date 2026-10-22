@@ -21,7 +21,24 @@ import { queryClient } from "@/utils/orpc";
 function ThemedToaster() {
   const { theme } = useTheme();
 
-  return <Toaster richColors position="top-right" theme={theme} />;
+  return (
+    <Toaster
+      richColors
+      position="top-right"
+      theme={theme}
+      // Sonner pushes each button apart with margin-left: auto; keep them side by side on the
+      // right, the action filled in the brand colour and "later"/cancel as a quiet outline.
+      toastOptions={{
+        classNames: {
+          content: "flex-1",
+          cancelButton:
+            "!ml-0 !h-8 !rounded-md !border !border-current/25 !bg-transparent !px-3 !text-sm !font-medium !text-current hover:!bg-current/10",
+          actionButton:
+            "!ml-1.5 !h-8 !rounded-md !bg-primary !px-3 !text-sm !font-semibold !text-primary-foreground hover:!bg-primary/90",
+        },
+      }}
+    />
+  );
 }
 
 export function Providers({ children }: { children: ReactNode }) {

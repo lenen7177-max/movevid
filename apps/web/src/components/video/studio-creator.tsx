@@ -19,7 +19,7 @@ import {
 import { Button } from "@repo/ui/button";
 import { Checkbox } from "@repo/ui/checkbox";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useNavigate } from "@tanstack/react-router";
+import { useHydrated, useNavigate } from "@tanstack/react-router";
 import { Coins, Loader2, Wand2 } from "lucide-react";
 import { Fragment, useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -107,6 +107,8 @@ export function StudioCreator({
   // The model that renders this template's highlight cut, if the template has one.
   const highlightModel = models.find((option) => isVideoHighlight(templateId, option));
   const { data: session, isPending: sessionPending } = authClient.useSession();
+  // The server renders before the session is known; match that until hydration.
+  const hydrated = useHydrated();
   const signedIn = Boolean(session?.user);
   const { setPhotos } = pair;
 
@@ -321,7 +323,7 @@ export function StudioCreator({
             size="lg"
             data-main-cta=""
             className="h-auto min-h-10 py-2 whitespace-normal"
-            disabled={busy || needsConsent || (sessionPending && !pair.isSample)}
+            disabled={busy || needsConsent || ((sessionPending || !hydrated) && !pair.isSample)}
             onClick={generate}
           >
             {createMutation.isPending ? (

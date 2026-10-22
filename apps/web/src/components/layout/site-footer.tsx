@@ -8,8 +8,6 @@ import { templatePath } from "@/lib/video/templates";
 
 type FooterLink = { label: string; to: string; hash?: string };
 
-const currentYear = new Date().getFullYear();
-
 const SOCIAL_NAMES: Record<string, string> = {
   "tiktok.com": "TikTok",
   "instagram.com": "Instagram",
@@ -38,6 +36,8 @@ export function SiteFooter() {
   const navT = useTranslations("video.nav");
   const templatesT = useTranslations("video.templates");
   const authT = useTranslations("auth");
+  // Read per render: on Workers, module scope runs before any request, where the clock reads 1970.
+  const currentYear = new Date().getFullYear();
 
   const sections: Array<{ title: string; links: FooterLink[] }> = [
     {

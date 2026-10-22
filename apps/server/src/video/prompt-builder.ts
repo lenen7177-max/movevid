@@ -58,7 +58,7 @@ export function buildReferencePrompt(spec: ReferencePromptSpec, photoCount: numb
   const cast = spec.cast.slice(0, Math.max(1, photoCount));
   const handles = cast.map((member, index) => `${member.role}完整使用@图片${index + 1} 中的人物`);
   const reference = spec.depthReference
-    ? "@视频1 是一段灰度深度图视频，只用来提供动作、站位、摄影机运动、剪辑切点和时间顺序。深度图中的灰白剪影不是人物外观，不要生成灰白色、剪影化或深度图风格的画面。"
+    ? "@视频1 是一段灰度深度图视频，只用来提供动作、站位、摄影机运动、剪辑切点和时间顺序。深度图中的灰白剪影不是人物外观，不要生成灰白色、剪影化或深度图风格的画面。剪影以外的纯黑部分没有任何场景信息，场景完全按【二、场景】生成。"
     : "@视频1 只用来提供动作、站位、摄影机运动、剪辑切点和时间顺序，不沿用其中人物的外貌和服装。";
 
   const intro = [

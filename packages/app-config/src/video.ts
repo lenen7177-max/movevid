@@ -104,7 +104,9 @@ export const videoTemplates = {
     allowsPets: true,
     soundtrack: true,
     creditsCost: { "480p": 30, "720p": 60, "1080p": 105 },
-    liteCreditsCost: { "seedance-2.0-fast": { "480p": 15, "720p": 25 } },
+    // Premium only: Seedance 2.0 fast drifts on pets' ears and muzzles and on standing pets
+    // (see the viral template playbook).
+    models: ["seedance-2.5"],
   },
   // One to three friends walk toward the camera in slow motion, 12s widescreen.
   squad_walk: {
