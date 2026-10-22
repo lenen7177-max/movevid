@@ -8,766 +8,779 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from "./routes/__root";
-import { Route as RobotsDottxtRouteImport } from "./routes/robots[.]txt";
-import { Route as LlmsDottxtRouteImport } from "./routes/llms[.]txt";
-import { Route as LlmsFullDottxtRouteImport } from "./routes/llms-full[.]txt";
-import { Route as SplatRouteImport } from "./routes/$";
-import { Route as PublicRouteRouteImport } from "./routes/_public/route";
-import { Route as ApiPwaVersionRouteImport } from "./routes/api/pwa-version";
-import { Route as PublicStudioRouteImport } from "./routes/_public/studio";
-import { Route as AutheddashboardRouteRouteImport } from "./routes/_authed/(dashboard)/route";
-import { Route as authAuthRouteRouteImport } from "./routes/(auth)/auth/route";
-import { Route as PublicmarketingPricingRouteImport } from "./routes/_public/(marketing)/pricing";
-import { Route as PublicmarketingExamplesRouteImport } from "./routes/_public/(marketing)/examples";
-import { Route as PublicmarketingContactRouteImport } from "./routes/_public/(marketing)/contact";
-import { Route as PublicmarketingAboutRouteImport } from "./routes/_public/(marketing)/about";
-import { Route as PubliclegalTermsRouteImport } from "./routes/_public/(legal)/terms";
-import { Route as PubliclegalRefundPolicyRouteImport } from "./routes/_public/(legal)/refund-policy";
-import { Route as PubliclegalPrivacyRouteImport } from "./routes/_public/(legal)/privacy";
-import { Route as PubliclegalCookiePolicyRouteImport } from "./routes/_public/(legal)/cookie-policy";
-import { Route as AutheddashboardWorksRouteImport } from "./routes/_authed/(dashboard)/works";
-import { Route as AutheddashboardUsersRouteImport } from "./routes/_authed/(dashboard)/users";
-import { Route as AutheddashboardForbiddenRouteImport } from "./routes/_authed/(dashboard)/forbidden";
-import { Route as authAuthResetPasswordRouteImport } from "./routes/(auth)/auth/reset-password";
-import { Route as authAuthUnauthedRouteRouteImport } from "./routes/(auth)/auth/_unauthed/route";
-import { Route as PublicmarketingTemplatesIndexRouteImport } from "./routes/_public/(marketing)/templates/index";
-import { Route as PublicmarketingBlogIndexRouteImport } from "./routes/_public/(marketing)/blog/index";
-import { Route as PublicmarketinglandingPageIndexRouteImport } from "./routes/_public/(marketing)/(landing-page)/index";
-import { Route as PublicmarketingTemplatesSlugRouteImport } from "./routes/_public/(marketing)/templates/$slug";
-import { Route as PublicmarketingBlogSlugRouteImport } from "./routes/_public/(marketing)/blog/$slug";
-import { Route as AutheddashboardSettingsSecurityRouteImport } from "./routes/_authed/(dashboard)/settings/security";
-import { Route as AutheddashboardSettingsProfileRouteImport } from "./routes/_authed/(dashboard)/settings/profile";
-import { Route as AutheddashboardCreditsTransactionsRouteImport } from "./routes/_authed/(dashboard)/credits/transactions";
-import { Route as AutheddashboardCreditsPurchaseRouteImport } from "./routes/_authed/(dashboard)/credits/purchase";
-import { Route as AutheddashboardAdminPaidUsersRouteImport } from "./routes/_authed/(dashboard)/admin/paid-users";
-import { Route as AutheddashboardAdminOperationsRouteImport } from "./routes/_authed/(dashboard)/admin/operations";
-import { Route as authAuthUnauthedSignUpRouteImport } from "./routes/(auth)/auth/_unauthed/sign-up";
-import { Route as authAuthUnauthedSignInRouteImport } from "./routes/(auth)/auth/_unauthed/sign-in";
-import { Route as authAuthUnauthedPhoneVerifyRouteImport } from "./routes/(auth)/auth/_unauthed/phone-verify";
-import { Route as authAuthUnauthedForgotPasswordRouteImport } from "./routes/(auth)/auth/_unauthed/forgot-password";
-import { Route as PublicmarketingBlogCategorySlugRouteImport } from "./routes/_public/(marketing)/blog/category/$slug";
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
+import { Route as LlmsDottxtRouteImport } from './routes/llms[.]txt'
+import { Route as LlmsFullDottxtRouteImport } from './routes/llms-full[.]txt'
+import { Route as SplatRouteImport } from './routes/$'
+import { Route as PublicRouteRouteImport } from './routes/_public/route'
+import { Route as ApiPwaVersionRouteImport } from './routes/api/pwa-version'
+import { Route as PublicStudioRouteImport } from './routes/_public/studio'
+import { Route as AutheddashboardRouteRouteImport } from './routes/_authed/(dashboard)/route'
+import { Route as authAuthRouteRouteImport } from './routes/(auth)/auth/route'
+import { Route as PublicmarketingPricingRouteImport } from './routes/_public/(marketing)/pricing'
+import { Route as PublicmarketingExamplesRouteImport } from './routes/_public/(marketing)/examples'
+import { Route as PublicmarketingContactRouteImport } from './routes/_public/(marketing)/contact'
+import { Route as PublicmarketingAboutRouteImport } from './routes/_public/(marketing)/about'
+import { Route as PubliclegalTermsRouteImport } from './routes/_public/(legal)/terms'
+import { Route as PubliclegalRefundPolicyRouteImport } from './routes/_public/(legal)/refund-policy'
+import { Route as PubliclegalPrivacyRouteImport } from './routes/_public/(legal)/privacy'
+import { Route as PubliclegalCookiePolicyRouteImport } from './routes/_public/(legal)/cookie-policy'
+import { Route as AutheddashboardWorksRouteImport } from './routes/_authed/(dashboard)/works'
+import { Route as AutheddashboardUsersRouteImport } from './routes/_authed/(dashboard)/users'
+import { Route as AutheddashboardForbiddenRouteImport } from './routes/_authed/(dashboard)/forbidden'
+import { Route as authAuthResetPasswordRouteImport } from './routes/(auth)/auth/reset-password'
+import { Route as authAuthUnauthedRouteRouteImport } from './routes/(auth)/auth/_unauthed/route'
+import { Route as PublicmarketingTemplatesIndexRouteImport } from './routes/_public/(marketing)/templates/index'
+import { Route as PublicmarketingBlogIndexRouteImport } from './routes/_public/(marketing)/blog/index'
+import { Route as PublicmarketinglandingPageIndexRouteImport } from './routes/_public/(marketing)/(landing-page)/index'
+import { Route as PublicmarketingTemplatesSlugRouteImport } from './routes/_public/(marketing)/templates/$slug'
+import { Route as PublicmarketingBlogSlugRouteImport } from './routes/_public/(marketing)/blog/$slug'
+import { Route as AutheddashboardSettingsSecurityRouteImport } from './routes/_authed/(dashboard)/settings/security'
+import { Route as AutheddashboardSettingsProfileRouteImport } from './routes/_authed/(dashboard)/settings/profile'
+import { Route as AutheddashboardCreditsTransactionsRouteImport } from './routes/_authed/(dashboard)/credits/transactions'
+import { Route as AutheddashboardCreditsPurchaseRouteImport } from './routes/_authed/(dashboard)/credits/purchase'
+import { Route as AutheddashboardAdminPaidUsersRouteImport } from './routes/_authed/(dashboard)/admin/paid-users'
+import { Route as AutheddashboardAdminOperationsRouteImport } from './routes/_authed/(dashboard)/admin/operations'
+import { Route as authAuthUnauthedSignUpRouteImport } from './routes/(auth)/auth/_unauthed/sign-up'
+import { Route as authAuthUnauthedSignInRouteImport } from './routes/(auth)/auth/_unauthed/sign-in'
+import { Route as authAuthUnauthedPhoneVerifyRouteImport } from './routes/(auth)/auth/_unauthed/phone-verify'
+import { Route as authAuthUnauthedForgotPasswordRouteImport } from './routes/(auth)/auth/_unauthed/forgot-password'
+import { Route as PublicmarketingBlogCategorySlugRouteImport } from './routes/_public/(marketing)/blog/category/$slug'
 
 const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
-  id: "/robots.txt",
-  path: "/robots.txt",
+  id: '/robots.txt',
+  path: '/robots.txt',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const LlmsDottxtRoute = LlmsDottxtRouteImport.update({
-  id: "/llms.txt",
-  path: "/llms.txt",
+  id: '/llms.txt',
+  path: '/llms.txt',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const LlmsFullDottxtRoute = LlmsFullDottxtRouteImport.update({
-  id: "/llms-full.txt",
-  path: "/llms-full.txt",
+  id: '/llms-full.txt',
+  path: '/llms-full.txt',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const SplatRoute = SplatRouteImport.update({
-  id: "/$",
-  path: "/$",
+  id: '/$',
+  path: '/$',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const PublicRouteRoute = PublicRouteRouteImport.update({
-  id: "/_public",
+  id: '/_public',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const ApiPwaVersionRoute = ApiPwaVersionRouteImport.update({
-  id: "/api/pwa-version",
-  path: "/api/pwa-version",
+  id: '/api/pwa-version',
+  path: '/api/pwa-version',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const PublicStudioRoute = PublicStudioRouteImport.update({
-  id: "/studio",
-  path: "/studio",
+  id: '/studio',
+  path: '/studio',
   getParentRoute: () => PublicRouteRoute,
-} as any);
+} as any)
 const AutheddashboardRouteRoute = AutheddashboardRouteRouteImport.update({
-  id: "/_authed/(dashboard)",
-  path: "",
+  id: '/_authed/(dashboard)',
+  path: '',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const authAuthRouteRoute = authAuthRouteRouteImport.update({
-  id: "/(auth)/auth",
-  path: "/auth",
+  id: '/(auth)/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const PublicmarketingPricingRoute = PublicmarketingPricingRouteImport.update({
-  id: "/(marketing)/pricing",
-  path: "/pricing",
+  id: '/(marketing)/pricing',
+  path: '/pricing',
   getParentRoute: () => PublicRouteRoute,
-} as any);
+} as any)
 const PublicmarketingExamplesRoute = PublicmarketingExamplesRouteImport.update({
-  id: "/(marketing)/examples",
-  path: "/examples",
+  id: '/(marketing)/examples',
+  path: '/examples',
   getParentRoute: () => PublicRouteRoute,
-} as any);
+} as any)
 const PublicmarketingContactRoute = PublicmarketingContactRouteImport.update({
-  id: "/(marketing)/contact",
-  path: "/contact",
+  id: '/(marketing)/contact',
+  path: '/contact',
   getParentRoute: () => PublicRouteRoute,
-} as any);
+} as any)
 const PublicmarketingAboutRoute = PublicmarketingAboutRouteImport.update({
-  id: "/(marketing)/about",
-  path: "/about",
+  id: '/(marketing)/about',
+  path: '/about',
   getParentRoute: () => PublicRouteRoute,
-} as any);
+} as any)
 const PubliclegalTermsRoute = PubliclegalTermsRouteImport.update({
-  id: "/(legal)/terms",
-  path: "/terms",
+  id: '/(legal)/terms',
+  path: '/terms',
   getParentRoute: () => PublicRouteRoute,
-} as any);
+} as any)
 const PubliclegalRefundPolicyRoute = PubliclegalRefundPolicyRouteImport.update({
-  id: "/(legal)/refund-policy",
-  path: "/refund-policy",
+  id: '/(legal)/refund-policy',
+  path: '/refund-policy',
   getParentRoute: () => PublicRouteRoute,
-} as any);
+} as any)
 const PubliclegalPrivacyRoute = PubliclegalPrivacyRouteImport.update({
-  id: "/(legal)/privacy",
-  path: "/privacy",
+  id: '/(legal)/privacy',
+  path: '/privacy',
   getParentRoute: () => PublicRouteRoute,
-} as any);
+} as any)
 const PubliclegalCookiePolicyRoute = PubliclegalCookiePolicyRouteImport.update({
-  id: "/(legal)/cookie-policy",
-  path: "/cookie-policy",
+  id: '/(legal)/cookie-policy',
+  path: '/cookie-policy',
   getParentRoute: () => PublicRouteRoute,
-} as any);
+} as any)
 const AutheddashboardWorksRoute = AutheddashboardWorksRouteImport.update({
-  id: "/works",
-  path: "/works",
+  id: '/works',
+  path: '/works',
   getParentRoute: () => AutheddashboardRouteRoute,
-} as any);
+} as any)
 const AutheddashboardUsersRoute = AutheddashboardUsersRouteImport.update({
-  id: "/users",
-  path: "/users",
+  id: '/users',
+  path: '/users',
   getParentRoute: () => AutheddashboardRouteRoute,
-} as any);
-const AutheddashboardForbiddenRoute = AutheddashboardForbiddenRouteImport.update({
-  id: "/forbidden",
-  path: "/forbidden",
-  getParentRoute: () => AutheddashboardRouteRoute,
-} as any);
+} as any)
+const AutheddashboardForbiddenRoute =
+  AutheddashboardForbiddenRouteImport.update({
+    id: '/forbidden',
+    path: '/forbidden',
+    getParentRoute: () => AutheddashboardRouteRoute,
+  } as any)
 const authAuthResetPasswordRoute = authAuthResetPasswordRouteImport.update({
-  id: "/reset-password",
-  path: "/reset-password",
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => authAuthRouteRoute,
-} as any);
+} as any)
 const authAuthUnauthedRouteRoute = authAuthUnauthedRouteRouteImport.update({
-  id: "/_unauthed",
+  id: '/_unauthed',
   getParentRoute: () => authAuthRouteRoute,
-} as any);
-const PublicmarketingTemplatesIndexRoute = PublicmarketingTemplatesIndexRouteImport.update({
-  id: "/(marketing)/templates/",
-  path: "/templates/",
-  getParentRoute: () => PublicRouteRoute,
-} as any);
-const PublicmarketingBlogIndexRoute = PublicmarketingBlogIndexRouteImport.update({
-  id: "/(marketing)/blog/",
-  path: "/blog/",
-  getParentRoute: () => PublicRouteRoute,
-} as any);
-const PublicmarketinglandingPageIndexRoute = PublicmarketinglandingPageIndexRouteImport.update({
-  id: "/(marketing)/(landing-page)/",
-  path: "/",
-  getParentRoute: () => PublicRouteRoute,
-} as any);
-const PublicmarketingTemplatesSlugRoute = PublicmarketingTemplatesSlugRouteImport.update({
-  id: "/(marketing)/templates/$slug",
-  path: "/templates/$slug",
-  getParentRoute: () => PublicRouteRoute,
-} as any);
+} as any)
+const PublicmarketingTemplatesIndexRoute =
+  PublicmarketingTemplatesIndexRouteImport.update({
+    id: '/(marketing)/templates/',
+    path: '/templates/',
+    getParentRoute: () => PublicRouteRoute,
+  } as any)
+const PublicmarketingBlogIndexRoute =
+  PublicmarketingBlogIndexRouteImport.update({
+    id: '/(marketing)/blog/',
+    path: '/blog/',
+    getParentRoute: () => PublicRouteRoute,
+  } as any)
+const PublicmarketinglandingPageIndexRoute =
+  PublicmarketinglandingPageIndexRouteImport.update({
+    id: '/(marketing)/(landing-page)/',
+    path: '/',
+    getParentRoute: () => PublicRouteRoute,
+  } as any)
+const PublicmarketingTemplatesSlugRoute =
+  PublicmarketingTemplatesSlugRouteImport.update({
+    id: '/(marketing)/templates/$slug',
+    path: '/templates/$slug',
+    getParentRoute: () => PublicRouteRoute,
+  } as any)
 const PublicmarketingBlogSlugRoute = PublicmarketingBlogSlugRouteImport.update({
-  id: "/(marketing)/blog/$slug",
-  path: "/blog/$slug",
+  id: '/(marketing)/blog/$slug',
+  path: '/blog/$slug',
   getParentRoute: () => PublicRouteRoute,
-} as any);
-const AutheddashboardSettingsSecurityRoute = AutheddashboardSettingsSecurityRouteImport.update({
-  id: "/settings/security",
-  path: "/settings/security",
-  getParentRoute: () => AutheddashboardRouteRoute,
-} as any);
-const AutheddashboardSettingsProfileRoute = AutheddashboardSettingsProfileRouteImport.update({
-  id: "/settings/profile",
-  path: "/settings/profile",
-  getParentRoute: () => AutheddashboardRouteRoute,
-} as any);
+} as any)
+const AutheddashboardSettingsSecurityRoute =
+  AutheddashboardSettingsSecurityRouteImport.update({
+    id: '/settings/security',
+    path: '/settings/security',
+    getParentRoute: () => AutheddashboardRouteRoute,
+  } as any)
+const AutheddashboardSettingsProfileRoute =
+  AutheddashboardSettingsProfileRouteImport.update({
+    id: '/settings/profile',
+    path: '/settings/profile',
+    getParentRoute: () => AutheddashboardRouteRoute,
+  } as any)
 const AutheddashboardCreditsTransactionsRoute =
   AutheddashboardCreditsTransactionsRouteImport.update({
-    id: "/credits/transactions",
-    path: "/credits/transactions",
+    id: '/credits/transactions',
+    path: '/credits/transactions',
     getParentRoute: () => AutheddashboardRouteRoute,
-  } as any);
-const AutheddashboardCreditsPurchaseRoute = AutheddashboardCreditsPurchaseRouteImport.update({
-  id: "/credits/purchase",
-  path: "/credits/purchase",
-  getParentRoute: () => AutheddashboardRouteRoute,
-} as any);
-const AutheddashboardAdminPaidUsersRoute = AutheddashboardAdminPaidUsersRouteImport.update({
-  id: "/admin/paid-users",
-  path: "/admin/paid-users",
-  getParentRoute: () => AutheddashboardRouteRoute,
-} as any);
-const AutheddashboardAdminOperationsRoute = AutheddashboardAdminOperationsRouteImport.update({
-  id: "/admin/operations",
-  path: "/admin/operations",
-  getParentRoute: () => AutheddashboardRouteRoute,
-} as any);
+  } as any)
+const AutheddashboardCreditsPurchaseRoute =
+  AutheddashboardCreditsPurchaseRouteImport.update({
+    id: '/credits/purchase',
+    path: '/credits/purchase',
+    getParentRoute: () => AutheddashboardRouteRoute,
+  } as any)
+const AutheddashboardAdminPaidUsersRoute =
+  AutheddashboardAdminPaidUsersRouteImport.update({
+    id: '/admin/paid-users',
+    path: '/admin/paid-users',
+    getParentRoute: () => AutheddashboardRouteRoute,
+  } as any)
+const AutheddashboardAdminOperationsRoute =
+  AutheddashboardAdminOperationsRouteImport.update({
+    id: '/admin/operations',
+    path: '/admin/operations',
+    getParentRoute: () => AutheddashboardRouteRoute,
+  } as any)
 const authAuthUnauthedSignUpRoute = authAuthUnauthedSignUpRouteImport.update({
-  id: "/sign-up",
-  path: "/sign-up",
+  id: '/sign-up',
+  path: '/sign-up',
   getParentRoute: () => authAuthUnauthedRouteRoute,
-} as any);
+} as any)
 const authAuthUnauthedSignInRoute = authAuthUnauthedSignInRouteImport.update({
-  id: "/sign-in",
-  path: "/sign-in",
+  id: '/sign-in',
+  path: '/sign-in',
   getParentRoute: () => authAuthUnauthedRouteRoute,
-} as any);
-const authAuthUnauthedPhoneVerifyRoute = authAuthUnauthedPhoneVerifyRouteImport.update({
-  id: "/phone-verify",
-  path: "/phone-verify",
-  getParentRoute: () => authAuthUnauthedRouteRoute,
-} as any);
-const authAuthUnauthedForgotPasswordRoute = authAuthUnauthedForgotPasswordRouteImport.update({
-  id: "/forgot-password",
-  path: "/forgot-password",
-  getParentRoute: () => authAuthUnauthedRouteRoute,
-} as any);
-const PublicmarketingBlogCategorySlugRoute = PublicmarketingBlogCategorySlugRouteImport.update({
-  id: "/(marketing)/blog/category/$slug",
-  path: "/blog/category/$slug",
-  getParentRoute: () => PublicRouteRoute,
-} as any);
+} as any)
+const authAuthUnauthedPhoneVerifyRoute =
+  authAuthUnauthedPhoneVerifyRouteImport.update({
+    id: '/phone-verify',
+    path: '/phone-verify',
+    getParentRoute: () => authAuthUnauthedRouteRoute,
+  } as any)
+const authAuthUnauthedForgotPasswordRoute =
+  authAuthUnauthedForgotPasswordRouteImport.update({
+    id: '/forgot-password',
+    path: '/forgot-password',
+    getParentRoute: () => authAuthUnauthedRouteRoute,
+  } as any)
+const PublicmarketingBlogCategorySlugRoute =
+  PublicmarketingBlogCategorySlugRouteImport.update({
+    id: '/(marketing)/blog/category/$slug',
+    path: '/blog/category/$slug',
+    getParentRoute: () => PublicRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
-  "/": typeof PublicmarketinglandingPageIndexRoute;
-  "/$": typeof SplatRoute;
-  "/llms-full.txt": typeof LlmsFullDottxtRoute;
-  "/llms.txt": typeof LlmsDottxtRoute;
-  "/robots.txt": typeof RobotsDottxtRoute;
-  "/auth": typeof authAuthUnauthedRouteRouteWithChildren;
-  "/studio": typeof PublicStudioRoute;
-  "/api/pwa-version": typeof ApiPwaVersionRoute;
-  "/auth/reset-password": typeof authAuthResetPasswordRoute;
-  "/forbidden": typeof AutheddashboardForbiddenRoute;
-  "/users": typeof AutheddashboardUsersRoute;
-  "/works": typeof AutheddashboardWorksRoute;
-  "/cookie-policy": typeof PubliclegalCookiePolicyRoute;
-  "/privacy": typeof PubliclegalPrivacyRoute;
-  "/refund-policy": typeof PubliclegalRefundPolicyRoute;
-  "/terms": typeof PubliclegalTermsRoute;
-  "/about": typeof PublicmarketingAboutRoute;
-  "/contact": typeof PublicmarketingContactRoute;
-  "/examples": typeof PublicmarketingExamplesRoute;
-  "/pricing": typeof PublicmarketingPricingRoute;
-  "/auth/forgot-password": typeof authAuthUnauthedForgotPasswordRoute;
-  "/auth/phone-verify": typeof authAuthUnauthedPhoneVerifyRoute;
-  "/auth/sign-in": typeof authAuthUnauthedSignInRoute;
-  "/auth/sign-up": typeof authAuthUnauthedSignUpRoute;
-  "/admin/operations": typeof AutheddashboardAdminOperationsRoute;
-  "/admin/paid-users": typeof AutheddashboardAdminPaidUsersRoute;
-  "/credits/purchase": typeof AutheddashboardCreditsPurchaseRoute;
-  "/credits/transactions": typeof AutheddashboardCreditsTransactionsRoute;
-  "/settings/profile": typeof AutheddashboardSettingsProfileRoute;
-  "/settings/security": typeof AutheddashboardSettingsSecurityRoute;
-  "/blog/$slug": typeof PublicmarketingBlogSlugRoute;
-  "/templates/$slug": typeof PublicmarketingTemplatesSlugRoute;
-  "/blog/": typeof PublicmarketingBlogIndexRoute;
-  "/templates/": typeof PublicmarketingTemplatesIndexRoute;
-  "/blog/category/$slug": typeof PublicmarketingBlogCategorySlugRoute;
+  '/': typeof PublicmarketinglandingPageIndexRoute
+  '/$': typeof SplatRoute
+  '/llms-full.txt': typeof LlmsFullDottxtRoute
+  '/llms.txt': typeof LlmsDottxtRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/auth': typeof authAuthUnauthedRouteRouteWithChildren
+  '/studio': typeof PublicStudioRoute
+  '/api/pwa-version': typeof ApiPwaVersionRoute
+  '/auth/reset-password': typeof authAuthResetPasswordRoute
+  '/forbidden': typeof AutheddashboardForbiddenRoute
+  '/users': typeof AutheddashboardUsersRoute
+  '/works': typeof AutheddashboardWorksRoute
+  '/cookie-policy': typeof PubliclegalCookiePolicyRoute
+  '/privacy': typeof PubliclegalPrivacyRoute
+  '/refund-policy': typeof PubliclegalRefundPolicyRoute
+  '/terms': typeof PubliclegalTermsRoute
+  '/about': typeof PublicmarketingAboutRoute
+  '/contact': typeof PublicmarketingContactRoute
+  '/examples': typeof PublicmarketingExamplesRoute
+  '/pricing': typeof PublicmarketingPricingRoute
+  '/auth/forgot-password': typeof authAuthUnauthedForgotPasswordRoute
+  '/auth/phone-verify': typeof authAuthUnauthedPhoneVerifyRoute
+  '/auth/sign-in': typeof authAuthUnauthedSignInRoute
+  '/auth/sign-up': typeof authAuthUnauthedSignUpRoute
+  '/admin/operations': typeof AutheddashboardAdminOperationsRoute
+  '/admin/paid-users': typeof AutheddashboardAdminPaidUsersRoute
+  '/credits/purchase': typeof AutheddashboardCreditsPurchaseRoute
+  '/credits/transactions': typeof AutheddashboardCreditsTransactionsRoute
+  '/settings/profile': typeof AutheddashboardSettingsProfileRoute
+  '/settings/security': typeof AutheddashboardSettingsSecurityRoute
+  '/blog/$slug': typeof PublicmarketingBlogSlugRoute
+  '/templates/$slug': typeof PublicmarketingTemplatesSlugRoute
+  '/blog/': typeof PublicmarketingBlogIndexRoute
+  '/templates/': typeof PublicmarketingTemplatesIndexRoute
+  '/blog/category/$slug': typeof PublicmarketingBlogCategorySlugRoute
 }
 export interface FileRoutesByTo {
-  "/$": typeof SplatRoute;
-  "/llms-full.txt": typeof LlmsFullDottxtRoute;
-  "/llms.txt": typeof LlmsDottxtRoute;
-  "/robots.txt": typeof RobotsDottxtRoute;
-  "/auth": typeof authAuthUnauthedRouteRouteWithChildren;
-  "/studio": typeof PublicStudioRoute;
-  "/api/pwa-version": typeof ApiPwaVersionRoute;
-  "/auth/reset-password": typeof authAuthResetPasswordRoute;
-  "/forbidden": typeof AutheddashboardForbiddenRoute;
-  "/users": typeof AutheddashboardUsersRoute;
-  "/works": typeof AutheddashboardWorksRoute;
-  "/cookie-policy": typeof PubliclegalCookiePolicyRoute;
-  "/privacy": typeof PubliclegalPrivacyRoute;
-  "/refund-policy": typeof PubliclegalRefundPolicyRoute;
-  "/terms": typeof PubliclegalTermsRoute;
-  "/about": typeof PublicmarketingAboutRoute;
-  "/contact": typeof PublicmarketingContactRoute;
-  "/examples": typeof PublicmarketingExamplesRoute;
-  "/pricing": typeof PublicmarketingPricingRoute;
-  "/auth/forgot-password": typeof authAuthUnauthedForgotPasswordRoute;
-  "/auth/phone-verify": typeof authAuthUnauthedPhoneVerifyRoute;
-  "/auth/sign-in": typeof authAuthUnauthedSignInRoute;
-  "/auth/sign-up": typeof authAuthUnauthedSignUpRoute;
-  "/admin/operations": typeof AutheddashboardAdminOperationsRoute;
-  "/admin/paid-users": typeof AutheddashboardAdminPaidUsersRoute;
-  "/credits/purchase": typeof AutheddashboardCreditsPurchaseRoute;
-  "/credits/transactions": typeof AutheddashboardCreditsTransactionsRoute;
-  "/settings/profile": typeof AutheddashboardSettingsProfileRoute;
-  "/settings/security": typeof AutheddashboardSettingsSecurityRoute;
-  "/blog/$slug": typeof PublicmarketingBlogSlugRoute;
-  "/templates/$slug": typeof PublicmarketingTemplatesSlugRoute;
-  "/": typeof PublicmarketinglandingPageIndexRoute;
-  "/blog": typeof PublicmarketingBlogIndexRoute;
-  "/templates": typeof PublicmarketingTemplatesIndexRoute;
-  "/blog/category/$slug": typeof PublicmarketingBlogCategorySlugRoute;
+  '/$': typeof SplatRoute
+  '/llms-full.txt': typeof LlmsFullDottxtRoute
+  '/llms.txt': typeof LlmsDottxtRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/auth': typeof authAuthUnauthedRouteRouteWithChildren
+  '/studio': typeof PublicStudioRoute
+  '/api/pwa-version': typeof ApiPwaVersionRoute
+  '/auth/reset-password': typeof authAuthResetPasswordRoute
+  '/forbidden': typeof AutheddashboardForbiddenRoute
+  '/users': typeof AutheddashboardUsersRoute
+  '/works': typeof AutheddashboardWorksRoute
+  '/cookie-policy': typeof PubliclegalCookiePolicyRoute
+  '/privacy': typeof PubliclegalPrivacyRoute
+  '/refund-policy': typeof PubliclegalRefundPolicyRoute
+  '/terms': typeof PubliclegalTermsRoute
+  '/about': typeof PublicmarketingAboutRoute
+  '/contact': typeof PublicmarketingContactRoute
+  '/examples': typeof PublicmarketingExamplesRoute
+  '/pricing': typeof PublicmarketingPricingRoute
+  '/auth/forgot-password': typeof authAuthUnauthedForgotPasswordRoute
+  '/auth/phone-verify': typeof authAuthUnauthedPhoneVerifyRoute
+  '/auth/sign-in': typeof authAuthUnauthedSignInRoute
+  '/auth/sign-up': typeof authAuthUnauthedSignUpRoute
+  '/admin/operations': typeof AutheddashboardAdminOperationsRoute
+  '/admin/paid-users': typeof AutheddashboardAdminPaidUsersRoute
+  '/credits/purchase': typeof AutheddashboardCreditsPurchaseRoute
+  '/credits/transactions': typeof AutheddashboardCreditsTransactionsRoute
+  '/settings/profile': typeof AutheddashboardSettingsProfileRoute
+  '/settings/security': typeof AutheddashboardSettingsSecurityRoute
+  '/blog/$slug': typeof PublicmarketingBlogSlugRoute
+  '/templates/$slug': typeof PublicmarketingTemplatesSlugRoute
+  '/': typeof PublicmarketinglandingPageIndexRoute
+  '/blog': typeof PublicmarketingBlogIndexRoute
+  '/templates': typeof PublicmarketingTemplatesIndexRoute
+  '/blog/category/$slug': typeof PublicmarketingBlogCategorySlugRoute
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport;
-  "/_public": typeof PublicRouteRouteWithChildren;
-  "/$": typeof SplatRoute;
-  "/llms-full.txt": typeof LlmsFullDottxtRoute;
-  "/llms.txt": typeof LlmsDottxtRoute;
-  "/robots.txt": typeof RobotsDottxtRoute;
-  "/(auth)/auth": typeof authAuthRouteRouteWithChildren;
-  "/_authed/(dashboard)": typeof AutheddashboardRouteRouteWithChildren;
-  "/_public/studio": typeof PublicStudioRoute;
-  "/api/pwa-version": typeof ApiPwaVersionRoute;
-  "/(auth)/auth/_unauthed": typeof authAuthUnauthedRouteRouteWithChildren;
-  "/(auth)/auth/reset-password": typeof authAuthResetPasswordRoute;
-  "/_authed/(dashboard)/forbidden": typeof AutheddashboardForbiddenRoute;
-  "/_authed/(dashboard)/users": typeof AutheddashboardUsersRoute;
-  "/_authed/(dashboard)/works": typeof AutheddashboardWorksRoute;
-  "/_public/(legal)/cookie-policy": typeof PubliclegalCookiePolicyRoute;
-  "/_public/(legal)/privacy": typeof PubliclegalPrivacyRoute;
-  "/_public/(legal)/refund-policy": typeof PubliclegalRefundPolicyRoute;
-  "/_public/(legal)/terms": typeof PubliclegalTermsRoute;
-  "/_public/(marketing)/about": typeof PublicmarketingAboutRoute;
-  "/_public/(marketing)/contact": typeof PublicmarketingContactRoute;
-  "/_public/(marketing)/examples": typeof PublicmarketingExamplesRoute;
-  "/_public/(marketing)/pricing": typeof PublicmarketingPricingRoute;
-  "/(auth)/auth/_unauthed/forgot-password": typeof authAuthUnauthedForgotPasswordRoute;
-  "/(auth)/auth/_unauthed/phone-verify": typeof authAuthUnauthedPhoneVerifyRoute;
-  "/(auth)/auth/_unauthed/sign-in": typeof authAuthUnauthedSignInRoute;
-  "/(auth)/auth/_unauthed/sign-up": typeof authAuthUnauthedSignUpRoute;
-  "/_authed/(dashboard)/admin/operations": typeof AutheddashboardAdminOperationsRoute;
-  "/_authed/(dashboard)/admin/paid-users": typeof AutheddashboardAdminPaidUsersRoute;
-  "/_authed/(dashboard)/credits/purchase": typeof AutheddashboardCreditsPurchaseRoute;
-  "/_authed/(dashboard)/credits/transactions": typeof AutheddashboardCreditsTransactionsRoute;
-  "/_authed/(dashboard)/settings/profile": typeof AutheddashboardSettingsProfileRoute;
-  "/_authed/(dashboard)/settings/security": typeof AutheddashboardSettingsSecurityRoute;
-  "/_public/(marketing)/blog/$slug": typeof PublicmarketingBlogSlugRoute;
-  "/_public/(marketing)/templates/$slug": typeof PublicmarketingTemplatesSlugRoute;
-  "/_public/(marketing)/(landing-page)/": typeof PublicmarketinglandingPageIndexRoute;
-  "/_public/(marketing)/blog/": typeof PublicmarketingBlogIndexRoute;
-  "/_public/(marketing)/templates/": typeof PublicmarketingTemplatesIndexRoute;
-  "/_public/(marketing)/blog/category/$slug": typeof PublicmarketingBlogCategorySlugRoute;
+  __root__: typeof rootRouteImport
+  '/_public': typeof PublicRouteRouteWithChildren
+  '/$': typeof SplatRoute
+  '/llms-full.txt': typeof LlmsFullDottxtRoute
+  '/llms.txt': typeof LlmsDottxtRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/(auth)/auth': typeof authAuthRouteRouteWithChildren
+  '/_authed/(dashboard)': typeof AutheddashboardRouteRouteWithChildren
+  '/_public/studio': typeof PublicStudioRoute
+  '/api/pwa-version': typeof ApiPwaVersionRoute
+  '/(auth)/auth/_unauthed': typeof authAuthUnauthedRouteRouteWithChildren
+  '/(auth)/auth/reset-password': typeof authAuthResetPasswordRoute
+  '/_authed/(dashboard)/forbidden': typeof AutheddashboardForbiddenRoute
+  '/_authed/(dashboard)/users': typeof AutheddashboardUsersRoute
+  '/_authed/(dashboard)/works': typeof AutheddashboardWorksRoute
+  '/_public/(legal)/cookie-policy': typeof PubliclegalCookiePolicyRoute
+  '/_public/(legal)/privacy': typeof PubliclegalPrivacyRoute
+  '/_public/(legal)/refund-policy': typeof PubliclegalRefundPolicyRoute
+  '/_public/(legal)/terms': typeof PubliclegalTermsRoute
+  '/_public/(marketing)/about': typeof PublicmarketingAboutRoute
+  '/_public/(marketing)/contact': typeof PublicmarketingContactRoute
+  '/_public/(marketing)/examples': typeof PublicmarketingExamplesRoute
+  '/_public/(marketing)/pricing': typeof PublicmarketingPricingRoute
+  '/(auth)/auth/_unauthed/forgot-password': typeof authAuthUnauthedForgotPasswordRoute
+  '/(auth)/auth/_unauthed/phone-verify': typeof authAuthUnauthedPhoneVerifyRoute
+  '/(auth)/auth/_unauthed/sign-in': typeof authAuthUnauthedSignInRoute
+  '/(auth)/auth/_unauthed/sign-up': typeof authAuthUnauthedSignUpRoute
+  '/_authed/(dashboard)/admin/operations': typeof AutheddashboardAdminOperationsRoute
+  '/_authed/(dashboard)/admin/paid-users': typeof AutheddashboardAdminPaidUsersRoute
+  '/_authed/(dashboard)/credits/purchase': typeof AutheddashboardCreditsPurchaseRoute
+  '/_authed/(dashboard)/credits/transactions': typeof AutheddashboardCreditsTransactionsRoute
+  '/_authed/(dashboard)/settings/profile': typeof AutheddashboardSettingsProfileRoute
+  '/_authed/(dashboard)/settings/security': typeof AutheddashboardSettingsSecurityRoute
+  '/_public/(marketing)/blog/$slug': typeof PublicmarketingBlogSlugRoute
+  '/_public/(marketing)/templates/$slug': typeof PublicmarketingTemplatesSlugRoute
+  '/_public/(marketing)/(landing-page)/': typeof PublicmarketinglandingPageIndexRoute
+  '/_public/(marketing)/blog/': typeof PublicmarketingBlogIndexRoute
+  '/_public/(marketing)/templates/': typeof PublicmarketingTemplatesIndexRoute
+  '/_public/(marketing)/blog/category/$slug': typeof PublicmarketingBlogCategorySlugRoute
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
+  fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | "/"
-    | "/$"
-    | "/llms-full.txt"
-    | "/llms.txt"
-    | "/robots.txt"
-    | "/auth"
-    | "/studio"
-    | "/api/pwa-version"
-    | "/auth/reset-password"
-    | "/forbidden"
-    | "/users"
-    | "/works"
-    | "/cookie-policy"
-    | "/privacy"
-    | "/refund-policy"
-    | "/terms"
-    | "/about"
-    | "/contact"
-    | "/examples"
-    | "/pricing"
-    | "/auth/forgot-password"
-    | "/auth/phone-verify"
-    | "/auth/sign-in"
-    | "/auth/sign-up"
-    | "/admin/operations"
-    | "/admin/paid-users"
-    | "/credits/purchase"
-    | "/credits/transactions"
-    | "/settings/profile"
-    | "/settings/security"
-    | "/blog/$slug"
-    | "/templates/$slug"
-    | "/blog/"
-    | "/templates/"
-    | "/blog/category/$slug";
-  fileRoutesByTo: FileRoutesByTo;
+    | '/'
+    | '/$'
+    | '/llms-full.txt'
+    | '/llms.txt'
+    | '/robots.txt'
+    | '/auth'
+    | '/studio'
+    | '/api/pwa-version'
+    | '/auth/reset-password'
+    | '/forbidden'
+    | '/users'
+    | '/works'
+    | '/cookie-policy'
+    | '/privacy'
+    | '/refund-policy'
+    | '/terms'
+    | '/about'
+    | '/contact'
+    | '/examples'
+    | '/pricing'
+    | '/auth/forgot-password'
+    | '/auth/phone-verify'
+    | '/auth/sign-in'
+    | '/auth/sign-up'
+    | '/admin/operations'
+    | '/admin/paid-users'
+    | '/credits/purchase'
+    | '/credits/transactions'
+    | '/settings/profile'
+    | '/settings/security'
+    | '/blog/$slug'
+    | '/templates/$slug'
+    | '/blog/'
+    | '/templates/'
+    | '/blog/category/$slug'
+  fileRoutesByTo: FileRoutesByTo
   to:
-    | "/$"
-    | "/llms-full.txt"
-    | "/llms.txt"
-    | "/robots.txt"
-    | "/auth"
-    | "/studio"
-    | "/api/pwa-version"
-    | "/auth/reset-password"
-    | "/forbidden"
-    | "/users"
-    | "/works"
-    | "/cookie-policy"
-    | "/privacy"
-    | "/refund-policy"
-    | "/terms"
-    | "/about"
-    | "/contact"
-    | "/examples"
-    | "/pricing"
-    | "/auth/forgot-password"
-    | "/auth/phone-verify"
-    | "/auth/sign-in"
-    | "/auth/sign-up"
-    | "/admin/operations"
-    | "/admin/paid-users"
-    | "/credits/purchase"
-    | "/credits/transactions"
-    | "/settings/profile"
-    | "/settings/security"
-    | "/blog/$slug"
-    | "/templates/$slug"
-    | "/"
-    | "/blog"
-    | "/templates"
-    | "/blog/category/$slug";
+    | '/$'
+    | '/llms-full.txt'
+    | '/llms.txt'
+    | '/robots.txt'
+    | '/auth'
+    | '/studio'
+    | '/api/pwa-version'
+    | '/auth/reset-password'
+    | '/forbidden'
+    | '/users'
+    | '/works'
+    | '/cookie-policy'
+    | '/privacy'
+    | '/refund-policy'
+    | '/terms'
+    | '/about'
+    | '/contact'
+    | '/examples'
+    | '/pricing'
+    | '/auth/forgot-password'
+    | '/auth/phone-verify'
+    | '/auth/sign-in'
+    | '/auth/sign-up'
+    | '/admin/operations'
+    | '/admin/paid-users'
+    | '/credits/purchase'
+    | '/credits/transactions'
+    | '/settings/profile'
+    | '/settings/security'
+    | '/blog/$slug'
+    | '/templates/$slug'
+    | '/'
+    | '/blog'
+    | '/templates'
+    | '/blog/category/$slug'
   id:
-    | "__root__"
-    | "/_public"
-    | "/$"
-    | "/llms-full.txt"
-    | "/llms.txt"
-    | "/robots.txt"
-    | "/(auth)/auth"
-    | "/_authed/(dashboard)"
-    | "/_public/studio"
-    | "/api/pwa-version"
-    | "/(auth)/auth/_unauthed"
-    | "/(auth)/auth/reset-password"
-    | "/_authed/(dashboard)/forbidden"
-    | "/_authed/(dashboard)/users"
-    | "/_authed/(dashboard)/works"
-    | "/_public/(legal)/cookie-policy"
-    | "/_public/(legal)/privacy"
-    | "/_public/(legal)/refund-policy"
-    | "/_public/(legal)/terms"
-    | "/_public/(marketing)/about"
-    | "/_public/(marketing)/contact"
-    | "/_public/(marketing)/examples"
-    | "/_public/(marketing)/pricing"
-    | "/(auth)/auth/_unauthed/forgot-password"
-    | "/(auth)/auth/_unauthed/phone-verify"
-    | "/(auth)/auth/_unauthed/sign-in"
-    | "/(auth)/auth/_unauthed/sign-up"
-    | "/_authed/(dashboard)/admin/operations"
-    | "/_authed/(dashboard)/admin/paid-users"
-    | "/_authed/(dashboard)/credits/purchase"
-    | "/_authed/(dashboard)/credits/transactions"
-    | "/_authed/(dashboard)/settings/profile"
-    | "/_authed/(dashboard)/settings/security"
-    | "/_public/(marketing)/blog/$slug"
-    | "/_public/(marketing)/templates/$slug"
-    | "/_public/(marketing)/(landing-page)/"
-    | "/_public/(marketing)/blog/"
-    | "/_public/(marketing)/templates/"
-    | "/_public/(marketing)/blog/category/$slug";
-  fileRoutesById: FileRoutesById;
+    | '__root__'
+    | '/_public'
+    | '/$'
+    | '/llms-full.txt'
+    | '/llms.txt'
+    | '/robots.txt'
+    | '/(auth)/auth'
+    | '/_authed/(dashboard)'
+    | '/_public/studio'
+    | '/api/pwa-version'
+    | '/(auth)/auth/_unauthed'
+    | '/(auth)/auth/reset-password'
+    | '/_authed/(dashboard)/forbidden'
+    | '/_authed/(dashboard)/users'
+    | '/_authed/(dashboard)/works'
+    | '/_public/(legal)/cookie-policy'
+    | '/_public/(legal)/privacy'
+    | '/_public/(legal)/refund-policy'
+    | '/_public/(legal)/terms'
+    | '/_public/(marketing)/about'
+    | '/_public/(marketing)/contact'
+    | '/_public/(marketing)/examples'
+    | '/_public/(marketing)/pricing'
+    | '/(auth)/auth/_unauthed/forgot-password'
+    | '/(auth)/auth/_unauthed/phone-verify'
+    | '/(auth)/auth/_unauthed/sign-in'
+    | '/(auth)/auth/_unauthed/sign-up'
+    | '/_authed/(dashboard)/admin/operations'
+    | '/_authed/(dashboard)/admin/paid-users'
+    | '/_authed/(dashboard)/credits/purchase'
+    | '/_authed/(dashboard)/credits/transactions'
+    | '/_authed/(dashboard)/settings/profile'
+    | '/_authed/(dashboard)/settings/security'
+    | '/_public/(marketing)/blog/$slug'
+    | '/_public/(marketing)/templates/$slug'
+    | '/_public/(marketing)/(landing-page)/'
+    | '/_public/(marketing)/blog/'
+    | '/_public/(marketing)/templates/'
+    | '/_public/(marketing)/blog/category/$slug'
+  fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  PublicRouteRoute: typeof PublicRouteRouteWithChildren;
-  SplatRoute: typeof SplatRoute;
-  LlmsFullDottxtRoute: typeof LlmsFullDottxtRoute;
-  LlmsDottxtRoute: typeof LlmsDottxtRoute;
-  RobotsDottxtRoute: typeof RobotsDottxtRoute;
-  authAuthRouteRoute: typeof authAuthRouteRouteWithChildren;
-  AutheddashboardRouteRoute: typeof AutheddashboardRouteRouteWithChildren;
-  ApiPwaVersionRoute: typeof ApiPwaVersionRoute;
+  PublicRouteRoute: typeof PublicRouteRouteWithChildren
+  SplatRoute: typeof SplatRoute
+  LlmsFullDottxtRoute: typeof LlmsFullDottxtRoute
+  LlmsDottxtRoute: typeof LlmsDottxtRoute
+  RobotsDottxtRoute: typeof RobotsDottxtRoute
+  authAuthRouteRoute: typeof authAuthRouteRouteWithChildren
+  AutheddashboardRouteRoute: typeof AutheddashboardRouteRouteWithChildren
+  ApiPwaVersionRoute: typeof ApiPwaVersionRoute
 }
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/robots.txt": {
-      id: "/robots.txt";
-      path: "/robots.txt";
-      fullPath: "/robots.txt";
-      preLoaderRoute: typeof RobotsDottxtRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/llms.txt": {
-      id: "/llms.txt";
-      path: "/llms.txt";
-      fullPath: "/llms.txt";
-      preLoaderRoute: typeof LlmsDottxtRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/llms-full.txt": {
-      id: "/llms-full.txt";
-      path: "/llms-full.txt";
-      fullPath: "/llms-full.txt";
-      preLoaderRoute: typeof LlmsFullDottxtRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/$": {
-      id: "/$";
-      path: "/$";
-      fullPath: "/$";
-      preLoaderRoute: typeof SplatRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/_public": {
-      id: "/_public";
-      path: "";
-      fullPath: "/";
-      preLoaderRoute: typeof PublicRouteRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/api/pwa-version": {
-      id: "/api/pwa-version";
-      path: "/api/pwa-version";
-      fullPath: "/api/pwa-version";
-      preLoaderRoute: typeof ApiPwaVersionRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/_public/studio": {
-      id: "/_public/studio";
-      path: "/studio";
-      fullPath: "/studio";
-      preLoaderRoute: typeof PublicStudioRouteImport;
-      parentRoute: typeof PublicRouteRoute;
-    };
-    "/_authed/(dashboard)": {
-      id: "/_authed/(dashboard)";
-      path: "";
-      fullPath: "";
-      preLoaderRoute: typeof AutheddashboardRouteRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/(auth)/auth": {
-      id: "/(auth)/auth";
-      path: "/auth";
-      fullPath: "/auth";
-      preLoaderRoute: typeof authAuthRouteRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/_public/(marketing)/pricing": {
-      id: "/_public/(marketing)/pricing";
-      path: "/pricing";
-      fullPath: "/pricing";
-      preLoaderRoute: typeof PublicmarketingPricingRouteImport;
-      parentRoute: typeof PublicRouteRoute;
-    };
-    "/_public/(marketing)/examples": {
-      id: "/_public/(marketing)/examples";
-      path: "/examples";
-      fullPath: "/examples";
-      preLoaderRoute: typeof PublicmarketingExamplesRouteImport;
-      parentRoute: typeof PublicRouteRoute;
-    };
-    "/_public/(marketing)/contact": {
-      id: "/_public/(marketing)/contact";
-      path: "/contact";
-      fullPath: "/contact";
-      preLoaderRoute: typeof PublicmarketingContactRouteImport;
-      parentRoute: typeof PublicRouteRoute;
-    };
-    "/_public/(marketing)/about": {
-      id: "/_public/(marketing)/about";
-      path: "/about";
-      fullPath: "/about";
-      preLoaderRoute: typeof PublicmarketingAboutRouteImport;
-      parentRoute: typeof PublicRouteRoute;
-    };
-    "/_public/(legal)/terms": {
-      id: "/_public/(legal)/terms";
-      path: "/terms";
-      fullPath: "/terms";
-      preLoaderRoute: typeof PubliclegalTermsRouteImport;
-      parentRoute: typeof PublicRouteRoute;
-    };
-    "/_public/(legal)/refund-policy": {
-      id: "/_public/(legal)/refund-policy";
-      path: "/refund-policy";
-      fullPath: "/refund-policy";
-      preLoaderRoute: typeof PubliclegalRefundPolicyRouteImport;
-      parentRoute: typeof PublicRouteRoute;
-    };
-    "/_public/(legal)/privacy": {
-      id: "/_public/(legal)/privacy";
-      path: "/privacy";
-      fullPath: "/privacy";
-      preLoaderRoute: typeof PubliclegalPrivacyRouteImport;
-      parentRoute: typeof PublicRouteRoute;
-    };
-    "/_public/(legal)/cookie-policy": {
-      id: "/_public/(legal)/cookie-policy";
-      path: "/cookie-policy";
-      fullPath: "/cookie-policy";
-      preLoaderRoute: typeof PubliclegalCookiePolicyRouteImport;
-      parentRoute: typeof PublicRouteRoute;
-    };
-    "/_authed/(dashboard)/works": {
-      id: "/_authed/(dashboard)/works";
-      path: "/works";
-      fullPath: "/works";
-      preLoaderRoute: typeof AutheddashboardWorksRouteImport;
-      parentRoute: typeof AutheddashboardRouteRoute;
-    };
-    "/_authed/(dashboard)/users": {
-      id: "/_authed/(dashboard)/users";
-      path: "/users";
-      fullPath: "/users";
-      preLoaderRoute: typeof AutheddashboardUsersRouteImport;
-      parentRoute: typeof AutheddashboardRouteRoute;
-    };
-    "/_authed/(dashboard)/forbidden": {
-      id: "/_authed/(dashboard)/forbidden";
-      path: "/forbidden";
-      fullPath: "/forbidden";
-      preLoaderRoute: typeof AutheddashboardForbiddenRouteImport;
-      parentRoute: typeof AutheddashboardRouteRoute;
-    };
-    "/(auth)/auth/reset-password": {
-      id: "/(auth)/auth/reset-password";
-      path: "/reset-password";
-      fullPath: "/auth/reset-password";
-      preLoaderRoute: typeof authAuthResetPasswordRouteImport;
-      parentRoute: typeof authAuthRouteRoute;
-    };
-    "/(auth)/auth/_unauthed": {
-      id: "/(auth)/auth/_unauthed";
-      path: "";
-      fullPath: "/auth";
-      preLoaderRoute: typeof authAuthUnauthedRouteRouteImport;
-      parentRoute: typeof authAuthRouteRoute;
-    };
-    "/_public/(marketing)/templates/": {
-      id: "/_public/(marketing)/templates/";
-      path: "/templates";
-      fullPath: "/templates/";
-      preLoaderRoute: typeof PublicmarketingTemplatesIndexRouteImport;
-      parentRoute: typeof PublicRouteRoute;
-    };
-    "/_public/(marketing)/blog/": {
-      id: "/_public/(marketing)/blog/";
-      path: "/blog";
-      fullPath: "/blog/";
-      preLoaderRoute: typeof PublicmarketingBlogIndexRouteImport;
-      parentRoute: typeof PublicRouteRoute;
-    };
-    "/_public/(marketing)/(landing-page)/": {
-      id: "/_public/(marketing)/(landing-page)/";
-      path: "/";
-      fullPath: "/";
-      preLoaderRoute: typeof PublicmarketinglandingPageIndexRouteImport;
-      parentRoute: typeof PublicRouteRoute;
-    };
-    "/_public/(marketing)/templates/$slug": {
-      id: "/_public/(marketing)/templates/$slug";
-      path: "/templates/$slug";
-      fullPath: "/templates/$slug";
-      preLoaderRoute: typeof PublicmarketingTemplatesSlugRouteImport;
-      parentRoute: typeof PublicRouteRoute;
-    };
-    "/_public/(marketing)/blog/$slug": {
-      id: "/_public/(marketing)/blog/$slug";
-      path: "/blog/$slug";
-      fullPath: "/blog/$slug";
-      preLoaderRoute: typeof PublicmarketingBlogSlugRouteImport;
-      parentRoute: typeof PublicRouteRoute;
-    };
-    "/_authed/(dashboard)/settings/security": {
-      id: "/_authed/(dashboard)/settings/security";
-      path: "/settings/security";
-      fullPath: "/settings/security";
-      preLoaderRoute: typeof AutheddashboardSettingsSecurityRouteImport;
-      parentRoute: typeof AutheddashboardRouteRoute;
-    };
-    "/_authed/(dashboard)/settings/profile": {
-      id: "/_authed/(dashboard)/settings/profile";
-      path: "/settings/profile";
-      fullPath: "/settings/profile";
-      preLoaderRoute: typeof AutheddashboardSettingsProfileRouteImport;
-      parentRoute: typeof AutheddashboardRouteRoute;
-    };
-    "/_authed/(dashboard)/credits/transactions": {
-      id: "/_authed/(dashboard)/credits/transactions";
-      path: "/credits/transactions";
-      fullPath: "/credits/transactions";
-      preLoaderRoute: typeof AutheddashboardCreditsTransactionsRouteImport;
-      parentRoute: typeof AutheddashboardRouteRoute;
-    };
-    "/_authed/(dashboard)/credits/purchase": {
-      id: "/_authed/(dashboard)/credits/purchase";
-      path: "/credits/purchase";
-      fullPath: "/credits/purchase";
-      preLoaderRoute: typeof AutheddashboardCreditsPurchaseRouteImport;
-      parentRoute: typeof AutheddashboardRouteRoute;
-    };
-    "/_authed/(dashboard)/admin/paid-users": {
-      id: "/_authed/(dashboard)/admin/paid-users";
-      path: "/admin/paid-users";
-      fullPath: "/admin/paid-users";
-      preLoaderRoute: typeof AutheddashboardAdminPaidUsersRouteImport;
-      parentRoute: typeof AutheddashboardRouteRoute;
-    };
-    "/_authed/(dashboard)/admin/operations": {
-      id: "/_authed/(dashboard)/admin/operations";
-      path: "/admin/operations";
-      fullPath: "/admin/operations";
-      preLoaderRoute: typeof AutheddashboardAdminOperationsRouteImport;
-      parentRoute: typeof AutheddashboardRouteRoute;
-    };
-    "/(auth)/auth/_unauthed/sign-up": {
-      id: "/(auth)/auth/_unauthed/sign-up";
-      path: "/sign-up";
-      fullPath: "/auth/sign-up";
-      preLoaderRoute: typeof authAuthUnauthedSignUpRouteImport;
-      parentRoute: typeof authAuthUnauthedRouteRoute;
-    };
-    "/(auth)/auth/_unauthed/sign-in": {
-      id: "/(auth)/auth/_unauthed/sign-in";
-      path: "/sign-in";
-      fullPath: "/auth/sign-in";
-      preLoaderRoute: typeof authAuthUnauthedSignInRouteImport;
-      parentRoute: typeof authAuthUnauthedRouteRoute;
-    };
-    "/(auth)/auth/_unauthed/phone-verify": {
-      id: "/(auth)/auth/_unauthed/phone-verify";
-      path: "/phone-verify";
-      fullPath: "/auth/phone-verify";
-      preLoaderRoute: typeof authAuthUnauthedPhoneVerifyRouteImport;
-      parentRoute: typeof authAuthUnauthedRouteRoute;
-    };
-    "/(auth)/auth/_unauthed/forgot-password": {
-      id: "/(auth)/auth/_unauthed/forgot-password";
-      path: "/forgot-password";
-      fullPath: "/auth/forgot-password";
-      preLoaderRoute: typeof authAuthUnauthedForgotPasswordRouteImport;
-      parentRoute: typeof authAuthUnauthedRouteRoute;
-    };
-    "/_public/(marketing)/blog/category/$slug": {
-      id: "/_public/(marketing)/blog/category/$slug";
-      path: "/blog/category/$slug";
-      fullPath: "/blog/category/$slug";
-      preLoaderRoute: typeof PublicmarketingBlogCategorySlugRouteImport;
-      parentRoute: typeof PublicRouteRoute;
-    };
+    '/robots.txt': {
+      id: '/robots.txt'
+      path: '/robots.txt'
+      fullPath: '/robots.txt'
+      preLoaderRoute: typeof RobotsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/llms.txt': {
+      id: '/llms.txt'
+      path: '/llms.txt'
+      fullPath: '/llms.txt'
+      preLoaderRoute: typeof LlmsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/llms-full.txt': {
+      id: '/llms-full.txt'
+      path: '/llms-full.txt'
+      fullPath: '/llms-full.txt'
+      preLoaderRoute: typeof LlmsFullDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$': {
+      id: '/$'
+      path: '/$'
+      fullPath: '/$'
+      preLoaderRoute: typeof SplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_public': {
+      id: '/_public'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof PublicRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/pwa-version': {
+      id: '/api/pwa-version'
+      path: '/api/pwa-version'
+      fullPath: '/api/pwa-version'
+      preLoaderRoute: typeof ApiPwaVersionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_public/studio': {
+      id: '/_public/studio'
+      path: '/studio'
+      fullPath: '/studio'
+      preLoaderRoute: typeof PublicStudioRouteImport
+      parentRoute: typeof PublicRouteRoute
+    }
+    '/_authed/(dashboard)': {
+      id: '/_authed/(dashboard)'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AutheddashboardRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(auth)/auth': {
+      id: '/(auth)/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof authAuthRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_public/(marketing)/pricing': {
+      id: '/_public/(marketing)/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PublicmarketingPricingRouteImport
+      parentRoute: typeof PublicRouteRoute
+    }
+    '/_public/(marketing)/examples': {
+      id: '/_public/(marketing)/examples'
+      path: '/examples'
+      fullPath: '/examples'
+      preLoaderRoute: typeof PublicmarketingExamplesRouteImport
+      parentRoute: typeof PublicRouteRoute
+    }
+    '/_public/(marketing)/contact': {
+      id: '/_public/(marketing)/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof PublicmarketingContactRouteImport
+      parentRoute: typeof PublicRouteRoute
+    }
+    '/_public/(marketing)/about': {
+      id: '/_public/(marketing)/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof PublicmarketingAboutRouteImport
+      parentRoute: typeof PublicRouteRoute
+    }
+    '/_public/(legal)/terms': {
+      id: '/_public/(legal)/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof PubliclegalTermsRouteImport
+      parentRoute: typeof PublicRouteRoute
+    }
+    '/_public/(legal)/refund-policy': {
+      id: '/_public/(legal)/refund-policy'
+      path: '/refund-policy'
+      fullPath: '/refund-policy'
+      preLoaderRoute: typeof PubliclegalRefundPolicyRouteImport
+      parentRoute: typeof PublicRouteRoute
+    }
+    '/_public/(legal)/privacy': {
+      id: '/_public/(legal)/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PubliclegalPrivacyRouteImport
+      parentRoute: typeof PublicRouteRoute
+    }
+    '/_public/(legal)/cookie-policy': {
+      id: '/_public/(legal)/cookie-policy'
+      path: '/cookie-policy'
+      fullPath: '/cookie-policy'
+      preLoaderRoute: typeof PubliclegalCookiePolicyRouteImport
+      parentRoute: typeof PublicRouteRoute
+    }
+    '/_authed/(dashboard)/works': {
+      id: '/_authed/(dashboard)/works'
+      path: '/works'
+      fullPath: '/works'
+      preLoaderRoute: typeof AutheddashboardWorksRouteImport
+      parentRoute: typeof AutheddashboardRouteRoute
+    }
+    '/_authed/(dashboard)/users': {
+      id: '/_authed/(dashboard)/users'
+      path: '/users'
+      fullPath: '/users'
+      preLoaderRoute: typeof AutheddashboardUsersRouteImport
+      parentRoute: typeof AutheddashboardRouteRoute
+    }
+    '/_authed/(dashboard)/forbidden': {
+      id: '/_authed/(dashboard)/forbidden'
+      path: '/forbidden'
+      fullPath: '/forbidden'
+      preLoaderRoute: typeof AutheddashboardForbiddenRouteImport
+      parentRoute: typeof AutheddashboardRouteRoute
+    }
+    '/(auth)/auth/reset-password': {
+      id: '/(auth)/auth/reset-password'
+      path: '/reset-password'
+      fullPath: '/auth/reset-password'
+      preLoaderRoute: typeof authAuthResetPasswordRouteImport
+      parentRoute: typeof authAuthRouteRoute
+    }
+    '/(auth)/auth/_unauthed': {
+      id: '/(auth)/auth/_unauthed'
+      path: ''
+      fullPath: '/auth'
+      preLoaderRoute: typeof authAuthUnauthedRouteRouteImport
+      parentRoute: typeof authAuthRouteRoute
+    }
+    '/_public/(marketing)/templates/': {
+      id: '/_public/(marketing)/templates/'
+      path: '/templates'
+      fullPath: '/templates/'
+      preLoaderRoute: typeof PublicmarketingTemplatesIndexRouteImport
+      parentRoute: typeof PublicRouteRoute
+    }
+    '/_public/(marketing)/blog/': {
+      id: '/_public/(marketing)/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof PublicmarketingBlogIndexRouteImport
+      parentRoute: typeof PublicRouteRoute
+    }
+    '/_public/(marketing)/(landing-page)/': {
+      id: '/_public/(marketing)/(landing-page)/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof PublicmarketinglandingPageIndexRouteImport
+      parentRoute: typeof PublicRouteRoute
+    }
+    '/_public/(marketing)/templates/$slug': {
+      id: '/_public/(marketing)/templates/$slug'
+      path: '/templates/$slug'
+      fullPath: '/templates/$slug'
+      preLoaderRoute: typeof PublicmarketingTemplatesSlugRouteImport
+      parentRoute: typeof PublicRouteRoute
+    }
+    '/_public/(marketing)/blog/$slug': {
+      id: '/_public/(marketing)/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof PublicmarketingBlogSlugRouteImport
+      parentRoute: typeof PublicRouteRoute
+    }
+    '/_authed/(dashboard)/settings/security': {
+      id: '/_authed/(dashboard)/settings/security'
+      path: '/settings/security'
+      fullPath: '/settings/security'
+      preLoaderRoute: typeof AutheddashboardSettingsSecurityRouteImport
+      parentRoute: typeof AutheddashboardRouteRoute
+    }
+    '/_authed/(dashboard)/settings/profile': {
+      id: '/_authed/(dashboard)/settings/profile'
+      path: '/settings/profile'
+      fullPath: '/settings/profile'
+      preLoaderRoute: typeof AutheddashboardSettingsProfileRouteImport
+      parentRoute: typeof AutheddashboardRouteRoute
+    }
+    '/_authed/(dashboard)/credits/transactions': {
+      id: '/_authed/(dashboard)/credits/transactions'
+      path: '/credits/transactions'
+      fullPath: '/credits/transactions'
+      preLoaderRoute: typeof AutheddashboardCreditsTransactionsRouteImport
+      parentRoute: typeof AutheddashboardRouteRoute
+    }
+    '/_authed/(dashboard)/credits/purchase': {
+      id: '/_authed/(dashboard)/credits/purchase'
+      path: '/credits/purchase'
+      fullPath: '/credits/purchase'
+      preLoaderRoute: typeof AutheddashboardCreditsPurchaseRouteImport
+      parentRoute: typeof AutheddashboardRouteRoute
+    }
+    '/_authed/(dashboard)/admin/paid-users': {
+      id: '/_authed/(dashboard)/admin/paid-users'
+      path: '/admin/paid-users'
+      fullPath: '/admin/paid-users'
+      preLoaderRoute: typeof AutheddashboardAdminPaidUsersRouteImport
+      parentRoute: typeof AutheddashboardRouteRoute
+    }
+    '/_authed/(dashboard)/admin/operations': {
+      id: '/_authed/(dashboard)/admin/operations'
+      path: '/admin/operations'
+      fullPath: '/admin/operations'
+      preLoaderRoute: typeof AutheddashboardAdminOperationsRouteImport
+      parentRoute: typeof AutheddashboardRouteRoute
+    }
+    '/(auth)/auth/_unauthed/sign-up': {
+      id: '/(auth)/auth/_unauthed/sign-up'
+      path: '/sign-up'
+      fullPath: '/auth/sign-up'
+      preLoaderRoute: typeof authAuthUnauthedSignUpRouteImport
+      parentRoute: typeof authAuthUnauthedRouteRoute
+    }
+    '/(auth)/auth/_unauthed/sign-in': {
+      id: '/(auth)/auth/_unauthed/sign-in'
+      path: '/sign-in'
+      fullPath: '/auth/sign-in'
+      preLoaderRoute: typeof authAuthUnauthedSignInRouteImport
+      parentRoute: typeof authAuthUnauthedRouteRoute
+    }
+    '/(auth)/auth/_unauthed/phone-verify': {
+      id: '/(auth)/auth/_unauthed/phone-verify'
+      path: '/phone-verify'
+      fullPath: '/auth/phone-verify'
+      preLoaderRoute: typeof authAuthUnauthedPhoneVerifyRouteImport
+      parentRoute: typeof authAuthUnauthedRouteRoute
+    }
+    '/(auth)/auth/_unauthed/forgot-password': {
+      id: '/(auth)/auth/_unauthed/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/auth/forgot-password'
+      preLoaderRoute: typeof authAuthUnauthedForgotPasswordRouteImport
+      parentRoute: typeof authAuthUnauthedRouteRoute
+    }
+    '/_public/(marketing)/blog/category/$slug': {
+      id: '/_public/(marketing)/blog/category/$slug'
+      path: '/blog/category/$slug'
+      fullPath: '/blog/category/$slug'
+      preLoaderRoute: typeof PublicmarketingBlogCategorySlugRouteImport
+      parentRoute: typeof PublicRouteRoute
+    }
   }
 }
 
 interface PublicRouteRouteChildren {
-  PublicStudioRoute: typeof PublicStudioRoute;
-  PubliclegalCookiePolicyRoute: typeof PubliclegalCookiePolicyRoute;
-  PubliclegalPrivacyRoute: typeof PubliclegalPrivacyRoute;
-  PubliclegalRefundPolicyRoute: typeof PubliclegalRefundPolicyRoute;
-  PubliclegalTermsRoute: typeof PubliclegalTermsRoute;
-  PublicmarketingAboutRoute: typeof PublicmarketingAboutRoute;
-  PublicmarketingContactRoute: typeof PublicmarketingContactRoute;
-  PublicmarketingExamplesRoute: typeof PublicmarketingExamplesRoute;
-  PublicmarketingPricingRoute: typeof PublicmarketingPricingRoute;
-  PublicmarketingBlogSlugRoute: typeof PublicmarketingBlogSlugRoute;
-  PublicmarketingTemplatesSlugRoute: typeof PublicmarketingTemplatesSlugRoute;
-  PublicmarketinglandingPageIndexRoute: typeof PublicmarketinglandingPageIndexRoute;
-  PublicmarketingBlogIndexRoute: typeof PublicmarketingBlogIndexRoute;
-  PublicmarketingTemplatesIndexRoute: typeof PublicmarketingTemplatesIndexRoute;
-  PublicmarketingBlogCategorySlugRoute: typeof PublicmarketingBlogCategorySlugRoute;
+  PublicStudioRoute: typeof PublicStudioRoute
+  PubliclegalCookiePolicyRoute: typeof PubliclegalCookiePolicyRoute
+  PubliclegalPrivacyRoute: typeof PubliclegalPrivacyRoute
+  PubliclegalRefundPolicyRoute: typeof PubliclegalRefundPolicyRoute
+  PubliclegalTermsRoute: typeof PubliclegalTermsRoute
+  PublicmarketingAboutRoute: typeof PublicmarketingAboutRoute
+  PublicmarketingContactRoute: typeof PublicmarketingContactRoute
+  PublicmarketingExamplesRoute: typeof PublicmarketingExamplesRoute
+  PublicmarketingPricingRoute: typeof PublicmarketingPricingRoute
+  PublicmarketingBlogSlugRoute: typeof PublicmarketingBlogSlugRoute
+  PublicmarketingTemplatesSlugRoute: typeof PublicmarketingTemplatesSlugRoute
+  PublicmarketinglandingPageIndexRoute: typeof PublicmarketinglandingPageIndexRoute
+  PublicmarketingBlogIndexRoute: typeof PublicmarketingBlogIndexRoute
+  PublicmarketingTemplatesIndexRoute: typeof PublicmarketingTemplatesIndexRoute
+  PublicmarketingBlogCategorySlugRoute: typeof PublicmarketingBlogCategorySlugRoute
 }
 
 const PublicRouteRouteChildren: PublicRouteRouteChildren = {
@@ -786,15 +799,17 @@ const PublicRouteRouteChildren: PublicRouteRouteChildren = {
   PublicmarketingBlogIndexRoute: PublicmarketingBlogIndexRoute,
   PublicmarketingTemplatesIndexRoute: PublicmarketingTemplatesIndexRoute,
   PublicmarketingBlogCategorySlugRoute: PublicmarketingBlogCategorySlugRoute,
-};
+}
 
-const PublicRouteRouteWithChildren = PublicRouteRoute._addFileChildren(PublicRouteRouteChildren);
+const PublicRouteRouteWithChildren = PublicRouteRoute._addFileChildren(
+  PublicRouteRouteChildren,
+)
 
 interface authAuthUnauthedRouteRouteChildren {
-  authAuthUnauthedForgotPasswordRoute: typeof authAuthUnauthedForgotPasswordRoute;
-  authAuthUnauthedPhoneVerifyRoute: typeof authAuthUnauthedPhoneVerifyRoute;
-  authAuthUnauthedSignInRoute: typeof authAuthUnauthedSignInRoute;
-  authAuthUnauthedSignUpRoute: typeof authAuthUnauthedSignUpRoute;
+  authAuthUnauthedForgotPasswordRoute: typeof authAuthUnauthedForgotPasswordRoute
+  authAuthUnauthedPhoneVerifyRoute: typeof authAuthUnauthedPhoneVerifyRoute
+  authAuthUnauthedSignInRoute: typeof authAuthUnauthedSignInRoute
+  authAuthUnauthedSignUpRoute: typeof authAuthUnauthedSignUpRoute
 }
 
 const authAuthUnauthedRouteRouteChildren: authAuthUnauthedRouteRouteChildren = {
@@ -802,36 +817,37 @@ const authAuthUnauthedRouteRouteChildren: authAuthUnauthedRouteRouteChildren = {
   authAuthUnauthedPhoneVerifyRoute: authAuthUnauthedPhoneVerifyRoute,
   authAuthUnauthedSignInRoute: authAuthUnauthedSignInRoute,
   authAuthUnauthedSignUpRoute: authAuthUnauthedSignUpRoute,
-};
+}
 
-const authAuthUnauthedRouteRouteWithChildren = authAuthUnauthedRouteRoute._addFileChildren(
-  authAuthUnauthedRouteRouteChildren,
-);
+const authAuthUnauthedRouteRouteWithChildren =
+  authAuthUnauthedRouteRoute._addFileChildren(
+    authAuthUnauthedRouteRouteChildren,
+  )
 
 interface authAuthRouteRouteChildren {
-  authAuthUnauthedRouteRoute: typeof authAuthUnauthedRouteRouteWithChildren;
-  authAuthResetPasswordRoute: typeof authAuthResetPasswordRoute;
+  authAuthUnauthedRouteRoute: typeof authAuthUnauthedRouteRouteWithChildren
+  authAuthResetPasswordRoute: typeof authAuthResetPasswordRoute
 }
 
 const authAuthRouteRouteChildren: authAuthRouteRouteChildren = {
   authAuthUnauthedRouteRoute: authAuthUnauthedRouteRouteWithChildren,
   authAuthResetPasswordRoute: authAuthResetPasswordRoute,
-};
+}
 
 const authAuthRouteRouteWithChildren = authAuthRouteRoute._addFileChildren(
   authAuthRouteRouteChildren,
-);
+)
 
 interface AutheddashboardRouteRouteChildren {
-  AutheddashboardForbiddenRoute: typeof AutheddashboardForbiddenRoute;
-  AutheddashboardUsersRoute: typeof AutheddashboardUsersRoute;
-  AutheddashboardWorksRoute: typeof AutheddashboardWorksRoute;
-  AutheddashboardAdminOperationsRoute: typeof AutheddashboardAdminOperationsRoute;
-  AutheddashboardAdminPaidUsersRoute: typeof AutheddashboardAdminPaidUsersRoute;
-  AutheddashboardCreditsPurchaseRoute: typeof AutheddashboardCreditsPurchaseRoute;
-  AutheddashboardCreditsTransactionsRoute: typeof AutheddashboardCreditsTransactionsRoute;
-  AutheddashboardSettingsProfileRoute: typeof AutheddashboardSettingsProfileRoute;
-  AutheddashboardSettingsSecurityRoute: typeof AutheddashboardSettingsSecurityRoute;
+  AutheddashboardForbiddenRoute: typeof AutheddashboardForbiddenRoute
+  AutheddashboardUsersRoute: typeof AutheddashboardUsersRoute
+  AutheddashboardWorksRoute: typeof AutheddashboardWorksRoute
+  AutheddashboardAdminOperationsRoute: typeof AutheddashboardAdminOperationsRoute
+  AutheddashboardAdminPaidUsersRoute: typeof AutheddashboardAdminPaidUsersRoute
+  AutheddashboardCreditsPurchaseRoute: typeof AutheddashboardCreditsPurchaseRoute
+  AutheddashboardCreditsTransactionsRoute: typeof AutheddashboardCreditsTransactionsRoute
+  AutheddashboardSettingsProfileRoute: typeof AutheddashboardSettingsProfileRoute
+  AutheddashboardSettingsSecurityRoute: typeof AutheddashboardSettingsSecurityRoute
 }
 
 const AutheddashboardRouteRouteChildren: AutheddashboardRouteRouteChildren = {
@@ -841,14 +857,14 @@ const AutheddashboardRouteRouteChildren: AutheddashboardRouteRouteChildren = {
   AutheddashboardAdminOperationsRoute: AutheddashboardAdminOperationsRoute,
   AutheddashboardAdminPaidUsersRoute: AutheddashboardAdminPaidUsersRoute,
   AutheddashboardCreditsPurchaseRoute: AutheddashboardCreditsPurchaseRoute,
-  AutheddashboardCreditsTransactionsRoute: AutheddashboardCreditsTransactionsRoute,
+  AutheddashboardCreditsTransactionsRoute:
+    AutheddashboardCreditsTransactionsRoute,
   AutheddashboardSettingsProfileRoute: AutheddashboardSettingsProfileRoute,
   AutheddashboardSettingsSecurityRoute: AutheddashboardSettingsSecurityRoute,
-};
+}
 
-const AutheddashboardRouteRouteWithChildren = AutheddashboardRouteRoute._addFileChildren(
-  AutheddashboardRouteRouteChildren,
-);
+const AutheddashboardRouteRouteWithChildren =
+  AutheddashboardRouteRoute._addFileChildren(AutheddashboardRouteRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   PublicRouteRoute: PublicRouteRouteWithChildren,
@@ -859,16 +875,16 @@ const rootRouteChildren: RootRouteChildren = {
   authAuthRouteRoute: authAuthRouteRouteWithChildren,
   AutheddashboardRouteRoute: AutheddashboardRouteRouteWithChildren,
   ApiPwaVersionRoute: ApiPwaVersionRoute,
-};
+}
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()
 
-import type { getRouter } from "./router.tsx";
-import type { createStart } from "@tanstack/react-start";
-declare module "@tanstack/react-start" {
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
   interface Register {
-    ssr: true;
-    router: Awaited<ReturnType<typeof getRouter>>;
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
   }
 }

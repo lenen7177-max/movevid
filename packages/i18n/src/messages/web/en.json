@@ -992,7 +992,55 @@
             "q": "What if it doesn't work?",
             "a": "If a render fails, its credits are refunded automatically and you can try again."
           }
-        ]
+        ],
+        "h1Accent": "Phones up. You're the star.",
+        "frameBadge": "Live · Fan meet",
+        "ticker": [
+          "One photo",
+          "11 seconds",
+          "Your own poster",
+          "Phones up",
+          "The autograph",
+          "No editing app"
+        ],
+        "expect": {
+          "get": [
+            "You walk in from the left with a bodyguard while the front row raises their phones.",
+            "You sit down under a giant poster of your own face and smile into the camera.",
+            "You sign a photo for a fan with a marker, then hand it back with a big smile.",
+            "A silent 9:16 MP4 of about 11 seconds, ready for TikTok, Reels or Shorts: add a trending sound when you post."
+          ],
+          "limits": [
+            "Use a clear, front-facing photo with good light and one person in it; the same face is used for you and the poster.",
+            "Your face is smaller for the first two seconds of the walk-in and sharpens once you sit down.",
+            "The signature is a quick scribble on purpose, never readable text or a real person's autograph.",
+            "Hands and the marker can vary slightly between frames; that is the current limit of AI video. A new render usually fixes a bad take, and failed renders are refunded."
+          ]
+        },
+        "shotList": {
+          "rows": [
+            {
+              "time": "0–2 s",
+              "beat": "The entrance",
+              "body": "You walk in from the left with a bodyguard; the front row lifts their phones."
+            },
+            {
+              "time": "2–4 s",
+              "beat": "Take a seat",
+              "body": "You sit at the signing table, take a photo from a fan and look up with a smile."
+            },
+            {
+              "time": "4–9 s",
+              "beat": "The autograph",
+              "body": "Head down, you sign the photo with a marker and glance up at the fans mid-signature."
+            },
+            {
+              "time": "9–11 s",
+              "beat": "The hand-back",
+              "body": "You hand the signed photo back and beam straight into the camera."
+            }
+          ]
+        }
       }
     },
     "slots": {
@@ -1179,7 +1227,12 @@
         "short": "{credits} credits · buy credits",
         "photoGone": "The photos for this video are no longer stored. Upload them again to make a new version."
       },
-      "comingSoon": "Coming soon: renders open in a few days"
+      "comingSoon": "Coming soon: renders open in a few days",
+      "options": {
+        "summary": "{version} · {quality} · {aspect}",
+        "change": "Change version or quality",
+        "hide": "Hide options"
+      }
     },
     "gallery": {
       "seo": {
@@ -1240,7 +1293,8 @@
         "body": [
           "{name} is a short video format people recreate on TikTok, Instagram Reels and YouTube Shorts: the moves and the camera stay the same, and only the faces change. That is what makes each version easy to recognize and fun to share.",
           "You don't need to film or edit anything to join in. Add {photos, plural, one {one photo} other {up to # photos}} and the template recreates the whole {seconds}-second clip with you in it, as a {aspect} video ready to post."
-        ]
+        ],
+        "disclaimer": "Independent tool. Not affiliated with, endorsed by or sponsored by TikTok, CapCut, Instagram, YouTube or any template creator."
       },
       "who": {
         "eyebrow": "Who to make it of",
@@ -1325,7 +1379,21 @@
       "trendVideosTitle": "The trend on TikTok",
       "trendVideosNote": "Original posts embedded from TikTok and credited to their creators. They were made with other apps, not with MoveVid.",
       "trendVideoTitle": "TikTok post by @{author}",
-      "trendVideoCredit": "@{author} on TikTok"
+      "trendVideoCredit": "@{author} on TikTok",
+      "updated": "Updated {date}",
+      "expect": {
+        "eyebrow": "Before you upload",
+        "get": "What you get",
+        "limits": "Good to know"
+      },
+      "shotList": {
+        "eyebrow": "Frame by frame",
+        "title": "The {seconds}-second shot list",
+        "lede": "What happens in the clip, beat by beat. Every render follows this sheet.",
+        "time": "Time",
+        "beat": "Beat",
+        "what": "What happens"
+      }
     },
     "home": {
       "hero": {
