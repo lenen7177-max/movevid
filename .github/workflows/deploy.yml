@@ -38,6 +38,8 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm check:placeholders
+      - name: Upload template media (media/ → movevid-media bucket)
+        run: node scripts/upload-media.mjs
       - name: Migrate D1
         # pnpm runs it directly: turbo's strict env mode would hide the Cloudflare variables.
         run: pnpm -F server db:migrate
@@ -48,5 +50,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           pnpm deploy:web
-      - name: Push the IndexNow record
-        run: git push origin HEAD:main || true
+      - name: Push the IndexNow and media records
+        run: |
+          if [ -n "$(git status --porcelain -- media/.uploaded.json)" ]; then
+            git add media/.uploaded.json
+            git commit -m "chore(media): record uploaded template media"
+          fi
+          git push origin HEAD:main || true
