@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@fontsource-variable/geist-mono": "^5.3.0",
+    "@fontsource/anton": "^5.3.0",
     "@hookform/resolvers": "^5.2.2",
     "@number-flow/react": "catalog:",
     "@openpanel/web": "^1.4.1",

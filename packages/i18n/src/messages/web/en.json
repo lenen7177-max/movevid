@@ -1192,6 +1192,11 @@
         "cost": "{credits} credits",
         "short": "{credits} credits · buy credits",
         "photoGone": "The photos for this video are no longer stored. Upload them again to make a new version."
+      },
+      "options": {
+        "summary": "{version} · {quality} · {aspect}",
+        "change": "Change version or quality",
+        "hide": "Hide options"
       }
     },
     "gallery": {
@@ -1253,7 +1258,8 @@
         "body": [
           "{name} is a short video format people recreate on TikTok, Instagram Reels and YouTube Shorts: the moves, the camera and the music stay the same, and only the faces change. That is what makes each version easy to recognize and fun to share.",
           "You don't need to film or edit anything to join in. Add {photos, plural, one {one photo} other {up to # photos}} and the template recreates the whole {seconds}-second clip with you in it, as a {aspect} video ready to post."
-        ]
+        ],
+        "disclaimer": "Independent tool. Not affiliated with, endorsed by or sponsored by TikTok, CapCut, Instagram, YouTube or any template creator."
       },
       "who": {
         "eyebrow": "Who to make it of",
@@ -1334,6 +1340,20 @@
       "closing": {
         "title": "Make your {name} video now",
         "body": "Add {photos, plural, one {your photo} other {your photos}}, pick a version and get your video in a few minutes."
+      },
+      "updated": "Updated {date}",
+      "expect": {
+        "eyebrow": "Before you upload",
+        "get": "What you get",
+        "limits": "Good to know"
+      },
+      "shotList": {
+        "eyebrow": "Frame by frame",
+        "title": "The {seconds}-second shot list",
+        "lede": "What happens in the clip, beat by beat. Every render follows this sheet.",
+        "time": "Time",
+        "beat": "Beat",
+        "what": "What happens"
       }
     },
     "home": {

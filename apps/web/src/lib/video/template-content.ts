@@ -74,7 +74,9 @@ export type TemplateFaqItem = { q: string; a: string };
  * A template page's own copy. Each template can set, under `video.templates.<id>` in the web
  * messages: `seoTitle`, `h1`, `faq` (a list of {q, a}), `trend` ({title?, body: [paragraphs]})
  * `samples` (one caption per sample-wall clip), `cta` (the create button, "Make my … video")
- * and `who` (same shape as `video.templatePage.who`, any key). Anything left out falls back to
+ * and `who` (same shape as `video.templatePage.who`, any key). Optional extras: `h1Accent`,
+ * `ticker` and `frameBadge` (see template-skin.ts), `expect` ({get: [...], limits: [...]}) and
+ * `shotList` ({title?, lede?, rows: [{time, beat, body}]}). Anything left out falls back to
  * the shared copy in `video.templatePage`. All of them may use {name}, {appName}, {photos},
  * {seconds}, {aspect}, {credits} and {price}. The shared questions (TEMPLATE_SHARED_FAQ_KEYS)
  * follow the template's own FAQ, minus any it already asks word for word.
@@ -110,12 +112,39 @@ export function templatePageContent(t: VideoTranslator, templateId: VideoTemplat
   // A template's own `who` copy wins key by key over the shared one.
   const pick = (key: string) => t(t.has(own(key)) ? own(key) : `templatePage.${key}`, values);
   const trendBody = list(own("trend.body")) ?? list("templatePage.trend.body") ?? [];
+  const optional = (key: string) => (t.has(own(key)) ? t(own(key), values) : null);
+  const strings = (key: string) => (list(own(key)) ?? []).map((item) => t(item, values));
+  const shotRows = list(own("shotList.rows")) ?? [];
 
   return {
     name,
     values,
     seoTitle: t(t.has(own("seoTitle")) ? own("seoTitle") : "templatePage.seoTitle", values),
     h1: t.has(own("h1")) ? t(own("h1"), values) : name,
+    /** Second H1 line, set in the skin's accent color. */
+    h1Accent: optional("h1Accent"),
+    /** Phrases for the strip under the hero; empty hides it. */
+    ticker: strings("ticker"),
+    /** Label on the phone frame of a "phone" skin. */
+    frameBadge: optional("frameBadge"),
+    /** "What you get" (what happens in the clip) and "Good to know" (honest limits). */
+    expect: { get: strings("expect.get"), limits: strings("expect.limits") },
+    /** The clip second by second; no rows hides the section. */
+    shotList: {
+      title: t(
+        t.has(own("shotList.title")) ? own("shotList.title") : "templatePage.shotList.title",
+        values,
+      ),
+      lede: t(
+        t.has(own("shotList.lede")) ? own("shotList.lede") : "templatePage.shotList.lede",
+        values,
+      ),
+      rows: shotRows.map((key) => ({
+        time: t(`${key}.time`, values),
+        beat: t(`${key}.beat`, values),
+        body: t(`${key}.body`, values),
+      })),
+    },
     description: t(own("description"), values),
     faq,
     who: {

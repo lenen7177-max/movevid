@@ -7,6 +7,7 @@ import {
 } from "@repo/app-config/video";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@repo/ui/accordion";
 import { Button } from "@repo/ui/button";
+import { Marquee } from "@repo/ui/marquee";
 import { Link } from "@tanstack/react-router";
 import {
   ArrowRight,
@@ -18,7 +19,7 @@ import {
   Users,
   Wand2,
 } from "lucide-react";
-import { useState } from "react";
+import { type ReactNode, useState } from "react";
 import { usePricingCheckout } from "@/hooks/use-pricing-checkout";
 import { useTranslations } from "@/i18n";
 import { type TemplatePageContent, templatePageContent } from "@/lib/video/template-content";
@@ -30,6 +31,12 @@ import { StickyCreateCta, scrollToCreateForm } from "./sticky-create-cta";
 import { StudioCreator } from "./studio-creator";
 import { MoreTemplates, useTemplatePhotosLabel } from "./template-gallery";
 import { sampleForModel, sampleWall, templateAspectClass } from "@/lib/video/templates";
+import {
+  type TemplateSkin,
+  templateSkin,
+  templateSkinStyle,
+  templateUpdatedDate,
+} from "@/lib/video/template-skin";
 import { videoConfig } from "@repo/app-config/video";
 
 /** Preview on the template page: the sample render for the picked version, else the template loop. */
@@ -69,6 +76,157 @@ function TemplatePreview({
       sampleLabel={t("sampleBadge")}
       className={cn("w-full rounded-3xl border", aspect)}
     />
+  );
+}
+
+const updatedFormat = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+  timeZone: "UTC",
+});
+
+/** "Oct 23, 2026" from YYYY-MM-DD. */
+function formatUpdated(date: string): string {
+  return updatedFormat.format(new Date(`${date}T00:00:00Z`));
+}
+
+/** A "phone" skin films the preview like a fan's phone: rounded bezel, live badge, notch. */
+function PreviewFrame({
+  skin,
+  badge,
+  children,
+}: {
+  skin: TemplateSkin | null;
+  badge: string | null;
+  children: ReactNode;
+}) {
+  if (skin?.frame !== "phone") return <>{children}</>;
+  return (
+    <div className="relative mx-auto w-full max-w-sm rounded-[2.6rem] border-[6px] border-neutral-800 bg-neutral-900 p-1.5 shadow-[0_30px_80px_-20px_var(--glow)]">
+      <span
+        aria-hidden="true"
+        className="absolute top-3 left-1/2 z-10 h-5 w-20 -translate-x-1/2 rounded-full bg-black"
+      />
+      {badge ? (
+        <span className="absolute top-10 left-5 z-10 inline-flex items-center gap-1.5 rounded-md bg-black/70 px-2 py-1 font-mono text-[10px] font-semibold tracking-[0.16em] text-white uppercase">
+          <span className="size-1.5 animate-pulse rounded-full bg-red-500" aria-hidden="true" />
+          {badge}
+        </span>
+      ) : null}
+      <div className="overflow-hidden rounded-[2rem]">{children}</div>
+    </div>
+  );
+}
+
+/** Full-width strip of short selling points under the hero ("One photo ◆ 11 seconds ◆ …"). */
+function Ticker({ items }: { items: string[] }) {
+  if (items.length === 0) return null;
+  return (
+    <div className="bg-primary text-primary-foreground border-y" role="presentation">
+      <Marquee duration={30} gap={1.5} repeat={4} className="py-2.5 [--marquee-gap:1.5rem]">
+        {items.map((item) => (
+          <span
+            key={item}
+            className="display flex shrink-0 items-center gap-6 text-sm font-semibold tracking-wide uppercase sm:text-base"
+          >
+            {item}
+            <span aria-hidden="true">◆</span>
+          </span>
+        ))}
+      </Marquee>
+    </div>
+  );
+}
+
+/** "What you get" next to an honest "Good to know", so nobody is surprised by the result. */
+function ExpectSection({ content }: { content: TemplatePageContent }) {
+  const t = useTranslations("video.templatePage");
+  const { get, limits } = content.expect;
+  if (get.length === 0 && limits.length === 0) return null;
+  const columns = [
+    { key: "get", title: t("expect.get"), items: get, ordered: true },
+    { key: "limits", title: t("expect.limits"), items: limits, ordered: false },
+  ].filter((column) => column.items.length > 0);
+  return (
+    <section className="border-t py-20 sm:py-24">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <p className="eyebrow">{t("expect.eyebrow")}</p>
+        <div className={cn("mt-6 grid gap-4", columns.length > 1 && "md:grid-cols-2")}>
+          {columns.map((column) => {
+            const List = column.ordered ? "ol" : "ul";
+            return (
+              <div key={column.key} className="bg-card rounded-3xl border p-6 sm:p-8">
+                <h2 className="display text-2xl sm:text-3xl">{column.title}</h2>
+                <List
+                  className={cn(
+                    "text-muted-foreground mt-5 space-y-3 pl-5",
+                    column.ordered ? "list-decimal" : "list-disc",
+                  )}
+                >
+                  {column.items.map((item) => (
+                    <li key={item} className="pl-1">
+                      {item}
+                    </li>
+                  ))}
+                </List>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** The clip second by second, as a table (search engines and AI answers quote these). */
+function ShotListSection({ content }: { content: TemplatePageContent }) {
+  const t = useTranslations("video.templatePage");
+  const { title, lede, rows } = content.shotList;
+  if (rows.length === 0) return null;
+  return (
+    <section className="border-t py-20 sm:py-24">
+      <div className="mx-auto max-w-4xl px-4 sm:px-6">
+        <p className="eyebrow">{t("shotList.eyebrow")}</p>
+        <h2 className="display mt-3 text-3xl sm:text-4xl">{title}</h2>
+        <p className="text-muted-foreground mt-3 max-w-2xl text-pretty">{lede}</p>
+        <div className="mt-8 overflow-x-auto rounded-3xl border">
+          <table className="w-full min-w-[32rem] text-left text-sm">
+            <thead className="bg-muted/50">
+              <tr>
+                <th
+                  scope="col"
+                  className="px-4 py-3 font-mono text-[11px] tracking-[0.18em] uppercase"
+                >
+                  {t("shotList.time")}
+                </th>
+                <th
+                  scope="col"
+                  className="px-4 py-3 font-mono text-[11px] tracking-[0.18em] uppercase"
+                >
+                  {t("shotList.beat")}
+                </th>
+                <th
+                  scope="col"
+                  className="px-4 py-3 font-mono text-[11px] tracking-[0.18em] uppercase"
+                >
+                  {t("shotList.what")}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((row) => (
+                <tr key={row.time} className="border-t align-top">
+                  <td className="text-primary px-4 py-3 font-mono whitespace-nowrap">{row.time}</td>
+                  <td className="px-4 py-3 font-medium whitespace-nowrap">{row.beat}</td>
+                  <td className="text-muted-foreground px-4 py-3">{row.body}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -260,6 +418,8 @@ export function TemplatePage({
   // The create button's label with its price, repeated by the sticky bar.
   const [ctaLabel, setCtaLabel] = useState<string | null>(null);
   const template = videoTemplates[templateId];
+  const skin = templateSkin(templateId);
+  const updated = formatUpdated(templateUpdatedDate(templateId));
   const facts = [
     { label: t("facts.photos"), value: photosLabel(templateId) },
     { label: t("facts.length"), value: t("facts.seconds", { seconds: template.durationSeconds }) },
@@ -268,7 +428,7 @@ export function TemplatePage({
   ];
 
   return (
-    <main>
+    <main data-skin-font={skin?.font} style={templateSkinStyle(skin)}>
       <section className="hero-glow pt-20 pb-16 sm:pt-32 lg:pt-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           {SINGLE_TEMPLATE_ID ? null : (
@@ -286,8 +446,17 @@ export function TemplatePage({
           */}
           <div className="grid items-start gap-x-10 gap-y-6 lg:grid-cols-[minmax(0,1fr)_420px] lg:grid-rows-[auto_1fr] lg:gap-y-8">
             <div>
-              <p className="eyebrow">{t("eyebrow")}</p>
-              <h1 className="display mt-3 text-4xl sm:text-6xl">{content.h1}</h1>
+              <p className="eyebrow">
+                {t("eyebrow")} · {t("updated", { date: updated })}
+              </p>
+              <h1 className="display mt-3 text-4xl sm:text-6xl">
+                {content.h1}
+                {content.h1Accent ? (
+                  <span className="skin-accent-2 mt-2 block text-[0.6em] leading-tight">
+                    {content.h1Accent}
+                  </span>
+                ) : null}
+              </h1>
               {/* Two lines on phones; the facts, steps and trend section below carry the rest. */}
               <p className="text-muted-foreground mt-4 line-clamp-2 max-w-2xl text-lg text-pretty sm:line-clamp-none">
                 {content.description}
@@ -300,6 +469,7 @@ export function TemplatePage({
                 onModelChange={setModel}
                 onCtaLabelChange={setCtaLabel}
                 hideTemplateBar
+                compactOptions
               />
             </div>
             <div className="lg:col-start-1">
@@ -320,14 +490,18 @@ export function TemplatePage({
                   template.aspectRatio === "9:16" && "mx-auto max-w-72 sm:max-w-none",
                 )}
               >
-                <TemplatePreview templateId={templateId} model={model} />
+                <PreviewFrame skin={skin} badge={content.frameBadge}>
+                  <TemplatePreview templateId={templateId} model={model} />
+                </PreviewFrame>
               </div>
             </div>
           </div>
         </div>
       </section>
 
+      <Ticker items={content.ticker} />
       <SampleWall templateId={templateId} content={content} />
+      <ExpectSection content={content} />
 
       <section id="how-it-works" className="scroll-mt-24 border-t py-20 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -346,6 +520,8 @@ export function TemplatePage({
         </div>
       </section>
 
+      <ShotListSection content={content} />
+
       <WhoSection content={content} />
 
       {content.trend.paragraphs.length > 0 ? (
@@ -358,6 +534,9 @@ export function TemplatePage({
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
+            <p className="text-muted-foreground mt-8 border-t pt-4 text-xs">
+              {t("updated", { date: updated })} · {t("trend.disclaimer")}
+            </p>
           </div>
         </section>
       ) : null}
