@@ -93,7 +93,11 @@ export function SiteHeader() {
           <UserMenu />
           <Link
             to="/studio"
-            className={buttonVariants({ size: "sm", className: "rounded-full px-4" })}
+            // White on the dark theme (black on light), so it sits with every template skin.
+            className={cn(
+              buttonVariants({ size: "sm" }),
+              "bg-foreground text-background hover:bg-foreground/85 rounded-full px-4",
+            )}
           >
             {t("startCreating")}
           </Link>
@@ -143,7 +147,10 @@ export function SiteHeader() {
           <Link
             to="/studio"
             onClick={close}
-            className={buttonVariants({ size: "lg", className: "mt-6 w-full rounded-full" })}
+            className={cn(
+              buttonVariants({ size: "lg" }),
+              "bg-foreground text-background hover:bg-foreground/85 mt-6 w-full rounded-full",
+            )}
           >
             {t("startCreating")}
           </Link>

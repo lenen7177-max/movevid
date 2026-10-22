@@ -8,6 +8,8 @@
 
 @import "@fontsource-variable/geist";
 @import "@fontsource-variable/geist-mono";
+/* Poster display type for template skins (only downloaded on pages that use it). */
+@import "@fontsource/anton/latin-400.css";
 
 @source "../../../../packages/ui/src";
 
@@ -53,6 +55,17 @@
   /* Soft accent glow behind hero media. */
   .hero-glow {
     background: radial-gradient(60% 50% at 50% 0%, var(--glow), transparent 70%);
+  }
+  /* Template skins (apps/web/src/lib/video/template-skin.ts). */
+  [data-skin-font="poster"] .display {
+    font-family: "Anton", var(--font-heading);
+    font-weight: 400;
+    letter-spacing: 0.005em;
+    line-height: 0.98;
+    text-transform: uppercase;
+  }
+  .skin-accent-2 {
+    color: var(--skin-accent-2, var(--primary));
   }
   /* Subtle dotted backdrop for feature panels. */
   .dot-grid {
