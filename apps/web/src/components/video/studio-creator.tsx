@@ -20,7 +20,7 @@ import { Button } from "@repo/ui/button";
 import { Checkbox } from "@repo/ui/checkbox";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useHydrated, useNavigate } from "@tanstack/react-router";
-import { Coins, Loader2, Wand2 } from "lucide-react";
+import { ChevronDown, Coins, Loader2, SlidersHorizontal, Wand2 } from "lucide-react";
 import { Fragment, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useTranslations } from "@/i18n";
@@ -65,6 +65,11 @@ type StudioCreatorProps = {
   onCtaLabelChange?: (label: string) => void;
   /** Hides the fixed-template bar; landing pages already name the template in the H1. */
   hideTemplateBar?: boolean;
+  /**
+   * Landing pages start on the default version and quality with the pickers folded away, so a
+   * first visit is photo → button; one tap opens them. The studio always shows them.
+   */
+  compactOptions?: boolean;
   id?: string;
   className?: string;
 };
@@ -80,9 +85,11 @@ export function StudioCreator({
   jobProcessing,
   onCtaLabelChange,
   hideTemplateBar,
+  compactOptions,
   id,
   className,
 }: StudioCreatorProps) {
+  const [optionsOpen, setOptionsOpen] = useState(!compactOptions);
   const t = useTranslations("video");
   const money = useMoney();
   const [consented, setConsented] = useSessionConsent();
@@ -353,105 +360,136 @@ export function StudioCreator({
         </p>
       }
     >
-      <fieldset className="mt-4" disabled={busy}>
-        <legend className="mb-2 text-sm font-medium">{t("studio.version.label")}</legend>
-        <div className="grid grid-cols-2 gap-2">
-          {models.map((option) => {
-            const seconds = getVideoRenderSeconds(templateId, option);
-            const fromCost = priceOf("480p", option);
-            return (
-              <button
-                key={option}
-                type="button"
-                aria-pressed={model === option}
-                onClick={() => chooseModel(option)}
-                className={cn(
-                  "rounded-xl border px-2.5 py-2.5 text-left transition-colors disabled:opacity-60 sm:px-3",
-                  model === option
-                    ? "border-primary bg-primary/10 ring-primary ring-1"
-                    : "hover:bg-muted",
-                )}
-              >
-                <span className="block text-sm font-semibold">
-                  {t(`studio.version.${MODEL_TIER[option]}`)}
-                </span>
-                <span className="block text-xs font-medium">
-                  {isVideoHighlight(templateId, option)
-                    ? t("studio.version.highlight", { seconds })
-                    : t("studio.version.full", { seconds })}
-                </span>
-                <span className="text-muted-foreground block text-xs">
-                  {t("studio.version.from", { cost: fromCost })}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-        {highlightModel ? (
-          // Always laid out (hidden for the full version) so switching versions never resizes the card.
-          <p
-            className={cn("text-muted-foreground mt-2 text-xs", !highlight && "invisible")}
-            aria-hidden={!highlight}
-          >
-            {t("studio.version.highlightHint", {
-              seconds: getVideoRenderSeconds(templateId, highlightModel),
-              total: videoTemplates[templateId].durationSeconds,
-            })}
-          </p>
-        ) : null}
-      </fieldset>
-      <fieldset className="mt-4" disabled={busy}>
-        <legend className="mb-2 text-sm font-medium">{t("studio.quality.label")}</legend>
-        <div className="grid grid-cols-3 gap-2">
-          {VIDEO_QUALITIES.map((option) => {
-            // Labels read "720p · HD"; the tier name sits under the resolution on phones, beside it from sm up.
-            const [resolution, tier] = t(`studio.quality.${option}`).split(" · ");
-            // Every quality keeps its slot, so switching versions never reflows the grid.
-            const available = isVideoModelQuality(model, option);
-            const regularCost = available ? getVideoCreditsCost(option, templateId, model) : 0;
-            const cost = available ? priceOf(option, model) : 0;
-            return (
-              <button
-                key={option}
-                type="button"
-                disabled={!available}
-                aria-pressed={quality === option}
-                onClick={() => setQuality(option)}
-                className={cn(
-                  "rounded-xl border px-2.5 py-2.5 text-left transition-colors disabled:opacity-60 sm:px-3",
-                  quality === option
-                    ? "border-primary bg-primary/10 ring-primary ring-1"
-                    : "hover:bg-muted",
-                )}
-              >
-                <span className="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
-                  <span className="text-sm font-semibold">{resolution}</span>
-                  {tier ? <span className="text-xs font-medium">{tier}</span> : null}
-                </span>
-                <span className="text-muted-foreground block text-xs">
-                  {cost < regularCost ? <s className="mr-1">{regularCost}</s> : null}
-                  {available
-                    ? t("studio.quality.credits", { cost })
-                    : t("studio.quality.premiumOnly")}
-                </span>
-                <span
-                  className={cn("text-muted-foreground block text-xs", !available && "invisible")}
-                  aria-hidden={!available}
+      {compactOptions ? (
+        <button
+          type="button"
+          aria-expanded={optionsOpen}
+          aria-controls={id ? `${id}-options` : undefined}
+          onClick={() => setOptionsOpen((open) => !open)}
+          className="hover:bg-muted mt-4 flex w-full items-center justify-between gap-3 rounded-xl border px-3 py-2.5 text-left text-sm transition-colors"
+        >
+          <span className="flex min-w-0 items-center gap-2">
+            <SlidersHorizontal className="text-primary size-4 shrink-0" aria-hidden="true" />
+            <span className="min-w-0">
+              <span className="block font-medium">
+                {t("studio.options.summary", {
+                  version: t(`studio.version.${MODEL_TIER[model]}`),
+                  quality: t(`studio.quality.${quality}`).split(" · ")[0] ?? quality,
+                  aspect: videoTemplates[templateId].aspectRatio,
+                })}
+              </span>
+              <span className="text-muted-foreground block text-xs">
+                {optionsOpen ? t("studio.options.hide") : t("studio.options.change")}
+              </span>
+            </span>
+          </span>
+          <ChevronDown
+            className={cn("size-4 shrink-0 transition-transform", optionsOpen && "rotate-180")}
+            aria-hidden="true"
+          />
+        </button>
+      ) : null}
+      <div id={id ? `${id}-options` : undefined} hidden={!optionsOpen}>
+        <fieldset className="mt-4" disabled={busy}>
+          <legend className="mb-2 text-sm font-medium">{t("studio.version.label")}</legend>
+          <div className="grid grid-cols-2 gap-2">
+            {models.map((option) => {
+              const seconds = getVideoRenderSeconds(templateId, option);
+              const fromCost = priceOf("480p", option);
+              return (
+                <button
+                  key={option}
+                  type="button"
+                  aria-pressed={model === option}
+                  onClick={() => chooseModel(option)}
+                  className={cn(
+                    "rounded-xl border px-2.5 py-2.5 text-left transition-colors disabled:opacity-60 sm:px-3",
+                    model === option
+                      ? "border-primary bg-primary/10 ring-primary ring-1"
+                      : "hover:bg-muted",
+                  )}
                 >
-                  {t("studio.quality.eta", {
-                    // Unavailable qualities only hold the line's height; any model's estimate will do.
-                    minutes: estimateRenderMinutes(
-                      templateId,
-                      option,
-                      available ? model : "seedance-2.5",
-                    ),
-                  })}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-      </fieldset>
+                  <span className="block text-sm font-semibold">
+                    {t(`studio.version.${MODEL_TIER[option]}`)}
+                  </span>
+                  <span className="block text-xs font-medium">
+                    {isVideoHighlight(templateId, option)
+                      ? t("studio.version.highlight", { seconds })
+                      : t("studio.version.full", { seconds })}
+                  </span>
+                  <span className="text-muted-foreground block text-xs">
+                    {t("studio.version.from", { cost: fromCost })}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+          {highlightModel ? (
+            // Always laid out (hidden for the full version) so switching versions never resizes the card.
+            <p
+              className={cn("text-muted-foreground mt-2 text-xs", !highlight && "invisible")}
+              aria-hidden={!highlight}
+            >
+              {t("studio.version.highlightHint", {
+                seconds: getVideoRenderSeconds(templateId, highlightModel),
+                total: videoTemplates[templateId].durationSeconds,
+              })}
+            </p>
+          ) : null}
+        </fieldset>
+        <fieldset className="mt-4" disabled={busy}>
+          <legend className="mb-2 text-sm font-medium">{t("studio.quality.label")}</legend>
+          <div className="grid grid-cols-3 gap-2">
+            {VIDEO_QUALITIES.map((option) => {
+              // Labels read "720p · HD"; the tier name sits under the resolution on phones, beside it from sm up.
+              const [resolution, tier] = t(`studio.quality.${option}`).split(" · ");
+              // Every quality keeps its slot, so switching versions never reflows the grid.
+              const available = isVideoModelQuality(model, option);
+              const regularCost = available ? getVideoCreditsCost(option, templateId, model) : 0;
+              const cost = available ? priceOf(option, model) : 0;
+              return (
+                <button
+                  key={option}
+                  type="button"
+                  disabled={!available}
+                  aria-pressed={quality === option}
+                  onClick={() => setQuality(option)}
+                  className={cn(
+                    "rounded-xl border px-2.5 py-2.5 text-left transition-colors disabled:opacity-60 sm:px-3",
+                    quality === option
+                      ? "border-primary bg-primary/10 ring-primary ring-1"
+                      : "hover:bg-muted",
+                  )}
+                >
+                  <span className="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
+                    <span className="text-sm font-semibold">{resolution}</span>
+                    {tier ? <span className="text-xs font-medium">{tier}</span> : null}
+                  </span>
+                  <span className="text-muted-foreground block text-xs">
+                    {cost < regularCost ? <s className="mr-1">{regularCost}</s> : null}
+                    {available
+                      ? t("studio.quality.credits", { cost })
+                      : t("studio.quality.premiumOnly")}
+                  </span>
+                  <span
+                    className={cn("text-muted-foreground block text-xs", !available && "invisible")}
+                    aria-hidden={!available}
+                  >
+                    {t("studio.quality.eta", {
+                      // Unavailable qualities only hold the line's height; any model's estimate will do.
+                      minutes: estimateRenderMinutes(
+                        templateId,
+                        option,
+                        available ? model : "seedance-2.5",
+                      ),
+                    })}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </fieldset>
+      </div>
       <div className="mt-3 flex items-center justify-between gap-2 text-sm">
         <span className="flex items-center gap-1.5 font-medium">
           <Coins className="text-primary size-4" aria-hidden="true" />
