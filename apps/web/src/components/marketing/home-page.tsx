@@ -1,4 +1,9 @@
-import { VIDEO_TEMPLATE_IDS, type VideoTemplateId, videoTemplates } from "@repo/app-config/video";
+import {
+  VIDEO_TEMPLATE_IDS,
+  type VideoTemplateId,
+  videoTemplateAllowsPets,
+  videoTemplates,
+} from "@repo/app-config/video";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@repo/ui/accordion";
 import { buttonVariants } from "@repo/ui/button";
 import { Marquee } from "@repo/ui/marquee";
@@ -9,12 +14,15 @@ import {
   Clapperboard,
   Coins,
   Download,
+  Gift,
+  Heart,
   Megaphone,
   PartyPopper,
   PawPrint,
   RectangleVertical,
   ShieldCheck,
   Sparkles,
+  Star,
   Upload,
   Users,
   Wand2,
@@ -27,7 +35,16 @@ import { usePricingCheckout } from "@/hooks/use-pricing-checkout";
 import { webConfig } from "@/configs/web-config";
 import { useLocale, useTranslations } from "@/i18n";
 import { templatesNewestFirst } from "@/lib/video/template-catalog";
-import { ANNOUNCED_TEMPLATE_ID, templateLink } from "@/lib/video/templates";
+import { PreviewFrame } from "@/components/video/preview-frame";
+import { templatePageContent } from "@/lib/video/template-content";
+import { templateFromCredits } from "@/lib/video/template-catalog";
+import { templateSkin, templateSkinStyle } from "@/lib/video/template-skin";
+import {
+  ANNOUNCED_TEMPLATE_ID,
+  FEATURED_TEMPLATE_ID,
+  templateLink,
+  templateVideos,
+} from "@/lib/video/templates";
 import { cn } from "@/lib/utils";
 import { formatEffectiveDate } from "@/utils/date";
 
@@ -41,10 +58,9 @@ export const HOME_FAQ_KEYS = [
   "privacy",
 ] as const;
 /** Bump when the FAQ answers change; shown under the heading and sent as dateModified. */
-export const FAQ_UPDATED_AT = "2026-10-21";
+export const FAQ_UPDATED_AT = "2026-10-23";
 const STEP_KEYS = ["pick", "upload", "share"] as const;
 const STEP_ICONS = { pick: Clapperboard, upload: Upload, share: Download };
-const AUDIENCE_KEYS = ["creators", "friends", "marketers", "events", "pets", "agencies"] as const;
 const AUDIENCE_ICONS = {
   creators: Sparkles,
   friends: Users,
@@ -52,7 +68,31 @@ const AUDIENCE_ICONS = {
   events: PartyPopper,
   pets: PawPrint,
   agencies: Building2,
+  family: Heart,
+  gifts: Gift,
+  fans: Star,
 };
+/**
+ * "Who it's for" cards, in order (copy in video.home.audience.items.<key>). "pets" is dropped
+ * on its own while no template takes pet photos. Consumer sites can swap the business ones
+ * (marketers, agencies) for family, gifts and fans.
+ */
+export const HOME_AUDIENCE_KEYS: readonly (keyof typeof AUDIENCE_ICONS)[] = [
+  "fans",
+  "creators",
+  "friends",
+  "family",
+  "gifts",
+  "events",
+];
+
+// Facts about the templates the shared copy depends on, so it never promises what the site's
+// templates don't do (sound, several photos, pets, several aspect ratios).
+const ANY_SOUNDTRACK = VIDEO_TEMPLATE_IDS.some((id) => videoTemplates[id].soundtrack);
+const MAX_PHOTOS = Math.max(...VIDEO_TEMPLATE_IDS.map((id) => videoTemplates[id].slots.length));
+const ANY_PETS = VIDEO_TEMPLATE_IDS.some((id) => videoTemplateAllowsPets(id));
+const ASPECT_RATIOS = [...new Set(VIDEO_TEMPLATE_IDS.map((id) => videoTemplates[id].aspectRatio))];
+const CHEAPEST_CREDITS = Math.min(...VIDEO_TEMPLATE_IDS.map((id) => templateFromCredits(id)));
 
 function SectionHeading({
   eyebrow,
@@ -113,7 +153,88 @@ function HeroCardLabel({ templateId }: { templateId: VideoTemplateId }) {
   return <>{t(`${templateId}.name`)}</>;
 }
 
+/**
+ * Hero for a site riding one trend (FEATURED_TEMPLATE_ID): the brand line on the left, the
+ * featured template on the right in its own skin, and the main button straight to its page.
+ */
+function FeaturedHero({ templateId }: { templateId: VideoTemplateId }) {
+  const t = useTranslations("video.home.hero");
+  const tVideo = useTranslations("video");
+  const content = templatePageContent(tVideo, templateId);
+  const skin = templateSkin(templateId);
+  const cta = tVideo.has(`templates.${templateId}.cta`)
+    ? tVideo(`templates.${templateId}.cta`)
+    : tVideo("templatePage.cta", { name: content.name });
+  return (
+    <section className="hero-glow relative overflow-hidden pt-28 pb-16 sm:pt-36">
+      <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_380px]">
+        <div className="text-center lg:text-left">
+          <p className="eyebrow">{t("featured")}</p>
+          <h1 className="display mt-4 text-[2.5rem] leading-[1.05] sm:text-7xl">
+            {t("title")}
+            <br />
+            <span className="text-muted-foreground">{t("titleMuted")}</span>
+          </h1>
+          <p className="text-muted-foreground mx-auto mt-6 max-w-xl text-lg text-pretty sm:text-xl lg:mx-0">
+            {t("subtitle", { count: VIDEO_TEMPLATE_IDS.length })}
+          </p>
+          <div className="mt-9 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+            <Link
+              {...templateLink(templateId)}
+              className={buttonVariants({ size: "lg", className: "h-11 rounded-full px-6" })}
+            >
+              <Wand2 aria-hidden="true" />
+              {cta}
+            </Link>
+            <Link
+              to="/templates"
+              className={buttonVariants({
+                size: "lg",
+                variant: "outline",
+                className: "h-11 rounded-full px-6",
+              })}
+            >
+              {t("secondary")}
+            </Link>
+          </div>
+          <p className="text-muted-foreground mt-5 font-mono text-[11px] tracking-wider uppercase">
+            {t("note")}
+          </p>
+        </div>
+        <Link
+          {...templateLink(templateId)}
+          data-skin-font={skin?.font}
+          style={templateSkinStyle(skin)}
+          className="group mx-auto block w-full max-w-[19rem]"
+        >
+          <PreviewFrame phone badge={content.frameBadge}>
+            <TemplateMedia templateId={templateId} className="aspect-[9/16] w-full" />
+          </PreviewFrame>
+          <span className="mt-5 block text-center">
+            <span className="display block text-2xl">{content.name}</span>
+            {content.h1Accent ? (
+              <span className="skin-accent-2 display mt-1 block text-base">{content.h1Accent}</span>
+            ) : null}
+            <span className="text-primary mt-2 inline-flex items-center gap-1 text-sm font-medium">
+              {t("featuredCta", { credits: templateFromCredits(templateId) })}
+              <ArrowRight
+                className="size-4 transition-transform group-hover:translate-x-0.5"
+                aria-hidden="true"
+              />
+            </span>
+          </span>
+        </Link>
+      </div>
+    </section>
+  );
+}
+
 function Hero() {
+  if (FEATURED_TEMPLATE_ID) return <FeaturedHero templateId={FEATURED_TEMPLATE_ID} />;
+  return <BrandHero />;
+}
+
+function BrandHero() {
   const t = useTranslations("video.home.hero");
   const tTemplates = useTranslations("video.templates");
 
@@ -174,7 +295,9 @@ function Hero() {
 function Showcase() {
   const t = useTranslations("video.home.showcase");
   const tTemplates = useTranslations("video.templates");
-  const ids = templatesNewestFirst();
+  // A reel of the same placeholder poster reads as empty: it waits for 3 templates with clips.
+  const ids = templatesNewestFirst().filter((id) => templateVideos(id).length > 0);
+  if (ids.length < 3) return null;
   return (
     <section className="py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -221,7 +344,12 @@ function HowItWorks() {
                   <span className="text-muted-foreground/50 font-mono text-4xl">0{index + 1}</span>
                 </div>
                 <h3 className="mt-8 text-xl font-medium">{t(`items.${key}.title`)}</h3>
-                <p className="text-muted-foreground mt-2">{t(`items.${key}.body`)}</p>
+                <p className="text-muted-foreground mt-2">
+                  {t(`items.${key}.body`, {
+                    photos: MAX_PHOTOS,
+                    sound: ANY_SOUNDTRACK ? "yes" : "no",
+                  })}
+                </p>
               </li>
             );
           })}
@@ -280,13 +408,21 @@ function Features() {
               ))}
             </div>
           </FeatureCard>
-          <FeatureCard title={t("items.formats.title")} body={t("items.formats.body")}>
+          <FeatureCard
+            title={t("items.formats.title")}
+            body={
+              ASPECT_RATIOS.length > 1
+                ? t("items.formats.body")
+                : t("items.formats.bodySingle", {
+                    aspect: ASPECT_RATIOS[0] ?? "9:16",
+                    vertical: ASPECT_RATIOS[0] === "9:16" ? "yes" : "no",
+                  })
+            }
+          >
             <div className="dot-grid bg-background/60 flex h-full items-end justify-center gap-3 rounded-2xl border p-6">
-              {[
-                { ratio: "9:16", className: "h-36 w-20" },
-                { ratio: "1:1", className: "h-24 w-24" },
-                { ratio: "16:9", className: "h-20 w-36" },
-              ].map((item) => (
+              {FORMAT_TILES.filter((item) =>
+                (ASPECT_RATIOS as readonly string[]).includes(item.ratio),
+              ).map((item) => (
                 <div
                   key={item.ratio}
                   className={cn(
@@ -317,7 +453,11 @@ function Features() {
                       key === "refunded" ? "text-emerald-500" : "text-muted-foreground",
                     )}
                   >
-                    {key === "charged" ? "−55" : key === "refunded" ? "+55" : "···"}
+                    {key === "charged"
+                      ? `−${CHEAPEST_CREDITS}`
+                      : key === "refunded"
+                        ? `+${CHEAPEST_CREDITS}`
+                        : "···"}
                   </span>
                 </div>
               ))}
@@ -328,6 +468,14 @@ function Features() {
     </section>
   );
 }
+
+const FORMAT_TILES = [
+  { ratio: "9:16", className: "h-36 w-20" },
+  { ratio: "3:4", className: "h-32 w-24" },
+  { ratio: "1:1", className: "h-24 w-24" },
+  { ratio: "4:3", className: "h-24 w-32" },
+  { ratio: "16:9", className: "h-20 w-36" },
+] as const;
 
 function FeatureCard({
   title,
@@ -380,7 +528,7 @@ function Audience() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading eyebrow={t("eyebrow")} title={t("title")} subtitle={t("subtitle")} />
         <ul className="mt-14 grid gap-px overflow-hidden rounded-3xl border bg-border sm:grid-cols-2 lg:grid-cols-3">
-          {AUDIENCE_KEYS.map((key) => {
+          {HOME_AUDIENCE_KEYS.filter((key) => key !== "pets" || ANY_PETS).map((key) => {
             const Icon = AUDIENCE_ICONS[key];
             return (
               <li key={key} className="bg-card p-7">

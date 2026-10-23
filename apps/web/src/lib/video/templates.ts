@@ -108,7 +108,7 @@ export const VIDEO_TEMPLATE_MEDIA: Record<VideoTemplateId, VideoTemplateMedia> =
       { tiktokId: "7699361308772306184", author: "inlove1422" },
       { tiktokId: "7699133560552197383", author: "818817_cj_clarksonjames" },
     ],
-    previewVideo: MEDIA_BASE ? media("templates/ai_celebrity_autograph/preview.mp4") : undefined,
+    // previewVideo: add media/templates/ai_celebrity_autograph/preview.mp4 once a render exists.
   },
 };
 
@@ -119,6 +119,13 @@ export const VIDEO_TEMPLATE_MEDIA: Record<VideoTemplateId, VideoTemplateMedia> =
 export const ANNOUNCED_TEMPLATE_ID: VideoTemplateId | null = SINGLE_TEMPLATE_ID
   ? null
   : (VIDEO_TEMPLATE_IDS.at(-1) ?? null);
+
+/**
+ * The template the home page hero sells directly (its phone-framed preview, its skin's accent
+ * and a "Make my … video" button to its page), for hub sites riding one trend at a time.
+ * null keeps the brand hero with the fanned stack of templates.
+ */
+export const FEATURED_TEMPLATE_ID: VideoTemplateId | null = "ai_celebrity_autograph";
 
 /**
  * Path of a template's landing page, for SEO tags and plain hrefs. With a single template that
