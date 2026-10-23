@@ -1404,7 +1404,9 @@
         "subtitle": "Pick a ready-made scene, drop in your photo, and get a share-ready video in minutes. No prompts. No editing.",
         "primary": "Start creating",
         "secondary": "Browse templates",
-        "note": "No prompt · No watermark · Refund if it fails"
+        "note": "No prompt · No watermark · Refund if it fails",
+        "featured": "Trending now",
+        "featuredCta": "Make yours · from {credits} credits"
       },
       "showcase": {
         "eyebrow": "Showcase",
@@ -1418,11 +1420,11 @@
         "items": {
           "pick": {
             "title": "Pick a template",
-            "body": "Browse ready-made scenes from the latest photo trends, each with its own moves, camera and sound."
+            "body": "Browse ready-made scenes from the latest photo trends, each with its own moves{sound, select, yes {, camera and sound} other { and camera}}."
           },
           "upload": {
             "title": "Add your photos",
-            "body": "Drop in one to three photos. Each slot shows who that photo will play in the scene."
+            "body": "{photos, plural, one {Drop in one photo with a clear, front-facing face.} other {Drop in up to # photos. Each slot shows who that photo will play in the scene.}}"
           },
           "share": {
             "title": "Download and share",
@@ -1445,7 +1447,8 @@
           },
           "formats": {
             "title": "Sized for every feed",
-            "body": "Vertical, square and widescreen templates — each exports the exact ratio its platform wants."
+            "body": "Vertical, square and widescreen templates — each exports the exact ratio its platform wants.",
+            "bodySingle": "{vertical, select, yes {Every template renders {aspect} vertical video, the exact ratio TikTok, Reels and Shorts want.} other {Every template renders {aspect}, ready to post.}}"
           },
           "credits": {
             "title": "Pay per video, never for failures",
@@ -1492,6 +1495,18 @@
           "agencies": {
             "title": "Agencies and studios",
             "body": "Deliver personalized videos to clients at scale."
+          },
+          "family": {
+            "title": "Family",
+            "body": "Put your parents or grandparents in a trend they would never film themselves. Ask them first."
+          },
+          "gifts": {
+            "title": "Birthdays and gifts",
+            "body": "Send someone a video starring them instead of another card."
+          },
+          "fans": {
+            "title": "Trend chasers",
+            "body": "Join the trend everyone is posting this week with your own face in it."
           }
         }
       },

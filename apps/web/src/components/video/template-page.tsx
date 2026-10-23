@@ -19,13 +19,14 @@ import {
   Users,
   Wand2,
 } from "lucide-react";
-import { type ReactNode, useState } from "react";
+import { useState } from "react";
 import { usePricingCheckout } from "@/hooks/use-pricing-checkout";
 import { useTranslations } from "@/i18n";
 import { type TemplatePageContent, templatePageContent } from "@/lib/video/template-content";
 import type { TemplateGuide } from "@/lib/video/template-guide";
 import { cn } from "@/lib/utils";
 import { CaseVideo, TemplateMedia } from "./media";
+import { PreviewFrame } from "./preview-frame";
 import { CreditPackGrid } from "./pricing-page";
 import { StickyCreateCta, scrollToCreateForm } from "./sticky-create-cta";
 import { StudioCreator } from "./studio-creator";
@@ -36,12 +37,7 @@ import {
   templateAspectClass,
   templateTrendVideos,
 } from "@/lib/video/templates";
-import {
-  type TemplateSkin,
-  templateSkin,
-  templateSkinStyle,
-  templateUpdatedDate,
-} from "@/lib/video/template-skin";
+import { templateSkin, templateSkinStyle, templateUpdatedDate } from "@/lib/video/template-skin";
 import { videoConfig } from "@repo/app-config/video";
 
 /** Preview on the template page: the sample render for the picked version, else the template loop. */
@@ -94,34 +90,6 @@ const updatedFormat = new Intl.DateTimeFormat("en-US", {
 /** "Oct 23, 2026" from YYYY-MM-DD. */
 function formatUpdated(date: string): string {
   return updatedFormat.format(new Date(`${date}T00:00:00Z`));
-}
-
-/** A "phone" skin films the preview like a fan's phone: rounded bezel, live badge, notch. */
-function PreviewFrame({
-  skin,
-  badge,
-  children,
-}: {
-  skin: TemplateSkin | null;
-  badge: string | null;
-  children: ReactNode;
-}) {
-  if (skin?.frame !== "phone") return <>{children}</>;
-  return (
-    <div className="relative mx-auto w-full max-w-sm rounded-[2.6rem] border-[6px] border-neutral-800 bg-neutral-900 p-1.5 shadow-[0_30px_80px_-20px_var(--glow)]">
-      <span
-        aria-hidden="true"
-        className="absolute top-3 left-1/2 z-10 h-5 w-20 -translate-x-1/2 rounded-full bg-black"
-      />
-      {badge ? (
-        <span className="absolute top-10 left-5 z-10 inline-flex items-center gap-1.5 rounded-md bg-black/70 px-2 py-1 font-mono text-[10px] font-semibold tracking-[0.16em] text-white uppercase">
-          <span className="size-1.5 animate-pulse rounded-full bg-red-500" aria-hidden="true" />
-          {badge}
-        </span>
-      ) : null}
-      <div className="overflow-hidden rounded-[2rem]">{children}</div>
-    </div>
-  );
 }
 
 /** Full-width strip of short selling points under the hero ("One photo ◆ 11 seconds ◆ …"). */
@@ -495,7 +463,7 @@ export function TemplatePage({
                   template.aspectRatio === "9:16" && "mx-auto max-w-72 sm:max-w-none",
                 )}
               >
-                <PreviewFrame skin={skin} badge={content.frameBadge}>
+                <PreviewFrame phone={skin?.frame === "phone"} badge={content.frameBadge}>
                   <TemplatePreview templateId={templateId} model={model} />
                 </PreviewFrame>
               </div>
