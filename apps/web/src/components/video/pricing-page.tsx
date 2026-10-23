@@ -1,7 +1,13 @@
 import {
   SINGLE_TEMPLATE_ID,
+  VIDEO_TEMPLATE_IDS,
+  type VideoModel,
+  type VideoQuality,
+  getVideoCreditsCost,
   getVideoFastCountForCredits,
   getVideoFullCountForCredits,
+  getVideoTemplateModels,
+  isVideoModelQuality,
   videoConfig,
 } from "@repo/app-config/video";
 import { type KnownLocale, localeToHreflang } from "@repo/i18n";
@@ -24,23 +30,41 @@ import { orpc } from "@/utils/orpc";
 // cheapest way to try the product. Use a pack id from app-config, or null for none.
 const FEATURED_PACK_ID: string | null = "starter";
 
-// Default template rates: full videos on Premium, fast renders (up to 15 s) on Fast.
-const FULL_480 = videoConfig.qualities["480p"].creditsCost;
-const FAST_480 = videoConfig.liteCredits["seedance-2.0-fast"]["480p"];
+/**
+ * Starting rate ("from") across the site's templates: the cheapest template that offers the
+ * model, so the copy matches what the template pages charge even when every template overrides
+ * the default rates. Falls back to the default rates when no template offers the model.
+ */
+function fromCredits(model: VideoModel, quality: VideoQuality): number {
+  const costs = VIDEO_TEMPLATE_IDS.filter((id) => getVideoTemplateModels(id).includes(model))
+    .filter(() => isVideoModelQuality(model, quality))
+    .map((id) => getVideoCreditsCost(quality, id, model));
+  if (costs.length > 0) return Math.min(...costs);
+  return model === "seedance-2.5"
+    ? videoConfig.qualities[quality].creditsCost
+    : videoConfig.liteCredits["seedance-2.0-fast"][quality === "1080p" ? "720p" : quality];
+}
+
+// Full videos on Premium, fast renders (up to 15 s) on Fast.
+const FULL_480 = fromCredits("seedance-2.5", "480p");
+const FAST_480 = fromCredits("seedance-2.0-fast", "480p");
 export const PRICING_RATE_VALUES = {
   fast: FAST_480,
   sd: FULL_480,
-  hd: videoConfig.qualities["720p"].creditsCost,
-  fhd: videoConfig.qualities["1080p"].creditsCost,
+  hd: fromCredits("seedance-2.5", "720p"),
+  fhd: fromCredits("seedance-2.5", "1080p"),
 };
 const RATE_TIERS = [
-  { key: "fast", credits: videoConfig.liteCredits["seedance-2.0-fast"] },
+  {
+    key: "fast",
+    credits: { "480p": FAST_480, "720p": fromCredits("seedance-2.0-fast", "720p") },
+  },
   {
     key: "premium",
     credits: {
       "480p": FULL_480,
-      "720p": videoConfig.qualities["720p"].creditsCost,
-      "1080p": videoConfig.qualities["1080p"].creditsCost,
+      "720p": PRICING_RATE_VALUES.hd,
+      "1080p": PRICING_RATE_VALUES.fhd,
     },
   },
 ] as const;

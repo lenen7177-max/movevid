@@ -115,6 +115,13 @@ export const ANNOUNCED_TEMPLATE_ID: VideoTemplateId | null = SINGLE_TEMPLATE_ID
   : (VIDEO_TEMPLATE_IDS.at(-1) ?? null);
 
 /**
+ * The template the home page hero sells directly (its phone-framed preview, its skin's accent
+ * and a "Make my … video" button to its page), for hub sites riding one trend at a time.
+ * null keeps the brand hero with the fanned stack of templates.
+ */
+export const FEATURED_TEMPLATE_ID: VideoTemplateId | null = null;
+
+/**
  * Path of a template's landing page, for SEO tags and plain hrefs. With a single template that
  * page is the home page, and /templates/<slug> redirects there.
  */
