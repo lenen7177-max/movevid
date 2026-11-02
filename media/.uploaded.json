@@ -1,3 +1,8 @@
 {
-  "templates/ai_celebrity_autograph/reference.mp4": "f77b84cc3259224b5e65f4c9bec1023f52ed06302f497176253a5f00eccaad45"
+  "templates/ai_celebrity_autograph/reference.mp4": "f77b84cc3259224b5e65f4c9bec1023f52ed06302f497176253a5f00eccaad45",
+  "templates/bicep_heart_ai_video/photos/middle.jpg": "5a12d35660159b495b32ce69b801c903012afdacf7a6bd9e360f40c9b8302ef7",
+  "templates/bicep_heart_ai_video/poster.jpg": "7878681c4b8109fa54608b79092605f23e3e222a396a4b647565470a8e1fbdff",
+  "templates/bicep_heart_ai_video/preview.mp4": "4a561760375a79cfe5fb1a677ad46dd31f37449389cb7279b5368ae1ee7332c1",
+  "templates/bicep_heart_ai_video/reference.mp4": "fcb7efce184147f712a50fed3676c6db3335e62dc043efddad030ac618bec891",
+  "templates/bicep_heart_ai_video/sample.mp4": "4a561760375a79cfe5fb1a677ad46dd31f37449389cb7279b5368ae1ee7332c1"
 }
