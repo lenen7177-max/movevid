@@ -1041,6 +1041,75 @@
             }
           ]
         }
+      },
+      "bicep_heart_ai_video": {
+        "name": "Bicep Heart AI Trend – Flex a Heart From One Photo",
+        "tagline": "One photo, one flex: your arm and hand make a heart in a 7-second vertical clip.",
+        "description": "Make the bicep heart trend from one photo: you smile, flex one arm and curl the other hand against your bicep so they form a heart. Vertical, about 7 seconds.",
+        "keywords": "bicep heart, bicep heart trend, bicep heart ai",
+        "hashtag": "bicepheart",
+        "middleRole": "Photo",
+        "seoTitle": "Bicep Heart AI Trend – Flex a Heart From One Photo",
+        "h1": "Bicep Heart AI Trend – Flex a Heart From One Photo",
+        "trend": {
+          "title": "What is the bicep heart trend?",
+          "body": [
+            "The bicep heart is a pose trend that took off on TikTok in late October 2026 under #bicepheart. You face the camera, flex one arm, and curl your other hand against the inside of the bicep so the curve of the arm and the hand make one heart. Then you hold it with a proud smile.",
+            "This template makes that clip from one photo. You get a {seconds}-second {aspect} video in one continuous shot: the smile, the flex and the heart, held to the end."
+          ]
+        },
+        "faq": [
+          {
+            "q": "What is the bicep heart trend?",
+            "a": "A TikTok pose trend from late October 2026: you flex one arm and curl the other hand against the bicep so the arm and hand form a heart, then hold it with a smile."
+          },
+          {
+            "q": "What does the bicep heart mean?",
+            "a": "It is a heart sign made with a flex instead of two hands: a playful way to send love and show off your arm at the same time. People post it as a reply, a shout-out or just for fun."
+          },
+          {
+            "q": "How do I make a bicep heart AI video?",
+            "a": "Upload one photo of yourself, waist-up with both arms in view, pick a version and press create. In a few minutes you get a {seconds}-second {aspect} clip of you making the bicep heart."
+          }
+        ],
+        "expect": {
+          "get": [
+            "You smile at the camera, hands low and together in front of you.",
+            "One arm crosses your chest and takes hold of the other upper arm.",
+            "That other arm curls up into a bicep flex, fist beside your head.",
+            "The crossing hand meets the bicep so arm and hand make a heart, held with a proud smile.",
+            "A silent 9:16 MP4 of about 7 seconds, ready for TikTok, Reels or Shorts: add a sound when you post."
+          ],
+          "limits": [
+            "Use a clear, front-facing photo, head to waist, with both arms in view and one person in it.",
+            "Your arms keep the build from your photo; the clip doesn't add muscle.",
+            "Hands can vary slightly between frames; that is the current limit of AI video. A new render usually fixes a bad take, and failed renders are refunded."
+          ]
+        },
+        "shotList": {
+          "rows": [
+            {
+              "time": "0–2 s",
+              "beat": "The smile",
+              "body": "You face the camera and smile, hands low and together in front of you."
+            },
+            {
+              "time": "2–3.5 s",
+              "beat": "Across the chest",
+              "body": "One arm crosses and that hand takes hold of the other upper arm."
+            },
+            {
+              "time": "3.5–4 s",
+              "beat": "The flex",
+              "body": "The free arm curls up into a clear bicep flex, fist beside your head."
+            },
+            {
+              "time": "4–7 s",
+              "beat": "The heart",
+              "body": "The crossing hand meets the inside of the flexed arm so they make a heart. You hold it, tilt your head a little, and smile."
+            }
+          ]
+        }
       }
     },
     "slots": {
