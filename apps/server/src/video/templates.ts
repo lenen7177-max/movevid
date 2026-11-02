@@ -77,42 +77,54 @@ const aiCelebrityAutograph: ReferencePromptSpec = {
   depthReference: true,
 };
 
-// Bicep heart pose. Draft timeline from the trend's 7s one-take format; re-time the shots to
-// the cuts of the depth reference once it is made.
+// 手臂弯举心形. Confirmed Seedance prompt, mapped into ReferencePromptSpec.
+// One continuous 7s front medium shot; timeline matches the depth reference.
 const bicepHeart: ReferencePromptSpec = {
-  title: "竖屏手臂弯举比心短片",
+  title: "竖屏手臂弯举心形短片",
   aspectRatio: "9:16 竖屏",
   durationSeconds: 7,
   cast: [
     {
-      role: "主角（用户上身）",
+      role: "用户上身",
       action:
-        "全程是画面唯一的人物：先对镜头微笑，然后一只手臂弯举秀出肱二头肌，另一只手弯成半个心形贴在肱二头肌内侧，手和手臂的弧线合成一个心形，保持姿势自豪地微笑。",
+        "弯举手臂出现心形。全程是画面唯一的人物：同一张脸、五官比例、年龄感、性别、发型发色、肤色、眼镜等面部配饰和体型以照片为准，近景和远景都保持可辨认，不融合、不交换、不漂移。表情从轻柔微笑到自豪、甜蜜的微笑，随表演自然变化，不要始终保持照片中的静态表情。眼镜、帽子、胡子严格跟随照片：照片里没有的，全片都不加。发型严格跟随照片，包括头发长度、卷度和颜色；头发随动作自然摆动，发根稳定，不变短、不变色、不穿过脸部。自然人体：两只手臂、两只手、每只手五根手指；手臂和肌肉体量跟照片本人一致，不额外增大肌肉。照片里能看到的服装沿用照片，看不到的部分生成与照片风格一致的日常服装，全片不变。照片中手里拿着的物品不要带入画面。深度图中的头部轮廓只代表原人物，必须忽略，不能据此改变发型或服装：深色马尾或深色长发、黑色短袖T恤、黑色腕表、手环，除非照片本身有这些。",
     },
   ],
   scene:
-    "简洁的室内房间，柔和的室内灯光，背景是素色墙面，没有可读的文字或标志。主角穿着照片里的服装，上身完整入画，两只手臂都在画面内。",
-  camera: "正面中景，固定机位竖屏拍摄，从头顶到腰部入画。整段是一个连续镜头，没有剪辑。",
+    "手臂弯举出现心形。深度图没有颜色信息，场景沿用照片的背景，把它自然延伸成9:16竖屏；照片看不出背景时，生成一个普通的家里客厅或整洁室内，暖色低光。不要照搬参考视频里的原房间（青绿墙、白色门框等）。不要出现可辨认的品牌标志、文字、水印、店名、队徽、号码或可读车牌。本片无额外道具。朋友随手拍的竖屏短视频质感：自然运动模糊，真实皮肤质感，不要磨皮，不要夸张锐化，不要美颜滤镜。",
+  camera:
+    "正面中景。一镜到底的固定机位正面中景，保留固定机位与轻微手持感（如有）。不新增慢镜头、长距离环绕、无人机镜头或重新设计的运镜。下列时间点用于对齐，具体切点、动作起止、运动轨迹和镜头运动以深度参考视频为准。保留动作的实际速度，不慢放、不加长、不压缩。在7秒处干净结束。发生冲突时：人物外貌、发型和服装以照片为准；动作、镜头和时间以深度参考视频为准。",
   shots: [
     {
       time: "00.00—02.00",
-      title: "微笑",
-      body: "主角面对镜头微笑，双手自然放在身前腰部。",
+      title: "低位合手",
+      body: "中景正面：双手在身前低位合拢或自然相贴，对镜头轻轻微笑。",
     },
     {
       time: "02.00—03.50",
-      title: "抬臂",
-      body: "主角一只手臂向上弯举，握拳靠近头侧，另一只手横过胸前伸向这只手臂。",
+      title: "横臂",
+      body: "同一机位：一只手臂横过胸前，该手抓住另一只上臂。",
     },
     {
-      time: "03.50—07.00",
-      title: "比心",
-      body: "横过来的手把拇指和四指弯成半个心形贴在肱二头肌内侧，与弯起的手臂合成一个完整的心形；主角保持姿势，微微歪头，自豪地笑着看镜头。",
+      time: "03.50—04.00",
+      title: "弯举",
+      body: "另一只手臂向上弯举成清晰的二头肌弯举，拳头靠近头侧。",
+    },
+    {
+      time: "04.00—07.00",
+      title: "心形",
+      body: "横过胸前的那只手用拇指与手指贴住弯举手臂内侧，手与手臂曲线合成一个清晰心形；保持姿势到结束，自豪甜蜜微笑并轻微侧头。",
     },
   ],
   avoid: [
-    "画面里只有一个人物，心形由手和手臂摆出，不额外生成心形特效、贴纸或图标。",
-    "不夸张放大手臂肌肉，体型以照片为准。",
+    "禁止灰度、剪影或深度图风格的画面。",
+    "禁止出现字幕、水印、标志或文字（包括「have you ever heard of a bicep heart...」类文案）。",
+    "禁止屏幕上叠加心形贴纸、标签或图形。心形只由手和手臂摆出。",
+    "禁止重新设计剧情、删掉原有互动或增加新动作。",
+    "禁止把主角生成成参考视频原人物或任何明星、公众人物的样子。",
+    "禁止给人物添加参考图里没有的衣服、配件或道具（尤其原片的黑T恤、黑色腕表、手环、深色马尾）。",
+    "禁止手指畸形。",
+    "禁止要求模型出声、音乐、音效或台词。",
   ],
   depthReference: true,
 };
@@ -123,7 +135,8 @@ export const videoServerTemplates: Record<VideoTemplateId, VideoServerTemplate> 
     buildPrompt: (photos) => buildReferencePrompt(aiCelebrityAutograph, photos),
   },
   bicep_heart_ai_video: {
-    ...media("bicep_heart_ai_video"),
+    referenceVideoPath: "templates/bicep_heart_ai_video/reference.mp4",
+    // No soundtrackPath: this template ships silent (videoTemplates soundtrack: false).
     buildPrompt: (photos) => buildReferencePrompt(bicepHeart, photos),
   },
 };

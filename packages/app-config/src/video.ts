@@ -112,9 +112,8 @@ export const videoTemplates = {
     aspectRatio: "9:16",
     durationSeconds: 7,
     slots: ["middle"],
-    // Silent: the trend's sound is not ours to ship; people add it when they post.
+    // Silent on purpose: no licensed track. People add a sound when they post.
     soundtrack: false,
-    comingSoon: true,
   },
 } as const satisfies Record<VideoTemplateId, VideoTemplateShape>;
 
