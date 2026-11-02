@@ -1,6 +1,5 @@
 import {
   SINGLE_TEMPLATE_ID,
-  VIDEO_TEMPLATE_IDS,
   type VideoModel,
   type VideoPhotoSlot,
   type VideoQuality,
@@ -110,15 +109,23 @@ export const VIDEO_TEMPLATE_MEDIA: Record<VideoTemplateId, VideoTemplateMedia> =
     ],
     // previewVideo: add media/templates/ai_celebrity_autograph/preview.mp4 once a render exists.
   },
+  bicep_heart_ai_video: {
+    poster: "/templates/bicep_heart_ai_video/poster.svg",
+    trendVideos: [
+      { tiktokId: "7702536977152855309", author: "hunnybakes" },
+      { tiktokId: "7702968861770943776", author: "mckennacrisp" },
+      { tiktokId: "7703044626931895583", author: "kavithageorge" },
+    ],
+  },
 };
 
 /**
- * The template announced with a "New" badge: the newest one (last in VIDEO_TEMPLATE_IDS) while
- * there are several. Set to a specific id, or to null to hide the badge.
+ * The template announced with a "New" badge while there are several (pinned to a specific id,
+ * not the newest, so adding a template doesn't move the badge). null hides the badge.
  */
 export const ANNOUNCED_TEMPLATE_ID: VideoTemplateId | null = SINGLE_TEMPLATE_ID
   ? null
-  : (VIDEO_TEMPLATE_IDS.at(-1) ?? null);
+  : "ai_celebrity_autograph";
 
 /**
  * The template the home page hero sells directly (its phone-framed preview, its skin's accent

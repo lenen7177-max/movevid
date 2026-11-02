@@ -77,9 +77,53 @@ const aiCelebrityAutograph: ReferencePromptSpec = {
   depthReference: true,
 };
 
+// Bicep heart pose. Draft timeline from the trend's 7s one-take format; re-time the shots to
+// the cuts of the depth reference once it is made.
+const bicepHeart: ReferencePromptSpec = {
+  title: "竖屏手臂弯举比心短片",
+  aspectRatio: "9:16 竖屏",
+  durationSeconds: 7,
+  cast: [
+    {
+      role: "主角（用户上身）",
+      action:
+        "全程是画面唯一的人物：先对镜头微笑，然后一只手臂弯举秀出肱二头肌，另一只手弯成半个心形贴在肱二头肌内侧，手和手臂的弧线合成一个心形，保持姿势自豪地微笑。",
+    },
+  ],
+  scene:
+    "简洁的室内房间，柔和的室内灯光，背景是素色墙面，没有可读的文字或标志。主角穿着照片里的服装，上身完整入画，两只手臂都在画面内。",
+  camera: "正面中景，固定机位竖屏拍摄，从头顶到腰部入画。整段是一个连续镜头，没有剪辑。",
+  shots: [
+    {
+      time: "00.00—02.00",
+      title: "微笑",
+      body: "主角面对镜头微笑，双手自然放在身前腰部。",
+    },
+    {
+      time: "02.00—03.50",
+      title: "抬臂",
+      body: "主角一只手臂向上弯举，握拳靠近头侧，另一只手横过胸前伸向这只手臂。",
+    },
+    {
+      time: "03.50—07.00",
+      title: "比心",
+      body: "横过来的手把拇指和四指弯成半个心形贴在肱二头肌内侧，与弯起的手臂合成一个完整的心形；主角保持姿势，微微歪头，自豪地笑着看镜头。",
+    },
+  ],
+  avoid: [
+    "画面里只有一个人物，心形由手和手臂摆出，不额外生成心形特效、贴纸或图标。",
+    "不夸张放大手臂肌肉，体型以照片为准。",
+  ],
+  depthReference: true,
+};
+
 export const videoServerTemplates: Record<VideoTemplateId, VideoServerTemplate> = {
   ai_celebrity_autograph: {
     ...media("ai_celebrity_autograph"),
     buildPrompt: (photos) => buildReferencePrompt(aiCelebrityAutograph, photos),
+  },
+  bicep_heart_ai_video: {
+    ...media("bicep_heart_ai_video"),
+    buildPrompt: (photos) => buildReferencePrompt(bicepHeart, photos),
   },
 };

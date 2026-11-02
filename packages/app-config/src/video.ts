@@ -41,7 +41,7 @@ type VideoLiteCredits = Record<VideoLiteModel, Record<"480p" | "720p", number>>;
  * Template ids, oldest first. Each id needs a server entry (reference media + prompt) and
  * web copy under `video.templates.<id>`. The URL slug is the id with dashes (duo-dance).
  */
-export const VIDEO_TEMPLATE_IDS = ["ai_celebrity_autograph"] as const;
+export const VIDEO_TEMPLATE_IDS = ["ai_celebrity_autograph", "bicep_heart_ai_video"] as const;
 
 export type VideoTemplateId = (typeof VIDEO_TEMPLATE_IDS)[number];
 
@@ -103,6 +103,17 @@ export const videoTemplates = {
     soundtrack: false,
     // Sized for 11s: 720p at 60 would sit just under the 80% margin floor on the starter pack.
     creditsCost: { "480p": 30, "720p": 65, "1080p": 115 },
+    comingSoon: true,
+  },
+  // The bicep heart pose: a smile, one arm flexed, the other hand curled against the bicep so
+  // arm and hand make a heart. One photo, a 7s vertical clip (one continuous shot).
+  bicep_heart_ai_video: {
+    launchDate: "2026-11-02",
+    aspectRatio: "9:16",
+    durationSeconds: 7,
+    slots: ["middle"],
+    // Silent: the trend's sound is not ours to ship; people add it when they post.
+    soundtrack: false,
     comingSoon: true,
   },
 } as const satisfies Record<VideoTemplateId, VideoTemplateShape>;
